@@ -22,3 +22,13 @@ export type TSpanProps = {
     texto?: string,
     className: string
 }
+
+export type TAuth = {
+    email: string,
+    senha: string
+}
+
+export type TAuthContext = {
+    handleUserLogin: (user: TAuth) => Promise<void>,
+    token: string | null
+}
