@@ -15,67 +15,71 @@ import {
 }
   from '@mui/material';
 import { Container } from '@mui/system';
-import {
-  MoodBad,
-  SentimentDissatisfied,
-  SentimentNeutral,
-  SentimentSatisfied,
-  Mood,
-}
-  from '@mui/icons-material';
-import { TUser } from "../../util/types";
+
+import { TSpanProps } from "../../util/types";
 import { UserContext } from "../../context/UserContext";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { IUserForm } from "../../util/interface";
+import verificaForcaSenha from "../../util/forca-senha";
+import Span from "../../components/Span";
 
 export const CadastroUsuario: React.FC = () => {
 
-  const { register, watch, handleSubmit, setValue, formState: { errors } } = useForm<IUserForm>({
+  const { register, handleSubmit, reset, formState: { errors } } = useForm<IUserForm>({
     resolver: yupResolver(userFormSchema)
   });
 
   const { createUser } = useContext(UserContext);
+  const [mensagemSenha, setMensagemSenha] = useState<TSpanProps | undefined>(undefined);
 
+  const validarSenha = (senha: string) => {
+    setMensagemSenha(verificaForcaSenha(senha));
+  }
+
+ 
 
   return (
     <Container maxWidth="sm">
       <Typography variant="h4" m={2} textAlign="center">Cadastro de Usuário</Typography>
-      <form onSubmit={handleSubmit((data: IUserForm) => createUser(data))}>
+      <form onSubmit={handleSubmit((data: IUserForm) => {
+        createUser(data);
+        reset();
+      })}>
         <Grid container spacing={2}>
           <Grid item xs={8} md={6}>
             <FormControl>
-              <FormLabel htmlFor="nome">Nome Completo *</FormLabel>
-              <OutlinedInput error={Boolean(errors.nome && errors.nome.message)} id="nome" type="text" placeholder="Digite seu nome completo" size="small" {...register("nome")} />
-              {errors.nome && <span className="error">{errors.nome.message}</span>}
-
+              <FormLabel htmlFor="nomeCompleto">Nome Completo *</FormLabel>
+              <OutlinedInput error={Boolean(errors.nomeCompleto && errors.nomeCompleto.message)} id="nomeCompleto" type="text" placeholder="Digite seu nome completo" size="small" {...register("nomeCompleto")} />
+              {errors.nomeCompleto && <Span className="error" texto={errors.nomeCompleto.message}/>}
             </FormControl>
           </Grid>
           <Grid item xs={8} md={6}>
             <FormControl>
               <FormLabel htmlFor="email">E-mail *</FormLabel>
               <OutlinedInput error={Boolean(errors.email && errors.email.message)} id="email" type="e-mail" placeholder="Digite um e-mail" size="small" {...register("email")} />
-              {errors.email && <span className="error">{errors.email.message}</span>}
+              {errors.email && <Span className="error" texto={errors.email.message}/>}
             </FormControl>
           </Grid>
           <Grid item xs={8} md={6}>
             <FormControl>
               <FormLabel htmlFor="senha">Senha *</FormLabel>
-              <OutlinedInput error={Boolean(errors.senha && errors.senha.message)} id="senha" type="password" placeholder="Digite a senha" size="small" {...register("senha")} />
-              {errors.senha && <span className="error">{errors.senha.message}</span>}
-              <Box textAlign="center" m={1}>
-                <MoodBad />
-                <SentimentDissatisfied />
-                <SentimentNeutral />
-                <SentimentSatisfied />
-                <Mood />
-              </Box>
+              <OutlinedInput id="senha" type="password" placeholder="Digite a senha" size="small" {...register("senha", { onChange: (event) => { validarSenha(event.target.value) } })} error={Boolean(errors.senha && errors.senha.message)} />
+              {errors.senha && <Span className="error" texto={errors.senha.message}/>}
+              {
+                mensagemSenha
+                  ?
+                  <Box textAlign="center" m={1}>
+                    <Span {...mensagemSenha} />
+                  </Box>
+                  : null
+              }
             </FormControl>
           </Grid>
           <Grid item xs={8} md={6}>
             <FormControl>
               <FormLabel htmlFor="confirma-senha">Confirmar senha *</FormLabel>
               <OutlinedInput error={Boolean(errors.confirmarSenha && errors.confirmarSenha.message)} id="confirma-senha" type="password" placeholder="Confirme a senha" size="small" {...register("confirmarSenha")} />
-              {errors.confirmarSenha && <span className="error">{errors.confirmarSenha.message}</span>}
+              {errors.confirmarSenha && <Span className="error" texto={errors.confirmarSenha.message}/>}
             </FormControl>
           </Grid>
           <Grid item xs={8} md={6}>
@@ -87,7 +91,7 @@ export const CadastroUsuario: React.FC = () => {
                 <MenuItem value="g" >Gestão de Pessoas</MenuItem>
                 <MenuItem value="t" >Gestor</MenuItem>
               </Select>
-              {errors.tipoUsuario && <span className="error">{errors.tipoUsuario.message}</span>}
+              {errors.tipoUsuario && <Span className="error" texto={errors.tipoUsuario.message}/>}
             </FormControl>
           </Grid>
           <Grid item xs={8} md={6}>
@@ -99,7 +103,7 @@ export const CadastroUsuario: React.FC = () => {
         </Grid>
         <Box textAlign="center" mt={2}>
           <Button type="submit" id="btn-salvar" variant="contained">Salvar</Button>
-          </Box>
+        </Box>
       </form>
     </Container>
   );

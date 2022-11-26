@@ -6,14 +6,19 @@ export type TChildren = {
 }
 
 export type TUser = {
-    nome : string,
+    idUsuario: number,
+    nomeCompleto : string,
     email : string,
     senha : string,
-    foto : string,
-    tipoUsuario: string 
+    tipoUsuario: string,
+    foto: string
 }
 
 export type TUserContext = {
     users: TUser[],
-    createUser : (user: IUserForm) => Promise<void>
+    createUser : (data: IUserForm) => Promise<void>
+}
+export type TSpanProps = {
+    texto?: string,
+    className: string
 }
