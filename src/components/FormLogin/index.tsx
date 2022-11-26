@@ -1,35 +1,38 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Box, TextField, Button, InputAdornment, Typography, OutlinedInput, FormControl } from "@mui/material";
 import { AccountCircle } from '@mui/icons-material';
 import HttpsIcon from '@mui/icons-material/Https';
 import { Link } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
-import { TUser } from '../../util/types';
+import { TAuthContext, TUser } from '../../util/types';
 import { yupResolver } from "@hookform/resolvers/yup";
 import { userFormSchema } from '../../util/schemas';
+import { AuthContext } from '../../context/AuthContext';
 
 
 export const FormLogin: React.FC = () => {
-  const { register, handleSubmit, formState: { errors }} = useForm<TUser>({
+  const { register, handleSubmit, formState: { errors }, reset} = useForm<TUser>({
     resolver: yupResolver(userFormSchema)
   });
 
-  const plot = (data: any) => {
-    console.log(data);
+  const { handleUserLogin } = useContext(AuthContext);
+
+  const handleLogin = (data: TUser) => {
+    handleUserLogin(data);
+    reset();
   }
 
   return (
     <div>
           <Box sx={{
-            mt: '100px',
-            width: '400px',
+            width: '380px',            
             boxShadow: '-5px 7px 15px -4px rgba(0,0,0,0.75)',
             height: '400px',
             p: '15px',            
             borderRadius:  '15px'  
           }}>
 
-            <Box component='form' id="form" onSubmit={handleSubmit((data)=> plot(data))}
+            <Box component='form' id="form" onSubmit={handleSubmit(handleLogin)}
             sx={{
               display:'flex',
               justifyContent: 'center',

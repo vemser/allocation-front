@@ -1,14 +1,17 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
+import { AuthProvider } from "../context/AuthContext";
 import { Login } from "../pages/Login";
 
 function Router() {
   return (
     <BrowserRouter>
-    <ToastContainer />
-      <Routes>
-        <Route path='/' element={<Login />}/>
-      </Routes>
+      <ToastContainer />
+      <AuthProvider>
+        <Routes>
+          <Route path='/' element={<Login />}/>
+        </Routes>
+      </AuthProvider>
     </BrowserRouter>
   );
 }
