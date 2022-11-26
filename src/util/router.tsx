@@ -10,8 +10,7 @@ import PainelDeVagas from "../pages/PainelDeVagas";
 
 export const PrivateRoute = () => {
   const { token } = useContext(AuthContext);
-  // return token ? <Outlet /> : <Navigate to="/" />;
-  return <Outlet/>;
+  return token ? <Outlet /> : <Navigate to="/" />;
 }
 
 function Router() {
