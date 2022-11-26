@@ -8,10 +8,11 @@ import { useContext } from "react";
 import { CadastroUsuario } from "../pages/CadastroUsuario";
 import { Login } from "../pages/Login";
 import { DbcTheme } from "../themes";
+import { DashCadastroAluno } from "../pages/DashCadastroAluno";
 
 export const PrivateRoute = () => {
   const { token } = useContext(AuthContext);
-  return token ? <Outlet /> : <Navigate to="/" />;
+  return !token ? <Outlet /> : <Navigate to="/" />;
 }
 
 function Router() {
@@ -25,6 +26,7 @@ function Router() {
           <Route index element={<Login />}/>
           <Route path='/cadastro-usuario' element={<CadastroUsuario />} />
           <Route element={<PrivateRoute />}>
+            <Route path='/alunos' element={<DashCadastroAluno />}/>
 
           </Route>
         </Routes>
