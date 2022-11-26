@@ -22,9 +22,7 @@ import { useContext, useState } from "react";
 import { IUserForm } from "../../util/interface";
 import verificaForcaSenha from "../../util/forca-senha";
 import Span from "../../components/Span";
-import { BoxSC } from "./Cadastro.styled";
-import logo from '../../assets/dbclogo.png';
-
+import { HeaderLogin } from "../../components/HeaderLogin";
 
 export const CadastroUsuario: React.FC = () => {
 
@@ -39,8 +37,6 @@ export const CadastroUsuario: React.FC = () => {
     setMensagemSenha(verificaForcaSenha(senha));
   }
 
-
-
   return (
     <Grid sx={{
       width: '100%',
@@ -50,21 +46,9 @@ export const CadastroUsuario: React.FC = () => {
       alignItems: 'center',
       gap: '10%'
       }}>
-      <Box sx={{
-        mt:'20px',
-        width: '80% ',
-        maxWidth: '1100px',
-        height: '70px',
-        borderRadius: '15px',
-        boxShadow: '-5px 7px 15px -4px rgba(0,0,0,0.75)',               
-        display: 'flex',
-        alignItems: 'center',
-        p:2
-      }}>
-        <BoxSC >
-          <img src={logo} alt="logo" />
-        </BoxSC>
-      </Box>
+
+      <HeaderLogin />
+
       <Container maxWidth="sm"
       sx={{
         width: '850px',            
