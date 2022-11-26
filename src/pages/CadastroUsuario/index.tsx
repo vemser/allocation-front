@@ -36,7 +36,7 @@ export const CadastroUsuario: React.FC = () => {
     setMensagemSenha(verificaForcaSenha(senha));
   }
 
- 
+
 
   return (
     <Container maxWidth="sm">
@@ -50,21 +50,20 @@ export const CadastroUsuario: React.FC = () => {
             <FormControl>
               <FormLabel htmlFor="nomeCompleto">Nome Completo *</FormLabel>
               <OutlinedInput error={Boolean(errors.nomeCompleto && errors.nomeCompleto.message)} id="nomeCompleto" type="text" placeholder="Digite seu nome completo" size="small" {...register("nomeCompleto")} />
-              {errors.nomeCompleto && <Span className="error" texto={errors.nomeCompleto.message}/>}
+              {errors.nomeCompleto && <Span className="error" texto={errors.nomeCompleto.message} />}
             </FormControl>
           </Grid>
           <Grid item xs={8} md={6}>
             <FormControl>
               <FormLabel htmlFor="email">E-mail *</FormLabel>
               <OutlinedInput error={Boolean(errors.email && errors.email.message)} id="email" type="e-mail" placeholder="Digite um e-mail" size="small" {...register("email")} />
-              {errors.email && <Span className="error" texto={errors.email.message}/>}
+              {errors.email && <Span className="error" texto={errors.email.message} />}
             </FormControl>
           </Grid>
           <Grid item xs={8} md={6}>
             <FormControl>
               <FormLabel htmlFor="senha">Senha *</FormLabel>
               <OutlinedInput id="senha" type="password" placeholder="Digite a senha" size="small" {...register("senha", { onChange: (event) => { validarSenha(event.target.value) } })} error={Boolean(errors.senha && errors.senha.message)} />
-              {errors.senha && <Span className="error" texto={errors.senha.message}/>}
               {
                 mensagemSenha
                   ?
@@ -79,7 +78,7 @@ export const CadastroUsuario: React.FC = () => {
             <FormControl>
               <FormLabel htmlFor="confirma-senha">Confirmar senha *</FormLabel>
               <OutlinedInput error={Boolean(errors.confirmarSenha && errors.confirmarSenha.message)} id="confirma-senha" type="password" placeholder="Confirme a senha" size="small" {...register("confirmarSenha")} />
-              {errors.confirmarSenha && <Span className="error" texto={errors.confirmarSenha.message}/>}
+              {errors.confirmarSenha && <Span className="error" texto={errors.confirmarSenha.message} />}
             </FormControl>
           </Grid>
           <Grid item xs={8} md={6}>
@@ -91,7 +90,7 @@ export const CadastroUsuario: React.FC = () => {
                 <MenuItem value="g" >Gestão de Pessoas</MenuItem>
                 <MenuItem value="t" >Gestor</MenuItem>
               </Select>
-              {errors.tipoUsuario && <Span className="error" texto={errors.tipoUsuario.message}/>}
+              {errors.tipoUsuario && <Span className="error" texto={errors.tipoUsuario.message} />}
             </FormControl>
           </Grid>
           <Grid item xs={8} md={6}>
