@@ -1,11 +1,13 @@
 import { BrowserRouter, Routes, Route, Outlet, Navigate } from "react-router-dom";
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { ThemeProvider } from '@mui/material'
 import { UserProvider } from "../context/UserContext";
 import { AuthContext, AuthProvider } from "../context/AuthContext";
 import { useContext } from "react";
 import { CadastroUsuario } from "../pages/CadastroUsuario";
 import { Login } from "../pages/Login";
+import { DbcTheme } from "../themes";
 
 export const PrivateRoute = () => {
   const { token } = useContext(AuthContext);
@@ -14,6 +16,7 @@ export const PrivateRoute = () => {
 
 function Router() {
   return (
+    <ThemeProvider theme={DbcTheme}>
     <BrowserRouter>
       <ToastContainer />   
       <AuthProvider>
@@ -28,6 +31,7 @@ function Router() {
         </UserProvider>
       </AuthProvider>
     </BrowserRouter>
+    </ThemeProvider>
   );
 }
 export default Router;
