@@ -80,10 +80,10 @@ export const DashCadastroAluno = () => {
           }}>
             <FormControl >
                 <FormLabel htmlFor="tipo-usuario"> Tipo de usuário *</FormLabel>
-                <Select id="tipoVaga" labelId="label-tipo-usuario" size="small" {...register("tipoVAaga")} >
-                  <MenuItem value="a" sx={{ height:'30px' }}>Frontent</MenuItem>
-                  <MenuItem value="i" sx={{ height:'30px' }}>Backend</MenuItem>
-                  <MenuItem value="g" sx={{ height:'30px' }}>QA</MenuItem>
+                <Select id="tipoVaga" defaultValue={"Frontend"}  size="small" {...register("tipoVAaga")} >
+                  <MenuItem value="Frontend" sx={{ height:'30px' }}>Frontend</MenuItem>
+                  <MenuItem value="Backend" sx={{ height:'30px' }}>Backend</MenuItem>
+                  <MenuItem value="QA" sx={{ height:'30px' }}>QA</MenuItem>
                 </Select>
             </FormControl>
             <Button variant="contained" sx={{
