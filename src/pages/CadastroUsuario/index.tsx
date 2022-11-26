@@ -49,30 +49,30 @@ export const CadastroUsuario: React.FC = () => {
       flexDirection: 'column',
       alignItems: 'center',
       gap: '10%'
-      }}>
+    }}>
       <Box sx={{
-        mt:'20px',
+        mt: '20px',
         width: '80% ',
         maxWidth: '1100px',
         height: '70px',
         borderRadius: '15px',
-        boxShadow: '-5px 7px 15px -4px rgba(0,0,0,0.75)',               
+        boxShadow: '-5px 7px 15px -4px rgba(0,0,0,0.75)',
         display: 'flex',
         alignItems: 'center',
-        p:2
+        p: 2
       }}>
         <BoxSC >
           <img src={logo} alt="logo" />
         </BoxSC>
       </Box>
       <Container maxWidth="sm"
-      sx={{
-        width: '850px',            
-        boxShadow: '-5px 7px 15px -4px rgba(0,0,0,0.75)',
-        height: '450px',
-        p: '15px',            
-        borderRadius:  '15px'  
-      }}
+        sx={{
+          width: '850px',
+          boxShadow: '-5px 7px 15px -4px rgba(0,0,0,0.75)',
+          height: '450px',
+          p: '15px',
+          borderRadius: '15px'
+        }}
       >
         <Typography variant="h4" m={2} textAlign="center">Cadastro de Usuário</Typography>
         <form onSubmit={handleSubmit((data: IUserForm) => {
@@ -130,7 +130,10 @@ export const CadastroUsuario: React.FC = () => {
             <Grid item xs={8} md={6}>
               <FormControl>
                 <FormLabel>Enviar foto de perfil</FormLabel>
-                <input accept="image/*" id="foto-perfil" type="file" />
+                <Button variant="contained" component="label">
+                  Enviar
+                  <input hidden accept="image/*" id="foto-perfil" type="file" />
+                </Button>
               </FormControl>
             </Grid>
           </Grid>

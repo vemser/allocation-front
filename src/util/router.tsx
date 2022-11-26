@@ -6,25 +6,27 @@ import { AuthContext, AuthProvider } from "../context/AuthContext";
 import { useContext } from "react";
 import { CadastroUsuario } from "../pages/CadastroUsuario";
 import { Login } from "../pages/Login";
+import PainelDeVagas from "../pages/PainelDeVagas";
 
 export const PrivateRoute = () => {
   const { token } = useContext(AuthContext);
-  return token ? <Outlet /> : <Navigate to="/" />;
+  // return token ? <Outlet /> : <Navigate to="/" />;
+  return <Outlet/>;
 }
 
 function Router() {
   return (
     <BrowserRouter>
-      <ToastContainer />   
+      <ToastContainer />
       <AuthProvider>
         <UserProvider>
-        <Routes>
-          <Route index element={<Login />}/>
-          <Route path='/cadastro-usuario' element={<CadastroUsuario />} />
-          <Route element={<PrivateRoute />}>
-
-          </Route>
-        </Routes>
+          <Routes>
+            <Route index element={<Login />} />
+            <Route path='/cadastro-usuario' element={<CadastroUsuario />} />
+            <Route element={<PrivateRoute />}>
+              <Route path='/painel-vagas' element={<PainelDeVagas />} />
+            </Route>
+          </Routes>
         </UserProvider>
       </AuthProvider>
     </BrowserRouter>
