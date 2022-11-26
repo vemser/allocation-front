@@ -6,3 +6,7 @@
   box-sizing: border-box;
   font-family: 'Inter', sans-serif;
 }
+
+:root {
+  --azul-dbc: #1e62fe;
+}

@@ -61,8 +61,7 @@ export const FormLogin: React.FC = () => {
                       ),
                     }}                   
                     error={Boolean(errors?.email && errors.email)}
-                    label={errors.email?.message ?? "E-mail"}
-                    // helperText={errors?.email?.message ? `${errors.email?.message}` : ''}
+                    label={errors.email?.message ?? "E-mail"}                    
                     />
                 </Box>
                   <Box sx={{

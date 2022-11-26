@@ -16,6 +16,7 @@ export const AuthProvider = ({ children }: TChildren) => {
     const [token, setToken] = useState<string>(localStorage.getItem('token')|| '')
 
     const handleUserLogin = async(user: TUser)=> {
+        user.email = user.email.toLowerCase()
         try {
             nProgress.start();
             // const { data } = await API.post('/auth', user);
@@ -25,16 +26,15 @@ export const AuthProvider = ({ children }: TChildren) => {
 
         } catch (error) {
             console.error(error)
-            // toast.error('Usuário ou senha inválidos', toastConfig);
+            toast.error('Usuário ou senha inválidos', toastConfig);
         } finally {
             nProgress.done()
-        }
-        toast.error('Usuário ou senha inválidos', toastConfig);
+        }        
         console.log(user);
     }
 
     return (
-        <AuthContext.Provider value={{handleUserLogin}}>
+        <AuthContext.Provider value={{handleUserLogin , token }}>
             {children}
         </AuthContext.Provider>
     )

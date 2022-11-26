@@ -1,6 +1,6 @@
 import { Grid, Box } from "@mui/material";
 import { FormLogin } from "../../components/FormLogin";
-import logo from '../../assets/logo.svg';
+import logo from '../../assets/dbclogo.png';
 import { BoxSC } from "./Login.styled";
 
 export const Login = () => {

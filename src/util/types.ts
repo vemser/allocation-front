@@ -6,7 +6,8 @@ export type TUser = {
 }
 
 export type TAuthContext = {
-    handleUserLogin: (user: TUser) => Promise<void>
+    handleUserLogin: (user: TUser) => Promise<void>,
+    token: string | null
 }
 
 export type TChildren = {
