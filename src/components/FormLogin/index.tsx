@@ -48,9 +48,8 @@ export const FormLogin: React.FC = () => {
                 height: '100%'
               }}>
                 <Typography sx={{
-                  fontSize:'20px',
-                  color:'#3C3A58'
-                }}>Login</Typography>
+                  fontSize:'20px'
+                }} color='primary'>Login</Typography>
                 <Box>
                     <TextField type="email" placeholder='Digite o seu e-mail' id='email' {...register('email')} variant="outlined"
                     InputProps={{
