@@ -1,5 +1,5 @@
 import { Avatar, Box, Button, Container, IconButton, Menu, MenuItem, Stack, Tooltip, Typography } from "@mui/material";
-import { BoxSC } from "../../pages/CadastroUsuario/Cadastro.styled";
+import { BoxSC } from "../HeaderLogin/HeaderLogin.styled";
 import logo from '../../assets/dbclogo.png';
 import { useState } from "react";
 
@@ -25,7 +25,7 @@ export const HeaderPrincipal = () => {
                 p: 2,
                 justifyContent: "space-between"
             }}>
-                <BoxSC >
+                <BoxSC>
                     <img src={logo} alt="logo" />
                 </BoxSC>
 
