@@ -65,7 +65,7 @@ export const CadastroVaga: React.FC = () => {
             <Grid item xs={8} md={6}>
               <FormControl>
                 <FormLabel htmlFor="situacao"> Situação*</FormLabel>
-                <Select id="situacao" value="aberto" labelId="situacao" size="small" {...register("situacao")}>
+                <Select id="situacao" labelId="situacao" size="small" defaultValue={"aberto"} {...register("situacao")}>
                   <MenuItem value="aberto" >Aberto</MenuItem>
                   <MenuItem value="fechado" >Fechado</MenuItem>
                 </Select>

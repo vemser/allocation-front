@@ -101,7 +101,7 @@ export const CadastroUsuario: React.FC = () => {
             <Grid item xs={8} md={6}>
               <FormControl>
                 <FormLabel htmlFor="tipo-usuario"> Tipo de usuário *</FormLabel>
-                <Select error={Boolean(errors.tipoUsuario && errors.tipoUsuario.message)} id="tipo-usuario" value="a" labelId="label-tipo-usuario" size="small" {...register("tipoUsuario")} >
+                <Select error={Boolean(errors.tipoUsuario && errors.tipoUsuario.message)} id="tipo-usuario"  defaultValue={"a"} labelId="label-tipo-usuario" size="small" {...register("tipoUsuario")} >
                   <MenuItem value="a" >Administrador</MenuItem>
                   <MenuItem value="i" >Instrutor(a)</MenuItem>
                   <MenuItem value="g" >Gestão de Pessoas</MenuItem>
