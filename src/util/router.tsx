@@ -17,7 +17,7 @@ import { ProgramaProvider } from "../context/ProgramaContext";
 
 export const PrivateRoute = () => {
   const { token } = useContext(AuthContext);
-  return <Outlet />; // !token ? <Outlet /> : <Navigate to="/" />;
+  return !token ? <Outlet /> : <Navigate to="/" />;
 }
 
 function Router() {
