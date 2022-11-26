@@ -10,30 +10,35 @@ import { Login } from "../pages/Login";
 import PainelDeVagas from "../pages/PainelDeVagas";
 import { DbcTheme } from "../themes";
 import { DashCadastroAluno } from "../pages/DashCadastroAluno";
+import { CadastroVaga } from "../pages/CadastroVaga";
+import { VagaProvider } from "../context/VagaContext";
 
 export const PrivateRoute = () => {
   const { token } = useContext(AuthContext);
-  return !token ? <Outlet /> : <Navigate to="/" />;
+  return <Outlet />;//!token ? <Outlet /> : <Navigate to="/" />;
 }
 
 function Router() {
   return (
     <ThemeProvider theme={DbcTheme}>
-    <BrowserRouter>
-      <ToastContainer />
-      <AuthProvider>
-        <UserProvider>
-          <Routes>
-            <Route index element={<Login />} />
-            <Route path='/cadastro-usuario' element={<CadastroUsuario />} />
-            <Route element={<PrivateRoute />}>
-              <Route path='/painel-vagas' element={<PainelDeVagas />} />
-              <Route path='/alunos' element={<DashCadastroAluno />}/>
-            </Route>
-          </Routes>
-        </UserProvider>
-      </AuthProvider>
-    </BrowserRouter>
+      <BrowserRouter>
+        <ToastContainer />
+        <AuthProvider>
+          <UserProvider>
+            <VagaProvider>
+              <Routes>
+                <Route index element={<Login />} />
+                <Route path='/cadastro-usuario' element={<CadastroUsuario />} />
+                <Route element={<PrivateRoute />}>
+                  <Route path='/cadastro-vaga' element={<CadastroVaga />} />
+                  <Route path='/painel-vagas' element={<PainelDeVagas />} />
+                  <Route path='/alunos' element={<DashCadastroAluno />} />
+                </Route>
+              </Routes>
+            </VagaProvider>
+          </UserProvider>
+        </AuthProvider>
+      </BrowserRouter>
     </ThemeProvider>
   );
 }

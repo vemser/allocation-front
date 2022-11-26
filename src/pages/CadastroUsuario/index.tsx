@@ -61,7 +61,6 @@ export const CadastroUsuario: React.FC = () => {
         <Typography variant="h4" m={2} textAlign="center">Cadastro de Usuário</Typography>
         <form onSubmit={handleSubmit((data: IUserForm) => {
           createUser(data);
-          reset();
         })}>
           <Grid container spacing={2}>
             <Grid item xs={8} md={6}>

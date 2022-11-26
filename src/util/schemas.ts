@@ -12,3 +12,14 @@ export const userLoginSchema = yup.object().shape({
     email: yup.string().required("Por favor Digite seu e-mail").email('Por favor, digite um email válido'),
     senha: yup.string().required("Por favor Digite sua senha").min(6, "A senha deve ter no mínimo 6 dígitos")
 })
+
+export const vagaFormSchema = yup.object().shape({
+    idCliente: yup.string().required("Por favor, informe o cliente"),
+    idVaga: yup.string().required("Por favor, informe a vaga"),
+    idPrograma: yup.string().required("Por favor, informe o programa"),
+    nome: yup.string().required("Por favor, digite a vaga "),
+    quantidade: yup.number().typeError("Por favor, informe a quantidade").min(1, "Por favor, a quantidade de vagas deve ser maior que zero").required("Por favor, informe a quantidade"),
+    dataAbertura: yup.date().typeError("Por favor, informe a data de abertura").required("Por favor, informe a data de abertura"),
+    situacao: yup.string().required("Por favor, informe a situação"),
+
+});

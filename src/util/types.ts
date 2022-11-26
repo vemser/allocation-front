@@ -1,5 +1,5 @@
 import React from "react";
-import { IUserForm } from "./interface";
+import { IUserForm, IVagaForm } from "./interface";
 
 export type TChildren = {
     children: React.ReactNode;
@@ -32,3 +32,24 @@ export type TAuthContext = {
     handleUserLogin: (user: TAuth) => Promise<void>,
     token: string | null
 }
+
+export type TVaga = {
+    idVaga : number,
+    idCliente: number,
+    idPrograma: number,
+    nome: string,
+    quantidade: number,
+    dataAbertura: Date,
+    dataFechamento: Date,
+    dataCriacao: Date,
+    situacao: string,
+    observacoes: string
+
+}
+
+export type TVagaContext = {
+    vagas: TVaga[],
+    createVaga : (data: IVagaForm) => Promise<void>
+}
+
+
