@@ -24,11 +24,12 @@ export const AuthProvider = ({ children }: TChildren) => {
             navigate('/');
 
         } catch (error) {
-            toast.error('Usuário ou senha inválidos', toastConfig);
+            console.error(error)
+            // toast.error('Usuário ou senha inválidos', toastConfig);
         } finally {
             nProgress.done()
         }
-        // toast.error('Usuário ou senha inválidos', toastConfig);
+        toast.error('Usuário ou senha inválidos', toastConfig);
         console.log(user);
     }
 
