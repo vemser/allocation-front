@@ -1,14 +1,18 @@
 import React from 'react';
-import { Box, TextField, Button, InputAdornment, Typography } from "@mui/material";
+import { Box, TextField, Button, InputAdornment, Typography, OutlinedInput, FormControl } from "@mui/material";
 import { AccountCircle } from '@mui/icons-material';
 import HttpsIcon from '@mui/icons-material/Https';
 import { Link } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { TUser } from '../../util/types';
+import { yupResolver } from "@hookform/resolvers/yup";
+import { userFormSchema } from '../../util/schemas';
 
 
 export const FormLogin: React.FC = () => {
-  const { register, handleSubmit} = useForm<TUser>();
+  const { register, handleSubmit, formState: { errors }} = useForm<TUser>({
+    resolver: yupResolver(userFormSchema)
+  });
 
   return (
     <div>
@@ -21,7 +25,8 @@ export const FormLogin: React.FC = () => {
             borderRadius:  '15px'  
           }}>
 
-            <Box component='form' id="form" sx={{
+            <Box component='form' id="form"
+            sx={{
               display:'flex',
               justifyContent: 'center',
               gap: '20px',
@@ -40,7 +45,7 @@ export const FormLogin: React.FC = () => {
                   color:'#3C3A58'
                 }}>Login</Typography>
                 <Box>
-                    <TextField type="text" placeholder='Digite o seu e-mail' required id='login' {...register('login')} label="E-mail" variant="outlined" 
+                    <TextField type="email" placeholder='Digite o seu e-mail' required id='email' {...register('email')} label="E-mail" variant="outlined"
                     InputProps={{
                       startAdornment: (
                         <InputAdornment position="start">
@@ -48,7 +53,9 @@ export const FormLogin: React.FC = () => {
                         </InputAdornment>
                       ),
                     }}
+                    error={Boolean(errors.email && errors.email)}
                     />
+                    {errors.email && <span>{errors.email.message}</span>}
                 </Box>
                   <Box sx={{
                     display: 'flex',
@@ -64,7 +71,8 @@ export const FormLogin: React.FC = () => {
                       ),
                     }}
                     />
-                  <Link to={'/signup'}>
+                    {errors.senha && <span>{errors.senha.message}</span>}
+                  <Link to={'/'}>
                     <Typography sx={{
                     mt: '10px',  
                     fontSize:'12px',
@@ -81,7 +89,7 @@ export const FormLogin: React.FC = () => {
                     alignItems: 'center'
                   }}>
                     <Typography>Ou</Typography>                 
-                    <Link to={'/signup'}>
+                    <Link to={'/sign-up'}>
                       <Typography sx={{
                       fontSize:'14px',
                       color:'#403DDE'
