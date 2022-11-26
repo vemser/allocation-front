@@ -29,7 +29,6 @@ export const Login = () => {
             <img src={logo} alt="logo" />
           </BoxSC>
         </Box>
-
         <FormLogin />
       </Grid>    
   )
