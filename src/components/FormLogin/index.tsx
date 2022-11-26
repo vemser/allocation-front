@@ -14,6 +14,10 @@ export const FormLogin: React.FC = () => {
     resolver: yupResolver(userFormSchema)
   });
 
+  const plot = (data: any) => {
+    console.log(data);
+  }
+
   return (
     <div>
           <Box sx={{
@@ -25,7 +29,7 @@ export const FormLogin: React.FC = () => {
             borderRadius:  '15px'  
           }}>
 
-            <Box component='form' id="form"
+            <Box component='form' id="form" onSubmit={handleSubmit((data)=> plot(data))}
             sx={{
               display:'flex',
               justifyContent: 'center',
@@ -45,24 +49,25 @@ export const FormLogin: React.FC = () => {
                   color:'#3C3A58'
                 }}>Login</Typography>
                 <Box>
-                    <TextField type="email" placeholder='Digite o seu e-mail' required id='email' {...register('email')} label="E-mail" variant="outlined"
+                    <TextField type="email" placeholder='Digite o seu e-mail' id='email' {...register('email')} variant="outlined"
                     InputProps={{
                       startAdornment: (
                         <InputAdornment position="start">
                           <AccountCircle />
                         </InputAdornment>
                       ),
-                    }}
-                    error={Boolean(errors.email && errors.email)}
+                    }}                   
+                    error={Boolean(errors?.email && errors.email)}
+                    label={errors.email?.message ?? "E-mail"}
+                    // helperText={errors?.email?.message ? `${errors.email?.message}` : ''}
                     />
-                    {errors.email && <span>{errors.email.message}</span>}
                 </Box>
                   <Box sx={{
                     display: 'flex',
                     flexDirection: 'column',
                     alignItems: 'center'
                   }}>
-                    <TextField type="password" placeholder='Digite a sua senha' required id='senha' {...register('senha')} label="Senha" variant="outlined"
+                    <TextField type="password" placeholder='Digite a sua senha' id='senha' {...register('senha')} variant="outlined"
                     InputProps={{
                       startAdornment: (
                         <InputAdornment position="start">
@@ -70,8 +75,9 @@ export const FormLogin: React.FC = () => {
                         </InputAdornment>
                       ),
                     }}
+                    error={Boolean(errors?.senha && errors.senha)}
+                    label={errors.senha?.message ?? "Senha"}
                     />
-                    {errors.senha && <span>{errors.senha.message}</span>}
                   <Link to={'/'}>
                     <Typography sx={{
                     mt: '10px',  
