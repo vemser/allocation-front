@@ -37,35 +37,35 @@ export const CadastroVaga: React.FC = () => {
             <Grid item xs={8} md={6}>
               <FormControl>
                 <FormLabel htmlFor="cliente">Pesquisar Cliente*</FormLabel>
-                <OutlinedInput id="nome-cliente" type="text" placeholder="Procurar cliente " size="small" {...register("idCliente")} />
+                <OutlinedInput error={Boolean(errors.idCliente && errors.idCliente.message)}  id="nome-cliente" type="text" placeholder="Procurar cliente " size="small" {...register("idCliente")} />
                 {errors.idCliente && <Span className="error" texto={errors.idCliente.message} />}
               </FormControl>
             </Grid>
             <Grid item xs={8} md={6}>
               <FormControl>
                 <FormLabel htmlFor="vaga">Vaga*</FormLabel>
-                <OutlinedInput id="nome-vaga" type="text" placeholder="Digite a vaga" size="small" {...register("nome")} />
+                <OutlinedInput error={Boolean(errors.nome && errors.nome.message)}  id="nome-vaga" type="text" placeholder="Digite a vaga" size="small" {...register("nome")} />
                 {errors.nome && <Span className="error" texto={errors.nome.message} />}
               </FormControl>
             </Grid>
             <Grid item xs={8} md={6}>
               <FormControl>
                 <FormLabel htmlFor="codigo">Código*</FormLabel>
-                <OutlinedInput id="codigo" type="text" placeholder="Digite o código" size="small" {...register("idVaga")} />
+                <OutlinedInput error={Boolean(errors.idVaga && errors.idVaga.message)}  id="codigo" type="text" placeholder="Digite o código" size="small" {...register("idVaga")} />
                 {errors.idVaga && <Span className="error" texto={errors.idVaga.message} />}
               </FormControl>
             </Grid>
             <Grid item xs={8} md={6}>
               <FormControl>
                 <FormLabel htmlFor="codigo">Programa*</FormLabel>
-                <OutlinedInput id="codigo" type="text" placeholder="Digite o programa" size="small" {...register("idPrograma")} />
+                <OutlinedInput error={Boolean(errors.idPrograma && errors.idPrograma.message)} id="codigo" type="text" placeholder="Digite o programa" size="small" {...register("idPrograma")} />
                 {errors.idPrograma && <Span className="error" texto={errors.idPrograma.message} />}
               </FormControl>
             </Grid>
             <Grid item xs={8} md={6}>
               <FormControl>
                 <FormLabel htmlFor="situacao"> Situação*</FormLabel>
-                <Select id="situacao" labelId="situacao" size="small" defaultValue={"aberto"} {...register("situacao")}>
+                <Select error={Boolean(errors.situacao && errors.situacao.message)} id="situacao" labelId="situacao" size="small" defaultValue={"aberto"} {...register("situacao")}>
                   <MenuItem value="aberto" >Aberto</MenuItem>
                   <MenuItem value="fechado" >Fechado</MenuItem>
                 </Select>
@@ -75,14 +75,14 @@ export const CadastroVaga: React.FC = () => {
             <Grid item xs={8} md={6}>
               <FormControl>
                 <FormLabel htmlFor="vagas">Número de Vagas*</FormLabel>
-                <OutlinedInput id="vagas" type="number" size="small" {...register("quantidade")} />
+                <OutlinedInput error={Boolean(errors.quantidade && errors.quantidade.message)} id="vagas" type="number" size="small" {...register("quantidade")} />
                 {errors.quantidade && <Span className="error" texto={errors.quantidade.message} />}
               </FormControl>
             </Grid>
             <Grid item xs={8} md={6}>
               <FormControl>
                 <FormLabel htmlFor="data-abertura">Data de abertura*</FormLabel>
-                <OutlinedInput id="data-abertura" type="date" size="small" {...register("dataAbertura")} />
+                <OutlinedInput error={Boolean(errors.dataAbertura && errors.dataAbertura.message)} id="data-abertura" type="date" size="small" {...register("dataAbertura")} />
                 {errors.dataAbertura && <Span className="error" texto={errors.dataAbertura.message} />}
               </FormControl>
             </Grid>

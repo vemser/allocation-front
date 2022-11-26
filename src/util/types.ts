@@ -1,5 +1,5 @@
 import React from "react";
-import { IUserForm, IVagaForm } from "./interface";
+import { IProgramaForm, IUserForm, IVagaForm } from "./interface";
 
 export type TChildren = {
     children: React.ReactNode;
@@ -7,16 +7,16 @@ export type TChildren = {
 
 export type TUser = {
     idUsuario: number,
-    nomeCompleto : string,
-    email : string,
-    senha : string,
+    nomeCompleto: string,
+    email: string,
+    senha: string,
     tipoUsuario: string,
     foto: string
 }
 
 export type TUserContext = {
     users: TUser[],
-    createUser : (data: IUserForm) => Promise<void>
+    createUser: (data: IUserForm) => Promise<void>
 }
 export type TSpanProps = {
     texto?: string,
@@ -34,7 +34,7 @@ export type TAuthContext = {
 }
 
 export type TVaga = {
-    idVaga : number,
+    idVaga: number,
     idCliente: number,
     idPrograma: number,
     nome: string,
@@ -49,7 +49,21 @@ export type TVaga = {
 
 export type TVagaContext = {
     vagas: TVaga[],
-    createVaga : (data: IVagaForm) => Promise<void>
+    createVaga: (data: IVagaForm) => Promise<void>
+}
+
+export type TPrograma = {
+    nome: string,
+    descricao: string,
+    data: Date,
+    dataCriacao: Date,
+    situacao: string
+
+}
+
+export type TProgramaContext = {
+    programas: TPrograma[],
+    createPrograma: (data: IProgramaForm) => Promise<void>
 }
 
 

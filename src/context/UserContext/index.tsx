@@ -23,7 +23,7 @@ export const UserProvider = ({ children }: TChildren) => {
         toast.error('Permitido somente e-mail do domínio @dbccompany.com.br', toastConfig);
         return;
       }
-    
+
       toast.success("Usuário cadastrado com sucesso!", toastConfig);
 
     } catch (error) {

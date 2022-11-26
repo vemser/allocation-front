@@ -1,4 +1,4 @@
-import { TUser, TVaga } from "./types";
+import { TPrograma, TUser, TVaga } from "./types";
 
 export interface IUserForm extends TUser {
     confirmarSenha: string
@@ -11,4 +11,8 @@ export interface ISpanProps {
 
 export interface IVagaForm extends TVaga {
     quantidadeAlocados: number,
+}
+
+export interface IProgramaForm extends TPrograma {
+
 }
