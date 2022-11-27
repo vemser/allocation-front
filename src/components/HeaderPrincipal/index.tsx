@@ -3,6 +3,8 @@ import { BoxSC } from "../HeaderLogin/HeaderLogin.styled";
 import logo from '../../assets/dbclogo.png';
 import { useContext, useState } from "react";
 import { AuthContext } from "../../context/AuthContext/AuthContext";
+import { Link } from 'react-router-dom'
+import { LinkSC } from "./HeaderPrincipal.styled";
 
 export const HeaderPrincipal = () => {
     const {handleUserLogout} = useContext(AuthContext);
@@ -52,12 +54,12 @@ export const HeaderPrincipal = () => {
                             'aria-labelledby': 'basic-button',
                         }}
                     >
-                        <MenuItem onClick={handleClose}>Alunos</MenuItem>
-                        <MenuItem onClick={handleClose}>Clientes</MenuItem>
-                        <MenuItem onClick={handleClose}>Vagas</MenuItem>
-                        <MenuItem onClick={handleClose}>Programas</MenuItem>
-                        <MenuItem onClick={handleClose}>Avaliações</MenuItem>
-                        <MenuItem onClick={handleClose}>Reserva e Alocação</MenuItem>
+                        <LinkSC to='/alunos'><MenuItem onClick={handleClose}>Alunos</MenuItem></LinkSC>
+                        <LinkSC to='/clientes'><MenuItem onClick={handleClose}>Clientes</MenuItem></LinkSC>
+                        <LinkSC to='/vagas'><MenuItem onClick={handleClose}>Vagas</MenuItem></LinkSC>
+                        <LinkSC to='/programas'><MenuItem onClick={handleClose}>Programas</MenuItem></LinkSC>
+                        <LinkSC to='/avaliacoes'><MenuItem onClick={handleClose}>Avaliações</MenuItem></LinkSC>
+                        <LinkSC to='/reserva-aloacao'><MenuItem onClick={handleClose}>Reserva e Alocação</MenuItem></LinkSC>
                     </Menu>
                     <Tooltip title="Account settings">
                         <IconButton
