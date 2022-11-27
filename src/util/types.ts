@@ -30,5 +30,6 @@ export type TAuth = {
 
 export type TAuthContext = {
     handleUserLogin: (user: TAuth) => Promise<void>,
+    handleUserLogout: () => void,
     token: string | null
 }

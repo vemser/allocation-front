@@ -33,8 +33,15 @@ export const AuthProvider = ({ children }: TChildren) => {
         console.log(user);
     }
 
+    const handleUserLogout = () => {
+        localStorage.removeItem('token');
+        API.defaults.headers.common['Authorization'] = undefined;
+        setToken('');
+        navigate('/') // Provisório enquanto não tem token
+    }
+
     return (
-        <AuthContext.Provider value={{handleUserLogin , token }}>
+        <AuthContext.Provider value={{handleUserLogin , token, handleUserLogout }}>
             {children}
         </AuthContext.Provider>
     )

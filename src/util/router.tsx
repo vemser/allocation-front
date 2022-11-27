@@ -10,6 +10,7 @@ import { Login } from "../pages/Login";
 import PainelDeVagas from "../pages/PainelDeVagas";
 import { DbcTheme } from "../themes";
 import { DashCadastroAluno } from "../pages/DashCadastroAluno";
+import { CadastroAlunos } from "../pages/CadastroAlunos";
 
 export const PrivateRoute = () => {
   const { token } = useContext(AuthContext);
@@ -29,6 +30,7 @@ function Router() {
             <Route element={<PrivateRoute />}>
               <Route path='/painel-vagas' element={<PainelDeVagas />} />
               <Route path='/alunos' element={<DashCadastroAluno />}/>
+              <Route path='/cadastro-alunos' element={<CadastroAlunos />}/>
             </Route>
           </Routes>
         </UserProvider>

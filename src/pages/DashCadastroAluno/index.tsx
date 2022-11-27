@@ -2,6 +2,7 @@ import { Grid, Box, Typography, TextField, FormControl, FormLabel, Select, MenuI
 import { HeaderLogin } from "../../components/HeaderLogin";
 import { useForm } from 'react-hook-form'
 import AlunoTable from "../../components/AlunoTable";
+import { Link } from 'react-router-dom';
 
 export const DashCadastroAluno = () => {
 
@@ -55,7 +56,7 @@ export const DashCadastroAluno = () => {
                 }
               }}               
               />
-            <TextField type="text" placeholder='Digite o seu nome' id='email' {...register('email')} variant="outlined"                  
+            <TextField type="email" placeholder='Digite o seu nome' id='email' {...register('email')} variant="outlined"                  
               // error={Boolean(errors?.email && errors.email)}
               // label={errors.email?.message ?? "Nome"} 
               label='E-mail' 
@@ -91,12 +92,12 @@ export const DashCadastroAluno = () => {
             }}>
               Filtrar
             </Button>
-            <Button variant="contained"
+            <Link to='/cadastro-alunos'><Button variant="contained"
             sx={{
               height: '50px'
             }}>
               Cadastra usuário
-            </Button>
+            </Button></Link>
           </Box>
         </form>
         <AlunoTable />

@@ -1,9 +1,12 @@
 import { Avatar, Box, Button, Container, IconButton, Menu, MenuItem, Stack, Tooltip, Typography } from "@mui/material";
 import { BoxSC } from "../HeaderLogin/HeaderLogin.styled";
 import logo from '../../assets/dbclogo.png';
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { AuthContext } from "../../context/AuthContext";
 
 export const HeaderPrincipal = () => {
+    const {handleUserLogout} = useContext(AuthContext);
+    
 
     const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
     const open = Boolean(anchorEl);
@@ -69,7 +72,7 @@ export const HeaderPrincipal = () => {
                            
                         </IconButton>
                     </Tooltip>
-                    <Button color="error">Sair</Button>
+                    <Button color="error" onClick={()=> handleUserLogout()}>Sair</Button>
                 </Box>
             </Box>
         </Container>
