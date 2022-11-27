@@ -1,11 +1,10 @@
-import { Box, Button, Container, FormControl, FormLabel, Grid, MenuItem, OutlinedInput, Select, Typography } from "@mui/material";
+import { Box, Button, FormControl, FormLabel, Grid, MenuItem, Select, TextField, Typography } from "@mui/material";
 import { HeaderPrincipal } from "../../components/HeaderPrincipal";
 import { IProgramaForm } from "../../util/interface";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 import { programaFormSchema } from "../../util/schemas";
 import { useContext } from "react";
-import Span from "../../components/Span";
 import { ProgramaContext } from "../../context/ProgramaContext";
 
 export const CadastroPrograma: React.FC = () => {
@@ -16,65 +15,115 @@ export const CadastroPrograma: React.FC = () => {
 
     const { createPrograma } = useContext(ProgramaContext);
     return (
-        <div>
+        <Grid
+            sx={{
+                width: '100%',
+                height: '100%',
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                gap: '5%',
+            }}>
             <HeaderPrincipal />
-            <Container
+            <Box
                 sx={{
-                    mt: 4,
-                    mb: 4,
-                    width: '800px',
+                    width: '80%',
+                    height: '90%',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    gap: '15px',
+                    p: '15px 40px',
+                    borderRadius: '15px',
                     boxShadow: '-5px 7px 15px -4px rgba(0,0,0,0.75)',
-                    height: '500px',
-                    p: '15px',
-                    borderRadius: '15px'
-                }} >
-                <Typography variant="h4" m={2} textAlign="center">Cadastro de programa</Typography>
-                <form onSubmit={handleSubmit((data: IProgramaForm) => {
+                    margin: '30px'
+                }}>
+                <Box
+                    sx={{
+                        display: 'flex',
+                        justifyContent: 'center',
+                    }}
+                >
+                    <Typography fontSize='25px' color='primary'>Cadastro de Programa</Typography>
+                </Box>
+                <Box component='form' id='form' onSubmit={handleSubmit((data: IProgramaForm) => {
                     createPrograma(data);
-                })}>
-                    <Grid container spacing={2}>
-                        <Grid item xs={8} md={6}>
-                            <FormControl>
-                                <FormLabel htmlFor="nome">Nome*</FormLabel>
-                                <OutlinedInput  error={Boolean(errors.nome && errors.nome.message)} id="nome" type="text" placeholder="Nome do programa " size="small" {...register("nome")} />
-                                {errors.nome && <Span className="error" texto={errors.nome.message} />}
-                            </FormControl>
-                        </Grid>
-                        <Grid item xs={8} md={6}>
-                            <FormControl>
-                                <FormLabel htmlFor="descricao">Descrição*</FormLabel>
-                                <OutlinedInput  error={Boolean(errors.descricao && errors.descricao.message)} id="descricao" type="text" placeholder="Digite a descrição da vaga" size="small" {...register("descricao")} />
-                                {errors.descricao && <Span className="error" texto={errors.descricao.message} />}
-                            </FormControl>
-                        </Grid>
-                        <Grid item xs={8} md={6}>
-                            <FormControl>
-                                <FormLabel htmlFor="data">Data*</FormLabel>
-                                <OutlinedInput error={Boolean(errors.data && errors.data.message)} id="codigo" type="date" size="small" {...register("data")} />
-                                {errors.data && <Span className="error" texto={errors.data.message} />}
-                            </FormControl>
-                        </Grid>
-                        <Grid item xs={8} md={6}>
-                            <FormControl>
-                                <FormLabel htmlFor="situacao"> Situação*</FormLabel>
-                                <Select error={Boolean(errors.situacao && errors.situacao.message)} id="situacao" labelId="situacao" size="small" defaultValue={"aberto"} {...register("situacao")}>
-                                    <MenuItem value="aberto" >Aberto</MenuItem>
-                                    <MenuItem value="fechado" >Fechado</MenuItem>
-                                </Select>
-                                {errors.situacao && <Span className="error" texto={errors.situacao.message} />}
-                            </FormControl>
-                        </Grid>
-                    </Grid>
-                    <input type="date" hidden id="data-criacao" {...register("dataCriacao")} />
-                    <Box textAlign="center" mt={2}>
-                        <Button type="submit" id="btn-salvar" variant="contained">Salvar</Button>
+                })}
+                    sx={{
+                        display: 'flex',
+                        flexDirection: 'column',
+                        gap: '20px'
+                    }}>
+                    <Box sx={{
+                        display: 'flex',
+                        justifyContent: 'center',
+                        gap: '40px',
+                    }}>
+                        <TextField type="text" placeholder='Digite o seu nome' id='nome' {...register("nome")} variant="outlined"
+                            label='Nome'
+                            sx={{
+                                width: '100%',
+                                "& .MuiInputBase-input": {
+                                    height: '10px'
+                                }
+                            }}
+                            helperText={errors.nome && errors.nome.message ? errors.nome.message : null}
+                            error={Boolean(errors.nome && errors.nome.message)}
+                        />
+                        <TextField type="text" placeholder='Digite a descrição' id='descricao' {...register('descricao')} variant="outlined"
+                            label='Descrição'
+                            sx={{
+                                width: '100%',
+                                "& .MuiInputBase-input": {
+                                    height: '10px'
+                                }
+                            }}
+                            helperText={errors.descricao && errors.descricao.message ? errors.descricao.message : null}
+                            error={Boolean(errors.descricao && errors.descricao.message)}
+                        />
                     </Box>
-                </form>
-            </Container>
+                    <Box sx={{
+                        display: 'flex',
+                        justifyContent: 'space-between',
+                        alignItems: 'top',
+                        gap: '40px'
+                    }}>
+                        <FormControl fullWidth error={Boolean(errors.data && errors.data.message)}>
+                            <FormLabel htmlFor="data">Data*</FormLabel>
+                            <TextField type="date" id='data' {...register('data')} variant="outlined"
+                                label=''
+                                sx={{
+                                    width: '100%',
+                                    "& .MuiInputBase-input": {
+                                        height: '10px'
+                                    }
+                                }}
+                                helperText={errors.data && errors.data.message ? errors.data.message : null}
+                                error={Boolean(errors.data && errors.data.message)}
+                            />
+                        </FormControl>
+                        <FormControl fullWidth >
+                            <FormLabel htmlFor="situacao"> Situação*</FormLabel>
+                            <Select id="situacao" defaultValue={"aberto"} size="small" {...register("situacao")} >
+                                <MenuItem value="aberto" sx={{ height: '30px' }}>Aberto</MenuItem>
+                                <MenuItem value="fechado" sx={{ height: '30px' }}>Fechado</MenuItem>
+                            </Select>
+                        </FormControl>
+                    </Box>
+                    <Box sx={{ display: 'flex', gap: '40px', justifyContent: 'center', alignItems: 'center' }}>
+                        <Box sx={{ width: '100%', textAlign: 'center' }}>
+                            <Button variant="contained" type="submit" sx={{
+                                height: '50px'
+                            }}>
+                                Salvar
+                            </Button>
+                        </Box>
+                    </Box>
+                </Box>
+            </Box>
+        </Grid>
 
-
-        </div>
     );
+
 }
 
 
