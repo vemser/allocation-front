@@ -22,6 +22,7 @@ import { AvaliacaoProvider } from "../context/AvaliacaoContext";
 import { ListagemAvaliacao } from "../pages/ListagemAvaliacao";
 import { CadastroAvaliacao } from "../pages/CadastroAvaliacao";
 import { DashCadastroUsuarios } from "../pages/DashCadastroUsuarios";
+import { DashAluno } from "../pages/DashAluno";
 
 export const PrivateRoute = () => {
   const { token } = useContext(AuthContext);
@@ -52,7 +53,8 @@ function Router() {
                           <Route path='/cadastro-reserva-alocacao' element={<CadastroReservaAlocacao />} />
                           <Route path='/cadastro-alunos' element={<CadastroAlunos />} />
                           <Route path='/cadastro/avaliacao/:tipo' element={<CadastroAvaliacao />} />
-                          <Route path='/avaliacoes' element={<ListagemAvaliacao />} />
+                          <Route path='/avaliacoes' element={<ListagemAvaliacao />} />                          
+                          <Route path='/dash-alunos' element={<DashAluno />} />                          
                         </Route>
                       </Routes>
                     </AvaliacaoProvider>
