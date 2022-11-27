@@ -118,5 +118,6 @@ export type TAvaliacaoContext = {
     avaliacoes: TAvaliacao[], 
     createAvaliacao: (data: TAvaliacao) => Promise<void>,
     updateAvaliacao: (data: TAvaliacao) => Promise<void>,
+    deleteAvaliacao: (id: number) => Promise<void>,
 
 }

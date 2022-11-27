@@ -2,6 +2,7 @@ import { TChildren, TReservaAlocacao, TReservaAlocacaoContext } from '../../util
 import { createContext, useState } from "react";
 import { toast } from 'react-toastify';
 import { toastConfig } from '../../util/toast';
+import nProgress from 'nprogress';
 
 
 export const ReservaAlocacaoContext = createContext({} as TReservaAlocacaoContext);
@@ -12,12 +13,15 @@ export const ReservaAlocacaoProvider = ({ children }: TChildren) => {
 
     const createReservaAlocacao = async (data: TReservaAlocacao) => {
         try {
+            nProgress.start();
             console.log(data);
             toast.success("Reserva/alocação cadastrado com sucesso!", toastConfig);
 
         } catch (error) {
             console.log(error);
             toast.error('Houve um erro inesperado ao cadastrar a Reserva/alocação .', toastConfig);
+        } finally {
+            nProgress.done();
         }
     }
     return (

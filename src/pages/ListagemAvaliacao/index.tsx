@@ -2,6 +2,7 @@ import { Grid, Box, Typography, TextField, FormControl, FormLabel, Select, MenuI
 import { HeaderLogin } from "../../components/HeaderLogin";
 import { useForm } from 'react-hook-form'
 import { Link } from 'react-router-dom';
+import { AvaliacaoTable } from "../../components/AvaliacaoTable";
 
 export const ListagemAvaliacao: React.FC = () => {
 
@@ -89,16 +90,18 @@ export const ListagemAvaliacao: React.FC = () => {
                         }}>
                             Filtrar
                         </Button>
-                        <Link to='/cadastro/avaliacao/simples'>
+                        <Link style={{ textDecoration: 'none' }} to='/cadastro/avaliacao/simples'>
                             <Button variant="contained"
+                                color="success"
                                 sx={{
                                     height: '50px'
                                 }}>
                                 Avaliação simples
                             </Button>
                         </Link>
-                        <Link to='/cadastro/avaliacao/entrevista'>
+                        <Link style={{ textDecoration: 'none' }} to='/cadastro/avaliacao/entrevista'>
                             <Button variant="contained"
+                                color="success"
                                 sx={{
                                     height: '50px'
                                 }}>
@@ -108,6 +111,7 @@ export const ListagemAvaliacao: React.FC = () => {
 
                     </Box>
                 </form>
+                <AvaliacaoTable />
             </Box>
         </Grid>
     )

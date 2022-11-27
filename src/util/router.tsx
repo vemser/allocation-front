@@ -38,30 +38,30 @@ function Router() {
               <ProgramaProvider>
                 <ReservaAlocacaoProvider>
                   <AlunoProvider>
-                  <AvaliacaoProvider>
-                    <Routes>
-                      <Route index element={<Login />} />
-                      <Route path='/cadastro-usuario' element={<CadastroUsuario />} />
-                      <Route element={<PrivateRoute />}>
-                        <Route path='/cadastro-vaga' element={<CadastroVaga />} />
-                        <Route path='/painel-vagas' element={<PainelDeVagas />} />
-                        <Route path='/alunos' element={<DashCadastroAluno />} />
-                        <Route path='/cadastro-programa' element={<CadastroPrograma />} />
-                        <Route path='/cadastro-reserva-alocacao' element={<CadastroReservaAlocacao />} />
-                        <Route path='/cadastro-alunos' element={<CadastroAlunos />}/>
-                        <Route path='/cadastro/avaliacao/:tipo' element={<CadastroAvaliacao />} />
-                        <Route path='/avaliacoes' element={<ListagemAvaliacao />} />
-                      </Route>
-                    </Routes>
-                  </AvaliacaoProvider>
-                  </AlunoProvider>  
+                    <AvaliacaoProvider>
+                      <Routes>
+                        <Route index element={<Login />} />
+                        <Route path='/cadastro-usuario' element={<CadastroUsuario />} />
+                        <Route element={<PrivateRoute />}>
+                          <Route path='/cadastro-vaga' element={<CadastroVaga />} />
+                          <Route path='/painel-vagas' element={<PainelDeVagas />} />
+                          <Route path='/alunos' element={<DashCadastroAluno />} />
+                          <Route path='/cadastro-programa' element={<CadastroPrograma />} />
+                          <Route path='/cadastro-reserva-alocacao' element={<CadastroReservaAlocacao />} />
+                          <Route path='/cadastro-alunos' element={<CadastroAlunos />} />
+                          <Route path='/cadastro/avaliacao/:tipo' element={<CadastroAvaliacao />} />
+                          <Route path='/avaliacoes' element={<ListagemAvaliacao />} />
+                        </Route>
+                      </Routes>
+                    </AvaliacaoProvider>
+                  </AlunoProvider>
                 </ReservaAlocacaoProvider>
               </ProgramaProvider>
             </VagaProvider>
           </UserProvider>
         </AuthProvider>
       </BrowserRouter>
-    </ThemeProvider>
+    </ThemeProvider >
   );
 }
 export default Router;
