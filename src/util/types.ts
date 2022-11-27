@@ -66,4 +66,21 @@ export type TProgramaContext = {
     createPrograma: (data: IProgramaForm) => Promise<void>
 }
 
+export type TReservaAlocacao = {
+    codigo : number,
+    idAluno: number,
+    idVaga: number,
+    avaliacao: string,
+    descricao : string,
+    dataReserva : Date,
+    dataAlocacao: Date,
+    dataCancelamento: Date,
+    dataFinalizacao: Date,
+    situacao: string
+}
+
+export type TReservaAlocacaoContext ={
+    reservasAlocacoes : TReservaAlocacao[],
+    createReservaAlocacao: (data: TReservaAlocacao) => Promise<void>
+}
 

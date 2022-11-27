@@ -16,3 +16,4 @@ export interface IVagaForm extends TVaga {
 export interface IProgramaForm extends TPrograma {
 
 }
+

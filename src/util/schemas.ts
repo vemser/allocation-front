@@ -30,3 +30,14 @@ export const programaFormSchema = yup.object().shape({
     data: yup.string().required("Por favor, informe uma data"),
     situacao: yup.string().required("Por favor, informe a situação")
 });
+
+
+export const reservaAlocacaoFormSchema = yup.object().shape({
+    idAluno: yup.string().required("Por favor, informe o aluno"),
+    idVaga: yup.string().required("Por favor, informe a vaga"),
+    descricao: yup.string().required("Por favor, informe a descrição"),
+    dataReserva: yup.string().required("Por favor, informe a data de reserva"),
+    situacao: yup.string().required("Por favor, informe a situação"),
+    avaliacao: yup.string().when('situacao', {is:(situacao: string) => situacao && situacao === "alocado", 
+    then: yup.string().required("Por favor, informe a avaliação")})
+});

@@ -14,6 +14,8 @@ import { CadastroVaga } from "../pages/CadastroVaga";
 import { VagaProvider } from "../context/VagaContext";
 import { CadastroPrograma } from "../pages/CadastroPrograma";
 import { ProgramaProvider } from "../context/ProgramaContext";
+import { ReservaAlocacaoProvider } from "../context/ReservaAlocacaoContext";
+import { CadastroReservaAlocacao } from "../pages/CadastroReservaAlocacao";
 
 export const PrivateRoute = () => {
   const { token } = useContext(AuthContext);
@@ -29,16 +31,19 @@ function Router() {
           <UserProvider>
             <VagaProvider>
               <ProgramaProvider>
-                <Routes>
-                  <Route index element={<Login />} />
-                  <Route path='/cadastro-usuario' element={<CadastroUsuario />} />
-                  <Route element={<PrivateRoute />}>
-                    <Route path='/cadastro-vaga' element={<CadastroVaga />} />
-                    <Route path='/painel-vagas' element={<PainelDeVagas />} />
-                    <Route path='/alunos' element={<DashCadastroAluno />} />
-                    <Route path='/cadastro-programa' element={<CadastroPrograma />} />
-                  </Route>
-                </Routes>
+                <ReservaAlocacaoProvider>
+                  <Routes>
+                    <Route index element={<Login />} />
+                    <Route path='/cadastro-usuario' element={<CadastroUsuario />} />
+                    <Route element={<PrivateRoute />}>
+                      <Route path='/cadastro-vaga' element={<CadastroVaga />} />
+                      <Route path='/painel-vagas' element={<PainelDeVagas />} />
+                      <Route path='/alunos' element={<DashCadastroAluno />} />
+                      <Route path='/cadastro-programa' element={<CadastroPrograma />} />
+                      <Route path='/cadastro-reserva-alocacao' element={<CadastroReservaAlocacao />} />
+                    </Route>
+                  </Routes>
+                </ReservaAlocacaoProvider>
               </ProgramaProvider>
             </VagaProvider>
           </UserProvider>
