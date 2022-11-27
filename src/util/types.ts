@@ -33,3 +33,18 @@ export type TAuthContext = {
     handleUserLogout: () => void,
     token: string | null
 }
+
+export type TAlunoContext = {
+    handleCreateAluno: (aluno: TAluno) => Promise<void>
+}
+
+export type TAluno = {
+    nome: string,
+    telefone: string,
+    cidade: string,
+    estado: string,
+    email: string,
+    tipoVaga: string,
+    edicao: string,
+    descricao: string
+}

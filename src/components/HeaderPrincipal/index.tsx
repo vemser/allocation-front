@@ -2,7 +2,7 @@ import { Avatar, Box, Button, Container, IconButton, Menu, MenuItem, Stack, Tool
 import { BoxSC } from "../HeaderLogin/HeaderLogin.styled";
 import logo from '../../assets/dbclogo.png';
 import { useContext, useState } from "react";
-import { AuthContext } from "../../context/AuthContext";
+import { AuthContext } from "../../context/AuthContext/AuthContext";
 
 export const HeaderPrincipal = () => {
     const {handleUserLogout} = useContext(AuthContext);

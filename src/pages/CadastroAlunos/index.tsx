@@ -1,10 +1,25 @@
 import { HeaderPrincipal } from "../../components/HeaderPrincipal";
 import { Grid, Box, TextField, FormControl, FormLabel, Select, MenuItem, Button, Typography, RadioGroup, FormControlLabel, Radio, TextareaAutosize } from "@mui/material";
 import { useForm } from 'react-hook-form'
+import { TAluno } from "../../util/types";
+import { alunoSchema } from "../../util/schemas";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { AlunoContext } from "../../context/AlunoContext";
+import { useContext } from "react";
+
 
 export const CadastroAlunos = () => {
 
-    const {register, handleSubmit} = useForm();
+    const {register, handleSubmit, formState: { errors }, reset} = useForm<TAluno>({
+      resolver:yupResolver(alunoSchema)
+    });
+
+    const { handleCreateAluno } = useContext(AlunoContext);
+
+    const handleCreate =(data: TAluno)=>{
+      handleCreateAluno(data)
+      // reset();
+    }
 
   return (
     <Grid 
@@ -37,7 +52,7 @@ export const CadastroAlunos = () => {
         >
             <Typography fontSize='25px' color='primary'>Cadastro de Aluno</Typography>
         </Box>
-        <Box component='form' id='form' 
+        <Box component='form' id='form' onSubmit={handleSubmit(handleCreate)}
         sx={{
             display: 'flex',
             flexDirection: 'column',
@@ -48,10 +63,9 @@ export const CadastroAlunos = () => {
             justifyContent: 'center',
             gap: '40px',
           }}>
-            <TextField type="text" placeholder='Digite o seu nome' id='nome' {...register('nome')} variant="outlined"                
-              // error={Boolean(errors?.email && errors.email)}
-              // label={errors.email?.message ?? "Nome"} 
-              label='Nome Completo'             
+            <TextField type="text" placeholder='Digite o nome completo' id='nome' {...register('nome')} variant="outlined"                
+              error={Boolean(errors?.nome && errors.nome)}
+              label={errors.nome?.message ?? "Nome"}                         
               sx={{
                 width: '100%',
                 "& .MuiInputBase-input": {
@@ -59,10 +73,9 @@ export const CadastroAlunos = () => {
                 }
               }}               
               />
-            <TextField type="tel" placeholder='Digite o seu telefone' id='email' {...register('email')} variant="outlined"                  
-              // error={Boolean(errors?.email && errors.email)}
-              // label={errors.email?.message ?? "Nome"} 
-              label='Telefone' 
+            <TextField type="tel" placeholder='Digite o número de telefone' id='telefone' {...register('telefone')} variant="outlined"                  
+              error={Boolean(errors?.telefone && errors.telefone)}
+              label={errors.telefone?.message ?? "Telefone"} 
               sx={{
                 width: '100%',
                 "& .MuiInputBase-input": {
@@ -77,9 +90,8 @@ export const CadastroAlunos = () => {
             gap: '40px',
           }}>
             <TextField type="text" placeholder='Digite o seu cidade' id='cidade' {...register('cidade')} variant="outlined"                
-              // error={Boolean(errors?.email && errors.email)}
-              // label={errors.email?.message ?? "Nome"} 
-              label='Cidade'             
+              error={Boolean(errors?.cidade && errors.cidade)}
+              label={errors.cidade?.message ?? "Cidade"}         
               sx={{
                 width: '100%',
                 "& .MuiInputBase-input": {
@@ -87,10 +99,9 @@ export const CadastroAlunos = () => {
                 }
               }}               
               />
-            <TextField type="text" placeholder='Digite o seu nome' id='email' {...register('email')} variant="outlined"                  
-              // error={Boolean(errors?.email && errors.email)}
-              // label={errors.email?.message ?? "Nome"} 
-              label='Estado' 
+            <TextField type="text" placeholder='Digite o seu nome' id='estado' {...register('estado')} variant="outlined"                  
+              error={Boolean(errors?.estado && errors.estado)}
+              label={errors.estado?.message ?? "Estado"}  
               sx={{
                 width: '100%',
                 "& .MuiInputBase-input": {
@@ -106,9 +117,8 @@ export const CadastroAlunos = () => {
             alignItems: 'center'
           }}>
             <TextField type="email" placeholder='Digite o seu e-mail' id='email' {...register('email')} variant="outlined"                
-              // error={Boolean(errors?.email && errors.email)}
-              // label={errors.email?.message ?? "Nome"} 
-              label='Email'             
+              error={Boolean(errors?.email && errors.email)}
+              label={errors.email?.message ?? "E-mail"}              
               sx={{
                 width: '100%',
                 "& .MuiInputBase-input": {
@@ -116,23 +126,7 @@ export const CadastroAlunos = () => {
                 }
               }}               
               />
-            {/* <TextField type="text" placeholder='Digite o seu nome' id='email' {...register('email')} variant="outlined"                  
-              // error={Boolean(errors?.email && errors.email)}
-              // label={errors.email?.message ?? "Nome"} 
-              label='E-mail' 
-              sx={{
-                width: '100%',
-                "& .MuiInputBase-input": {
-                  height: '10px'
-                }
-              }}                  
-              /> */}
-
-            <RadioGroup
-            row
-            aria-labelledby="demo-row-radio-buttons-group-label"
-            name="row-radio-buttons-group"
-            id="radio"
+            <RadioGroup row id="tipoVaga" {...register('tipoVaga')}
             sx={{
                 width: '100%',
             }}
@@ -144,13 +138,14 @@ export const CadastroAlunos = () => {
                     p: '5px'
                 }}
                 >                    
-                    <FormControlLabel value="frontend" control={<Radio />} label="Frontend" />
-                    <FormControlLabel value="backend" control={<Radio />} label="Backend" />
-                    <FormControlLabel value="qa" control={<Radio />} label="QA" />
+                    <FormControlLabel value="Frontend" control={<Radio />} label="Frontend" />
+                    <FormControlLabel value="Backend" control={<Radio />} label="Backend" />
+                    <FormControlLabel value="QA" control={<Radio />} label="QA" />
                 </Box>
             </RadioGroup>
           </Box>
-          <Box sx={{
+          <Box 
+          sx={{
             display: 'flex',
             justifyContent: 'space-between',
             alignItems: 'center',
@@ -162,8 +157,8 @@ export const CadastroAlunos = () => {
             }
           }}>
             <FormControl >
-                <FormLabel htmlFor="tipo-usuario"> Tipo de usuário *</FormLabel>
-                <Select id="tipoVaga" defaultValue={"10edicao"}  size="small" {...register("tipoVAaga")} >
+                <FormLabel> Tipo de usuário *</FormLabel>
+                <Select id="edicao" defaultValue={"10edicao"}  size="small" {...register("edicao")} >
                   <MenuItem value="11edicao" sx={{ height:'30px' }}>11ª Edição</MenuItem>
                   <MenuItem value="10edicao" sx={{ height:'30px' }}>10ª Edição</MenuItem>
                   <MenuItem value="9edicao" sx={{ height:'30px' }}>9ª Edição</MenuItem>
@@ -173,17 +168,19 @@ export const CadastroAlunos = () => {
           <Box sx={{ display: 'flex', gap: '40px', alignItems: 'center' }}>
             <Box sx={{ width: '100%'}}>
                 <TextField
-                    label= 'Descrição'
                     placeholder="Descrição"
                     multiline
                     rows={2}
-                    maxRows={4}
+                    id="descricao"
+                    {...register('descricao')}
+                    error={Boolean(errors?.descricao && errors.descricao)}
+                    label={errors.descricao?.message ?? "Descrição"}  
                     />
             </Box>
             <Box sx={{ width: '100%'}}>                
                 <Button variant="contained" sx={{
                 height: '50px'
-                }}>
+                }} type="submit">
                 Salvar
                 </Button>
             </Box>

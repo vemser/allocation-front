@@ -7,7 +7,7 @@ import { useForm } from 'react-hook-form';
 import { TAuth } from '../../util/types';
 import { yupResolver } from "@hookform/resolvers/yup";
 import { userLoginSchema } from '../../util/schemas';
-import { AuthContext } from '../../context/AuthContext';
+import { AuthContext } from '../../context/AuthContext/AuthContext';
 
 
 export const FormLogin: React.FC = () => {

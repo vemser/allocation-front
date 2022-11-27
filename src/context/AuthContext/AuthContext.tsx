@@ -1,12 +1,12 @@
 import { createContext, useState } from 'react';
-import { TAuthContext, TChildren, TAuth } from '../util/types';
+import { TAuthContext, TChildren, TAuth } from '../../util/types';
 import nProgress from 'nprogress';
 
 import { toast } from 'react-toastify';
-import { toastConfig } from '../util/toast';
+import { toastConfig } from '../../util/toast';
 
 import { useNavigate } from 'react-router-dom';
-import { API } from '../util/api';
+import { API } from '../../util/api';
 
 
 export const AuthContext = createContext({} as TAuthContext);
