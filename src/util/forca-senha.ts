@@ -2,35 +2,27 @@ import { TSpanProps } from "./types";
 
 
 
-const verificaForcaSenha = (senha: string): TSpanProps => {
-    let validacao: TSpanProps = {
-        texto: "",
-        className : ""
-    };
+const verificaForcaSenha = (senha: string): string => {
 
     let numeros = /([0-9])/;
     let alfabeto = /([a-zA-Z])/;
     let chEspeciais = /([~,!,@,#,$,%,^,&,*,-,_,+,=,?,>,<])/;
     if (!senha || senha.length < 8) {
-        validacao.className = "error";
-        validacao.texto = "Sua senha deve conter no minímo 8 caracteres.";
-        return validacao;
+        return "Sua senha deve conter no minímo 8 caracteres.";
+
     }
     if ((senha.match(numeros) && !senha.match(alfabeto) && !senha.match(chEspeciais)) ||
         (senha.match(numeros) && senha.match(alfabeto) && !senha.match(chEspeciais))) {
-        validacao.className = "error";
-        validacao.texto = "Força de senha fraca. Insira caracteres especiais e letras.";
-        return validacao;
+        return "Força de senha fraca. Insira caracteres especiais e letras.";
+
     }
 
     if (senha.match(numeros) && senha.match(alfabeto) && senha.match(chEspeciais)) {
-        validacao.className = "success";
-        validacao.texto = "Força de senha excelente.";
-        return validacao;
+        return "Força de senha excelente.";
+
     } else {
-        validacao.className = "warning";
-        validacao.texto = "Força de senha média. Insira caracteres especiais.";
-        return validacao;
+        return "Força de senha média. Insira caracteres especiais.";
+
     }
 }
 
