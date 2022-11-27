@@ -35,7 +35,9 @@ export type TAuthContext = {
 }
 
 export type TAlunoContext = {
-    handleCreateAluno: (aluno: TAluno) => Promise<void>
+    handleCreateAluno: (aluno: TAluno) => Promise<void>,
+    setRadioValue: React.Dispatch<any>,
+    radioValue: string
 }
 
 export type TAluno = {

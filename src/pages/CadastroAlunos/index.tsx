@@ -5,7 +5,7 @@ import { TAluno } from "../../util/types";
 import { alunoSchema } from "../../util/schemas";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { AlunoContext } from "../../context/AlunoContext";
-import { useContext } from "react";
+import React, { useContext, useState } from "react";
 
 
 export const CadastroAlunos = () => {
@@ -14,11 +14,16 @@ export const CadastroAlunos = () => {
       resolver:yupResolver(alunoSchema)
     });
 
-    const { handleCreateAluno } = useContext(AlunoContext);
+    const { handleCreateAluno, setRadioValue, radioValue } = useContext(AlunoContext);
+    // const [ radioValue, setRadioValue] = useState<any>('');
+
+    const handleChange = (event: React.ChangeEvent<HTMLInputElement>)=> {
+      setRadioValue(event.target.value)
+    }
 
     const handleCreate =(data: TAluno)=>{
       handleCreateAluno(data)
-      // reset();
+      reset();
     }
 
   return (
@@ -126,23 +131,35 @@ export const CadastroAlunos = () => {
                 }
               }}               
               />
-            <RadioGroup row id="tipoVaga" {...register('tipoVaga')}
-            sx={{
-                width: '100%',
-            }}
-                >
-                <Box
+            {/* <RadioGroup row id="tipoVaga" {...register('tipoVaga')}
+              sx={{
+                  width: '100%',
+                  border: '1px solid #ababab',
+                  borderRadius: '15px',
+                  p: '5px'
+              }}>                                   
+              <FormControlLabel value="Frontend" control={<Radio />} label="Frontend" />
+              <FormControlLabel value="Backend" control={<Radio />} label="Backend" />
+              <FormControlLabel value="QA" control={<Radio />} label="QA" />                
+            </RadioGroup> */}
+            <FormControl>
+              <RadioGroup
+                row                
+                id="tipoVaga"
+                value={radioValue}
+                onChange={handleChange}
                 sx={{
-                    border: '1px solid #ababab',
-                    borderRadius: '15px',
-                    p: '5px'
-                }}
-                >                    
-                    <FormControlLabel value="Frontend" control={<Radio />} label="Frontend" />
-                    <FormControlLabel value="Backend" control={<Radio />} label="Backend" />
-                    <FormControlLabel value="QA" control={<Radio />} label="QA" />
-                </Box>
-            </RadioGroup>
+                  width: '100%',
+                  border: '1px solid #ababab',
+                  borderRadius: '15px',
+                  p: '5px'
+              }}
+              >
+                <FormControlLabel value="frontend" control={<Radio />} label="Frontend" />
+                <FormControlLabel value="backend" control={<Radio />} label="Backend" />
+                <FormControlLabel value="qa" control={<Radio />} label="QA" />   
+              </RadioGroup>
+            </FormControl>
           </Box>
           <Box 
           sx={{
