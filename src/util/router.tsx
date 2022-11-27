@@ -16,6 +16,9 @@ import { CadastroPrograma } from "../pages/CadastroPrograma";
 import { ProgramaProvider } from "../context/ProgramaContext";
 import { ReservaAlocacaoProvider } from "../context/ReservaAlocacaoContext";
 import { CadastroReservaAlocacao } from "../pages/CadastroReservaAlocacao";
+import { CadastroAvaliacao } from "../pages/CadastroAvaliacao";
+import { AvaliacaoProvider } from "../context/AvaliacaoContext";
+import { ListagemAvaliacao } from "../pages/ListagemAvaliacao";
 
 export const PrivateRoute = () => {
   const { token } = useContext(AuthContext);
@@ -32,17 +35,21 @@ function Router() {
             <VagaProvider>
               <ProgramaProvider>
                 <ReservaAlocacaoProvider>
-                  <Routes>
-                    <Route index element={<Login />} />
-                    <Route path='/cadastro-usuario' element={<CadastroUsuario />} />
-                    <Route element={<PrivateRoute />}>
-                      <Route path='/cadastro-vaga' element={<CadastroVaga />} />
-                      <Route path='/painel-vagas' element={<PainelDeVagas />} />
-                      <Route path='/alunos' element={<DashCadastroAluno />} />
-                      <Route path='/cadastro-programa' element={<CadastroPrograma />} />
-                      <Route path='/cadastro-reserva-alocacao' element={<CadastroReservaAlocacao />} />
-                    </Route>
-                  </Routes>
+                  <AvaliacaoProvider>
+                    <Routes>
+                      <Route index element={<Login />} />
+                      <Route path='/cadastro-usuario' element={<CadastroUsuario />} />
+                      <Route element={<PrivateRoute />}>
+                        <Route path='/cadastro-vaga' element={<CadastroVaga />} />
+                        <Route path='/painel-vagas' element={<PainelDeVagas />} />
+                        <Route path='/alunos' element={<DashCadastroAluno />} />
+                        <Route path='/cadastro-programa' element={<CadastroPrograma />} />
+                        <Route path='/cadastro-reserva-alocacao' element={<CadastroReservaAlocacao />} />
+                        <Route path='/cadastro/avaliacao/:tipo' element={<CadastroAvaliacao />} />
+                        <Route path='/avaliacoes' element={<ListagemAvaliacao />} />
+                      </Route>
+                    </Routes>
+                  </AvaliacaoProvider>
                 </ReservaAlocacaoProvider>
               </ProgramaProvider>
             </VagaProvider>

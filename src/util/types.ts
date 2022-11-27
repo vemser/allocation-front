@@ -84,3 +84,24 @@ export type TReservaAlocacaoContext ={
     createReservaAlocacao: (data: TReservaAlocacao) => Promise<void>
 }
 
+export type TAvaliacao = {
+    codigo : number,
+    idAluno : number,
+    idVaga: number,
+    descricao: string,
+    nota: number,
+    tipoAvaliacao: string,
+    dataAvaliacao: Date,
+    dataEntrevistaGp: Date,
+    dataEntrevistaCliente: Date,
+    dataResposta: Date,
+    dataCriacao: Date,
+    situacao: string
+}
+
+export type TAvaliacaoContext = {
+    avaliacoes: TAvaliacao[], 
+    createAvaliacao: (data: TAvaliacao) => Promise<void>,
+    updateAvaliacao: (data: TAvaliacao) => Promise<void>,
+
+}
