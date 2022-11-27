@@ -10,6 +10,12 @@ import { Login } from "../pages/Login";
 import PainelDeVagas from "../pages/PainelDeVagas";
 import { DbcTheme } from "../themes";
 import { DashCadastroAluno } from "../pages/DashCadastroAluno";
+import { CadastroVaga } from "../pages/CadastroVaga";
+import { VagaProvider } from "../context/VagaContext";
+import { CadastroPrograma } from "../pages/CadastroPrograma";
+import { ProgramaProvider } from "../context/ProgramaContext";
+import { ReservaAlocacaoProvider } from "../context/ReservaAlocacaoContext";
+import { CadastroReservaAlocacao } from "../pages/CadastroReservaAlocacao";
 import { CadastroAlunos } from "../pages/CadastroAlunos";
 import { AlunoProvider } from "../context/AlunoContext";
 
@@ -21,24 +27,33 @@ export const PrivateRoute = () => {
 function Router() {
   return (
     <ThemeProvider theme={DbcTheme}>
-    <BrowserRouter>
-      <ToastContainer />
-      <AuthProvider>
-        <UserProvider>
-        <AlunoProvider>
-          <Routes>
-            <Route index element={<Login />} />
-            <Route path='/cadastro-usuario' element={<CadastroUsuario />} />
-            <Route element={<PrivateRoute />}>
-              <Route path='/painel-vagas' element={<PainelDeVagas />} />
-              <Route path='/alunos' element={<DashCadastroAluno />}/>
-              <Route path='/cadastro-alunos' element={<CadastroAlunos />}/>
-            </Route>
-          </Routes>
-        </AlunoProvider>  
-        </UserProvider>
-      </AuthProvider>
-    </BrowserRouter>
+      <BrowserRouter>
+        <ToastContainer />
+        <AuthProvider>
+          <UserProvider>
+            <VagaProvider>
+              <ProgramaProvider>
+                <ReservaAlocacaoProvider>
+                  <AlunoProvider>
+                    <Routes>
+                      <Route index element={<Login />} />
+                      <Route path='/cadastro-usuario' element={<CadastroUsuario />} />
+                      <Route element={<PrivateRoute />}>
+                        <Route path='/cadastro-vaga' element={<CadastroVaga />} />
+                        <Route path='/painel-vagas' element={<PainelDeVagas />} />
+                        <Route path='/alunos' element={<DashCadastroAluno />} />
+                        <Route path='/cadastro-programa' element={<CadastroPrograma />} />
+                        <Route path='/cadastro-reserva-alocacao' element={<CadastroReservaAlocacao />} />
+                        <Route path='/cadastro-alunos' element={<CadastroAlunos />}/>
+                      </Route>
+                    </Routes>
+                  </AlunoProvider>  
+                </ReservaAlocacaoProvider>
+              </ProgramaProvider>
+            </VagaProvider>
+          </UserProvider>
+        </AuthProvider>
+      </BrowserRouter>
     </ThemeProvider>
   );
 }
