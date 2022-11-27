@@ -18,6 +18,7 @@ import { ReservaAlocacaoProvider } from "../context/ReservaAlocacaoContext";
 import { CadastroReservaAlocacao } from "../pages/CadastroReservaAlocacao";
 import { CadastroAlunos } from "../pages/CadastroAlunos";
 import { AlunoProvider } from "../context/AlunoContext";
+import { DashCadastroUsuarios } from "../pages/DashCadastroUsuarios";
 
 export const PrivateRoute = () => {
   const { token } = useContext(AuthContext);
@@ -42,6 +43,7 @@ function Router() {
                         <Route path='/cadastro-vaga' element={<CadastroVaga />} />
                         <Route path='/painel-vagas' element={<PainelDeVagas />} />
                         <Route path='/alunos' element={<DashCadastroAluno />} />
+                        <Route path='/usuarios' element={<DashCadastroUsuarios />} />
                         <Route path='/cadastro-programa' element={<CadastroPrograma />} />
                         <Route path='/cadastro-reserva-alocacao' element={<CadastroReservaAlocacao />} />
                         <Route path='/cadastro-alunos' element={<CadastroAlunos />}/>

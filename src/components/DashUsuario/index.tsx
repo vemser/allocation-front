@@ -1,30 +1,13 @@
-import { Grid, Box, Typography, TextField, FormControl, FormLabel, Select, MenuItem, Button } from "@mui/material";
-import { HeaderLogin } from "../../components/HeaderLogin";
+import { Box, Typography, TextField, FormControl, FormLabel, Select, MenuItem, Button } from "@mui/material";
 import { useForm } from 'react-hook-form'
-import AlunoTable from "../../components/AlunoTable";
+import UsuarioTable from "../UsuarioTable";
 import { Link } from 'react-router-dom';
-import { DashAluno } from "../../components/DashAluno";
 
-export const DashCadastroAluno = () => {
-
-  const {register, handleSubmit, reset, formState:{ errors }} = useForm();
+export const DashUsuario = () => {
+    const {register, handleSubmit, reset, formState:{ errors }} = useForm();
 
   return (
-    <Grid
-    sx={{
-        width: '100%',
-        height: '100%',
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        gap: '5%',
-      }}
-    >
-      <HeaderLogin />
-
-      <DashAluno />
-
-      {/* <Box sx={{
+    <Box sx={{
         width: '80%',
         height: '90%',
         display: 'flex',
@@ -66,7 +49,7 @@ export const DashCadastroAluno = () => {
               label='E-mail' 
               sx={{
                 width: '100%',
-                "& .MuiInputBase-input": {                  
+                "& .MuiInputBase-input": {
                   height: '10px'
                 }
               }}                  
@@ -85,10 +68,10 @@ export const DashCadastroAluno = () => {
           }}>
             <FormControl >
                 <FormLabel htmlFor="tipo-usuario"> Tipo de usuário *</FormLabel>
-                <Select id="tipoVaga" defaultValue={"Frontend"}  size="small" {...register("tipoVAaga")} >
-                  <MenuItem value="Frontend" sx={{ height:'30px' }}>Frontend</MenuItem>
-                  <MenuItem value="Backend" sx={{ height:'30px' }}>Backend</MenuItem>
-                  <MenuItem value="QA" sx={{ height:'30px' }}>QA</MenuItem>
+                <Select id="tipoUsuario" defaultValue={"Gestão de Pessoa"}  size="small" {...register("tipoUsuario")} >
+                  <MenuItem value="Gestão de Pessoa" sx={{ height:'30px' }}>Gestão de Pessoa</MenuItem>
+                  <MenuItem value="Instrutor" sx={{ height:'30px' }}>Instrutor</MenuItem>
+                  <MenuItem value="Administrador" sx={{ height:'30px' }}>Administrador</MenuItem>
                 </Select>
             </FormControl>
             <Button variant="contained" sx={{
@@ -96,7 +79,7 @@ export const DashCadastroAluno = () => {
             }}>
               Filtrar
             </Button>
-            <Link to='/cadastro-alunos'><Button variant="contained"
+            <Link to='/cadastro-usuario'><Button variant="contained"
             sx={{
               height: '50px'
             }}>
@@ -104,8 +87,7 @@ export const DashCadastroAluno = () => {
             </Button></Link>
           </Box>
         </form>
-        <AlunoTable />
-      </Box> */}
-    </Grid>
+        <UsuarioTable />
+    </Box>
   )
 }

@@ -3,10 +3,10 @@ import { HeaderLogin } from "../../components/HeaderLogin";
 import { useForm } from 'react-hook-form'
 import AlunoTable from "../../components/AlunoTable";
 import { Link } from 'react-router-dom';
-import { DashAluno } from "../../components/DashAluno";
+import { DashUsuario} from "../../components/DashUsuario";
 
-export const DashCadastroAluno = () => {
-
+export const DashCadastroUsuarios = () => {
+  
   const {register, handleSubmit, reset, formState:{ errors }} = useForm();
 
   return (
@@ -22,7 +22,7 @@ export const DashCadastroAluno = () => {
     >
       <HeaderLogin />
 
-      <DashAluno />
+      <DashUsuario />
 
       {/* <Box sx={{
         width: '80%',
