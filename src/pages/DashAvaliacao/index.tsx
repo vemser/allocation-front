@@ -1,8 +1,8 @@
 import { Grid, Box, Typography, TextField, FormControl, FormLabel, Select, MenuItem, Button } from "@mui/material";
-import { HeaderLogin } from "../../components/HeaderLogin";
 import { useForm } from 'react-hook-form'
 import { Link } from 'react-router-dom';
 import { AvaliacaoTable } from "../../components/AvaliacaoTable";
+import { HeaderPrincipal } from "../../components/HeaderPrincipal";
 
 export const DashAvaliacao: React.FC = () => {
 
@@ -19,7 +19,7 @@ export const DashAvaliacao: React.FC = () => {
                 gap: '5%',
             }}
         >
-            <HeaderLogin />
+            <HeaderPrincipal />
             <Box sx={{
                 width: '80%',
                 height: '90%',

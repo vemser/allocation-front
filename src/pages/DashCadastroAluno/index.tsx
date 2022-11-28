@@ -1,9 +1,9 @@
 import { Grid, Box, Typography, TextField, FormControl, FormLabel, Select, MenuItem, Button } from "@mui/material";
-import { HeaderLogin } from "../../components/HeaderLogin";
 import { useForm } from 'react-hook-form'
 import AlunoTable from "../../components/AlunoTable";
 import { Link } from 'react-router-dom';
 import { DashAluno } from "../../components/DashAluno";
+import { HeaderPrincipal } from "../../components/HeaderPrincipal";
 
 export const DashCadastroAluno = () => {
 
@@ -20,7 +20,7 @@ export const DashCadastroAluno = () => {
         gap: '5%',
       }}
     >
-      <HeaderLogin />
+      <HeaderPrincipal />
 
       <DashAluno />
 

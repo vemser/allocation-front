@@ -4,6 +4,7 @@ import { useForm } from 'react-hook-form'
 import AlunoTable from "../../components/AlunoTable";
 import { Link } from 'react-router-dom';
 import { DashUsuario} from "../../components/DashUsuario";
+import { HeaderPrincipal } from "../../components/HeaderPrincipal";
 
 export const DashCadastroUsuarios = () => {
   
@@ -20,7 +21,7 @@ export const DashCadastroUsuarios = () => {
         gap: '5%',
       }}
     >
-      <HeaderLogin />
+      <HeaderPrincipal />
 
       <DashUsuario />
 
