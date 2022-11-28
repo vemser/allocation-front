@@ -13,7 +13,8 @@ export const AuthContext = createContext({} as TAuthContext);
 
 export const AuthProvider = ({ children }: TChildren) => {
     const navigate = useNavigate();
-    const [token, setToken] = useState<string>(localStorage.getItem('token')|| '')
+    const [token, setToken] = useState<string>(localStorage.getItem('token')|| '');
+    const isLogged = token !== undefined && token !== "";  //camada de segurança para não expor a token
 
     const handleUserLogin = async(user: TAuth)=> {
         user.email = user.email.toLowerCase()
@@ -22,6 +23,7 @@ export const AuthProvider = ({ children }: TChildren) => {
             const { data } = await API.post('/auth', user);
             localStorage.setItem('token', data);
             setToken(data);
+            API.defaults.headers.common['Authorization'] = data;
             navigate('/painel-vagas');
 
         } catch (error) {
@@ -40,8 +42,9 @@ export const AuthProvider = ({ children }: TChildren) => {
         navigate('/') // Provisório enquanto não tem token
     }
 
+
     return (
-        <AuthContext.Provider value={{handleUserLogin , token, handleUserLogout }}>
+        <AuthContext.Provider value={{handleUserLogin , token, handleUserLogout, isLogged }}>
             {children}
         </AuthContext.Provider>
     )

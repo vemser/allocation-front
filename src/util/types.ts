@@ -5,18 +5,19 @@ export type TChildren = {
     children: React.ReactNode;
 }
 
+
 export type TUser = {
     idUsuario: number,
     nomeCompleto: string,
     email: string,
     senha: string,
-    tipoUsuario: string,
-    foto: string
+    senhaIgual: string
+   
 }
 
 export type TUserContext = {
     users: TUser[],
-    createUser: (data: IUserForm) => Promise<void>
+    createUser: (data: TUser, cargo?: string) => Promise<void>
 }
 export type TSpanProps = {
     texto?: string,
@@ -31,7 +32,8 @@ export type TAuth = {
 export type TAuthContext = {
     handleUserLogin: (user: TAuth) => Promise<void>,
     handleUserLogout: () => void,
-    token: string | null
+    token: string | null,
+    isLogged : boolean
 }
 
 export type TAlunoContext = {
