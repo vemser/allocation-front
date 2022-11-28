@@ -7,6 +7,7 @@ import { API } from '../../util/api';
 import nProgress from 'nprogress';
 import { AuthContext } from '../AuthContext/AuthContext';
 import { useNavigate } from 'react-router-dom';
+import { DateRange, SendSharp } from '@mui/icons-material';
 
 
 export const UserContext = createContext({} as TUserContext);
@@ -14,7 +15,7 @@ export const UserContext = createContext({} as TUserContext);
 export const UserProvider = ({ children }: TChildren) => {
   const navigate = useNavigate();
   const [users, setUsers] = useState<TUser[]>([]); //lista para armazenar os usuários cadastrados
-  const {isLogged} =  useContext(AuthContext);
+  const { isLogged } = useContext(AuthContext);
 
   const createUser = async (data: TUser, cargo?: string) => {
     try {
@@ -29,9 +30,15 @@ export const UserProvider = ({ children }: TChildren) => {
         return;
       }
       nProgress.start();
-      // await API.post(`/usuario/register?cargo=${cargo}`, data);
+      await API.post(`/auth/register${(cargo ? "?cargo=" + cargo : "")}`,
+        {
+          nomeCompleto: data.nomeCompleto,
+          email: data.email,
+          senha: data.senha,
+          senhaIgual: data.senhaIgual
+        });
       toast.success("Usuário cadastrado com sucesso!", toastConfig);
-      if(!isLogged) {  //usuário publico vai para login
+      if (!isLogged) {  //usuário publico vai para login
         navigate('/');
       } else {
         navigate('/usuarios');

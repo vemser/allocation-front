@@ -1,19 +1,31 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Autocomplete, Box, Button, FormControl, FormLabel, Grid, MenuItem, Select, TextField, Typography } from '@mui/material';
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
+import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import { HeaderPrincipal } from '../../components/HeaderPrincipal';
+import { AuthContext } from '../../context/AuthContext/AuthContext';
 import { ReservaAlocacaoContext } from '../../context/ReservaAlocacaoContext';
 import { reservaAlocacaoFormSchema } from '../../util/schemas';
+import { toastConfig } from '../../util/toast';
 import { TReservaAlocacao } from '../../util/types';
+import { podeAcessarTela } from '../../util/valida-senha';
 
 export const CadastroReservaAlocacao: React.FC = () => {
+    const roles = [
+        { nome: "ROLE_ADMINISTRADOR" },
+        { nome: "ROLE_GESTOR" },
+        { nome: "ROLE_GESTAO_DE_PESSOAS" }
+    ];
 
     const { register, handleSubmit, reset, formState: { errors } } = useForm<TReservaAlocacao>({
         resolver: yupResolver(reservaAlocacaoFormSchema)
     });
 
     const { createReservaAlocacao } = useContext(ReservaAlocacaoContext);
+    const navigate = useNavigate();
+    const { userLogged } = useContext(AuthContext);
 
     const listaAlunos = [
         "Daniela", "Renan"
@@ -26,6 +38,14 @@ export const CadastroReservaAlocacao: React.FC = () => {
     const listaAvaliacoes = [
         "av1", "av2"
     ];
+
+    useEffect(() => {
+        if (userLogged && !podeAcessarTela(roles, userLogged)) {
+            toast.error("Usuário sem permissão.", toastConfig);
+            navigate('/painel-vagas');
+        }
+
+    }, [userLogged]);
 
     return (
         <Grid

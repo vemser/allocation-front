@@ -2,19 +2,29 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { Autocomplete, Box, Button, FormControl, FormLabel, Grid, MenuItem, Select, TextField, Typography } from '@mui/material';
 import React, { useContext, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
-import { useLocation, useParams } from 'react-router-dom';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import { HeaderPrincipal } from '../../components/HeaderPrincipal';
+import { AuthContext } from '../../context/AuthContext/AuthContext';
 import { AvaliacaoContext } from '../../context/AvaliacaoContext';
 import { avaliacaoFormSchema } from '../../util/schemas';
+import { toastConfig } from '../../util/toast';
 import { TAvaliacao } from '../../util/types';
+import { podeAcessarTela } from '../../util/valida-senha';
 
 export const CadastroAvaliacao: React.FC = () => {
+    const roles = [
+        { nome: "ROLE_ADMINISTRADOR" },
+        { nome: "ROLE_GESTAO_DE_PESSOAS" },
+        { nome: "ROLE_INSTRUTOR" }
+    ];
 
     const { register, handleSubmit, reset, setValue, formState: { errors } } = useForm<TAvaliacao>({
         resolver: yupResolver(avaliacaoFormSchema)
     });
-
     const { createAvaliacao, updateAvaliacao } = useContext(AvaliacaoContext);
+    const navigate = useNavigate();
+    const { userLogged } = useContext(AuthContext);
 
     const { tipo } = useParams();
     const isAvaliacaoSimples = tipo === "simples";
@@ -22,8 +32,12 @@ export const CadastroAvaliacao: React.FC = () => {
     const isEdicao = state !== null;
 
     useEffect(() => {
-        console.log(isEdicao)
-    }, []);
+        console.log(isEdicao);
+        if (userLogged && !podeAcessarTela(roles, userLogged)) {
+            toast.error("Usuário sem permissão.", toastConfig);
+            navigate('/painel-vagas');
+        }
+    }, [userLogged]);
 
     const listaAlunos = [
         {
@@ -265,7 +279,7 @@ export const CadastroAvaliacao: React.FC = () => {
                                         height: '10px'
                                     }
                                 }}
-                                
+
                                 helperText={errors.dataEntrevistaCliente && errors.dataEntrevistaCliente.message ? errors.dataEntrevistaCliente.message : null}
                                 error={Boolean(errors.dataEntrevistaCliente && errors.dataEntrevistaCliente.message)}
                             />
@@ -302,12 +316,12 @@ export const CadastroAvaliacao: React.FC = () => {
                                 size="small"
                                 {...register("situacao")} >
                                 <MenuItem value="avaliado" sx={{ height: '30px' }}>Avaliado</MenuItem>
-                                <MenuItem disabled={tipo === "simples" } value="agendado" sx={{ height: '30px' }}>Agendado</MenuItem>
-                                <MenuItem disabled={tipo === "simples" } value="entrevistado" sx={{ height: '30px' }}>Entrevistado</MenuItem>
-                                <MenuItem disabled={tipo === "simples" } value="agendadocliente" sx={{ height: '30px' }}>Agendado Cliente</MenuItem>
-                                <MenuItem disabled={tipo === "simples" } value="entrevistadocliente" sx={{ height: '30px' }}>Entrevistado Cliente</MenuItem>
-                                <MenuItem disabled={tipo === "simples" } value="aprovado" sx={{ height: '30px' }}>Aprovado</MenuItem>
-                                <MenuItem disabled={tipo === "simples" } value="reprovado" sx={{ height: '30px' }}>Reprovado</MenuItem>
+                                <MenuItem disabled={tipo === "simples"} value="agendado" sx={{ height: '30px' }}>Agendado</MenuItem>
+                                <MenuItem disabled={tipo === "simples"} value="entrevistado" sx={{ height: '30px' }}>Entrevistado</MenuItem>
+                                <MenuItem disabled={tipo === "simples"} value="agendadocliente" sx={{ height: '30px' }}>Agendado Cliente</MenuItem>
+                                <MenuItem disabled={tipo === "simples"} value="entrevistadocliente" sx={{ height: '30px' }}>Entrevistado Cliente</MenuItem>
+                                <MenuItem disabled={tipo === "simples"} value="aprovado" sx={{ height: '30px' }}>Aprovado</MenuItem>
+                                <MenuItem disabled={tipo === "simples"} value="reprovado" sx={{ height: '30px' }}>Reprovado</MenuItem>
                             </Select>
                         </FormControl>
                     </Box>

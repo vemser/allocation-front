@@ -4,17 +4,29 @@ import { IVagaForm } from "../../util/interface";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 import { vagaFormSchema } from "../../util/schemas";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { VagaContext } from "../../context/VagaContext";
 import Span from "../../components/Span";
+import { toast } from "react-toastify";
+import { AuthContext } from "../../context/AuthContext/AuthContext";
+import { toastConfig } from "../../util/toast";
+import { useNavigate } from "react-router-dom";
+import { podeAcessarTela } from "../../util/valida-senha";
 
 export const CadastroVaga: React.FC = () => {
+  const roles = [
+    { nome: "ROLE_ADMINISTRADOR" },
+    { nome: "ROLE_GESTOR" },
+    { nome: "ROLE_GESTAO_DE_PESSOAS" },
+    ];
 
   const { register, handleSubmit, reset, formState: { errors } } = useForm<IVagaForm>({
     resolver: yupResolver(vagaFormSchema)
   });
 
   const { createVaga } = useContext(VagaContext);
+  const navigate = useNavigate();
+  const { userLogged } = useContext(AuthContext);
 
   const listaClientes = [
     "Daniela", "Renan"
@@ -22,6 +34,14 @@ export const CadastroVaga: React.FC = () => {
   const listaProgramas = [
     "VemSer10", "VemSer11"
   ];
+
+  useEffect(() => {
+    if (userLogged && !podeAcessarTela(roles, userLogged)) {
+        toast.error("Usuário sem permissão.", toastConfig);
+        navigate('/painel-vagas');
+    }
+
+}, [userLogged]);
 
   return (
     <Grid
@@ -218,5 +238,3 @@ export const CadastroVaga: React.FC = () => {
 
   );
 }
-
-

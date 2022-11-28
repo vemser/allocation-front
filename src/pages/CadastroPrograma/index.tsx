@@ -4,16 +4,38 @@ import { IProgramaForm } from "../../util/interface";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 import { programaFormSchema } from "../../util/schemas";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { ProgramaContext } from "../../context/ProgramaContext";
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import { AuthContext } from "../../context/AuthContext/AuthContext";
+import { toastConfig } from "../../util/toast";
+import { podeAcessarTela } from "../../util/valida-senha";
 
 export const CadastroPrograma: React.FC = () => {
+    const roles = [
+        { nome: "ROLE_ADMINISTRADOR" },
+        { nome: "ROLE_GESTOR" },
+        { nome: "ROLE_GESTAO_DE_PESSOAS" },
+       { nome: "ROLE_INSTRUTOR" }
+      ];
 
     const { register, handleSubmit, reset, formState: { errors } } = useForm<IProgramaForm>({
         resolver: yupResolver(programaFormSchema)
     });
 
     const { createPrograma } = useContext(ProgramaContext);
+    const navigate = useNavigate();
+    const { userLogged } = useContext(AuthContext);
+
+    useEffect(() => {
+        if (userLogged && !podeAcessarTela(roles,userLogged)) {
+          toast.error("Usuário sem permissão.", toastConfig);
+          navigate('/painel-vagas');
+        }
+    
+      }, [userLogged]);
+      
     return (
         <Grid
             sx={{
