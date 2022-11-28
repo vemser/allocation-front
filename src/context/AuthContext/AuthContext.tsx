@@ -28,7 +28,7 @@ export const AuthProvider = ({ children }: TChildren) => {
             API.defaults.headers.common['Authorization'] = "Bearer " + data;
             await handleUserLogged(); //busco as informações do usuario
             console.log(userLogged);
-            
+
 
         } catch (error) {
             console.error(error)
@@ -50,7 +50,6 @@ export const AuthProvider = ({ children }: TChildren) => {
     const handleUserLogged = async () => {
         const { data } = await API.get("/auth/logged");
         setUserLogged(data);
-        console.log(userLogged);
         if (data && data.cargos.length === 0) {
             toast.error('Usuário sem permissão. Verifique com o Administrador.', toastConfig);
             handleUserLogout();
