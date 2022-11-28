@@ -55,7 +55,7 @@ export const HeaderPrincipal = () => {
                         }}
                     >
                         <LinkSC to='/alunos'><MenuItem onClick={handleClose}>Alunos</MenuItem></LinkSC>
-                        <LinkSC to='/clientes'><MenuItem onClick={handleClose}>Clientes</MenuItem></LinkSC>
+                        <LinkSC to='/usuarios'><MenuItem onClick={handleClose}>Clientes</MenuItem></LinkSC>
                         <LinkSC to='/painel-vagas'><MenuItem onClick={handleClose}>Vagas</MenuItem></LinkSC>
                         <LinkSC to='/programas'><MenuItem onClick={handleClose}>Programas</MenuItem></LinkSC>
                         <LinkSC to='/avaliacoes'><MenuItem onClick={handleClose}>Avaliações</MenuItem></LinkSC>
