@@ -131,28 +131,23 @@ export const CadastroAlunos = () => {
                 }
               }}               
               />
-            {/* <RadioGroup row id="tipoVaga" {...register('tipoVaga')}
-              sx={{
-                  width: '100%',
-                  border: '1px solid #ababab',
-                  borderRadius: '15px',
-                  p: '5px'
-              }}>                                   
-              <FormControlLabel value="Frontend" control={<Radio />} label="Frontend" />
-              <FormControlLabel value="Backend" control={<Radio />} label="Backend" />
-              <FormControlLabel value="QA" control={<Radio />} label="QA" />                
-            </RadioGroup> */}
-            <FormControl>
+            <FormControl sx={{              
+              width: '100%',
+              display: 'flex',
+            }}>
               <RadioGroup
                 row                
                 id="tipoVaga"
                 value={radioValue}
                 onChange={handleChange}
                 sx={{
-                  width: '100%',
+                  width: '70%',
                   border: '1px solid #ababab',
                   borderRadius: '15px',
-                  p: '5px'
+                  p: '5px',
+                  display: 'flex',
+                  justifyContent: 'center'
+
               }}
               >
                 <FormControlLabel value="frontend" control={<Radio />} label="Frontend" />
@@ -166,7 +161,6 @@ export const CadastroAlunos = () => {
             display: 'flex',
             justifyContent: 'space-between',
             alignItems: 'center',
-            mb:"100px",
 
             "& .MuiSelect-select": {
               height: '10px',
@@ -182,26 +176,29 @@ export const CadastroAlunos = () => {
                 </Select>
             </FormControl>
           </Box>
-          <Box sx={{ display: 'flex', gap: '40px', alignItems: 'center' }}>
-            <Box sx={{ width: '100%'}}>
+          <Box sx={{ display: 'flex', gap: '40px', alignItems: 'center', width: '100%', justifyContent: 'center'}}>
+            <Box sx={{ width: '100%', display: 'flex', justifyContent: 'center'}}>
                 <TextField
                     placeholder="Descrição"
                     multiline
-                    rows={2}
+                    rows={5}
+                    sx={{
+                      width: '500px'
+                    }}
                     id="descricao"
                     {...register('descricao')}
                     error={Boolean(errors?.descricao && errors.descricao)}
                     label={errors.descricao?.message ?? "Descrição"}  
                     />
-            </Box>
-            <Box sx={{ width: '100%'}}>                
+            </Box>            
+          </Box>
+          <Box sx={{ width: '100%', display: 'flex', justifyContent: 'center', mt: '20px'}}>                
                 <Button variant="contained" sx={{
                 height: '50px'
                 }} type="submit">
                 Salvar
                 </Button>
             </Box>
-          </Box>
         </Box>
         </Box>
     </Grid>
