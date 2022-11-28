@@ -20,6 +20,8 @@ import { useContext, useState } from "react";
 import { IUserForm } from "../../util/interface";
 import verificaForcaSenha from "../../util/forca-senha";
 import { HeaderLogin } from "../../components/HeaderLogin";
+import { AuthContext } from "../../context/AuthContext/AuthContext";
+import { HeaderPrincipal } from "../../components/HeaderPrincipal";
 export const CadastroUsuario: React.FC = () => {
 
   const { register, handleSubmit, reset, formState: { errors } } = useForm<IUserForm>({
@@ -27,6 +29,7 @@ export const CadastroUsuario: React.FC = () => {
   });
 
   const { createUser } = useContext(UserContext);
+  const { isLogged } = useContext(AuthContext);
   const [mensagemSenha, setMensagemSenha] = useState<string | undefined>(undefined);
 
   const validarSenha = (senha: string) => {
@@ -42,7 +45,9 @@ export const CadastroUsuario: React.FC = () => {
         alignItems: 'center',
         gap: '5%',
       }}>
-      <HeaderLogin />
+      {isLogged ?  //isLogged camada de proteção para não expor a token
+        <HeaderPrincipal /> :
+        <HeaderLogin />}
       <Box
         sx={{
           width: '80%',
@@ -64,7 +69,7 @@ export const CadastroUsuario: React.FC = () => {
           <Typography fontSize='25px' color='primary'>Cadastro de Usuário</Typography>
         </Box>
         <Box component='form' id='form' onSubmit={handleSubmit((data: IUserForm) => {
-          createUser(data);
+          createUser({ ...data }, "");
         })}
           sx={{
             display: 'flex',
@@ -118,8 +123,8 @@ export const CadastroUsuario: React.FC = () => {
                 error={Boolean(errors.senha && errors.senha.message)}
               />
             </FormControl>
-            <FormControl fullWidth error={Boolean(errors.confirmarSenha && errors.confirmarSenha.message)}>
-              <TextField type="password" id='confirmarSenha'  {...register("confirmarSenha")} variant="outlined"
+            <FormControl fullWidth error={Boolean(errors.senhaIgual && errors.senhaIgual.message)}>
+              <TextField type="password" id='senhaIgual'  {...register("senhaIgual")} variant="outlined"
                 label='Confirme a senha'
                 sx={{
                   width: '100%',
@@ -127,8 +132,8 @@ export const CadastroUsuario: React.FC = () => {
                     height: '10px'
                   }
                 }}
-                helperText={errors.confirmarSenha && errors.confirmarSenha.message ? errors.confirmarSenha.message : null}
-                error={Boolean(errors.confirmarSenha && errors.confirmarSenha.message)}
+                helperText={errors.senhaIgual && errors.senhaIgual.message ? errors.senhaIgual.message : null}
+                error={Boolean(errors.senhaIgual && errors.senhaIgual.message)}
               />
             </FormControl>
           </Box>
@@ -137,15 +142,16 @@ export const CadastroUsuario: React.FC = () => {
             justifyContent: 'start',
             gap: '40px',
           }}>
-            <FormControl fullWidth error={Boolean(errors.tipoUsuario && errors.tipoUsuario.message)} >
+            { isLogged ? 
+            <FormControl fullWidth error={Boolean(errors.cargo && errors.cargo.message)}  >
               <FormLabel htmlFor="tipo-usuario"> Tipo de usuário</FormLabel>
-              <Select error={Boolean(errors.tipoUsuario && errors.tipoUsuario.message)} id="tipo-usuario" defaultValue={"a"} labelId="label-tipo-usuario" size="small" {...register("tipoUsuario")} >
-                <MenuItem value="a" >Administrador</MenuItem>
-                <MenuItem value="i" >Instrutor(a)</MenuItem>
-                <MenuItem value="g" >Gestão de Pessoas</MenuItem>
-                <MenuItem value="t" >Gestor</MenuItem>
+              <Select error={Boolean(errors.cargo && errors.cargo.message)} id="tipo-usuario" defaultValue={"Administrador"} labelId="label-tipo-usuario" size="small" {...register("cargo")} >
+                <MenuItem value="Administrador" >Administrador</MenuItem>
+                <MenuItem value="Instrutor" >Instrutor(a)</MenuItem>
+                <MenuItem value="Gestão de Pessoas" >Gestão de Pessoas</MenuItem>
+                <MenuItem value="Gestor" >Gestor</MenuItem>
               </Select>
-            </FormControl>
+            </FormControl> : null }
             <FormControl fullWidth>
               <FormLabel>Enviar foto de perfil</FormLabel>
               <Button variant="contained" component="label">
