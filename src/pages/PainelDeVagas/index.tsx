@@ -85,7 +85,7 @@ const index = () => {
           justifyContent: 'center',
       }}
       >
-          <Typography fontSize='20px' color='primary'>Alunos</Typography>
+          <Typography fontSize='20px' color='primary'>Vagas</Typography>
       </Box>
       <Box
           sx={{
