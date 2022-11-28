@@ -79,7 +79,7 @@ export const CadastroVaga: React.FC = () => {
               error={Boolean(errors.idVaga && errors.idVaga.message)}
             />
             <TextField type="text" placeholder='Nome da vaga' id='nome' {...register('nome')} variant="outlined"
-              label='Descrição'
+              label='Vaga'
               sx={{
                 width: '100%',
                 "& .MuiInputBase-input": {
@@ -192,9 +192,9 @@ export const CadastroVaga: React.FC = () => {
           }}>
             <FormControl fullWidth error={Boolean(errors.situacao && errors.situacao.message)} >
               <FormLabel htmlFor="situacao"> Situação</FormLabel>
-              <Select error={Boolean(errors.situacao && errors.situacao.message)} id="situacao" defaultValue={"aberto"} labelId="situacao" size="small" {...register("situacao")} >
-                <MenuItem value="aberto" >Aberto</MenuItem>
-                <MenuItem value="fechado" >Fechado</MenuItem>
+              <Select error={Boolean(errors.situacao && errors.situacao.message)} id="situacao" defaultValue={"Aberto"} labelId="situacao" size="small" {...register("situacao")} >
+                <MenuItem value="Aberto" >Aberto</MenuItem>
+                <MenuItem value="Fechado" >Fechado</MenuItem>
               </Select>
             </FormControl>
             <FormControl fullWidth>
