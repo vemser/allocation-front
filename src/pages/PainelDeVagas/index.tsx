@@ -69,12 +69,12 @@ const index = () => {
       <HeaderPrincipal />
 
       <Box sx={{
-      width: '85%',
+      width: '95%',
       height: '90%',
       display: 'flex',
       flexDirection: 'column',
       gap: '15px',
-      p: '25px 40px',
+      p: '25px 20px',
       borderRadius:  '15px',
       boxShadow: '-5px 7px 15px -4px rgba(0,0,0,0.75)',
       margin: '30px'    
@@ -85,7 +85,7 @@ const index = () => {
           justifyContent: 'center',
       }}
       >
-          <Typography fontSize='20px' color='primary'>Vagas</Typography>
+          <Typography fontSize='25px' color='primary'>Vagas</Typography>
       </Box>
       <Box
           sx={{
@@ -94,15 +94,15 @@ const index = () => {
               alignItems: 'center',
               background:'#1e62fe',
               borderRadius:  '15px',
-              p: '30px',
+              p: '25px',
           }}
       >
       <Box sx={{
           background:'#1952d7',
           borderRadius:  '15px',
-          width: '95%',
+          width: '100%',
           height: '95%',
-          p: '10px',
+          p: '20px',
           display: 'flex',
           gap: '10px',
           justifyContent: 'center',

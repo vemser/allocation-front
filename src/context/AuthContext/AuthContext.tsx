@@ -19,10 +19,10 @@ export const AuthProvider = ({ children }: TChildren) => {
         user.email = user.email.toLowerCase()
         try {
             nProgress.start();
-            // const { data } = await API.post('/auth', user);
-            // localStorage.setItem('token', data);
-            // setToken(data);
-            navigate('/');
+            const { data } = await API.post('/auth', user);
+            localStorage.setItem('token', data);
+            setToken(data);
+            navigate('/painel-vagas');
 
         } catch (error) {
             console.error(error)
