@@ -4,7 +4,7 @@ import { useForm } from 'react-hook-form'
 import { Link } from 'react-router-dom';
 import { AvaliacaoTable } from "../../components/AvaliacaoTable";
 
-export const ListagemAvaliacao: React.FC = () => {
+export const DashAvaliacao: React.FC = () => {
 
     const { register, handleSubmit, reset } = useForm();
 

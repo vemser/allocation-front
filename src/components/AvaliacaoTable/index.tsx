@@ -15,20 +15,17 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import { Link } from 'react-router-dom';
 import { AvaliacaoContext } from '../../context/AvaliacaoContext';
 import { useContext, useState } from 'react';
-import ConfirmDialog from '../ConfirmDialog';
+import {ConfirmDialog, TOptionsConfirmDialog } from '../ConfirmDialog';
 
 export const AvaliacaoTable: React.FC = () => {
 
     const { deleteAvaliacao } = useContext(AvaliacaoContext);
-    const [open, setOpen] = useState(false);
 
-    const handleClickOpen = () => {
-        setOpen(true);
-    };
-
-    const handleClose = () => {
-        setOpen(false);
-    };
+    const [confirmDialog, setConfirmDialog] = useState<TOptionsConfirmDialog>({
+        isOpen: false,
+        title: "",
+        onConfirm: () => {}
+    });
 
     const rows: any = [
         {
@@ -125,16 +122,29 @@ export const AvaliacaoTable: React.FC = () => {
                                         </IconButton>
                                     </Link>
                                     <IconButton onClick={(event) => {
-                                        handleClickOpen();
+                                        setConfirmDialog({
+                                            isOpen: true,
+                                            title: 'Are you sure to delete this record?',
+                                            onConfirm: () => { 
+                                                setConfirmDialog({
+                                                    ...confirmDialog,
+                                                    isOpen: false
+                                                })
+                                                deleteAvaliacao(row.codigo) 
+                                            }
+                                        });
                                     }}>
                                         <DeleteIcon />
                                     </IconButton>
-                                    <ConfirmDialog open={open} onConfirm={() => deleteAvaliacao(row.codigo)} setOpen={setOpen} />
                                 </TableCell>
                             </TableRow>
                         ))}
                 </TableBody>
             </Table>
+            <ConfirmDialog
+                confirmDialog={confirmDialog}
+                setConfirmDialog={setConfirmDialog}
+            />
         </TableContainer>
     );
 }

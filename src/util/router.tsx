@@ -19,10 +19,11 @@ import { CadastroReservaAlocacao } from "../pages/CadastroReservaAlocacao";
 import { CadastroAlunos } from "../pages/CadastroAlunos";
 import { AlunoProvider } from "../context/AlunoContext";
 import { AvaliacaoProvider } from "../context/AvaliacaoContext";
-import { ListagemAvaliacao } from "../pages/ListagemAvaliacao";
+import { DashAvaliacao } from "../pages/DashAvaliacao";
 import { CadastroAvaliacao } from "../pages/CadastroAvaliacao";
 import { DashCadastroUsuarios } from "../pages/DashCadastroUsuarios";
 import { DashAluno } from "../pages/DashAluno";
+import { PaginaErro } from "../pages/PaginaErro";
 
 export const PrivateRoute = () => {
   const { token } = useContext(AuthContext);
@@ -53,8 +54,9 @@ function Router() {
                           <Route path='/cadastro-reserva-alocacao' element={<CadastroReservaAlocacao />} />
                           <Route path='/cadastro-alunos' element={<CadastroAlunos />} />
                           <Route path='/cadastro/avaliacao/:tipo' element={<CadastroAvaliacao />} />
-                          <Route path='/avaliacoes' element={<ListagemAvaliacao />} />                          
-                          <Route path='/dash-alunos' element={<DashAluno />} />                          
+                          <Route path='/avaliacoes' element={<DashAvaliacao />} />                          
+                          <Route path='/dash-alunos' element={<DashAluno />} />   
+                          <Route path='*' element={<PaginaErro />} />                       
                         </Route>
                       </Routes>
                     </AvaliacaoProvider>

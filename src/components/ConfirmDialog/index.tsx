@@ -1,22 +1,23 @@
 import { Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions, Button } from '@mui/material';
 import React from 'react';
 
-interface Props {
-  open: boolean,
-  setOpen(open:boolean): void,
-  onConfirm(): void
+export interface TOptionsConfirmDialog {
+    isOpen: boolean,
+    title: string,
+    onConfirm(): void
 }
 
-const ConfirmDialog: React.FC<Props> = (props) => {
+interface Props {
+  confirmDialog: TOptionsConfirmDialog,
+  setConfirmDialog(options:TOptionsConfirmDialog): void
+}
+
+export const ConfirmDialog: React.FC<Props> = ({confirmDialog, setConfirmDialog}:Props) => {
  
-    const handleClose = () => {
-      props.setOpen(false);
-    };
 
     return (
         <Dialog
-            open={props.open}
-            onClose={handleClose}
+            open={confirmDialog.isOpen}
             aria-labelledby="alert-dialog-title"
             aria-describedby="alert-dialog-description">
             <DialogTitle id="alert-dialog-title">
@@ -28,16 +29,11 @@ const ConfirmDialog: React.FC<Props> = (props) => {
                 </DialogContentText>
             </DialogContent>
             <DialogActions>
-                <Button onClick={() => props.setOpen(false)}>Cancelar</Button>
-                <Button onClick={() => {
-                    props.onConfirm();
-                    props.setOpen(false);
-                }} autoFocus>
+                <Button color='primary' onClick={() => setConfirmDialog({ ...confirmDialog, isOpen: false})}>Cancelar</Button>
+                <Button color='success' onClick={confirmDialog.onConfirm} autoFocus>
                     Confirmar
                 </Button>
             </DialogActions>
         </Dialog>
     );
 }
-
-export default ConfirmDialog;
