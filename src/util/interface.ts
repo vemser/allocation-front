@@ -1,7 +1,7 @@
 import { TPrograma, TUser, TVaga } from "./types";
 
 export interface IUserForm extends TUser {
-    confirmarSenha: string
+    cargo: string
 }
 
 export interface ISpanProps {
