@@ -35,7 +35,7 @@ export const HeaderPrincipal = () => {
                 </BoxSC>
 
                 <Box sx={{ display: 'flex', alignItems: 'center', textAlign: 'center', flexWrap: "wrap" }}>
-                    <Button sx={{ minWidth: 100 }}>Painel de Vagas</Button>
+                <LinkSC to='/painel-vagas'> <Button sx={{ minWidth: 100 }}>Painel de Vagas</Button></LinkSC>
                     <Button
                         id="basic-button"
                         aria-controls={open ? 'basic-menu' : undefined}
@@ -56,7 +56,7 @@ export const HeaderPrincipal = () => {
                     >
                         <LinkSC to='/alunos'><MenuItem onClick={handleClose}>Alunos</MenuItem></LinkSC>
                         <LinkSC to='/clientes'><MenuItem onClick={handleClose}>Clientes</MenuItem></LinkSC>
-                        <LinkSC to='/vagas'><MenuItem onClick={handleClose}>Vagas</MenuItem></LinkSC>
+                        <LinkSC to='/painel-vagas'><MenuItem onClick={handleClose}>Vagas</MenuItem></LinkSC>
                         <LinkSC to='/programas'><MenuItem onClick={handleClose}>Programas</MenuItem></LinkSC>
                         <LinkSC to='/avaliacoes'><MenuItem onClick={handleClose}>Avaliações</MenuItem></LinkSC>
                         <LinkSC to='/reserva-aloacao'><MenuItem onClick={handleClose}>Reserva e Alocação</MenuItem></LinkSC>
