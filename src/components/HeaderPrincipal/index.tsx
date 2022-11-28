@@ -70,7 +70,7 @@ export const HeaderPrincipal = () => {
                             aria-expanded={true ? 'true' : undefined}
                         >
                             <Typography sx={{ m: 0.5 }}>Nome do Usuário </Typography>
-                            <Avatar sx={{ width: 32, height: 32 }}>M</Avatar>
+                            <LinkSC to={'/perfil'}><Avatar sx={{ width: 32, height: 32 }}>M</Avatar></LinkSC>
                            
                         </IconButton>
                     </Tooltip>

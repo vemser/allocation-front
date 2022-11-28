@@ -24,6 +24,7 @@ import { CadastroAvaliacao } from "../pages/CadastroAvaliacao";
 import { DashCadastroUsuarios } from "../pages/DashCadastroUsuarios";
 import { DashAluno } from "../pages/DashAluno";
 import { PaginaErro } from "../pages/PaginaErro";
+import { Perfil } from "../pages/Perfil";
 
 export const PrivateRoute = () => {
   const { token } = useContext(AuthContext);
@@ -49,6 +50,7 @@ function Router() {
                           <Route path='/cadastro-vaga' element={<CadastroVaga />} />
                           <Route path='/painel-vagas' element={<PainelDeVagas />} />
                           <Route path='/alunos' element={<DashCadastroAluno />} />
+                          <Route path='/perfil' element={<Perfil />} />
                           <Route path='/usuarios' element={<DashCadastroUsuarios />} />
                           <Route path='/cadastro-programa' element={<CadastroPrograma />} />
                           <Route path='/cadastro-reserva-alocacao' element={<CadastroReservaAlocacao />} />
