@@ -83,7 +83,7 @@ export const DashAluno = () => {
             sx={{
               height: '50px'
             }}>
-              Cadastra usuário
+              Cadastra Aluno
             </Button></Link>
           </Box>
         </form>

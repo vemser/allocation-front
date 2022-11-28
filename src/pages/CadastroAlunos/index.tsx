@@ -15,7 +15,6 @@ export const CadastroAlunos = () => {
     });
 
     const { handleCreateAluno, setRadioValue, radioValue } = useContext(AlunoContext);
-    // const [ radioValue, setRadioValue] = useState<any>('');
 
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>)=> {
       setRadioValue(event.target.value)
