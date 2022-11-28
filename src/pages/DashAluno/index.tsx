@@ -110,7 +110,9 @@ export const DashAluno = () => {
 
         }}> 
 
-        {aluno.length == 0 ? (<Skeleton></Skeleton>) : 
+        {aluno.length == 0 || aluno == null? (
+        <Skeleton></Skeleton>
+        ) : 
 
             aluno.map((el:any) => (
                 <Box sx={{
