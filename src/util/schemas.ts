@@ -14,11 +14,12 @@ export const userLoginSchema = yup.object().shape({
 
 export const alunoSchema = yup.object().shape({
     nome: yup.string().required("Por favor, digite o nome completo").min(2, "O nome precisa ter no mínimo 2 caracteres"),
-    telefone: yup.string().required("Por favor, digite um número de telefone").min(11, "Por favor, digite um número de telefone válido"),
+    telefone: yup.string().required("Por favor, digite um número de telefone").min(10, "Por favor, digite um número de telefone válido"),
     cidade: yup.string().required("Por favor, informe a cidade"),
     estado: yup.string().required("Por favor, informe o estado"),
     email: yup.string().required("Por favor Digite seu e-mail").email('Por favor, digite um email válido'),
     // tipoVaga: yup.string().required(),
+    tecnologias: yup.string().required("Por favor Digite uma Linguagem"),
     edicao: yup.string(),
     descricao: yup.string().required("Por favor, preencha esse campo"),
 })

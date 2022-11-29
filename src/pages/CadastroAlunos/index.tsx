@@ -5,7 +5,12 @@ import { TAluno } from "../../util/types";
 import { alunoSchema } from "../../util/schemas";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { AlunoContext } from "../../context/AlunoContext";
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
+import DeleteIcon from '@mui/icons-material/Delete';
+import InputMask from "react-input-mask";
+import { toastConfig } from "../../util/toast";
+import { toast } from "react-toastify";
+
 
 
 export const CadastroAlunos = () => {
@@ -14,14 +19,36 @@ export const CadastroAlunos = () => {
       resolver:yupResolver(alunoSchema)
     });
 
-    const { handleCreateAluno, setRadioValue, radioValue } = useContext(AlunoContext);
+    const { handleCreateAluno, setRadioValue, radioValue, tecnologias, setTecnologias } = useContext(AlunoContext);
 
-    const handleChange = (event: React.ChangeEvent<HTMLInputElement>)=> {
+    const [tec, setTec] = useState<string>('');
+
+    const incrementTec = (event: React.ChangeEvent<HTMLInputElement>)=> {
+      // event.target.value.length == '' ? toast.error('Valor vazio', toastConfig) : setTec(event.target.value);
+      setTec(event.target.value)
+    } 
+    
+    const addTec = ()=>{          
+      setTecnologias([...tecnologias, tec]);
+      setTec('')
+    };
+
+    // useEffect(()=> {
+    //   console.log(tecnologias);
+    // }, [tecnologias]);
+
+
+    const deleteTec: any = (el: string)=>{      
+      setTecnologias(tecnologias.filter(r => r != el))
+    };
+
+
+    const handleChange = (event: any)=> {
       setRadioValue(event.target.value)
     }
 
     const handleCreate =(data: TAluno)=>{
-      handleCreateAluno(data)
+      handleCreateAluno(data);      
       reset();
     }
 
@@ -79,14 +106,14 @@ export const CadastroAlunos = () => {
               />
             <TextField type="tel" placeholder='Digite o número de telefone' id='telefone' {...register('telefone')} variant="outlined"                  
               error={Boolean(errors?.telefone && errors.telefone)}
-              label={errors.telefone?.message ?? "Telefone"} 
+              label={errors.telefone?.message ?? "Telefone"}               
               sx={{
                 width: '100%',
                 "& .MuiInputBase-input": {
                   height: '10px'
                 }
               }}                  
-              />
+              />                    
           </Box>
           <Box sx={{
             display: 'flex',
@@ -116,6 +143,74 @@ export const CadastroAlunos = () => {
           </Box>
           <Box sx={{
             display: 'flex',
+            width: '100%',
+            justifyContent: 'center',
+            gap: '40px'
+          }}>
+            <Box 
+            sx={{
+              width: '100%',
+              displar: 'flex',
+              alignItems: 'center',
+              gap: '20px'
+            }}
+            >              
+              <TextField type="text" placeholder='Tecnologias' id='tecnologias' variant="outlined"  {...register('tecnologias')}
+                label='Tecnologias'        
+                sx={{
+                  width: '50%',
+                  "& .MuiInputBase-input": {
+                    height: '10px'
+                  }
+                }}
+                value={tec}              
+                onChange={incrementTec}
+                />
+                <Button variant={"contained"} sx={{width: '20px', height: '40px'}} onClick={addTec}>
+                  +
+                </Button>
+            </Box>
+            <Box sx={{
+              border: '1px solid #ababab',
+              borderRadius: '15px',
+              p: '5px',
+              display: 'flex',
+              width: '100%',
+              height: '90px',
+              overflowX: 'auto',
+              alignItems: 'center',
+              gap: '10px'
+            }}>
+              {tecnologias.map((el)=>(
+                <Box key={el}
+                sx={{
+                  display: 'flex',
+                  border: '1px solid #ababab',
+                  borderRadius: '15px',
+                  p: '10px',
+                  height: '50px',
+                  gap: '5px'
+                }}
+                >
+                  {el}
+                  <Box sx={{ 
+                    width: '30px', 
+                    borderRadius: '50%', 
+                    background: 'red', 
+                    display: 'flex', 
+                    justigyContent: 'center',
+                    alignItems: 'center',
+                    cursor: 'pointer'
+                    }} onClick={()=> deleteTec(el)}>
+                    <DeleteIcon />
+                  </Box>
+                </Box>
+              ))}
+            </Box>
+
+          </Box>
+          <Box sx={{
+            display: 'flex',
             justifyContent: 'center',
             gap: '40px',
             alignItems: 'center'
@@ -138,7 +233,7 @@ export const CadastroAlunos = () => {
                 row                
                 id="tipoVaga"
                 value={radioValue}
-                onChange={handleChange}
+                onClick={handleChange}
                 sx={{
                   width: '70%',
                   border: '1px solid #ababab',
@@ -197,7 +292,7 @@ export const CadastroAlunos = () => {
                 }} type="submit">
                 Salvar
                 </Button>
-            </Box>
+          </Box>
         </Box>
         </Box>
     </Grid>
