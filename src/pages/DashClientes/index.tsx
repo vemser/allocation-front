@@ -31,7 +31,7 @@ export const DashClientes: React.FC = () => {
 
     //Pesquisar
     const pesquisar = (data: FieldValues) => {
-        setClientes(clientes.filter((item) => {
+        setClientes(clientes.filter((item: any) => {
             return item.idCliente.toString() === data.pesquisar || item.nome.toLowerCase().includes(data.pesquisar.toLowerCase())
                 || item.email.toLowerCase().includes(data.pesquisar.toLowerCase()) || item.telefone.includes(data.pesquisar);
         }));

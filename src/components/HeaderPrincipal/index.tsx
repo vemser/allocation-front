@@ -37,6 +37,7 @@ export const HeaderPrincipal = () => {
 
                 <Box sx={{ display: 'flex', alignItems: 'center', textAlign: 'center', flexWrap: "wrap" }}>
                 <LinkSC to='/painel-vagas'> <Button sx={{ minWidth: 100 }}>Painel de Vagas</Button></LinkSC>
+                <LinkSC to='/dash-alunos'> <Button sx={{ minWidth: 100 }}>Painel de Alunos</Button></LinkSC>
                     <Button
                         id="basic-button"
                         aria-controls={open ? 'basic-menu' : undefined}
