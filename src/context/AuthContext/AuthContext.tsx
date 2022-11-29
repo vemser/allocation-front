@@ -32,7 +32,6 @@ export const AuthProvider = ({ children }: TChildren) => {
         } finally {
             nProgress.done()
         }        
-        console.log(user);
     }
 
     const handleUserLogout = () => {

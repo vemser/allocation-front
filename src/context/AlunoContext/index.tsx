@@ -23,7 +23,7 @@ export const AlunoProvider = ({ children }: TChildren) =>{
         aluno.programa= "VemSer10ed";
         aluno.emProcesso = 'não';
         aluno.alocado = "DISPONÍVEL";
-        
+        JSON.stringify(aluno)
         try{
             nProgress.start();
             // API.defaults.headers.common["Authorization"] = token;
