@@ -16,18 +16,18 @@ export const AlunoProvider = ({ children }: TChildren) =>{
     const [tecnologias, setTecnologias] = useState<string[]>([])
     
     const handleCreateAluno = async (aluno : TAluno)=>{
-        aluno.tipoVaga = radioValue;
-        aluno.tipoVaga = aluno.tipoVaga.toUpperCase();
+        aluno.area = radioValue;
+        aluno.area = aluno.area.toUpperCase();
         aluno.tecnologias = tecnologias;
 
         aluno.programa= "VemSer10ed";
-        aluno.emProcesso = 'não';
-        aluno.alocado = "DISPONÍVEL";
-        JSON.stringify(aluno)
+        aluno.statusAluno = "ALOCADO";
+        // JSON.stringify(aluno)
+
         try{
             nProgress.start();
             // API.defaults.headers.common["Authorization"] = token;
-            // await API.post('/aluno', aluno)
+            // await API.post("/aluno", aluno)
             toast.success("Aluno cadastrado com sucesso!", toastConfig);
             console.log(aluno);
             setTecnologias([]);

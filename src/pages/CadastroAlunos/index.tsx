@@ -10,16 +10,25 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import InputMask from "react-input-mask";
 import { toastConfig } from "../../util/toast";
 import { toast } from "react-toastify";
+import { useLocation } from 'react-router-dom'
 
 
 
 export const CadastroAlunos = () => {
+    const { state } = useLocation();
+    console.log(state)
 
     const {register, handleSubmit, formState: { errors }, reset} = useForm<TAluno>({
       resolver:yupResolver(alunoSchema)
     });
 
     const { handleCreateAluno, setRadioValue, radioValue, tecnologias, setTecnologias } = useContext(AlunoContext);
+
+    useEffect(()=>{
+      setRadioValue(state != null? state.area.toLowerCase() : "frontend");
+      setTecnologias(state != null? state.tecnologias : [])
+    }, [])
+
 
     const [tec, setTec] = useState<string>('');
 
@@ -81,7 +90,7 @@ export const CadastroAlunos = () => {
           justifyContent: 'center',
         }}
         >
-            <Typography fontSize='25px' color='primary'>Cadastro de Aluno</Typography>
+            <Typography fontSize='25px' color='primary'>{state != null? "Editar Aluno" : "Cadastro de Aluno"}</Typography>
         </Box>
         <Box component='form' id='form' onSubmit={handleSubmit(handleCreate)}
         sx={{
@@ -102,7 +111,8 @@ export const CadastroAlunos = () => {
                 "& .MuiInputBase-input": {
                   height: '10px'
                 }
-              }}               
+              }}
+              defaultValue={state != null? state.nome : ""}               
               />
             <TextField type="tel" placeholder='Digite o número de telefone' id='telefone' {...register('telefone')} variant="outlined"                  
               error={Boolean(errors?.telefone && errors.telefone)}
@@ -112,7 +122,7 @@ export const CadastroAlunos = () => {
                 "& .MuiInputBase-input": {
                   height: '10px'
                 }
-              }}                  
+              }}             
               />                    
           </Box>
           <Box sx={{
@@ -128,7 +138,7 @@ export const CadastroAlunos = () => {
                 "& .MuiInputBase-input": {
                   height: '10px'
                 }
-              }}               
+              }}            
               />
             <TextField type="text" placeholder='Digite o seu nome' id='estado' {...register('estado')} variant="outlined"                  
               error={Boolean(errors?.estado && errors.estado)}
@@ -138,7 +148,7 @@ export const CadastroAlunos = () => {
                 "& .MuiInputBase-input": {
                   height: '10px'
                 }
-              }}                  
+              }}             
               />
           </Box>
           <Box sx={{
@@ -223,7 +233,8 @@ export const CadastroAlunos = () => {
                 "& .MuiInputBase-input": {
                   height: '10px'
                 }
-              }}               
+              }}    
+              defaultValue={state != null? state.email : ""}        
               />
             <FormControl sx={{              
               width: '100%',
@@ -231,7 +242,7 @@ export const CadastroAlunos = () => {
             }}>
               <RadioGroup
                 row                
-                id="tipoVaga"
+                id="area"
                 value={radioValue}
                 onClick={handleChange}
                 sx={{
@@ -243,6 +254,7 @@ export const CadastroAlunos = () => {
                   justifyContent: 'center'
 
               }}
+              // defaultValue={state != null? state.area.toLowerCase() : ""}
               >
                 <FormControlLabel value="frontend" control={<Radio />} label="Frontend" />
                 <FormControlLabel value="backend" control={<Radio />} label="Backend" />
@@ -262,8 +274,8 @@ export const CadastroAlunos = () => {
             }
           }}>
             <FormControl >
-                <FormLabel> Tipo de usuário *</FormLabel>
-                <Select id="edicao" defaultValue={"10edicao"}  size="small" {...register("edicao")} >
+                <FormLabel> Programa *</FormLabel>
+                <Select id="edicao" defaultValue={state != null? state.programa : "10edicao"}  size="small" {...register("edicao")} >
                   <MenuItem value="11edicao" sx={{ height:'30px' }}>11ª Edição</MenuItem>
                   <MenuItem value="10edicao" sx={{ height:'30px' }}>10ª Edição</MenuItem>
                   <MenuItem value="9edicao" sx={{ height:'30px' }}>9ª Edição</MenuItem>
@@ -282,7 +294,7 @@ export const CadastroAlunos = () => {
                     id="descricao"
                     {...register('descricao')}
                     error={Boolean(errors?.descricao && errors.descricao)}
-                    label={errors.descricao?.message ?? "Descrição"}  
+                    label={errors.descricao?.message ?? "Descrição"}
                     />
             </Box>            
           </Box>

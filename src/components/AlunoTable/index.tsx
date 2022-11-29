@@ -10,21 +10,28 @@ import TableRow from '@mui/material/TableRow';
 import {Button} from '@mui/material';
 import {Skeleton, Box} from '@mui/material'
 import { TableHeadSC } from './AlunoTable.styled';
+import { useNavigate } from 'react-router-dom'
 
 export default function AlunoTable() {
+  const navigate = useNavigate();
 
-    const rows:any = [
+
+    const alunos:any = [
         {
             id: '1',
             nome: 'João',
+            area: 'qa',
+            programa: '9edicao',
             email: 'joao@dbccompany.com.br',
-            area: 'qa'
-        },
-        {
+            tecnologias: ['testes unitários', 'testar alguma coisa']
+          },
+          {
             id: '2',
             nome: 'julia',
+            area: 'backend',
+            programa: '11edicao',
             email: 'julia@dbccompany.com.br',
-            area: 'backend'
+            tecnologias: ['java', 'node js']
         },             
     ];
 
@@ -42,7 +49,7 @@ export default function AlunoTable() {
           </TableRow>
         </TableHeadSC>
         <TableBody>
-          { rows.length == 0|| rows == ''?  
+          { alunos.length == 0|| alunos == ''?  
             <TableRow
               sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
               >              
@@ -53,16 +60,18 @@ export default function AlunoTable() {
               <TableCell align="center"><Skeleton  height={'60px'}/></TableCell>
             </TableRow>
               
-            : rows.map((row:any) => (
+            : alunos.map((aluno:any) => (
             <TableRow
-              key={row.id}
+              key={aluno.id}
               sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
             >
-              <TableCell component="th" scope="row" align="center"> {row.id} </TableCell>
-              <TableCell align="center">{row.nome}</TableCell>
-              <TableCell align="center">{row.email}</TableCell>
-              <TableCell align="center">{row.area}</TableCell>
-              <TableCell align="center"><Button variant="contained">Editar</Button></TableCell>
+              <TableCell component="th" scope="row" align="center"> {aluno.id} </TableCell>
+              <TableCell align="center">{aluno.nome}</TableCell>
+              <TableCell align="center">{aluno.email}</TableCell>
+              <TableCell align="center">{aluno.area}</TableCell>
+              <TableCell align="center">
+                <Button variant="contained" onClick={()=> navigate('/cadastro-alunos', {state: aluno})}>Editar</Button>
+              </TableCell>
             </TableRow>
           )) }
         </TableBody>
