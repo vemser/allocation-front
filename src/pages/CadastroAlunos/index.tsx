@@ -16,7 +16,6 @@ import { useLocation } from 'react-router-dom'
 
 export const CadastroAlunos = () => {
     const { state } = useLocation();
-    console.log(state)
 
     const {register, handleSubmit, formState: { errors }, reset} = useForm<TAluno>({
       resolver:yupResolver(alunoSchema)
