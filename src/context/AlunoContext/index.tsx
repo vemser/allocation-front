@@ -22,26 +22,12 @@ export const AlunoProvider = ({ children }: TChildren) =>{
         aluno.area = radioValue;
         aluno.area = aluno.area.toUpperCase();
         aluno.tecnologias = tecnologias;
-
-        aluno.programa= "VemSer10ed";
-        aluno.statusAluno = "ALOCADO";
-        // JSON.stringify(aluno)
-
+     
+        aluno.idPrograma = 3;
         try{
             nProgress.start();
-            // API.defaults.headers.common["Authorization"] = token;
-            // await API.post("/aluno", {
-            //     nome: aluno.nome,
-            //     email: aluno.email,
-            //     programa: aluno.programa,
-            //     area: aluno.area,
-            //     cidade: aluno.cidade,
-            //     estado: aluno.estado,
-            //     telefone: aluno.telefone,
-            //     descricao: aluno.descricao,
-            //     statusAluno: aluno.statusAluno,
-            //     tecnologias: aluno.tecnologias
-            // })
+            API.defaults.headers.common["Authorization"] = token;
+            await API.post("/aluno", aluno)        
             toast.success("Aluno cadastrado com sucesso!", toastConfig);
             console.log(aluno);
             setTecnologias([]);

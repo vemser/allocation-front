@@ -72,7 +72,8 @@ export type TAluno = {
     descricao: string,
     tecnologias: string[],
     programa: string,
-    statusAluno: string
+    statusAluno: string,
+    idPrograma: number
 }
 export type TVaga = {
     idVaga: number,
