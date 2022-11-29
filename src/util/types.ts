@@ -17,7 +17,9 @@ export type TUser = {
 
 export type TUserContext = {
     users: TUser[],
-    createUser: (data: TUser, cargo?: string) => Promise<void>
+    totalPages: number,
+    createUser: (data: TUser, cargo?: string) => Promise<void>,
+    getUsers:(page:number) => Promise<void>
 }
 export type TSpanProps = {
     texto?: string,
@@ -138,4 +140,23 @@ export type TAvaliacaoContext = {
     updateAvaliacao: (data: TAvaliacao) => Promise<void>,
     deleteAvaliacao: (id: number) => Promise<void>,
 
+}
+
+export type  TCliente ={
+    idCliente: number,
+    nome : string,
+    email : string,
+    telefone: string,
+    situacao: string
+}
+
+export type TClienteContext ={
+    totalPages: number,
+    clientes : TCliente[],
+    createCliente: (data: TCliente) => Promise<void>,
+    updateCliente: (data: TCliente, idCliente: number) => Promise<void>,
+    deleteCliente: (idCliente: number) => Promise<void>,
+    getClientes: (page:number) => Promise<void>,
+    setClientes:(clientes: TCliente[])=>void
+    
 }
