@@ -1,5 +1,5 @@
 import React from "react";
-import { IProgramaForm, IUserForm, IVagaForm } from "./interface";
+import { IProgramaForm, IUserForm, IUserLogged, IVagaForm } from "./interface";
 
 export type TChildren = {
     children: React.ReactNode;
@@ -29,11 +29,19 @@ export type TAuth = {
     senha: string
 }
 
+export type TCargo ={
+    idCargo? : number,
+    nome: string
+}
+
+
 export type TAuthContext = {
     handleUserLogin: (user: TAuth) => Promise<void>,
     handleUserLogout: () => void,
     token: string | null,
-    isLogged : boolean
+    userLogged?: IUserLogged,
+    isLogged : boolean,
+    handleUserLogged :() => Promise<void>
 }
 
 export type TAlunoContext = {

@@ -1,4 +1,4 @@
-import { TPrograma, TUser, TVaga } from "./types";
+import { TCargo, TPrograma, TUser, TVaga } from "./types";
 
 export interface IUserForm extends TUser {
     cargo: string
@@ -17,3 +17,6 @@ export interface IProgramaForm extends TPrograma {
 
 }
 
+export interface IUserLogged extends TUser {
+    cargos: TCargo[]
+}

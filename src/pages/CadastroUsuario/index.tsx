@@ -69,7 +69,7 @@ export const CadastroUsuario: React.FC = () => {
           <Typography fontSize='25px' color='primary'>Cadastro de Usuário</Typography>
         </Box>
         <Box component='form' id='form' onSubmit={handleSubmit((data: IUserForm) => {
-          createUser({ ...data }, "");
+          createUser({ ...data },(isLogged ? data.cargo : ""));
         })}
           sx={{
             display: 'flex',
@@ -145,11 +145,11 @@ export const CadastroUsuario: React.FC = () => {
             { isLogged ? 
             <FormControl fullWidth error={Boolean(errors.cargo && errors.cargo.message)}  >
               <FormLabel htmlFor="tipo-usuario"> Tipo de usuário</FormLabel>
-              <Select error={Boolean(errors.cargo && errors.cargo.message)} id="tipo-usuario" defaultValue={"Administrador"} labelId="label-tipo-usuario" size="small" {...register("cargo")} >
-                <MenuItem value="Administrador" >Administrador</MenuItem>
-                <MenuItem value="Instrutor" >Instrutor(a)</MenuItem>
-                <MenuItem value="Gestão de Pessoas" >Gestão de Pessoas</MenuItem>
-                <MenuItem value="Gestor" >Gestor</MenuItem>
+              <Select error={Boolean(errors.cargo && errors.cargo.message)} id="tipo-usuario" defaultValue={"ADMINISTRADOR"} labelId="label-tipo-usuario" size="small" {...register("cargo")} >
+                <MenuItem value="ADMINISTRADOR" >Administrador</MenuItem>
+                <MenuItem value="INSTRUTOR" >Instrutor(a)</MenuItem>
+                <MenuItem value="GESTAO_DE_PESSOAS" >Gestão de Pessoas</MenuItem>
+                <MenuItem value="GESTOR" >Gestor</MenuItem>
               </Select>
             </FormControl> : null }
             <FormControl fullWidth>

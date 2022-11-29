@@ -1,12 +1,31 @@
 import { Grid, Box, Typography, TextField, FormControl, FormLabel, Select, MenuItem, Button } from "@mui/material";
+import { useContext, useEffect } from "react";
 import { useForm } from 'react-hook-form'
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { toast } from "react-toastify";
 import { AvaliacaoTable } from "../../components/AvaliacaoTable";
 import { HeaderPrincipal } from "../../components/HeaderPrincipal";
+import { AuthContext } from "../../context/AuthContext/AuthContext";
+import { toastConfig } from "../../util/toast";
+import { podeAcessarTela } from "../../util/valida-senha";
 
 export const DashAvaliacao: React.FC = () => {
-
+    const roles = [
+        { nome: "ROLE_ADMINISTRADOR" },
+        { nome: "ROLE_GESTAO_DE_PESSOAS" },
+        // { nome: "ROLE_INSTRUTOR" }
+    ];
     const { register, handleSubmit, reset } = useForm();
+    const navigate = useNavigate();
+    const { userLogged } = useContext(AuthContext);
+
+    useEffect(() => {
+        if (userLogged && !podeAcessarTela(roles, userLogged)) {
+          toast.error("Usuário sem permissão.", toastConfig);
+          navigate('/painel-vagas');
+        }
+    
+      }, [userLogged]);
 
     return (
         <Grid
