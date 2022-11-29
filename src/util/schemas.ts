@@ -66,3 +66,10 @@ export const avaliacaoFormSchema = yup.object().shape({
     dataResposta: yup.string().required("Por favor, informe a data de resposta"),
     // situacao: yup.string().required("Por favor, informe a situação")
 });
+
+export const clienteFormSchema = yup.object().shape({
+    nome: yup.string().required("Por favor, informe o nome do cliente"),
+    email: yup.string().required("Por favor, informe o e-mail do cliente"),
+    telefone: yup.string().required("Por favor, informe um telefone"),
+    situacao: yup.string().required("Por favor, informe a situação")
+});

@@ -16,7 +16,7 @@ export const AuthProvider = ({ children }: TChildren) => {
     const navigate = useNavigate();
     const [token, setToken] = useState<string>(localStorage.getItem('token') || '');
     const isLogged = token !== undefined && token !== "";  //camada de segurança para não expor a token
-    const [userLogged, setUserLogged] = useState<IUserLogged>();
+    const [userLogged, setUserLogged] = useState<IUserLogged>(JSON.parse(localStorage.getItem('userLogged') || "{}"));
 
     const handleUserLogin = async (user: TAuth) => {
         user.email = user.email.toLowerCase()
@@ -25,7 +25,7 @@ export const AuthProvider = ({ children }: TChildren) => {
             const { data } = await API.post('/auth', user);
             localStorage.setItem('token', data);
             setToken(data);
-            API.defaults.headers.common['Authorization'] = "Bearer " + data;
+            API.defaults.headers.common['Authorization'] =  data;
             await handleUserLogged(); //busco as informações do usuario
             console.log(userLogged);
 
@@ -42,6 +42,7 @@ export const AuthProvider = ({ children }: TChildren) => {
 
     const handleUserLogout = () => {
         localStorage.removeItem('token');
+        localStorage.removeItem("userLogged");
         API.defaults.headers.common['Authorization'] = undefined;
         setToken('');
         navigate('/'); // Provisório enquanto não tem token
@@ -51,6 +52,7 @@ export const AuthProvider = ({ children }: TChildren) => {
     const handleUserLogged = async () => {
         const { data } = await API.get("/auth/logged");
         setUserLogged(data);
+        localStorage.setItem("userLogged", JSON.stringify(data));
         if (data && data.cargos.length === 0) {
             toast.error('Usuário sem permissão. Verifique com o Administrador.', toastConfig);
             handleUserLogout();

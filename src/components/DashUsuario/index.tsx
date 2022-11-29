@@ -79,7 +79,7 @@ export const DashUsuario = () => {
             }}>
               Filtrar
             </Button>
-            <Link to='/cadastro-usuario'><Button variant="contained"
+            <Link  style={{ textDecoration: 'none' }} to='/cadastro-usuario'><Button variant="contained"
             sx={{
               height: '50px'
             }}>

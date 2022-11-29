@@ -1,31 +1,46 @@
-import { Grid, Box, Typography, TextField, FormControl, FormLabel, Select, MenuItem, Button } from "@mui/material";
+import { Grid, Box, Typography, TextField, FormControl, FormLabel, Select, MenuItem, Button, InputAdornment } from "@mui/material";
 import { useContext, useEffect } from "react";
-import { useForm } from 'react-hook-form'
+import { Field, FieldValues, useForm } from 'react-hook-form'
 import { Link, useNavigate } from 'react-router-dom';
 import { toast } from "react-toastify";
-import { AvaliacaoTable } from "../../components/AvaliacaoTable";
+import { ClienteTable } from "../../components/ClienteTable";
 import { HeaderPrincipal } from "../../components/HeaderPrincipal";
 import { AuthContext } from "../../context/AuthContext/AuthContext";
+import { ClienteContext } from "../../context/ClienteContext";
 import { toastConfig } from "../../util/toast";
 import { podeAcessarTela } from "../../util/valida-senha";
+import SearchIcon from '@mui/icons-material/Search';
 
-export const DashAvaliacao: React.FC = () => {
+export const DashClientes: React.FC = () => {
     const roles = [
         { nome: "ROLE_ADMINISTRADOR" },
-        { nome: "ROLE_GESTAO_DE_PESSOAS" },
-        { nome: "ROLE_INSTRUTOR" }
+        { nome: "ROLE_GESTOR" }
     ];
     const { register, handleSubmit, reset } = useForm();
     const navigate = useNavigate();
     const { userLogged } = useContext(AuthContext);
+    const { clientes, getClientes, setClientes } = useContext(ClienteContext);
 
     useEffect(() => {
         if (userLogged && !podeAcessarTela(roles, userLogged)) {
-          toast.error("Usuário sem permissão.", toastConfig);
-          navigate('/painel-vagas');
+            toast.error("Usuário sem permissão.", toastConfig);
+            navigate('/painel-vagas');
         }
-    
-      }, [userLogged]);
+
+    }, [userLogged]);
+
+    //Pesquisar
+    const pesquisar = (data: FieldValues) => {
+        setClientes(clientes.filter((item) => {
+            return item.idCliente.toString() === data.pesquisar || item.nome.toLowerCase().includes(data.pesquisar.toLowerCase())
+                || item.email.toLowerCase().includes(data.pesquisar.toLowerCase()) || item.telefone.includes(data.pesquisar);
+        }));
+    }
+
+    const limpar = async () => {
+        await getClientes(1);
+        reset();
+    }
 
     return (
         <Grid
@@ -55,18 +70,23 @@ export const DashAvaliacao: React.FC = () => {
                         display: 'flex',
                         justifyContent: 'center',
                     }}
-                >
-                    <Typography fontSize='20px' color='primary'>Filtro</Typography>
+                ><Typography fontSize='20px' color='primary'>Clientes</Typography>
                 </Box>
-                <form>
+                <form onSubmit={handleSubmit(pesquisar)}>
                     <Box sx={{
                         display: 'flex',
                         justifyContent: 'center',
                         gap: '40px',
                     }}>
-                        <TextField type="text" placeholder='Digite o seu nome' id='nome' {...register('nome')} variant="outlined"
-
-                            label='Nome'
+                        <TextField type="text" id='pesquisar' {...register('pesquisar')} variant="outlined"
+                            InputProps={{
+                                endAdornment: (
+                                    <InputAdornment position="end">
+                                        <SearchIcon />
+                                    </InputAdornment>
+                                ),
+                            }}
+                            label='Pesquisar'
                             sx={{
                                 width: '100%',
                                 "& .MuiInputBase-input": {
@@ -74,16 +94,7 @@ export const DashAvaliacao: React.FC = () => {
                                 }
                             }}
                         />
-                        <TextField type="email" placeholder='Digite o seu nome' id='email' {...register('email')} variant="outlined"
 
-                            label='E-mail'
-                            sx={{
-                                width: '100%',
-                                "& .MuiInputBase-input": {
-                                    height: '10px'
-                                }
-                            }}
-                        />
                     </Box>
                     <Box sx={{
                         display: 'flex',
@@ -96,41 +107,29 @@ export const DashAvaliacao: React.FC = () => {
                             width: '200px'
                         }
                     }}>
-                        <FormControl >
-                            <FormLabel htmlFor="tipo-usuario"> Tipo de usuário *</FormLabel>
-                            <Select id="tipoVaga" defaultValue={"Frontend"} size="small" {...register("tipoVAaga")} >
-                                <MenuItem value="Frontend" sx={{ height: '30px' }}>Frontend</MenuItem>
-                                <MenuItem value="Backend" sx={{ height: '30px' }}>Backend</MenuItem>
-                                <MenuItem value="QA" sx={{ height: '30px' }}>QA</MenuItem>
-                            </Select>
-                        </FormControl>
-                        <Button variant="contained" sx={{
+
+                        <Button onClick={limpar} variant="contained" sx={{
+                            height: '50px'
+                        }}>
+                            Limpar
+                        </Button>
+                        <Button type="submit" variant="contained" sx={{
                             height: '50px'
                         }}>
                             Filtrar
                         </Button>
-                        <Link style={{ textDecoration: 'none' }} to='/cadastro/avaliacao/simples'>
+                        <Link style={{ textDecoration: 'none' }} to='/cadastro/cliente'>
                             <Button variant="contained"
                                 color="success"
                                 sx={{
                                     height: '50px'
                                 }}>
-                                Avaliação simples
+                                Cadastrar Cliente
                             </Button>
                         </Link>
-                        <Link style={{ textDecoration: 'none' }} to='/cadastro/avaliacao/entrevista'>
-                            <Button variant="contained"
-                                color="success"
-                                sx={{
-                                    height: '50px'
-                                }}>
-                                Entrevista
-                            </Button>
-                        </Link>
-
                     </Box>
                 </form>
-                <AvaliacaoTable />
+                <ClienteTable />
             </Box>
         </Grid>
     )

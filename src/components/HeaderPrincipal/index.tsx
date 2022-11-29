@@ -18,6 +18,7 @@ export const HeaderPrincipal = () => {
     const handleClose = () => {
         setAnchorEl(null);
     }
+    const {userLogged } = useContext(AuthContext);
     return (
         <Container>
             <Box sx={{
@@ -70,7 +71,7 @@ export const HeaderPrincipal = () => {
                             aria-haspopup="true"
                             aria-expanded={true ? 'true' : undefined}
                         >
-                            <Typography sx={{ m: 0.5 }}>Nome do Usuário </Typography>
+                            <Typography sx={{ m: 0.5 }}>{userLogged?.nomeCompleto} </Typography>
                             <LinkSC to={'/perfil'}><Avatar sx={{ width: 32, height: 32 }}>M</Avatar></LinkSC>
                            
                         </IconButton>
