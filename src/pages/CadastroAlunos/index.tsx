@@ -29,7 +29,7 @@ export const CadastroAlunos = () => {
     } 
     
     const addTec = ()=>{ 
-      tecnologias.includes(tec)? toast.error('Tecnologia já existe', toastConfig) : setTecnologias([...tecnologias, tec]);      
+      tecnologias.includes(tec.toLocaleLowerCase())? toast.error('Tecnologia já existe', toastConfig) : setTecnologias([...tecnologias, tec.toLocaleLowerCase()]);      
       setTec('')
     };
 
