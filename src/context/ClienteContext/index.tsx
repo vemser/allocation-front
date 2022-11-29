@@ -41,7 +41,6 @@ export const ClienteProvider = ({ children }: TChildren) => {
             nProgress.start();
             API.defaults.headers.common['Authorization'] = token;
             const { data } = await API.get(`/cliente?pagina=${(page-1)}&tamanho=20`);
-            console.log(data);
             setClientes(data.elementos);//a API retorna um objeto no qual os clientes estão no array elementos
             setTotalPages(data.quantidadePaginas);
         } catch (error) {
