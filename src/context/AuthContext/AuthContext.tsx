@@ -27,7 +27,6 @@ export const AuthProvider = ({ children }: TChildren) => {
             setToken(data);
             API.defaults.headers.common['Authorization'] =  data;
             await handleUserLogged(); //busco as informações do usuario
-            console.log(userLogged);
 
 
         } catch (error) {
@@ -37,7 +36,6 @@ export const AuthProvider = ({ children }: TChildren) => {
             nProgress.done()
         }        
         
-        console.log(user);
     }
 
     const handleUserLogout = () => {
