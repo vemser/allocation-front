@@ -19,7 +19,10 @@ export type TUserContext = {
     users: TUser[],
     totalPages: number,
     createUser: (data: TUser, cargo?: string) => Promise<void>,
-    getUsers:(page:number) => Promise<void>
+    getUsers:(page:number) => Promise<void>,
+    updateUser:(data:TUser, idUsuario: number, cargo:string) => Promise<void>,
+    deleteUser:(idUsuario: number) => Promise<void>,
+    setUsers:(usuarios: TUser[])=>void
 }
 export type TSpanProps = {
     texto?: string,

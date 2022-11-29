@@ -22,16 +22,22 @@ import verificaForcaSenha from "../../util/forca-senha";
 import { HeaderLogin } from "../../components/HeaderLogin";
 import { AuthContext } from "../../context/AuthContext/AuthContext";
 import { HeaderPrincipal } from "../../components/HeaderPrincipal";
+import { useLocation, useNavigate } from "react-router-dom";
 export const CadastroUsuario: React.FC = () => {
 
   const { register, handleSubmit, reset, formState: { errors } } = useForm<IUserForm>({
     resolver: yupResolver(userFormSchema)
   });
 
-  const { createUser } = useContext(UserContext);
-  const { isLogged } = useContext(AuthContext);
-  const [mensagemSenha, setMensagemSenha] = useState<string | undefined>(undefined);
 
+
+
+  const { createUser, updateUser } = useContext(UserContext);
+  const { isLogged, userLogged } = useContext(AuthContext);
+  const [mensagemSenha, setMensagemSenha] = useState<string | undefined>(undefined);
+  const navigate = useNavigate();
+  const { state } = useLocation();
+  const isEdicao = state !== null;
   const validarSenha = (senha: string) => {
     setMensagemSenha(verificaForcaSenha(senha));
   }
@@ -69,7 +75,12 @@ export const CadastroUsuario: React.FC = () => {
           <Typography fontSize='25px' color='primary'>Cadastro de Usuário</Typography>
         </Box>
         <Box component='form' id='form' onSubmit={handleSubmit((data: IUserForm) => {
-          createUser({ ...data },(isLogged ? data.cargo : ""));
+          if (!isLogged || (isLogged && !isEdicao)) {
+            createUser({ ...data }, (isLogged ? data.cargo : ""));
+          } else if (isLogged && isEdicao) {
+            updateUser(data, state.idUsuario, (data.cargo === "NENHUM" ? "" : data.cargo));
+          }
+
         })}
           sx={{
             display: 'flex',
@@ -83,6 +94,7 @@ export const CadastroUsuario: React.FC = () => {
           }}>
             <TextField type="text" placeholder='Nome Completo' id='nomeCompleto' {...register("nomeCompleto")} variant="outlined"
               label='Nome Completo'
+              defaultValue={isEdicao ? state.nomeCompleto : null}
               sx={{
                 width: '100%',
                 "& .MuiInputBase-input": {
@@ -94,6 +106,7 @@ export const CadastroUsuario: React.FC = () => {
             />
             <TextField type="email" placeholder='E-mail' id='email' {...register('email')} variant="outlined"
               label='E-mail'
+              defaultValue={isEdicao ? state.email : null}
               sx={{
                 width: '100%',
                 "& .MuiInputBase-input": {
@@ -113,6 +126,7 @@ export const CadastroUsuario: React.FC = () => {
             <FormControl fullWidth error={Boolean(errors.senha && errors.senha.message)}>
               <TextField type="password" id='senha'  {...register("senha", { onChange: (event) => { validarSenha(event.target.value) } })} variant="outlined"
                 label='Senha'
+                defaultValue={isEdicao ? state.senha : null}
                 sx={{
                   width: '100%',
                   "& .MuiInputBase-input": {
@@ -126,6 +140,7 @@ export const CadastroUsuario: React.FC = () => {
             <FormControl fullWidth error={Boolean(errors.senhaIgual && errors.senhaIgual.message)}>
               <TextField type="password" id='senhaIgual'  {...register("senhaIgual")} variant="outlined"
                 label='Confirme a senha'
+                defaultValue={isEdicao ? state.senhaIgual : null}
                 sx={{
                   width: '100%',
                   "& .MuiInputBase-input": {
@@ -142,16 +157,40 @@ export const CadastroUsuario: React.FC = () => {
             justifyContent: 'start',
             gap: '40px',
           }}>
-            { isLogged ? 
-            <FormControl fullWidth error={Boolean(errors.cargo && errors.cargo.message)}  >
-              <FormLabel htmlFor="tipo-usuario"> Tipo de usuário</FormLabel>
-              <Select error={Boolean(errors.cargo && errors.cargo.message)} id="tipo-usuario" defaultValue={"ADMINISTRADOR"} labelId="label-tipo-usuario" size="small" {...register("cargo")} >
-                <MenuItem value="ADMINISTRADOR" >Administrador</MenuItem>
-                <MenuItem value="INSTRUTOR" >Instrutor(a)</MenuItem>
-                <MenuItem value="GESTAO_DE_PESSOAS" >Gestão de Pessoas</MenuItem>
-                <MenuItem value="GESTOR" >Gestor</MenuItem>
-              </Select>
-            </FormControl> : null }
+            {isLogged ?
+              <FormControl fullWidth error={Boolean(errors.cargo && errors.cargo.message)}  >
+                <FormLabel htmlFor="tipo-usuario"> Tipo de usuário</FormLabel>
+                <Select
+                  error={Boolean(errors.cargo && errors.cargo.message)} id="tipo-usuario"
+                  defaultValue={isEdicao ? (state.cargo ?? "NENHUM") : "NENHUM"}
+                  labelId="label-tipo-usuario"
+                  size="small" {...register("cargo")} >
+                  <MenuItem
+                    disabled={userLogged?.cargos.filter((item) => item.nome === "ROLE_ADMINISTRADOR").length === 0}
+                    value="ADMINISTRADOR" >
+                    Administrador
+                  </MenuItem>
+                  <MenuItem
+                    disabled={userLogged?.cargos.filter((item) => item.nome === "ROLE_ADMINISTRADOR" || item.nome === "ROLE_GESTOR" || item.nome === "ROLE_GESTAO_DE_PESSOAS").length === 0}
+                    value="INSTRUTOR" >
+                    Instrutor(a)
+                  </MenuItem>
+                  <MenuItem
+                    disabled={userLogged?.cargos.filter((item) => item.nome === "ROLE_ADMINISTRADOR").length === 0}
+                    value="GESTAO_DE_PESSOAS"  >
+                    Gestão de Pessoas
+                  </MenuItem>
+                  <MenuItem
+                    disabled={userLogged?.cargos.filter((item) => item.nome === "ROLE_ADMINISTRADOR").length === 0}
+                    value="GESTOR" >
+                    Gestor
+                  </MenuItem>
+                  <MenuItem
+                    value="NENHUM" >
+                    Nenhum
+                  </MenuItem>
+                </Select>
+              </FormControl> : null}
             <FormControl fullWidth>
               <FormLabel>Enviar foto de perfil</FormLabel>
               <Button variant="contained" component="label">
@@ -160,14 +199,19 @@ export const CadastroUsuario: React.FC = () => {
               </Button>
             </FormControl>
           </Box>
-          <Box sx={{ display: 'flex', gap: '40px', justifyContent: 'center', alignItems: 'center' }}>
-            <Box sx={{ width: '100%', textAlign: 'center' }}>
-              <Button variant="contained" type="submit" sx={{
+          <Box sx={{ display: 'flex', gap: '40px', justifyContent: 'space-between', alignItems: 'center' }}>
+            <Box sx={{ textAlign: 'center' }}>
+              <Button variant="contained" onClick={() => navigate("/usuarios")} sx={{
                 height: '50px'
               }}>
-                Salvar
+                Voltar
               </Button>
             </Box>
+            <Button variant="contained" type="submit" color="success" sx={{
+              height: '50px'
+            }}>
+              Salvar
+            </Button>
           </Box>
         </Box>
       </Box>

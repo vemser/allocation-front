@@ -1,11 +1,9 @@
-import { Autocomplete, Box, Button, Container, FormControl, FormLabel, Grid, MenuItem, OutlinedInput, Select, TextField, Typography } from "@mui/material";
+import { Autocomplete, Box, Button, FormControl, FormLabel, Grid, MenuItem, Select, TextField, Typography } from "@mui/material";
 import { HeaderPrincipal } from "../../components/HeaderPrincipal";
-import { IVagaForm } from "../../util/interface";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
-import { clienteFormSchema, vagaFormSchema } from "../../util/schemas";
+import { clienteFormSchema } from "../../util/schemas";
 import { useContext, useEffect } from "react";
-import { VagaContext } from "../../context/VagaContext";
 import { toast } from "react-toastify";
 import { AuthContext } from "../../context/AuthContext/AuthContext";
 import { toastConfig } from "../../util/toast";
@@ -13,6 +11,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { podeAcessarTela } from "../../util/valida-senha";
 import { TCliente } from "../../util/types";
 import { ClienteContext } from "../../context/ClienteContext";
+import InputMask from "react-input-mask";
 
 export const CadastroCliente: React.FC = () => {
     const roles = [
@@ -125,7 +124,8 @@ export const CadastroCliente: React.FC = () => {
                         gap: '40px'
                     }}>
                         <FormControl fullWidth error={Boolean(errors.telefone && errors.telefone.message)}>
-                            <TextField type="text" id='telefone'  {...register("telefone")} variant="outlined"
+                            
+                            <TextField type="number" id='telefone'  {...register("telefone")} variant="outlined"
                                 label='Telefone'
                                 defaultValue={isEdicao ? state.telefone : undefined}
                                 sx={{
