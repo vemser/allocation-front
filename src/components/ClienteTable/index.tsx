@@ -38,8 +38,8 @@ export const ClienteTable: React.FC = () => {
                     <TableRow>
                         <TableCell align="center" sx={{ color: 'white' }}>Código</TableCell>
                         <TableCell align="center" sx={{ color: 'white' }}>Nome</TableCell>
-                        <TableCell align="center" sx={{ color: 'white' }}>Telefone</TableCell>
                         <TableCell align="center" sx={{ color: 'white' }}>E-mail</TableCell>
+                        <TableCell align="center" sx={{ color: 'white' }}>Telefone</TableCell>
                         <TableCell align="center" sx={{ color: 'white' }}>Situação</TableCell>
                         <TableCell align="center" sx={{ color: 'white' }}>Ações</TableCell>
                     </TableRow>
