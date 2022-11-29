@@ -54,7 +54,12 @@ export type TAlunoContext = {
     setRadioValue: React.Dispatch<any>,
     radioValue: string,
     setTecnologias: React.Dispatch<React.SetStateAction<string[]>>,
-    tecnologias: string[]
+    tecnologias: string[],
+    updateAluno: (data: TAluno, idCliente: number) => Promise<void>
+    deleteAluno: (idCliente: number) => Promise<void>,
+    getAlunos: (page: number) => Promise<void>,    
+    alunos: TAluno[],
+    totalPages: number
 }
 
 export type TAluno = {
@@ -64,7 +69,6 @@ export type TAluno = {
     estado: string,
     email: string,
     area: string,
-    edicao: string,
     descricao: string,
     tecnologias: string[],
     programa: string,

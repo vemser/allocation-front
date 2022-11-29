@@ -1,4 +1,4 @@
-import * as React from 'react';
+import { useContext, useEffect, useState } from 'react';
 import Paper from '@mui/material/Paper';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -10,30 +10,28 @@ import TableRow from '@mui/material/TableRow';
 import {Button} from '@mui/material';
 import {Skeleton, Box} from '@mui/material'
 import { TableHeadSC } from './AlunoTable.styled';
-import { useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom';
+import { ConfirmDialog, TOptionsConfirmDialog } from '../ConfirmDialog';
+import { ClienteContext } from '../../context/ClienteContext';
+import { ClientePagination } from '../ClientePagination';
+import { AlunoContext } from '../../context/AlunoContext';
+import { IconButton } from '@mui/material';
+import EditIcon from '@mui/icons-material/Edit';
+import DeleteIcon from '@mui/icons-material/Delete';
+import { AlunoPagination } from '../AlunoPagination';
+import Pagination from '@mui/material/Pagination';
 
 export default function AlunoTable() {
   const navigate = useNavigate();
 
+  const { alunos, deleteAluno, getAlunos, totalPages } = useContext(AlunoContext);
 
-    const alunos:any = [
-        {
-            id: '1',
-            nome: 'João',
-            area: 'qa',
-            programa: '9edicao',
-            email: 'joao@dbccompany.com.br',
-            tecnologias: ['testes unitários', 'testar alguma coisa']
-          },
-          {
-            id: '2',
-            nome: 'julia',
-            area: 'backend',
-            programa: '11edicao',
-            email: 'julia@dbccompany.com.br',
-            tecnologias: ['java', 'node js']
-        },             
-    ];
+  const [confirmDialog, setConfirmDialog] = useState<TOptionsConfirmDialog>({
+      isOpen: false,
+      title: "",
+      onConfirm: () => { }
+  });
+
 
     return(
 
@@ -49,7 +47,7 @@ export default function AlunoTable() {
           </TableRow>
         </TableHeadSC>
         <TableBody>
-          { alunos.length == 0|| alunos == ''?  
+          { alunos.length === 0|| alunos === undefined ?  
             <TableRow
               sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
               >              
@@ -62,20 +60,50 @@ export default function AlunoTable() {
               
             : alunos.map((aluno:any) => (
             <TableRow
-              key={aluno.id}
+              key={aluno.nome}
               sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
             >
               <TableCell component="th" scope="row" align="center"> {aluno.id} </TableCell>
               <TableCell align="center">{aluno.nome}</TableCell>
-              <TableCell align="center">{aluno.email}</TableCell>
+              {/* <TableCell align="center">{aluno.email}</TableCell> */}
               <TableCell align="center">{aluno.area}</TableCell>
               <TableCell align="center">
-                <Button variant="contained" onClick={()=> navigate('/cadastro-alunos', {state: aluno})}>Editar</Button>
+                <IconButton onClick={() => navigate('/cadastro-alunos', {state: aluno})}>
+                    <EditIcon />
+                </IconButton>
+
+                <IconButton onClick={(event) => {
+                    setConfirmDialog({
+                        isOpen: true,
+                        title: 'Confirma a exclusão desse registro?',
+                        onConfirm: () => {
+                            setConfirmDialog({
+                                ...confirmDialog,
+                                isOpen: false
+                            })
+                            deleteAluno(aluno.idCliente)
+                              }
+                        });
+                      }}>
+                      <DeleteIcon />
+                </IconButton>
+
+                {/* <Button variant="contained" onClick={()=> navigate('/cadastro-alunos', {state: aluno})}>Editar</Button> */}
               </TableCell>
             </TableRow>
           )) }
         </TableBody>
       </Table>
+          <AlunoPagination />
+          <Box sx={{
+            height: '40px',
+            width: '100%',
+            display: 'flex',
+            justifyContent: 'end',
+            alignItems: 'center'
+          }}>            
+            <Pagination count={totalPages} color="primary" />
+          </Box>
     </TableContainer>   
   );
 }
