@@ -74,7 +74,7 @@ export const UserProvider = ({ children }: TChildren) => {
     }
   }
 
-  const updateUser = async (data:TUser, idUsuario: number, cargo:string) => {
+  const updateUser = async (data: TUser, idUsuario: number, cargo: string) => {
     try {
       nProgress.start();
       API.defaults.headers.common['Authorization'] = token;
@@ -83,26 +83,26 @@ export const UserProvider = ({ children }: TChildren) => {
     } catch (error) {
       console.log(error);
       toast.error('Houve um erro inesperado ao listar os clientes.', toastConfig);
-      
-    } finally{
+
+    } finally {
       nProgress.done();
     }
   }
 
   const deleteUser = async (idUsuario: number) => {
     try {
-        nProgress.start();
-        await API.delete(`/usuario/deletar/${idUsuario}`); 
-        toast.success('Usuário deletado com sucesso!', toastConfig);
-        await getUsers(1);
-        navigate('/usuarios');
+      nProgress.start();
+      await API.delete(`/usuario/deletar/${idUsuario}`);
+      toast.success('Usuário deletado com sucesso!', toastConfig);
+      await getUsers(1);
+      navigate('/usuarios');
     } catch (error) {
-        console.log(error);
-        toast.error('Houve um erro inesperado ao deletar usuário.', toastConfig);
+      console.log(error);
+      toast.error('Houve um erro inesperado ao deletar usuário.', toastConfig);
     } finally {
-        nProgress.done();
+      nProgress.done();
     }
-}
+  }
 
 
   return (
