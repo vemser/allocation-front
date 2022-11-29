@@ -286,7 +286,7 @@ export const CadastroAlunos = () => {
             }}>
             <FormControl >
                 <FormLabel> Programa *</FormLabel>
-                <Select id="edicao" defaultValue={state != null? state.programa : "10edicao"}  size="small" {...register("edicao")} >
+                <Select id="programa" defaultValue={state != null? state.programa : "10edicao"}  size="small" {...register("programa")} >
                   <MenuItem value="11edicao" sx={{ height:'30px' }}>11ª Edição</MenuItem>
                   <MenuItem value="10edicao" sx={{ height:'30px' }}>10ª Edição</MenuItem>
                   <MenuItem value="9edicao" sx={{ height:'30px' }}>9ª Edição</MenuItem>

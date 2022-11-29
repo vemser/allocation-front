@@ -59,7 +59,6 @@ export type TAluno = {
     estado: string,
     email: string,
     area: string,
-    edicao: string,
     descricao: string,
     tecnologias: string[],
     programa: string,
