@@ -58,7 +58,7 @@ export const HeaderPrincipal = () => {
                         <LinkSC to='/usuarios'><MenuItem onClick={handleClose}>Usuários</MenuItem></LinkSC>
                         <LinkSC to='/clientes'><MenuItem onClick={handleClose}>Clientes</MenuItem></LinkSC>
                         <LinkSC to='/painel-vagas'><MenuItem onClick={handleClose}>Vagas</MenuItem></LinkSC>
-                        <LinkSC to='/programas'><MenuItem onClick={handleClose}>Programas</MenuItem></LinkSC>
+                        <LinkSC to='/cadastro-programa'><MenuItem onClick={handleClose}>Programas</MenuItem></LinkSC>
                         <LinkSC to='/avaliacoes'><MenuItem onClick={handleClose}>Avaliações</MenuItem></LinkSC>
                         <LinkSC to='/cadastro-reserva-alocacao'><MenuItem onClick={handleClose}>Reserva e Alocação</MenuItem></LinkSC>
                     </Menu>

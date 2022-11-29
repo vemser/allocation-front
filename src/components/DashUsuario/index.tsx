@@ -83,7 +83,7 @@ export const DashUsuario = () => {
             sx={{
               height: '50px'
             }}>
-              Cadastra usuário
+              Cadastrar usuário
             </Button></Link>
           </Box>
         </form>

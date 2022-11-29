@@ -15,9 +15,7 @@ import { podeAcessarTela } from "../../util/valida-senha";
 export const CadastroPrograma: React.FC = () => {
     const roles = [
         { nome: "ROLE_ADMINISTRADOR" },
-        { nome: "ROLE_GESTOR" },
-        { nome: "ROLE_GESTAO_DE_PESSOAS" },
-       { nome: "ROLE_INSTRUTOR" }
+        { nome: "ROLE_GESTOR" }
       ];
 
     const { register, handleSubmit, reset, formState: { errors } } = useForm<IProgramaForm>({
