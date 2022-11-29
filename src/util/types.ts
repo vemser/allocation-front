@@ -53,7 +53,10 @@ export type TAluno = {
     tipoVaga: string,
     edicao: string,
     descricao: string,
-    tecnologias: string[]
+    tecnologias: string[],
+    programa: string,
+    emProcesso: string,
+    alocado: string
 }
 export type TVaga = {
     idVaga: number,

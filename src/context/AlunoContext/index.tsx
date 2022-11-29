@@ -19,11 +19,15 @@ export const AlunoProvider = ({ children }: TChildren) =>{
         aluno.tipoVaga = radioValue;
         aluno.tipoVaga = aluno.tipoVaga.toUpperCase();
         aluno.tecnologias = tecnologias;
+
+        aluno.programa= "VemSer10ed";
+        aluno.emProcesso = 'não';
+        aluno.alocado = "DISPONÍVEL";
         
         try{
             nProgress.start();
-            API.defaults.headers.common["Authorization"] = token;
-            await API.post('/aluno', aluno)
+            // API.defaults.headers.common["Authorization"] = token;
+            // await API.post('/aluno', aluno)
             toast.success("Aluno cadastrado com sucesso!", toastConfig);
             console.log(aluno);
             setTecnologias([]);
