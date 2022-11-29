@@ -13,8 +13,9 @@ import { toast } from "react-toastify";
 import { AuthContext } from "../../context/AuthContext/AuthContext";
 import { useNavigate } from "react-router-dom";
 import { podeAcessarTela } from "../../util/valida-senha";
+import { useLocation } from 'react-router-dom'
 
-
+    
 export const CadastroAlunos = () => {
   //permissoes necessárias para acessar a tela
   const roles = [
@@ -23,6 +24,7 @@ export const CadastroAlunos = () => {
     { nome: "ROLE_GESTAO_DE_PESSOAS" },
     { nome: "ROLE_INSTRUTOR" }
   ];
+  const { state } = useLocation();
 
   const { register, handleSubmit, formState: { errors }, reset } = useForm<TAluno>({
     resolver: yupResolver(alunoSchema)
@@ -33,6 +35,11 @@ export const CadastroAlunos = () => {
   const { handleCreateAluno, setRadioValue, radioValue, tecnologias, setTecnologias } = useContext(AlunoContext);
 
   const [tec, setTec] = useState<string>('');
+    useEffect(()=>{
+      setRadioValue(state != null? state.area.toLowerCase() : "frontend");
+      setTecnologias(state != null? state.tecnologias : [])
+    }, [])
+
 
   const incrementTec = (event: React.ChangeEvent<HTMLInputElement>) => {
     // event.target.value.length <= 0 ? toast.error('Valor vazio', toastConfig) : setTec(event.target.value);
@@ -94,7 +101,7 @@ export const CadastroAlunos = () => {
             justifyContent: 'center',
           }}
         >
-          <Typography fontSize='25px' color='primary'>Cadastro de Aluno</Typography>
+            <Typography fontSize='25px' color='primary'>{state != null? "Editar Aluno" : "Cadastro de Aluno"}</Typography>
         </Box>
         <Box component='form' id='form' onSubmit={handleSubmit(handleCreate)}
           sx={{
@@ -116,8 +123,9 @@ export const CadastroAlunos = () => {
                   height: '10px'
                 }
               }}
-            />
-            <TextField type="tel" placeholder='Digite o número de telefone' id='telefone' {...register('telefone')} variant="outlined"
+              defaultValue={state != null? state.nome : ""}               
+              />
+            <TextField type="tel" placeholder='Digite o número de telefone' id='telefone' {...register('telefone')} variant="outlined"                  
               error={Boolean(errors?.telefone && errors.telefone)}
               label={errors.telefone?.message ?? "Telefone"}
               sx={{
@@ -125,8 +133,8 @@ export const CadastroAlunos = () => {
                 "& .MuiInputBase-input": {
                   height: '10px'
                 }
-              }}
-            />
+              }}             
+              />                    
           </Box>
           <Box sx={{
             display: 'flex',
@@ -141,9 +149,9 @@ export const CadastroAlunos = () => {
                 "& .MuiInputBase-input": {
                   height: '10px'
                 }
-              }}
-            />
-            <TextField type="text" placeholder='Digite o seu nome' id='estado' {...register('estado')} variant="outlined"
+              }}            
+              />
+            <TextField type="text" placeholder='Digite o seu nome' id='estado' {...register('estado')} variant="outlined"                  
               error={Boolean(errors?.estado && errors.estado)}
               label={errors.estado?.message ?? "Estado"}
               sx={{
@@ -151,8 +159,8 @@ export const CadastroAlunos = () => {
                 "& .MuiInputBase-input": {
                   height: '10px'
                 }
-              }}
-            />
+              }}             
+              />
           </Box>
           <Box sx={{
             display: 'flex',
@@ -236,15 +244,16 @@ export const CadastroAlunos = () => {
                 "& .MuiInputBase-input": {
                   height: '10px'
                 }
-              }}
-            />
-            <FormControl sx={{
+              }}    
+              defaultValue={state != null? state.email : ""}        
+              />
+            <FormControl sx={{              
               width: '100%',
               display: 'flex',
             }}>
               <RadioGroup
-                row
-                id="tipoVaga"
+                row                
+                id="area"
                 value={radioValue}
                 onClick={handleChange}
                 sx={{
@@ -255,7 +264,8 @@ export const CadastroAlunos = () => {
                   display: 'flex',
                   justifyContent: 'center'
 
-                }}
+              }}
+              // defaultValue={state != null? state.area.toLowerCase() : ""}
               >
                 <FormControlLabel value="frontend" control={<Radio />} label="Frontend" />
                 <FormControlLabel value="backend" control={<Radio />} label="Backend" />
@@ -275,29 +285,29 @@ export const CadastroAlunos = () => {
               }
             }}>
             <FormControl >
-              <FormLabel> Tipo de usuário *</FormLabel>
-              <Select id="edicao" defaultValue={"10edicao"} size="small" {...register("edicao")} >
-                <MenuItem value="11edicao" sx={{ height: '30px' }}>11ª Edição</MenuItem>
-                <MenuItem value="10edicao" sx={{ height: '30px' }}>10ª Edição</MenuItem>
-                <MenuItem value="9edicao" sx={{ height: '30px' }}>9ª Edição</MenuItem>
-              </Select>
+                <FormLabel> Programa *</FormLabel>
+                <Select id="edicao" defaultValue={state != null? state.programa : "10edicao"}  size="small" {...register("edicao")} >
+                  <MenuItem value="11edicao" sx={{ height:'30px' }}>11ª Edição</MenuItem>
+                  <MenuItem value="10edicao" sx={{ height:'30px' }}>10ª Edição</MenuItem>
+                  <MenuItem value="9edicao" sx={{ height:'30px' }}>9ª Edição</MenuItem>
+                </Select>
             </FormControl>
           </Box>
-          <Box sx={{ display: 'flex', gap: '40px', alignItems: 'center', width: '100%', justifyContent: 'center' }}>
-            <Box sx={{ width: '100%', display: 'flex', justifyContent: 'center' }}>
-              <TextField
-                placeholder="Descrição"
-                multiline
-                rows={5}
-                sx={{
-                  width: '500px'
-                }}
-                id="descricao"
-                {...register('descricao')}
-                error={Boolean(errors?.descricao && errors.descricao)}
-                label={errors.descricao?.message ?? "Descrição"}
-              />
-            </Box>
+          <Box sx={{ display: 'flex', gap: '40px', alignItems: 'center', width: '100%', justifyContent: 'center'}}>
+            <Box sx={{ width: '100%', display: 'flex', justifyContent: 'center'}}>
+                <TextField
+                    placeholder="Descrição"
+                    multiline
+                    rows={5}
+                    sx={{
+                      width: '500px'
+                    }}
+                    id="descricao"
+                    {...register('descricao')}
+                    error={Boolean(errors?.descricao && errors.descricao)}
+                    label={errors.descricao?.message ?? "Descrição"}
+                    />
+            </Box>            
           </Box>
           <Box sx={{ width: '100%', display: 'flex', justifyContent: 'center', mt: '20px' }}>
             <Button variant="contained" sx={{

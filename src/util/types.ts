@@ -58,13 +58,12 @@ export type TAluno = {
     cidade: string,
     estado: string,
     email: string,
-    tipoVaga: string,
+    area: string,
     edicao: string,
     descricao: string,
     tecnologias: string[],
     programa: string,
-    emProcesso: string,
-    alocado: string
+    statusAluno: string
 }
 export type TVaga = {
     idVaga: number,
