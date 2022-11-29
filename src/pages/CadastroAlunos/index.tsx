@@ -24,12 +24,12 @@ export const CadastroAlunos = () => {
     const [tec, setTec] = useState<string>('');
 
     const incrementTec = (event: React.ChangeEvent<HTMLInputElement>)=> {
-      // event.target.value.length == '' ? toast.error('Valor vazio', toastConfig) : setTec(event.target.value);
+      // event.target.value.length <= 0 ? toast.error('Valor vazio', toastConfig) : setTec(event.target.value);
       setTec(event.target.value)
     } 
     
-    const addTec = ()=>{          
-      setTecnologias([...tecnologias, tec]);
+    const addTec = ()=>{ 
+      tecnologias.includes(tec)? toast.error('Tecnologia já existe', toastConfig) : setTecnologias([...tecnologias, tec]);      
       setTec('')
     };
 
