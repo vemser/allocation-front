@@ -25,6 +25,9 @@ import { DashCadastroUsuarios } from "../pages/DashCadastroUsuarios";
 import { DashAluno } from "../pages/DashAluno";
 import { PaginaErro } from "../pages/PaginaErro";
 import { Perfil } from "../pages/Perfil";
+import { CadastroCliente } from "../pages/CadastroCliente";
+import { ClienteProvider } from "../context/ClienteContext";
+import { DashClientes } from "../pages/DashClientes";
 
 export const PrivateRoute = () => {
   const { token } = useContext(AuthContext);
@@ -43,26 +46,30 @@ function Router() {
                 <ReservaAlocacaoProvider>
                   <AlunoProvider>
                     <AvaliacaoProvider>
-                      <Routes>
-                        <Route index element={<Login />} />
-                        <Route path='/cadastro-usuario' element={<CadastroUsuario />} />
-                        <Route element={<PrivateRoute />}>
-                          <Route path='/cadastro-vaga' element={<CadastroVaga />} />
-                          <Route path='/painel-vagas' element={<PainelDeVagas />} />
-                          <Route path='/alunos' element={<DashCadastroAluno />} />
-                          <Route path='/perfil' element={<Perfil />} />
-                          <Route path='/usuarios' element={<DashCadastroUsuarios />} />
-                          <Route path='/cadastro-programa' element={<CadastroPrograma />} />
-                          <Route path='/cadastro-reserva-alocacao' element={<CadastroReservaAlocacao />} />
-                          <Route path='/cadastro-alunos' element={<CadastroAlunos />} />
-                          <Route path='/cadastro/avaliacao/:tipo' element={<CadastroAvaliacao />} />
-                          <Route path='/avaliacoes' element={<DashAvaliacao />} />                          
-                          <Route path='/dash-alunos' element={<DashAluno />} />   
-                          <Route path='*' element={<PaginaErro />} />                       
-                        </Route>
-                      </Routes>
+                      <ClienteProvider>
+                        <Routes>
+                          <Route index element={<Login />} />
+                          <Route path='/cadastro-usuario' element={<CadastroUsuario />} />
+                          <Route element={<PrivateRoute />}>
+                            <Route path='/cadastro-vaga' element={<CadastroVaga />} />
+                            <Route path='/painel-vagas' element={<PainelDeVagas />} />
+                            <Route path='/alunos' element={<DashCadastroAluno />} />
+                            <Route path='/perfil' element={<Perfil />} />
+                            <Route path='/usuarios' element={<DashCadastroUsuarios />} />
+                            <Route path='/cadastro-programa' element={<CadastroPrograma />} />
+                            <Route path='/cadastro-reserva-alocacao' element={<CadastroReservaAlocacao />} />
+                            <Route path='/cadastro-alunos' element={<CadastroAlunos />} />
+                            <Route path='/cadastro/avaliacao/:tipo' element={<CadastroAvaliacao />} />
+                            <Route path='/avaliacoes' element={<DashAvaliacao />} />
+                            <Route path='/dash-alunos' element={<DashAluno />} />
+                            <Route path='/clientes' element={<DashClientes />} />
+                            <Route path='/cadastro/cliente' element={<CadastroCliente />} />
+                            <Route path='*' element={<PaginaErro />} />
+                          </Route>
+                        </Routes>
+                      </ClienteProvider>
                     </AvaliacaoProvider>
-                  </AlunoProvider>  
+                  </AlunoProvider>
                 </ReservaAlocacaoProvider>
               </ProgramaProvider>
             </VagaProvider>

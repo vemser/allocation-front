@@ -18,6 +18,7 @@ export const HeaderPrincipal = () => {
     const handleClose = () => {
         setAnchorEl(null);
     }
+    const {userLogged } = useContext(AuthContext);
     return (
         <Container>
             <Box sx={{
@@ -36,6 +37,7 @@ export const HeaderPrincipal = () => {
 
                 <Box sx={{ display: 'flex', alignItems: 'center', textAlign: 'center', flexWrap: "wrap" }}>
                 <LinkSC to='/painel-vagas'> <Button sx={{ minWidth: 100 }}>Painel de Vagas</Button></LinkSC>
+                <LinkSC to='/dash-alunos'> <Button sx={{ minWidth: 100 }}>Painel de Alunos</Button></LinkSC>
                     <Button
                         id="basic-button"
                         aria-controls={open ? 'basic-menu' : undefined}
@@ -70,7 +72,7 @@ export const HeaderPrincipal = () => {
                             aria-haspopup="true"
                             aria-expanded={true ? 'true' : undefined}
                         >
-                            <Typography sx={{ m: 0.5 }}>Nome do Usuário </Typography>
+                            <Typography sx={{ m: 0.5 }}>{userLogged?.nomeCompleto} </Typography>
                             <LinkSC to={'/perfil'}><Avatar sx={{ width: 32, height: 32 }}>M</Avatar></LinkSC>
                            
                         </IconButton>

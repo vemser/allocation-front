@@ -14,8 +14,9 @@ export const UserContext = createContext({} as TUserContext);
 
 export const UserProvider = ({ children }: TChildren) => {
   const navigate = useNavigate();
+  const [totalPages, setTotalPages] = useState(0);
   const [users, setUsers] = useState<TUser[]>([]); //lista para armazenar os usuários cadastrados
-  const { isLogged } = useContext(AuthContext);
+  const { isLogged, token } = useContext(AuthContext);
 
   const createUser = async (data: TUser, cargo?: string) => {
     try {
@@ -47,10 +48,31 @@ export const UserProvider = ({ children }: TChildren) => {
     } catch (error) {
       console.log(error);
       toast.error('Houve um erro inesperado ao cadastrar usuário.', toastConfig);
+    } finally {
+      nProgress.done();
     }
   }
+
+  const getUsers= async (page: number) => {
+    try {
+        nProgress.start();
+        API.defaults.headers.common['Authorization'] = token;
+        const { data } = await API.get(`/usuario/listAllUsers?paginaQueEuQuero=${(page-1)}&tamanhoDeRegistrosPorPagina=10`);
+        console.log(data);
+        setUsers(data.elementos);
+        setTotalPages(data.quantidadePaginas);
+    } catch (error) {
+        console.log(error);
+        toast.error('Houve um erro inesperado ao listar os clientes.', toastConfig);
+    } finally {
+        nProgress.done();
+    }
+}
+
+
+
   return (
-    <UserContext.Provider value={{ users, createUser }}>
+    <UserContext.Provider value={{ users, createUser, getUsers, totalPages }}>
       {children}
     </UserContext.Provider>
   )

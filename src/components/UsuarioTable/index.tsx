@@ -10,24 +10,12 @@ import TableRow from '@mui/material/TableRow';
 import {Button} from '@mui/material';
 import {Skeleton, Box} from '@mui/material'
 import { TableHeadSC } from './UsuarioTable.styled';
+import { UsuarioPagination } from '../UsuarioPagination';
+import { useContext } from 'react';
+import { UserContext } from '../../context/UserContext';
 
-export default function UsuaioTable() {
-
-    const rows:any = [
-        {
-            id: '1',
-            nome: 'João',
-            email: 'joao@dbccompany.com.br',
-            perfil: 'Instrutor'
-        },
-        {
-            id: '2',
-            nome: 'julia',
-            email: 'julia@dbccompany.com.br',
-            perfil: 'Gestão de Pessoa'
-        },             
-    ];
-
+export default function UsuarioTable() {
+const {users} = useContext(UserContext);
     return(
 
       <TableContainer component={Paper}>
@@ -42,7 +30,7 @@ export default function UsuaioTable() {
           </TableRow>
         </TableHeadSC>
         <TableBody>
-          { rows.length == 0|| rows == ''?  
+          { users === undefined || users.length === 0?  
             <TableRow
               sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
               >              
@@ -53,13 +41,13 @@ export default function UsuaioTable() {
               <TableCell align="center"><Skeleton  height={'60px'}/></TableCell>
             </TableRow>
               
-            : rows.map((row:any) => (
+            : users.map((row:any) => (
             <TableRow
-              key={row.id}
+              key={row.idUsuario}
               sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
             >
-              <TableCell component="th" scope="row" align="center"> {row.id} </TableCell>
-              <TableCell align="center">{row.nome}</TableCell>
+              <TableCell component="th" scope="row" align="center"> {row.idUsuario} </TableCell>
+              <TableCell align="center">{row.nomeCompleto}</TableCell>
               <TableCell align="center">{row.email}</TableCell>
               <TableCell align="center">{row.perfil}</TableCell>
               <TableCell align="center">
@@ -85,6 +73,7 @@ export default function UsuaioTable() {
           )) }
         </TableBody>
       </Table>
+      <UsuarioPagination/>
     </TableContainer>   
   );
 }
