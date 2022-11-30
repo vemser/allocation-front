@@ -33,11 +33,17 @@ export const VagaProvider = ({ children }: TChildren) => {
     }
 
     const getVagas = async ()=> {
+        
+    }
+
+    const deleteVaga = async (id: number)=> {
 
     }
+
+
     getVagas()
     return (
-        <VagaContext.Provider value={{ vagas, createVaga }}>
+        <VagaContext.Provider value={{ vagas, createVaga, deleteVaga }}>
             {children}
         </VagaContext.Provider>
     )

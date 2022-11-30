@@ -91,7 +91,8 @@ export type TVaga = {
 
 export type TVagaContext = {
     vagas: TVaga[],
-    createVaga: (data: IVagaForm) => Promise<void>
+    createVaga: (data: IVagaForm) => Promise<void>,
+    deleteVaga: (id: number) => Promise<void>
 }
 
 export type TPrograma = {

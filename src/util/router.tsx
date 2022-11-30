@@ -7,7 +7,7 @@ import { AuthContext, AuthProvider } from "../context/AuthContext/AuthContext";
 import { useContext } from "react";
 import { CadastroUsuario } from "../pages/CadastroUsuario";
 import { Login } from "../pages/Login";
-import PainelDeVagas from "../pages/PainelDeVagas";
+import {PainelDeVagas} from "../pages/PainelDeVagas";
 import { DbcTheme } from "../themes";
 import { DashCadastroAluno } from "../pages/DashCadastroAluno";
 import { CadastroVaga } from "../pages/CadastroVaga";
