@@ -92,6 +92,7 @@ export const DashAluno = () => {
     //     },
     // ]
 
+
     return (
         <Grid
             sx={{
@@ -234,9 +235,9 @@ export const DashAluno = () => {
                         display: 'flex',
                         flexDirection: 'column',
                         justifyContent: 'space-between',
-                        p: '15px'
+                        p: '15px',
                     }}
-                    key={el.codigo}
+                    key={el.idAluno}
                     >
                         <Box sx={{
                             display:'flex',
@@ -246,7 +247,7 @@ export const DashAluno = () => {
                             mb: '15px'
                         }}> 
                             <Box>
-                                <Typography sx={{fontSize: '12px'}}><strong>Código: </strong>{el.codigo}</Typography>
+                                <Typography sx={{fontSize: '12px'}}><strong>Código: </strong>{el.idAluno}</Typography>
                             </Box>
                             <Box sx={{
                             display:'flex',
@@ -273,7 +274,7 @@ export const DashAluno = () => {
                                                 ...confirmDialog,
                                                 isOpen: false
                                             })
-                                            deleteAluno(el.idPrograma)
+                                            deleteAluno(el.idAluno)
                                             }
                                         });
                                     }} sx={{
@@ -292,17 +293,18 @@ export const DashAluno = () => {
                             </Box>
                         </Box>
                         <Box sx={{
+                            width: '100%',
                             display:'flex',
                             gap: '5px',
-                            flexDirection: 'column'
-                        }}>
-                        
-                        <Typography sx={{fontSize: '12px'}}><strong>Nome: </strong>{el.nome}</Typography>
-                        <Typography sx={{fontSize: '12px'}}><strong>Área: </strong>{el.area}</Typography>
-                        <Typography sx={{fontSize: '12px'}}><strong>Programa: </strong>{el.programa}</Typography>
-                        <Typography sx={{fontSize: '12px'}}><strong>Processo: </strong>{el.processo}</Typography>
-                        <Typography sx={{fontSize: '12px'}}><strong>Alocado: </strong>{el.alocado}</Typography>
-                        <Typography sx={{fontSize: '12px'}}><strong>E-mail: </strong>{el.emainl}</Typography>
+                            flexDirection: 'column',
+                        }}>                                              
+
+                        <Typography sx={{fontSize: '12px', wordWrap: 'break-word'}}><strong>Nome: </strong>{el.nome}</Typography>
+                        <Typography sx={{fontSize: '12px', wordWrap: 'break-word'}}><strong>Área: </strong>{el.area}</Typography>
+                        <Typography sx={{fontSize: '12px', wordWrap: 'break-word'}}><strong>Programa: </strong>{el.programa}</Typography>
+                        <Typography sx={{fontSize: '12px', wordWrap: 'break-word'}}><strong>Processo: </strong>{el.emProcesso}</Typography>
+                        <Typography sx={{fontSize: '12px', wordWrap: 'break-word'}}><strong>Alocado: </strong>{el.statusAluno}</Typography>
+                        <Typography sx={{fontSize: '12px', wordWrap: 'break-word'}}><strong>E-mail: </strong>{el.email}</Typography>
 
                         </Box>   
                         <Box sx={{

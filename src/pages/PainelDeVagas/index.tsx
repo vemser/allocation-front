@@ -242,13 +242,13 @@ const clicou = (data :any) =>{
                             gap: '5px',
                             flexDirection: 'column'
                         }}>
-                        <Typography sx={{fontSize: '12px'}}><strong>Nome: </strong>{el.nome}</Typography>
-                        <Typography sx={{fontSize: '12px'}}><strong>Descrição: </strong>{el.observacoes}</Typography>
-                        <Typography sx={{fontSize: '12px'}}><strong>Vagas: </strong>{el.quantidade} vaga</Typography>
-                        <Typography sx={{fontSize: '12px'}}><strong>Situação: </strong>{el.situacao}</Typography>
-                        <Typography sx={{fontSize: '12px'}}><strong>E-mail do cliente: </strong>{el.emailCliente}</Typography>
-                        <Typography sx={{fontSize: '12px'}}><strong>Data de abertura: </strong>{el.dataAbertura.split('-').reverse().join('-')}</Typography>
-                        <Typography sx={{fontSize: '12px'}}><strong>Data de fechamento: </strong>{el.dataFechamento.split('-').reverse().join('-')}</Typography>
+                        <Typography sx={{fontSize: '12px', wordWrap: 'break-word'}}><strong>Nome: </strong>{el.nome}</Typography>
+                        <Typography sx={{fontSize: '12px', wordWrap: 'break-word'}}><strong>Descrição: </strong>{el.observacoes}</Typography>
+                        <Typography sx={{fontSize: '12px', wordWrap: 'break-word'}}><strong>Vagas: </strong>{el.quantidade} vaga</Typography>
+                        <Typography sx={{fontSize: '12px', wordWrap: 'break-word'}}><strong>Situação: </strong>{el.situacao}</Typography>
+                        <Typography sx={{fontSize: '12px', wordWrap: 'break-word'}}><strong>E-mail do cliente: </strong>{el.emailCliente}</Typography>
+                        <Typography sx={{fontSize: '12px', wordWrap: 'break-word'}}><strong>Data de abertura: </strong>{el.dataAbertura.split('-').reverse().join('-')}</Typography>
+                        <Typography sx={{fontSize: '12px', wordWrap: 'break-word'}}><strong>Data de fechamento: </strong>{el.dataFechamento.split('-').reverse().join('-')}</Typography>
                         </Box>   
                         <Box sx={{
                             marginTop: '20px',

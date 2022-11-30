@@ -55,7 +55,6 @@ export const AlunoProvider = ({ children }: TChildren) =>{
         }
     }  
 
-
     const updateAluno = async (data: TAluno, idCliente: number) => {
         try {
             nProgress.start();
@@ -71,13 +70,13 @@ export const AlunoProvider = ({ children }: TChildren) =>{
         }
     }
 
-    const deleteAluno = async (idCliente: number) => {
+    const deleteAluno = async (idAluno: number) => {
         try {
             nProgress.start();
-            await API.delete(`/cliente/${idCliente}`);
+            await API.delete(`/aluno/${idAluno}`);
             toast.success('Cliente deletado com sucesso!', toastConfig);
             await getAlunos(1);
-            navigate('/alunos');
+            navigate('/dash-alunos');
         } catch (error) {
             console.log(error);
             toast.error('Houve um erro inesperado ao deletar cliente.', toastConfig);
