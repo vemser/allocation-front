@@ -12,6 +12,7 @@ import { VagaContext } from "../../context/VagaContext";
 import { ConfirmDialog, TOptionsConfirmDialog } from '../../components/ConfirmDialog';
 import SearchIcon from '@mui/icons-material/Search';
 import { VagasPagination } from "../../components/VagasPagination";
+import { VagasPainelPagination } from "../../components/VagasPainelPagination";
 
 
 export const PainelDeVagas = () => {
@@ -273,7 +274,11 @@ const clicou = (data :any) =>{
             }
             </Box>  
             </Box> 
-            <VagasPagination />
+            <ConfirmDialog
+            confirmDialog={confirmDialog}
+            setConfirmDialog={setConfirmDialog}
+            />
+            <VagasPainelPagination />
       </Box>
   </Grid>
   );

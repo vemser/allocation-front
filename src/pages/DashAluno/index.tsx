@@ -327,6 +327,10 @@ export const DashAluno = () => {
             </Box>  
             </Box> 
             {/* <AlunoPagination /> */}
+            <ConfirmDialog
+                confirmDialog={confirmDialog}
+                setConfirmDialog={setConfirmDialog}
+            />
         </Box>
         </Grid>
     )
