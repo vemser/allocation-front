@@ -28,6 +28,7 @@ import { Perfil } from "../pages/Perfil";
 import { CadastroCliente } from "../pages/CadastroCliente";
 import { ClienteProvider } from "../context/ClienteContext";
 import { DashClientes } from "../pages/DashClientes";
+import { DashPrograma } from "../pages/DashPrograma";
 
 export const PrivateRoute = () => {
   const { token } = useContext(AuthContext);
@@ -57,6 +58,7 @@ function Router() {
                             <Route path='/perfil' element={<Perfil />} />
                             <Route path='/usuarios' element={<DashCadastroUsuarios />} />
                             <Route path='/cadastro-programa' element={<CadastroPrograma />} />
+                            <Route path='/programas' element={<DashPrograma />} />
                             <Route path='/cadastro-reserva-alocacao' element={<CadastroReservaAlocacao />} />
                             <Route path='/cadastro-alunos' element={<CadastroAlunos />} />
                             <Route path='/cadastro/avaliacao/:tipo' element={<CadastroAvaliacao />} />

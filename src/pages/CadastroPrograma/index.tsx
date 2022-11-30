@@ -65,8 +65,8 @@ export const CadastroPrograma: React.FC = () => {
                 >
                     <Typography fontSize='25px' color='primary'>Cadastro de Programa</Typography>
                 </Box>
-                <Box component='form' id='form' onSubmit={handleSubmit((data: IProgramaForm) => {
-                    createPrograma(data);
+                <Box component='form' id='form' onSubmit={handleSubmit((dataTermino: IProgramaForm) => {
+                    createPrograma(dataTermino);
                 })}
                     sx={{
                         display: 'flex',
@@ -107,9 +107,9 @@ export const CadastroPrograma: React.FC = () => {
                         alignItems: 'top',
                         gap: '40px'
                     }}>
-                        <FormControl fullWidth error={Boolean(errors.data && errors.data.message)}>
-                            <FormLabel htmlFor="data">Data*</FormLabel>
-                            <TextField type="date" id='data' {...register('data')} variant="outlined"
+                        <FormControl fullWidth error={Boolean(errors.dataTermino && errors.dataTermino.message)}>
+                            <FormLabel htmlFor="dataTermino">Data</FormLabel>
+                            <TextField type="date" id='dataTermino' {...register('dataTermino')} variant="outlined"
                                 label=''
                                 sx={{
                                     width: '100%',
@@ -117,26 +117,32 @@ export const CadastroPrograma: React.FC = () => {
                                         height: '10px'
                                     }
                                 }}
-                                helperText={errors.data && errors.data.message ? errors.data.message : null}
-                                error={Boolean(errors.data && errors.data.message)}
+                                helperText={errors.dataTermino && errors.dataTermino.message ? errors.dataTermino.message : null}
+                                error={Boolean(errors.dataTermino && errors.dataTermino.message)}
                             />
                         </FormControl>
                         <FormControl fullWidth >
-                            <FormLabel htmlFor="situacao"> Situação*</FormLabel>
+                            <FormLabel htmlFor="situacao"> Situação</FormLabel>
                             <Select id="situacao" defaultValue={"aberto"} size="small" {...register("situacao")} >
                                 <MenuItem value="aberto" sx={{ height: '30px' }}>Aberto</MenuItem>
                                 <MenuItem value="fechado" sx={{ height: '30px' }}>Fechado</MenuItem>
                             </Select>
                         </FormControl>
                     </Box>
-                    <Box sx={{ display: 'flex', gap: '40px', justifyContent: 'center', alignItems: 'center' }}>
-                        <Box sx={{ width: '100%', textAlign: 'center' }}>
-                            <Button variant="contained" type="submit" sx={{
+                    <Box sx={{ display: 'flex', gap: '40px', justifyContent: 'space-between', alignItems: 'center' }}>
+
+                        <Box sx={{ textAlign: 'center' }}>
+                            <Button variant="contained" onClick={() => navigate("/programas")} sx={{
                                 height: '50px'
                             }}>
-                                Salvar
+                                Voltar
                             </Button>
                         </Box>
+                        <Button variant="contained" color="success" type="submit" sx={{
+                            height: '50px'
+                        }}>
+                            Salvar
+                        </Button>
                     </Box>
                 </Box>
             </Box>

@@ -52,7 +52,7 @@ export const AuthProvider = ({ children }: TChildren) => {
         const { data } = await API.get("/auth/logged");
         const imagem = await getImageUser(data.email);
         setUserLogged({ ...data, image: imagem });
-        localStorage.setItem("userLogged", JSON.stringify(data));
+        localStorage.setItem("userLogged", JSON.stringify({ ...data, image: imagem }));
         if (data && data.cargos.length === 0) {
             toast.error('Usuário sem permissão. Verifique com o Administrador.', toastConfig);
             handleUserLogout();

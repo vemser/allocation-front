@@ -99,10 +99,11 @@ export type TVagaContext = {
 }
 
 export type TPrograma = {
+    idPrograma: number,
     nome: string,
     descricao: string,
-    data: Date,
-    dataCriacao: Date,
+    dataTermino?: Date,
+    dataCriacao?: Date,
     situacao: string
 
 }
@@ -110,6 +111,11 @@ export type TPrograma = {
 export type TProgramaContext = {
     programas: TPrograma[],
     createPrograma: (data: IProgramaForm) => Promise<void>
+    totalPages: number,
+    updatePrograma: (data: IProgramaForm, idPrograma: number) => Promise<void>,
+    deletePrograma: (idPrograma: number) => Promise<void>,
+    getProgramas: (page: number) => Promise<void>,
+    setProgramas: (programas: IProgramaForm[]) => void
 }
 
 export type TReservaAlocacao = {
