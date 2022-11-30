@@ -11,12 +11,13 @@ import { VagaContext } from "../../context/VagaContext";
 import { ConfirmDialog, TOptionsConfirmDialog } from '../../components/ConfirmDialog';
 import { LinkSC } from "../../components/HeaderPrincipal/HeaderPrincipal.styled";
 import SearchIcon from '@mui/icons-material/Search';
+import { VagasPagination } from "../../components/VagasPagination";
 
 
 export const PainelDeVagas = () => {
     const navigate = useNavigate();
 
-    const { deleteVaga } = useContext(VagaContext);
+    const { deleteVaga, totalPages, vagas  } = useContext(VagaContext);
 
     const { register, handleSubmit, formState: { errors }, reset } = useForm<any>();
 
@@ -152,209 +153,218 @@ const clicou = (data :any) =>{
       borderRadius:  '15px',
       boxShadow: '-5px 7px 15px -4px rgba(0,0,0,0.75)',
       margin: '30px'    
-      }}>
-      <Box
-      sx={{
-          display: 'flex',
-          justifyContent: 'center',
-      }}
-      >
-          <Typography fontSize='25px' color='primary'>Vagas</Typography>
-      </Box>
-      <Box sx={{
-        width: '100%',
-        height: '40px',
-        display: 'flex',
-        justifyContent: 'space-between',
-        p: '0 30px'
-      }}>
-        
-        <Box component='form' id='form' sx={{
-            display: 'flex',
-            width: '100%',
-            gap: '10px'
-        }} onSubmit={handleSubmit(clicou)}>
-            <TextField type="text" placeholder='Digite o nome da vaga' id='pesquisa' {...register('pesquisa')} variant="outlined"
-            label="Pesquisar"
-            InputProps={{
-                startAdornment: (
-                <InputAdornment position="start">
-                    <SearchIcon />
-                </InputAdornment>
-                ),
-            }}    
-            sx={{          
-                width: '100%',
-                "& .MuiInputBase-input": {
-                height: '10px'
-                }
-            }}                     
-            />
-                <Button size="small" variant="contained" type="submit" sx={{
-                width: '100px',
-
-                "& :hover":{
-                    transform: 'scale(1.05)',
-                },
-
-                "& :active":{
-                    transform: 'scale(.99)',
-                }
-            }}>Buscar</Button>
-        </Box>
-        
-        <Box sx={{
-            width: '100%',
-            display: 'flex',
-            justifyContent: 'flex-end',
-            alignItems: 'center'
         }}>
-            <LinkSC to="/cadastro-vaga">
-                <Button size="medium" variant="contained"
+            <Box
+            sx={{
+                display: 'flex',
+                justifyContent: 'center',
+            }}
+            >
+                <Typography fontSize='25px' color='primary'>Vagas</Typography>
+            </Box>
+            <Box sx={{
+                width: '100%',
+                height: '40px',
+                display: 'flex',
+                justifyContent: 'space-between',
+                p: '0 30px'
+            }}>
+                
+                <Box component='form' id='form' sx={{
+                    display: 'flex',
+                    width: '100%',
+                    gap: '10px'
+                }} onSubmit={handleSubmit(clicou)}>
+                    <TextField type="text" placeholder='Digite o nome da vaga' id='pesquisa' {...register('pesquisa')} variant="outlined"
+                    label="Pesquisar"
+                    InputProps={{
+                        startAdornment: (
+                        <InputAdornment position="start">
+                            <SearchIcon />
+                        </InputAdornment>
+                        ),
+                    }}    
+                    sx={{          
+                        width: '100%',
+                        "& .MuiInputBase-input": {
+                        height: '10px'
+                        }
+                    }}                     
+                    />
+                        <Button size="small" variant="contained" type="submit" sx={{
+                        width: '100px',
+
+                        "& :hover":{
+                            transform: 'scale(1.05)',
+                        },
+
+                        "& :active":{
+                            transform: 'scale(.99)',
+                        }
+                    }}>Buscar</Button>
+                </Box>
+                
+                <Box sx={{
+                    width: '100%',
+                    display: 'flex',
+                    justifyContent: 'flex-end',
+                    alignItems: 'center'
+                }}>
+                    <LinkSC to="/cadastro-vaga">
+                        <Button size="medium" variant="contained"
+                        sx={{
+                            "&:hover": { background: "#080f26", transform: 'scale(1.05)'},
+                            "& :active":{
+                                transform: 'scale(.99)',
+                            }
+                        }}>Criar Vaga</Button>
+                    </LinkSC>
+                </Box>
+
+            </Box>
+            <Box
                 sx={{
-                    "&:hover": { background: "#080f26", transform: 'scale(1.05)'},
-                    "& :active":{
-                        transform: 'scale(.99)',
-                    }
-                }}>Criar Vaga</Button>
-            </LinkSC>
-        </Box>
+                    display: 'flex',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    background:'#1e62fe',
+                    borderRadius:  '15px',
+                    p: '25px',
+                }}
+            >
+            <Box sx={{
+                background:'#1952d7',
+                borderRadius:  '15px',
+                width: '100%',
+                height: '95%',
+                p: '20px',
+                display: 'flex',
+                gap: '10px',
+                justifyContent: 'center',
+                flexWrap: 'wrap'
 
-      </Box>
-      <Box
-          sx={{
-              display: 'flex',
-              justifyContent: 'center',
-              alignItems: 'center',
-              background:'#1e62fe',
-              borderRadius:  '15px',
-              p: '25px',
-          }}
-      >
-      <Box sx={{
-          background:'#1952d7',
-          borderRadius:  '15px',
-          width: '100%',
-          height: '95%',
-          p: '20px',
-          display: 'flex',
-          gap: '10px',
-          justifyContent: 'center',
-          flexWrap: 'wrap'
+            }}> 
 
-      }}> 
-
-      {vaga.length == 0 || vaga == null? 
-      (<Box 
-      sx={{
-        display: 'flex', 
-        width: '100%', 
-        height: '100%', 
-        alignItems: 'start',
-        gap: '20px'}}
-      >
-      <Skeleton width='300px' height='300px'></Skeleton>
-      <Skeleton width='300px' height='300px'></Skeleton>
-      <Skeleton width='300px' height='300px'></Skeleton>
-      <Skeleton width='300px' height='300px'></Skeleton>
-      </Box>
-      ) : 
-
-          vaga.map((el:any) => (
-              <Box sx={{
-                  background:'#D9D9D9',
-                  borderRadius:  '15px',
-                  minWidth: '200px',
-                  // height: '300px',                    
-                  boxShadow: '-5px 7px 15px -4px rgba(0,0,0,0.75)',
-                  display: 'flex',
-                  flexDirection: 'column',
-                  p: '15px'
-              }}
-              key={el.idPrograma}
-              >
+            {vagas.length == 0 || vaga == null? 
+            (<Box 
+            sx={{
+                display: 'flex', 
+                width: '100%', 
+                height: '100%', 
+                alignItems: 'start',
+                gap: '20px'}}
+            >
+            <Skeleton width='300px' height='300px'></Skeleton>
+            <Skeleton width='300px' height='300px'></Skeleton>
+            <Skeleton width='300px' height='300px'></Skeleton>
+            <Skeleton width='300px' height='300px'></Skeleton>
+            </Box>
+            ) : 
+                vagas.map((el:any) => (
                     <Box sx={{
-                        display:'flex',
-                        gap: '5px',
-                        justifyContent: 'end',
-                        // background: 'red',
-                        mb: '15px'
-                    }}>
-                        <IconButton onClick={() => navigate('/cadastro-vaga', {state: el})} sx={{
-                                background: '#1e62fe',
-                                color: 'white',
-                                width: '30px',
-                                height: '30px',
-                                "&:hover": { background: "#080f26", transform: 'scale(1.05)'},
-                                "& :active":{
-                                    transform: 'scale(.99)',
-                                }
-                            }}>
-                            <EditIcon />
-                        </IconButton>
-
-                        <IconButton onClick={(event) => {
-                            setConfirmDialog({
-                                isOpen: true,
-                                title: 'Confirma a exclusão desse registro?',
-                                onConfirm: () => {
+                        background:'#D9D9D9',
+                        borderRadius:  '15px',
+                        width: '250px',                 
+                        boxShadow: '-5px 7px 15px -4px rgba(0,0,0,0.75)',
+                        display: 'flex',
+                        flexDirection: 'column',
+                        justifyContent: 'space-between',
+                        p: '15px'
+                    }}
+                    key={el.codigo}
+                    >
+                        <Box sx={{
+                            display:'flex',
+                            gap: '5px',
+                            justifyContent: 'space-between',
+                            alignItems: 'center',
+                            mb: '15px'
+                        }}> 
+                            <Box>
+                                <Typography sx={{fontSize: '12px'}}><strong>Código: </strong>{el.codigo}</Typography>
+                            </Box>
+                            <Box sx={{
+                            display:'flex',
+                            gap: '3px'
+                             }}>
+                                <IconButton onClick={() => navigate('/cadastro-vaga', {state: el})} sx={{
+                                        background: '#1e62fe',
+                                        color: 'white',
+                                        width: '25px',
+                                        height: '25px',
+                                        "&:hover": { background: "#080f26", transform: 'scale(1.05)'},
+                                        "& :active":{
+                                            transform: 'scale(.99)',
+                                        }
+                                    }}>
+                                    <EditIcon />
+                                </IconButton>
+                                <IconButton onClick={(event) => {
                                     setConfirmDialog({
-                                        ...confirmDialog,
-                                        isOpen: false
-                                    })
-                                    deleteVaga(el.idPrograma)
-                                    }
-                                });
-                            }} sx={{
-                                background: 'red',
-                                color: 'white',
-                                width: '30px',
-                                height: '30px',
+                                        isOpen: true,
+                                        title: 'Confirma a exclusão desse registro?',
+                                        onConfirm: () => {
+                                            setConfirmDialog({
+                                                ...confirmDialog,
+                                                isOpen: false
+                                            })
+                                            deleteVaga(el.idPrograma)
+                                            }
+                                        });
+                                    }} sx={{
+                                        background: 'red',
+                                        color: 'white',
+                                        width: '25px',
+                                        height: '25px',
 
-                                "&:hover": { background: "#a41a1a", transform: 'scale(1.05)' },
-                                "& :active":{
-                                    transform: 'scale(.99)',
-                                }
+                                        "&:hover": { background: "#a41a1a", transform: 'scale(1.05)' },
+                                        "& :active":{
+                                            transform: 'scale(.99)',
+                                        }
+                                    }}>
+                                    <DeleteIcon />
+                                </IconButton>
+                            </Box>
+                        </Box>
+                        <Box sx={{
+                            display:'flex',
+                            gap: '5px',
+                            flexDirection: 'column'
+                        }}>
+                        <Typography sx={{fontSize: '12px'}}><strong>Nome: </strong>{el.nome}</Typography>
+                        <Typography sx={{fontSize: '12px'}}><strong>Descrição: </strong>{el.observacoes}</Typography>
+                        <Typography sx={{fontSize: '12px'}}><strong>Vagas: </strong>{el.quantidade} vaga</Typography>
+                        <Typography sx={{fontSize: '12px'}}><strong>Situação: </strong>{el.situacao}</Typography>
+                        <Typography sx={{fontSize: '12px'}}><strong>E-mail do cliente: </strong>{el.emailCliente}</Typography>
+                        <Typography sx={{fontSize: '12px'}}><strong>Data de abertura: </strong>{el.dataAbertura.split('-').reverse().join('-')}</Typography>
+                        <Typography sx={{fontSize: '12px'}}><strong>Data de fechamento: </strong>{el.dataFechamento.split('-').reverse().join('-')}</Typography>
+                        </Box>   
+                        <Box sx={{
+                            marginTop: '20px',
+                            width: '100%',
+                            display: 'flex',
+                            justifyContent: 'center',  
+
+                            "& :hover":{
+                                transform: 'scale(1.05)',
+                            },
+
+                            "& :active":{
+                                transform: 'scale(.99)',
+                            }
+                        }}>
+                            <Button size="small" variant="contained" sx={{
+                                fontSize: '10px',
                             }}>
-                            <DeleteIcon />
-                        </IconButton>
+                                Reversar Aluno para vaga
+                            </Button>
+                        </Box>
                     </Box>
-                  <Typography sx={{fontSize: '12px'}}><strong>Nome: </strong>{el.nome}</Typography>
-                  <Typography sx={{fontSize: '12px'}}><strong>Área: </strong>{el.area}</Typography>
-                  <Typography sx={{fontSize: '12px'}}><strong>Programa: </strong>{el.programa}</Typography>
-                  <Typography sx={{fontSize: '12px'}}><strong>Processo: </strong>{el.processo}</Typography>
-                  <Typography sx={{fontSize: '12px'}}><strong>Alocado: </strong>{el.alocado}</Typography>  
-
-                  <Box sx={{
-                      marginTop: '15px',
-                      width: '100%',
-                      display: 'flex',
-                      justifyContent: 'center',  
-
-                      "& :hover":{
-                          transform: 'scale(1.05)',
-                      },
-
-                      "& :active":{
-                          transform: 'scale(.99)',
-                      }
-                  }}>
-                      <Button size="small" variant="contained" sx={{
-                        fontSize: '10px',
-                      }}>Reversar Aluno para vaga</Button>
-
-
-                  </Box>
-              </Box>
-          ))
-               
-              
-           
-
-      }
-
-      </Box>  
-      </Box> 
+                ))
+            }
+            </Box>  
+            </Box> 
+            <VagasPagination />
       </Box>
   </Grid>
   );

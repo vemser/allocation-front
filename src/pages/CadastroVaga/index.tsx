@@ -4,14 +4,15 @@ import { IVagaForm } from "../../util/interface";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 import { vagaFormSchema } from "../../util/schemas";
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import { VagaContext } from "../../context/VagaContext";
 import Span from "../../components/Span";
 import { toast } from "react-toastify";
 import { AuthContext } from "../../context/AuthContext/AuthContext";
 import { toastConfig } from "../../util/toast";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { podeAcessarTela } from "../../util/valida-senha";
+
 
 export const CadastroVaga: React.FC = () => {
   const roles = [
@@ -23,9 +24,12 @@ export const CadastroVaga: React.FC = () => {
   const { register, handleSubmit, reset, formState: { errors } } = useForm<IVagaForm>({
     resolver: yupResolver(vagaFormSchema)
   });
+  
+  const { createVaga, updateVaga } = useContext(VagaContext);
 
-  const { createVaga } = useContext(VagaContext);
   const navigate = useNavigate();
+  const { state } = useLocation();
+
   const { userLogged } = useContext(AuthContext);
 
   const listaClientes = [
@@ -42,6 +46,13 @@ export const CadastroVaga: React.FC = () => {
     }
 
 }, [userLogged]);
+
+const [codigoValue, setCodigoValue] = useState<any>(null)
+
+useEffect(()=> {
+  state != null? setCodigoValue(state.codigo) : setCodigoValue( null )
+},[])
+
 
   return (
     <Grid
@@ -72,10 +83,11 @@ export const CadastroVaga: React.FC = () => {
             justifyContent: 'center',
           }}
         >
-          <Typography fontSize='25px' color='primary'>Cadastro de Vaga</Typography>
+          <Typography fontSize='25px' color='primary'>{state != null? "Editar Vaga" : "Cadastro de Vaga"}</Typography>
         </Box>
-        <Box component='form' id='form' onSubmit={handleSubmit((data: IVagaForm) => {
-          createVaga(data);
+        <Box component='form' id='form' onSubmit={handleSubmit((data: IVagaForm) => {          
+          state != null? updateVaga(data, state.codigo) : createVaga(data);
+          reset()
         })}
           sx={{
             display: 'flex',
@@ -88,7 +100,7 @@ export const CadastroVaga: React.FC = () => {
             gap: '40px',
           }}>
             <TextField type="number" placeholder='Digite o código' id='idVaga' {...register("idVaga")} variant="outlined"
-              label='Código'
+              // label='Código'
               sx={{
                 width: '100%',
                 "& .MuiInputBase-input": {
@@ -97,6 +109,9 @@ export const CadastroVaga: React.FC = () => {
               }}
               helperText={errors.idVaga && errors.idVaga.message ? errors.idVaga.message : null}
               error={Boolean(errors.idVaga && errors.idVaga.message)}
+              defaultValue={codigoValue}
+              value={codigoValue}
+              disabled={state !=null? true : false}  
             />
             <TextField type="text" placeholder='Nome da vaga' id='nome' {...register('nome')} variant="outlined"
               label='Vaga'
@@ -108,6 +123,7 @@ export const CadastroVaga: React.FC = () => {
               }}
               helperText={errors.nome && errors.nome.message ? errors.nome.message : null}
               error={Boolean(errors.nome && errors.nome.message)}
+              defaultValue={state != null? state.nome : ""}  
             />
           </Box>
           <Box sx={{
@@ -157,6 +173,7 @@ export const CadastroVaga: React.FC = () => {
                 }}
                 helperText={errors.quantidade && errors.quantidade.message ? errors.quantidade.message : null}
                 error={Boolean(errors.quantidade && errors.quantidade.message)}
+                defaultValue={state != null? state.quantidade : ""}  
               />
             </FormControl>
             <TextField type="number" placeholder='Quantidade de Alocados' id='quantidadeAlocados' {...register("quantidadeAlocados")} variant="outlined"
@@ -167,7 +184,7 @@ export const CadastroVaga: React.FC = () => {
                   height: '10px'
                 }
               }}
-              disabled
+              defaultValue={state != null? state.quantidadeAlocados : ""}  
             />
 
           </Box>
@@ -189,6 +206,7 @@ export const CadastroVaga: React.FC = () => {
                 }}
                 helperText={errors.dataAbertura && errors.dataAbertura.message ? errors.dataAbertura.message : null}
                 error={Boolean(errors.dataAbertura && errors.dataAbertura.message)}
+                defaultValue={state != null? state.dataAbertura : ""}  
               />
             </FormControl>
             <FormControl fullWidth >
@@ -201,6 +219,7 @@ export const CadastroVaga: React.FC = () => {
                     height: '10px'
                   }
                 }}
+                defaultValue={state != null? state.dataFechamento : ""}  
               />
             </FormControl>
           </Box>
@@ -212,9 +231,9 @@ export const CadastroVaga: React.FC = () => {
           }}>
             <FormControl fullWidth error={Boolean(errors.situacao && errors.situacao.message)} >
               <FormLabel htmlFor="situacao"> Situação</FormLabel>
-              <Select error={Boolean(errors.situacao && errors.situacao.message)} id="situacao" defaultValue={"Aberto"} labelId="situacao" size="small" {...register("situacao")} >
-                <MenuItem value="Aberto" >Aberto</MenuItem>
-                <MenuItem value="Fechado" >Fechado</MenuItem>
+              <Select error={Boolean(errors.situacao && errors.situacao.message)} id="situacao" defaultValue={state != null? state.situacao : ""}   labelId="situacao" size="small" {...register("situacao")} >
+                <MenuItem value="ABERTO" >ABERTO</MenuItem>
+                <MenuItem value="FECHADO" >FECHADO</MenuItem>
               </Select>
             </FormControl>
             <FormControl fullWidth>
