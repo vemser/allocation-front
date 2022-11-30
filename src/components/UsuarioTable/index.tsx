@@ -75,7 +75,14 @@ export default function UsuarioTable() {
                 <TableCell component="th" scope="row" align="center"> {row.idUsuario} </TableCell>
                 <TableCell align="center">{row.nomeCompleto}</TableCell>
                 <TableCell align="center">{row.email}</TableCell>
-                <TableCell align="center">{row.cargo?.nome}</TableCell>
+                <TableCell align="center">{
+                row.cargo?.nome == 'ROLE_ADMINISTRADOR'? "Administrador": 
+                row.cargo?.nome == 'ROLE_GESTOR'? 'Gestor' : 
+                row.cargo?.nome == 'ROLE_GESTAO_DE_PESSOAS'? 'Gestão de pessoas' : 
+                row.cargo?.nome == 'ROLE_INSTRUTOR'? 'Instrutor' :
+                row.cargo?.nome == null? 'Não atribuído' : 
+                row.cargo?.nome
+                }</TableCell>
                 <TableCell align="center">
                   <Box
                     sx={{
