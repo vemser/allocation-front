@@ -6,7 +6,7 @@ import { useForm } from "react-hook-form";
 import { programaFormSchema } from "../../util/schemas";
 import { useContext, useEffect } from "react";
 import { ProgramaContext } from "../../context/ProgramaContext";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { AuthContext } from "../../context/AuthContext/AuthContext";
 import { toastConfig } from "../../util/toast";
@@ -22,9 +22,11 @@ export const CadastroPrograma: React.FC = () => {
         resolver: yupResolver(programaFormSchema)
     });
 
-    const { createPrograma } = useContext(ProgramaContext);
+    const { createPrograma, updatePrograma } = useContext(ProgramaContext);
     const navigate = useNavigate();
-    const { userLogged } = useContext(AuthContext);
+    const { userLogged, isLogged } = useContext(AuthContext);
+    const { state } = useLocation();
+    const isEdicao = state !== null;
 
     useEffect(() => {
         if (userLogged && !podeAcessarTela(roles,userLogged)) {
@@ -65,8 +67,14 @@ export const CadastroPrograma: React.FC = () => {
                 >
                     <Typography fontSize='25px' color='primary'>Cadastro de Programa</Typography>
                 </Box>
-                <Box component='form' id='form' onSubmit={handleSubmit((dataTermino: IProgramaForm) => {
-                    createPrograma(dataTermino);
+                <Box component='form' id='form' onSubmit={handleSubmit((data: IProgramaForm) => {
+                    console.log(data)
+                    if (!isLogged || (isLogged && !isEdicao)) {
+                        createPrograma(data);
+                      } else if (isLogged && isEdicao) {
+                        updatePrograma(data, state.idPrograma);
+                      }
+                   
                 })}
                     sx={{
                         display: 'flex',
@@ -80,6 +88,7 @@ export const CadastroPrograma: React.FC = () => {
                     }}>
                         <TextField type="text" placeholder='Digite o seu nome' id='nome' {...register("nome")} variant="outlined"
                             label='Nome'
+                            defaultValue={isEdicao ? state.nome : null}
                             sx={{
                                 width: '100%',
                                 "& .MuiInputBase-input": {
@@ -91,6 +100,7 @@ export const CadastroPrograma: React.FC = () => {
                         />
                         <TextField type="text" placeholder='Digite a descrição' id='descricao' {...register('descricao')} variant="outlined"
                             label='Descrição'
+                            defaultValue={isEdicao ? state.descricao : null}
                             sx={{
                                 width: '100%',
                                 "& .MuiInputBase-input": {
@@ -111,6 +121,7 @@ export const CadastroPrograma: React.FC = () => {
                             <FormLabel htmlFor="dataTermino">Data</FormLabel>
                             <TextField type="date" id='dataTermino' {...register('dataTermino')} variant="outlined"
                                 label=''
+                                defaultValue={isEdicao ? state.dataTermino : null}
                                 sx={{
                                     width: '100%',
                                     "& .MuiInputBase-input": {
@@ -123,9 +134,9 @@ export const CadastroPrograma: React.FC = () => {
                         </FormControl>
                         <FormControl fullWidth >
                             <FormLabel htmlFor="situacao"> Situação</FormLabel>
-                            <Select id="situacao" defaultValue={"aberto"} size="small" {...register("situacao")} >
-                                <MenuItem value="aberto" sx={{ height: '30px' }}>Aberto</MenuItem>
-                                <MenuItem value="fechado" sx={{ height: '30px' }}>Fechado</MenuItem>
+                            <Select id="situacao" defaultValue={isEdicao ? state.situacao : "ABERTO"} size="small" {...register("situacao")} >
+                                <MenuItem value="ABERTO" sx={{ height: '30px' }}>Aberto</MenuItem>
+                                <MenuItem value="FECHADO" sx={{ height: '30px' }}>Fechado</MenuItem>
                             </Select>
                         </FormControl>
                     </Box>
