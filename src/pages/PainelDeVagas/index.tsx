@@ -273,6 +273,10 @@ const clicou = (data :any) =>{
             }
             </Box>  
             </Box> 
+            <ConfirmDialog
+            confirmDialog={confirmDialog}
+            setConfirmDialog={setConfirmDialog}
+            />
             <VagasPagination />
       </Box>
   </Grid>
