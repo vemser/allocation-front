@@ -4,12 +4,12 @@ import Skeleton from '@mui/material/Skeleton';
 import { IconButton } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
+import { LinkSC } from "../../components/HeaderPrincipal/HeaderPrincipal.styled";
 import { useNavigate } from 'react-router-dom';
 import { useContext, useState } from "react";
 import {useForm} from 'react-hook-form';
 import { VagaContext } from "../../context/VagaContext";
 import { ConfirmDialog, TOptionsConfirmDialog } from '../../components/ConfirmDialog';
-import { LinkSC } from "../../components/HeaderPrincipal/HeaderPrincipal.styled";
 import SearchIcon from '@mui/icons-material/Search';
 import { VagasPagination } from "../../components/VagasPagination";
 
@@ -28,104 +28,7 @@ export const PainelDeVagas = () => {
     });
 
 
-  const vaga: any = [
-    {
-        idPrograma: 1,
-        nome: 'Desenvolvedor(a) Java - Back-end',
-        quantidade: 1,
-        situacao: 'ABERTO',
-        processo: 'sim',
-        dataAbertura: "2022-12-20",
-        dataFechamento: "2022-12-26",
-        dataCriacao: "2022-11-29",
-        observacoes: "Seguir conceitos de programação como: Alta coesão, Baixo acoplamento, e componentização.",
-        emailCliente: "sicred@dbccompany.com.br"
-    },
-    {
-        idPrograma: 2,
-        nome: 'Desenvolvedor(a) Java - Back-end',
-        quantidade: 1,
-        situacao: 'ABERTO',
-        processo: 'sim',
-        dataAbertura: "2022-12-20",
-        dataFechamento: "2022-12-26",
-        dataCriacao: "2022-11-29",
-        observacoes: "Seguir conceitos de programação como: Alta coesão, Baixo acoplamento, e componentização.",
-        emailCliente: "sicred@dbccompany.com.br"
-    },
-    {
-        idPrograma: 3,
-        nome: 'Desenvolvedor(a) Java - Back-end',
-        quantidade: 1,
-        situacao: 'ABERTO',
-        processo: 'sim',
-        dataAbertura: "2022-12-20",
-        dataFechamento: "2022-12-26",
-        dataCriacao: "2022-11-29",
-        observacoes: "Seguir conceitos de programação como: Alta coesão, Baixo acoplamento, e componentização.",
-        emailCliente: "sicred@dbccompany.com.br"
-    },
-    {
-        idPrograma: 4,
-        nome: 'Desenvolvedor(a) Java - Back-end',
-        quantidade: 1,
-        situacao: 'ABERTO',
-        processo: 'sim',
-        dataAbertura: "2022-12-20",
-        dataFechamento: "2022-12-26",
-        dataCriacao: "2022-11-29",
-        observacoes: "Seguir conceitos de programação como: Alta coesão, Baixo acoplamento, e componentização.",
-        emailCliente: "sicred@dbccompany.com.br"
-    },  {
-        idPrograma: 5,
-        nome: 'Desenvolvedor(a) Java - Back-end',
-        quantidade: 1,
-        situacao: 'ABERTO',
-        processo: 'sim',
-        dataAbertura: "2022-12-20",
-        dataFechamento: "2022-12-26",
-        dataCriacao: "2022-11-29",
-        observacoes: "Seguir conceitos de programação como: Alta coesão, Baixo acoplamento, e componentização.",
-        emailCliente: "sicred@dbccompany.com.br"
-    },
-    {
-        idPrograma: 6,
-        nome: 'Desenvolvedor(a) Java - Back-end',
-        quantidade: 1,
-        situacao: 'ABERTO',
-        processo: 'sim',
-        dataAbertura: "2022-12-20",
-        dataFechamento: "2022-12-26",
-        dataCriacao: "2022-11-29",
-        observacoes: "Seguir conceitos de programação como: Alta coesão, Baixo acoplamento, e componentização.",
-        emailCliente: "sicred@dbccompany.com.br"
-    },
-    {
-        idPrograma: 7,
-        nome: 'Desenvolvedor(a) Java - Back-end',
-        quantidade: 1,
-        situacao: 'ABERTO',
-        processo: 'sim',
-        dataAbertura: "2022-12-20",
-        dataFechamento: "2022-12-26",
-        dataCriacao: "2022-11-29",
-        observacoes: "Seguir conceitos de programação como: Alta coesão, Baixo acoplamento, e componentização.",
-        emailCliente: "sicred@dbccompany.com.br"
-    },
-    {
-        idPrograma: 8,
-        nome: 'Desenvolvedor(a) Java - Back-end',
-        quantidade: 1,
-        situacao: 'ABERTO',
-        processo: 'sim',
-        dataAbertura: "2022-12-20",
-        dataFechamento: "2022-12-26",
-        dataCriacao: "2022-11-29",
-        observacoes: "Seguir conceitos de programação como: Alta coesão, Baixo acoplamento, e componentização.",
-        emailCliente: "sicred@dbccompany.com.br"
-    }
-    
-]
+
 
 const clicou = (data :any) =>{
     console.log(data)
@@ -250,7 +153,7 @@ const clicou = (data :any) =>{
 
             }}> 
 
-            {vagas.length == 0 || vaga == null? 
+            {vagas.length == 0 || vagas == null? 
             (<Box 
             sx={{
                 display: 'flex', 
