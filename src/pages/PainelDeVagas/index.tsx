@@ -193,15 +193,19 @@ const clicou = (data :any) =>{
                     />
                         <Button size="small" variant="contained" type="submit" sx={{
                         width: '100px',
-
+                        transition: '.5s',
+                        
                         "& :hover":{
+                            transition: '.8s',
                             transform: 'scale(1.05)',
+                            background: "#080f26"
                         },
 
                         "& :active":{
                             transform: 'scale(.99)',
                         }
-                    }}>Buscar</Button>
+                    }
+                    }>Buscar</Button>
                 </Box>
                 
                 <Box sx={{
@@ -213,6 +217,7 @@ const clicou = (data :any) =>{
                     <LinkSC to="/cadastro-vaga">
                         <Button size="medium" variant="contained"
                         sx={{
+                            transition: '.8s',
                             "&:hover": { background: "#080f26", transform: 'scale(1.05)'},
                             "& :active":{
                                 transform: 'scale(.99)',
@@ -344,9 +349,10 @@ const clicou = (data :any) =>{
                             width: '100%',
                             display: 'flex',
                             justifyContent: 'center',  
-
+                            transition: '.8s',
                             "& :hover":{
-                                transform: 'scale(1.05)',
+                                transform: 'scale(1.02)',
+                                transition: '.8s',
                             },
 
                             "& :active":{
