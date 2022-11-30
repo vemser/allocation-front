@@ -126,6 +126,9 @@ export const PainelDeVagas = () => {
     
 ]
 
+const clicou = (data :any) =>{
+    console.log(data)
+}
 
   return (
     <Grid
@@ -168,8 +171,9 @@ export const PainelDeVagas = () => {
         
         <Box component='form' id='form' sx={{
             display: 'flex',
-            width: '100%'
-        }}>
+            width: '100%',
+            gap: '10px'
+        }} onSubmit={handleSubmit(clicou)}>
             <TextField type="text" placeholder='Digite o nome da vaga' id='pesquisa' {...register('pesquisa')} variant="outlined"
             label="Pesquisar"
             InputProps={{
@@ -186,10 +190,8 @@ export const PainelDeVagas = () => {
                 }
             }}                     
             />
-            <Box sx={{
-                width: '100%',
-                display: 'flex',
-                justifyContent: 'center',
+                <Button size="small" variant="contained" type="submit" sx={{
+                width: '100px',
 
                 "& :hover":{
                     transform: 'scale(1.05)',
@@ -198,9 +200,7 @@ export const PainelDeVagas = () => {
                 "& :active":{
                     transform: 'scale(.99)',
                 }
-            }}>
-                <Button size="small" variant="contained">Buscar</Button>
-            </Box>
+            }}>Buscar</Button>
         </Box>
         
         <Box sx={{
@@ -329,7 +329,7 @@ export const PainelDeVagas = () => {
                       marginTop: '15px',
                       width: '100%',
                       display: 'flex',
-                      justifyContent: 'center',
+                      justifyContent: 'center',  
 
                       "& :hover":{
                           transform: 'scale(1.05)',
@@ -339,7 +339,9 @@ export const PainelDeVagas = () => {
                           transform: 'scale(.99)',
                       }
                   }}>
-                      <Button size="small" variant="contained">Reversar Aluno para vaga</Button>
+                      <Button size="small" variant="contained" sx={{
+                        fontSize: '10px',
+                      }}>Reversar Aluno para vaga</Button>
 
 
                   </Box>
