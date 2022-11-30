@@ -16,7 +16,7 @@ export const CadastroPrograma: React.FC = () => {
     const roles = [
         { nome: "ROLE_ADMINISTRADOR" },
         { nome: "ROLE_GESTOR" }
-      ];
+    ];
 
     const { register, handleSubmit, reset, formState: { errors } } = useForm<IProgramaForm>({
         resolver: yupResolver(programaFormSchema)
@@ -29,13 +29,13 @@ export const CadastroPrograma: React.FC = () => {
     const isEdicao = state !== null;
 
     useEffect(() => {
-        if (userLogged && !podeAcessarTela(roles,userLogged)) {
-          toast.error("Usuário sem permissão.", toastConfig);
-          navigate('/painel-vagas');
+        if (userLogged && !podeAcessarTela(roles, userLogged)) {
+            toast.error("Usuário sem permissão.", toastConfig);
+            navigate('/painel-vagas');
         }
-    
-      }, [userLogged]);
-      
+
+    }, [userLogged]);
+
     return (
         <Grid
             sx={{
@@ -68,13 +68,13 @@ export const CadastroPrograma: React.FC = () => {
                     <Typography fontSize='25px' color='primary'>Cadastro de Programa</Typography>
                 </Box>
                 <Box component='form' id='form' onSubmit={handleSubmit((data: IProgramaForm) => {
-                    console.log(data)
+                    const dataAtual = `${new Date().getFullYear()}-${new Date().getMonth()}-${new Date().getDate()}`;
                     if (!isLogged || (isLogged && !isEdicao)) {
-                        createPrograma(data);
-                      } else if (isLogged && isEdicao) {
-                        updatePrograma(data, state.idPrograma);
-                      }
-                   
+                        createPrograma({ ...data, dataCriacao: dataAtual});
+                    } else if (isLogged && isEdicao) {
+                        updatePrograma({ ...data, dataCriacao: dataAtual}, state.idPrograma);
+                    }
+
                 })}
                     sx={{
                         display: 'flex',
@@ -118,7 +118,7 @@ export const CadastroPrograma: React.FC = () => {
                         gap: '40px'
                     }}>
                         <FormControl fullWidth error={Boolean(errors.dataTermino && errors.dataTermino.message)}>
-                            <FormLabel htmlFor="dataTermino">Data</FormLabel>
+                            <FormLabel htmlFor="dataTermino">Data de Término</FormLabel>
                             <TextField type="date" id='dataTermino' {...register('dataTermino')} variant="outlined"
                                 label=''
                                 defaultValue={isEdicao ? state.dataTermino : null}

@@ -58,6 +58,8 @@ export const ProgramaProvider = ({ children }: TChildren) => {
     const updatePrograma = async (data: IProgramaForm, idPrograma: number) => {
         try {
             nProgress.start();
+            console.log(data);
+            API.defaults.headers.common['Authorization'] = token;
             await API.put(`/programa/${idPrograma}`, data);
             await getProgramas(1);
             console.log(data);
@@ -76,6 +78,7 @@ export const ProgramaProvider = ({ children }: TChildren) => {
     const deletePrograma = async (idPrograma: number) => {
         try {
             nProgress.start();
+            API.defaults.headers.common['Authorization'] = token;
             await API.delete(`/programa/${idPrograma}`);
             await getProgramas(1);
             navigate('/programas');

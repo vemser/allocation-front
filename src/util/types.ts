@@ -106,7 +106,7 @@ export type TPrograma = {
     nome: string,
     descricao: string,
     dataTermino?: Date,
-    dataCriacao?: Date,
+    dataCriacao?: string,
     situacao: string
 
 }

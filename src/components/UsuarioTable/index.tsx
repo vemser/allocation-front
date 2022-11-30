@@ -103,7 +103,7 @@ export default function UsuarioTable() {
                     }}>
                       <EditIcon />
                     </IconButton>
-                    <IconButton onClick={(event) => {
+                    <IconButton disabled={!permiteEditar(row.cargo?.nome ?? "NENHUM")} onClick={(event) => {
                       setConfirmDialog({
                         isOpen: true,
                         title: 'Confirma a exclusão desse registro?',
