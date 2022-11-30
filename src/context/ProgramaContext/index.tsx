@@ -21,12 +21,7 @@ export const ProgramaProvider = ({ children }: TChildren) => {
         try {
             nProgress.start();
             API.defaults.headers.common['Authorization'] = token;
-            await API.post(`/programa`, {
-                nome: data.nome,
-                data: data.dataTermino,
-                descricao: data.descricao,
-                situacao: data.situacao
-            })
+            await API.post(`/programa`, data);
             console.log(data);
             navigate('/programas');
             toast.success("Programa cadastrado com sucesso!", toastConfig);
