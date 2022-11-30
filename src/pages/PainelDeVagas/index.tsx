@@ -271,7 +271,7 @@ const clicou = (data :any) =>{
                   flexDirection: 'column',
                   p: '15px'
               }}
-              key={el.id}
+              key={el.idPrograma}
               >
                     <Box sx={{
                         display:'flex',

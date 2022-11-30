@@ -1,5 +1,5 @@
 import { TChildren, TUser, TUserContext, TVaga, TVagaContext } from '../../util/types';
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 import { IUserForm, IVagaForm } from '../../util/interface';
 import { toast } from 'react-toastify';
 import { toastConfig } from '../../util/toast';
@@ -16,6 +16,7 @@ export const VagaProvider = ({ children }: TChildren) => {
     const { token } = useContext(AuthContext);
 
     const [vagas, setVagas] = useState<TVaga[]>([]);
+    
     const createVaga = async (data: IVagaForm) => {
         data.situacao = data.situacao.toUpperCase();
         try {
@@ -33,8 +34,10 @@ export const VagaProvider = ({ children }: TChildren) => {
     }
 
     const getVagas = async ()=> {
-        
+        // API.defaults.headers.common['Authorization'] = token;
+        // const { data } = await API.get(`/vaga?pagina=${(0)}&tamanho=10`);
     }
+   
 
     const deleteVaga = async (id: number)=> {
 

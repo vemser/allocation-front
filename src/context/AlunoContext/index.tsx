@@ -44,10 +44,9 @@ export const AlunoProvider = ({ children }: TChildren) =>{
         try {
             nProgress.start();
             API.defaults.headers.common['Authorization'] = token;
-            const { data } = await API.get(`/aluno?pagina=${(page)}&tamanho=10`);
+            const { data } = await API.get(`/aluno?pagina=${(page - 1)}&tamanho=10`);
             setAlunos(data.elementos)            
             setTotalPages(data.quantidadePaginas);
-            console.log(data)
         } catch (error) {
             console.log(error);
             toast.error('Houve um erro inesperado ao buscar os Alunos.', toastConfig);
@@ -56,10 +55,6 @@ export const AlunoProvider = ({ children }: TChildren) =>{
         }
     }  
 
-    useEffect(()=>{
-        
-        console.log(alunos)
-    }, []);
 
     const updateAluno = async (data: TAluno, idCliente: number) => {
         try {

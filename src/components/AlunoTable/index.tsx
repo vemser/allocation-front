@@ -60,7 +60,7 @@ export default function AlunoTable() {
               
             : alunos.map((aluno:any) => (
             <TableRow
-              key={aluno.nome}
+              key={aluno.email}
               sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
             >
               <TableCell component="th" scope="row" align="center"> {aluno.id} </TableCell>
