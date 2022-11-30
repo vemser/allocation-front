@@ -14,6 +14,7 @@
 - react-input-mask
 - react tostify
 - nprogress
+- toastify
 
 
 
