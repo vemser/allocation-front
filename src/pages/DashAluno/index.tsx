@@ -16,6 +16,7 @@ import {useForm} from 'react-hook-form';
 import { ConfirmDialog, TOptionsConfirmDialog } from '../../components/ConfirmDialog';
 import { AlunoContext } from "../../context/AlunoContext";
 import { AlunoPagination } from "../../components/AlunoPagination";
+import { AlunoDashPagination } from "../../components/AlunoDashPagination";
 
 
 export const DashAluno = () => {
@@ -44,6 +45,10 @@ export const DashAluno = () => {
     useEffect(()=>{
         getAlunos(1)
     }, [])
+
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, [alunos]);
  
 
     const [confirmDialog, setConfirmDialog] = useState<TOptionsConfirmDialog>({
@@ -326,7 +331,7 @@ export const DashAluno = () => {
             }
             </Box>  
             </Box> 
-            {/* <AlunoPagination /> */}
+            <AlunoDashPagination />
             <ConfirmDialog
                 confirmDialog={confirmDialog}
                 setConfirmDialog={setConfirmDialog}

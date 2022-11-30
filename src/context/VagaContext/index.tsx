@@ -69,10 +69,12 @@ export const VagaProvider = ({ children }: TChildren) => {
     const deleteVaga = async (idVaga: number) => {
         try {
             nProgress.start();
-            await API.delete(`/cliente/${idVaga}`);
+            console.log(idVaga)
+            API.defaults.headers.common['Authorization'] = token;
+            await API.delete(`/vaga/${idVaga}`);
             toast.success('VAga deletada com sucesso!', toastConfig);
             await getVagas(1);
-            navigate('/vagas');
+            navigate('/painel-vagas');
         } catch (error) {
             console.log(error);
             toast.error('Houve um erro inesperado ao deletar a vaga.', toastConfig);

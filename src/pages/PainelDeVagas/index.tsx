@@ -6,7 +6,7 @@ import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { LinkSC } from "../../components/HeaderPrincipal/HeaderPrincipal.styled";
 import { useNavigate } from 'react-router-dom';
-import { useContext, useState } from "react";
+import { useContext, useState, useEffect } from "react";
 import {useForm} from 'react-hook-form';
 import { VagaContext } from "../../context/VagaContext";
 import { ConfirmDialog, TOptionsConfirmDialog } from '../../components/ConfirmDialog';
@@ -28,7 +28,9 @@ export const PainelDeVagas = () => {
         onConfirm: () => { }
     });
 
-
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, [vagas]);
 
 
 const clicou = (data :any) =>{
@@ -180,7 +182,7 @@ const clicou = (data :any) =>{
                         justifyContent: 'space-between',
                         p: '15px'
                     }}
-                    key={el.codigo}
+                    key={el.idVaga}
                     >
                         <Box sx={{
                             display:'flex',
@@ -190,7 +192,7 @@ const clicou = (data :any) =>{
                             mb: '15px'
                         }}> 
                             <Box>
-                                <Typography sx={{fontSize: '12px'}}><strong>Código: </strong>{el.codigo}</Typography>
+                                <Typography sx={{fontSize: '12px'}}><strong>Código: </strong>{el.idVaga}</Typography>
                             </Box>
                             <Box sx={{
                             display:'flex',
@@ -217,7 +219,7 @@ const clicou = (data :any) =>{
                                                 ...confirmDialog,
                                                 isOpen: false
                                             })
-                                            deleteVaga(el.idPrograma)
+                                            deleteVaga(el.idVaga)
                                             }
                                         });
                                     }} sx={{
