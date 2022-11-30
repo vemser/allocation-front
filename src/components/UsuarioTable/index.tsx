@@ -75,7 +75,7 @@ export default function UsuarioTable() {
                 <TableCell component="th" scope="row" align="center"> {row.idUsuario} </TableCell>
                 <TableCell align="center">{row.nomeCompleto}</TableCell>
                 <TableCell align="center">{row.email}</TableCell>
-                <TableCell align="center">{row.perfil}</TableCell>
+                <TableCell align="center">{row.cargo?.nome}</TableCell>
                 <TableCell align="center">
                   <Box
                     sx={{
@@ -89,7 +89,7 @@ export default function UsuarioTable() {
                         fontSize: '12px'
                       },
                     }}>
-                    <IconButton disabled={!permiteEditar(row.perfil ?? "NENHUM")} onClick={() => {
+                    <IconButton disabled={!permiteEditar(row.cargo?.nome ?? "NENHUM")} onClick={() => {
                       navigate("/cadastro-usuario", {
                         state: row
                       })

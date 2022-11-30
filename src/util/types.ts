@@ -1,5 +1,5 @@
 import React from "react";
-import { IProgramaForm, IUserForm, IUserLogged, IVagaForm } from "./interface";
+import { IProgramaForm, IUser, IUserForm, IUserLogged, IVagaForm } from "./interface";
 
 export type TChildren = {
     children: React.ReactNode;
@@ -12,18 +12,19 @@ export type TUser = {
     email: string,
     senha: string,
     senhaIgual: string
-   
+
 }
 
 export type TUserContext = {
-    users: TUser[],
+    users: IUser[],
     totalPages: number,
-    createUser: (data: TUser, cargo?: string) => Promise<void>,
-    getUsers:(page:number) => Promise<void>,
-    updateUser:(data:TUser, idUsuario: number, cargo:string) => Promise<void>,
-    deleteUser:(idUsuario: number) => Promise<void>,
-    setUsers:(usuarios: TUser[])=>void
+    createUser: (data: TUser, cargo?: string, image?: File) => Promise<void>,
+    getUsers: (page: number) => Promise<void>,
+    updateUser: (data: TUser, idUsuario: number, cargo: string, image?: File) => Promise<void>,
+    deleteUser: (idUsuario: number) => Promise<void>,
+    setUsers: (usuarios: IUser[]) => void
 }
+
 export type TSpanProps = {
     texto?: string,
     className: string
@@ -34,8 +35,8 @@ export type TAuth = {
     senha: string
 }
 
-export type TCargo ={
-    idCargo? : number,
+export type TCargo = {
+    idCargo?: number,
     nome: string
 }
 
@@ -45,8 +46,10 @@ export type TAuthContext = {
     handleUserLogout: () => void,
     token: string | null,
     userLogged?: IUserLogged,
-    isLogged : boolean,
-    handleUserLogged :() => Promise<void>
+    isLogged: boolean,
+    handleUserLogged: () => Promise<void>,
+    uploadImage: (email: string, formData: FormData) => Promise<void>,
+    getImageUser: (email: string) => Promise<string>
 }
 
 export type TAlunoContext = {
@@ -57,7 +60,7 @@ export type TAlunoContext = {
     tecnologias: string[],
     updateAluno: (data: TAluno, idCliente: number) => Promise<void>
     deleteAluno: (idCliente: number) => Promise<void>,
-    getAlunos: (page: number) => Promise<void>,    
+    getAlunos: (page: number) => Promise<void>,
     alunos: TAluno[],
     totalPages: number
 }
@@ -110,26 +113,26 @@ export type TProgramaContext = {
 }
 
 export type TReservaAlocacao = {
-    codigo : number,
+    codigo: number,
     idAluno: number,
     idVaga: number,
     avaliacao: string,
-    descricao : string,
-    dataReserva : Date,
+    descricao: string,
+    dataReserva: Date,
     dataAlocacao: Date,
     dataCancelamento: Date,
     dataFinalizacao: Date,
     situacao: string
 }
 
-export type TReservaAlocacaoContext ={
-    reservasAlocacoes : TReservaAlocacao[],
+export type TReservaAlocacaoContext = {
+    reservasAlocacoes: TReservaAlocacao[],
     createReservaAlocacao: (data: TReservaAlocacao) => Promise<void>
 }
 
 export type TAvaliacao = {
-    codigo : number,
-    idAluno : number,
+    codigo: number,
+    idAluno: number,
     idVaga: number,
     descricao: string,
     nota: number,
@@ -143,28 +146,28 @@ export type TAvaliacao = {
 }
 
 export type TAvaliacaoContext = {
-    avaliacoes: TAvaliacao[], 
+    avaliacoes: TAvaliacao[],
     createAvaliacao: (data: TAvaliacao) => Promise<void>,
     updateAvaliacao: (data: TAvaliacao) => Promise<void>,
     deleteAvaliacao: (id: number) => Promise<void>,
 
 }
 
-export type  TCliente ={
+export type TCliente = {
     idCliente: number,
-    nome : string,
-    email : string,
+    nome: string,
+    email: string,
     telefone: string,
     situacao: string
 }
 
-export type TClienteContext ={
+export type TClienteContext = {
     totalPages: number,
-    clientes : TCliente[],
+    clientes: TCliente[],
     createCliente: (data: TCliente) => Promise<void>,
     updateCliente: (data: TCliente, idCliente: number) => Promise<void>,
     deleteCliente: (idCliente: number) => Promise<void>,
-    getClientes: (page:number) => Promise<void>,
-    setClientes:(clientes: TCliente[])=>void
-    
+    getClientes: (page: number) => Promise<void>,
+    setClientes: (clientes: TCliente[]) => void
+
 }

@@ -1,6 +1,6 @@
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
-import { userFormSchema } from "../../util/schemas";
+import { userEditFormSchema, userFormSchema } from "../../util/schemas";
 
 import {
   MenuItem,
@@ -16,7 +16,7 @@ import {
 }
   from '@mui/material';
 import { UserContext } from "../../context/UserContext";
-import { useContext, useState } from "react";
+import { ChangeEvent, useContext, useState } from "react";
 import { IUserForm } from "../../util/interface";
 import verificaForcaSenha from "../../util/forca-senha";
 import { HeaderLogin } from "../../components/HeaderLogin";
@@ -25,9 +25,7 @@ import { HeaderPrincipal } from "../../components/HeaderPrincipal";
 import { useLocation, useNavigate } from "react-router-dom";
 export const CadastroUsuario: React.FC = () => {
 
-  const { register, handleSubmit, reset, formState: { errors } } = useForm<IUserForm>({
-    resolver: yupResolver(userFormSchema)
-  });
+
 
 
 
@@ -38,9 +36,39 @@ export const CadastroUsuario: React.FC = () => {
   const navigate = useNavigate();
   const { state } = useLocation();
   const isEdicao = state !== null;
+  const [image, setImage] = useState<File>();
+
+  const { register, handleSubmit, reset, formState: { errors } } = useForm<IUserForm>({
+    resolver: yupResolver((isEdicao ? userEditFormSchema : userFormSchema))
+  });
+
   const validarSenha = (senha: string) => {
     setMensagemSenha(verificaForcaSenha(senha));
   }
+
+  const handleSetImage = (event: ChangeEvent<HTMLInputElement>) => {
+    const { files } = event.target;
+    console.log(files);
+    if (files && files?.length > 0) {
+      setImage(files[0]);
+    }
+  }
+
+  const toBase64 = (file: File)=> new Promise<string>((resolve, reject) => {
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = () => resolve(reader.result?.toString() || "");
+    reader.onerror = error => reject(error);
+  });
+
+  const handleSubmitUser = async (data: IUserForm) => {
+    if (!isLogged || (isLogged && !isEdicao)) {
+      createUser({ ...data }, (isLogged ? data.cargo : ""), image);
+    } else if (isLogged && isEdicao) {
+      updateUser(data, state.idUsuario, (data.cargo === "NENHUM" ? "" : data.cargo), image);
+    }
+  }
+
   return (
     <Grid
       sx={{
@@ -74,14 +102,7 @@ export const CadastroUsuario: React.FC = () => {
         >
           <Typography fontSize='25px' color='primary'>Cadastro de Usuário</Typography>
         </Box>
-        <Box component='form' id='form' onSubmit={handleSubmit((data: IUserForm) => {
-          if (!isLogged || (isLogged && !isEdicao)) {
-            createUser({ ...data }, (isLogged ? data.cargo : ""));
-          } else if (isLogged && isEdicao) {
-            updateUser(data, state.idUsuario, (data.cargo === "NENHUM" ? "" : data.cargo));
-          }
-
-        })}
+        <Box component='form' id='form' onSubmit={handleSubmit((data: IUserForm) => handleSubmitUser(data))}
           sx={{
             display: 'flex',
             flexDirection: 'column',
@@ -162,7 +183,7 @@ export const CadastroUsuario: React.FC = () => {
                 <FormLabel htmlFor="tipo-usuario"> Tipo de usuário</FormLabel>
                 <Select
                   error={Boolean(errors.cargo && errors.cargo.message)} id="tipo-usuario"
-                  defaultValue={isEdicao ? (state.cargo ?? "NENHUM") : "NENHUM"}
+                  defaultValue={isEdicao ? (state.cargo?.nome.replaceAll("ROLE_", "") ?? "NENHUM") : "NENHUM"}
                   labelId="label-tipo-usuario"
                   size="small" {...register("cargo")} >
                   <MenuItem
@@ -193,9 +214,9 @@ export const CadastroUsuario: React.FC = () => {
               </FormControl> : null}
             <FormControl fullWidth>
               <FormLabel>Enviar foto de perfil</FormLabel>
-              <Button variant="contained" component="label">
+              <Button variant="contained" component="label" >
                 Enviar
-                <input hidden accept="image/*" id="foto-perfil" type="file" />
+                <input hidden accept="image/*" id="foto-perfil" type="file" onChange={e => handleSetImage(e)} />
               </Button>
             </FormControl>
           </Box>

@@ -18,5 +18,10 @@ export interface IProgramaForm extends TPrograma {
 }
 
 export interface IUserLogged extends TUser {
-    cargos: TCargo[]
+    cargos: TCargo[],
+    image?: string
+}
+
+export interface IUser extends TUser{
+ cargo: TCargo
 }

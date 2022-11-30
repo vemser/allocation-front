@@ -8,15 +8,19 @@ import {
     Grid,
     Typography,
     Box,
-    TextField
+    TextField,
+    Avatar
   }
     from '@mui/material';
 import { HeaderPrincipal } from '../../components/HeaderPrincipal';
 import perfil from '../../assets/perfil.png'
+import { UserContext } from '../../context/UserContext';
+import { useContext } from 'react';
+import { AuthContext } from '../../context/AuthContext/AuthContext';
 
 
 export const Perfil = () => {
-
+    const {userLogged} = useContext(AuthContext);
     const {register, handleSubmit, reset, formState:{ errors }} = useForm();
 
   return (
@@ -67,7 +71,7 @@ export const Perfil = () => {
                         gap: '20px',
                         width: '100%',
                     }}>               
-                        <img src={perfil} alt="perfil" />      
+                        <Avatar src={ userLogged?.image ? `data:image/jpg;base64,${userLogged?.image}` : perfil} sx={{ width: 128, height: 128 }} alt="perfil" />      
                         <FormControl fullWidth>
                             <FormLabel>Enviar foto de perfil</FormLabel>                           
                             <Button variant="contained" component="label" sx={{ width: '50px'}}>

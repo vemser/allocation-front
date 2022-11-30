@@ -1,4 +1,4 @@
-import { createContext, useState } from 'react';
+import { createContext, useContext, useState } from 'react';
 import { TAuthContext, TChildren, TAuth } from '../../util/types';
 import nProgress from 'nprogress';
 
@@ -10,6 +10,7 @@ import { API } from '../../util/api';
 import { IUserLogged } from '../../util/interface';
 
 
+
 export const AuthContext = createContext({} as TAuthContext);
 
 export const AuthProvider = ({ children }: TChildren) => {
@@ -18,6 +19,7 @@ export const AuthProvider = ({ children }: TChildren) => {
     const isLogged = token !== undefined && token !== "";  //camada de segurança para não expor a token
     const [userLogged, setUserLogged] = useState<IUserLogged>(JSON.parse(localStorage.getItem('userLogged') || "{}"));
 
+
     const handleUserLogin = async (user: TAuth) => {
         user.email = user.email.toLowerCase()
         try {
@@ -25,17 +27,16 @@ export const AuthProvider = ({ children }: TChildren) => {
             const { data } = await API.post('/auth', user);
             localStorage.setItem('token', data);
             setToken(data);
-            API.defaults.headers.common['Authorization'] =  data;
+            API.defaults.headers.common['Authorization'] = data;
             await handleUserLogged(); //busco as informações do usuario
-
 
         } catch (error) {
             console.error(error)
             toast.error('Usuário ou senha inválidos', toastConfig);
         } finally {
             nProgress.done()
-        }        
-        
+        }
+
     }
 
     const handleUserLogout = () => {
@@ -49,7 +50,8 @@ export const AuthProvider = ({ children }: TChildren) => {
     // retorna os dados do usuário logado no sistema
     const handleUserLogged = async () => {
         const { data } = await API.get("/auth/logged");
-        setUserLogged(data);
+        const imagem = await getImageUser(data.email);
+        setUserLogged({ ...data, image: imagem });
         localStorage.setItem("userLogged", JSON.stringify(data));
         if (data && data.cargos.length === 0) {
             toast.error('Usuário sem permissão. Verifique com o Administrador.', toastConfig);
@@ -59,6 +61,26 @@ export const AuthProvider = ({ children }: TChildren) => {
         }
     }
 
+    const uploadImage = async (email: string, formData: FormData) => {
+        try {
+            await API.post(`/auth/upload/?email=${email}`, formData, {
+                headers: {
+                    "Content-Type": "multipart/form-data;"
+                }
+            });
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    const getImageUser = async (email: string): Promise<string> => {
+        try {
+            const { data } = await API.get(`/usuario?email=${email}`);
+            return data;
+        } catch (error) {
+        }
+        return "";
+    }
 
     return (
         <AuthContext.Provider value={{
@@ -67,7 +89,9 @@ export const AuthProvider = ({ children }: TChildren) => {
             handleUserLogout,
             isLogged,
             handleUserLogged,
-            userLogged
+            userLogged,
+            uploadImage,
+            getImageUser
         }}>
             {children}
         </AuthContext.Provider>

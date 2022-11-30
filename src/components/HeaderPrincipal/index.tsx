@@ -3,13 +3,13 @@ import { BoxSC } from "../HeaderLogin/HeaderLogin.styled";
 import logo from '../../assets/dbclogo.png';
 import { useContext, useState } from "react";
 import { AuthContext } from "../../context/AuthContext/AuthContext";
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { LinkSC } from "./HeaderPrincipal.styled";
 
 export const HeaderPrincipal = () => {
-    const {handleUserLogout} = useContext(AuthContext);
-    
+    const { handleUserLogout } = useContext(AuthContext);
 
+    const navigate = useNavigate();
     const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
     const open = Boolean(anchorEl);
     const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -18,7 +18,7 @@ export const HeaderPrincipal = () => {
     const handleClose = () => {
         setAnchorEl(null);
     }
-    const {userLogged } = useContext(AuthContext);
+    const { userLogged } = useContext(AuthContext);
     return (
         <Container>
             <Box sx={{
@@ -36,8 +36,8 @@ export const HeaderPrincipal = () => {
                 </BoxSC>
 
                 <Box sx={{ display: 'flex', alignItems: 'center', textAlign: 'center', flexWrap: "wrap" }}>
-                <LinkSC to='/painel-vagas'> <Button sx={{ minWidth: 100 }}>Painel de Vagas</Button></LinkSC>
-                <LinkSC to='/dash-alunos'> <Button sx={{ minWidth: 100 }}>Painel de Alunos</Button></LinkSC>
+                    <LinkSC to='/painel-vagas'> <Button sx={{ minWidth: 100 }}>Painel de Vagas</Button></LinkSC>
+                    <LinkSC to='/dash-alunos'> <Button sx={{ minWidth: 100 }}>Painel de Alunos</Button></LinkSC>
                     <Button
                         id="basic-button"
                         aria-controls={open ? 'basic-menu' : undefined}
@@ -64,8 +64,9 @@ export const HeaderPrincipal = () => {
                         <LinkSC to='/avaliacoes'><MenuItem onClick={handleClose}>Avaliações</MenuItem></LinkSC>
                         <LinkSC to='/cadastro-reserva-alocacao'><MenuItem onClick={handleClose}>Reserva e Alocação</MenuItem></LinkSC>
                     </Menu>
-                    <Tooltip title="Account settings">
+                    <Tooltip title="Perfil">
                         <IconButton
+                        onClick={()=> navigate('/perfil')}
                             size="small"
                             sx={{ ml: 2 }}
                             aria-controls={true ? 'account-menu' : undefined}
@@ -73,11 +74,15 @@ export const HeaderPrincipal = () => {
                             aria-expanded={true ? 'true' : undefined}
                         >
                             <Typography sx={{ m: 0.5 }}>{userLogged?.nomeCompleto} </Typography>
-                            <LinkSC to={'/perfil'}><Avatar sx={{ width: 32, height: 32 }}>M</Avatar></LinkSC>
-                           
+                            <LinkSC to={'/perfil'}>
+                                {userLogged?.image ?
+                                    <Avatar src={`data:image/jpg;base64,${userLogged?.image}`} sx={{ width: 32, height: 32 }}> </Avatar> :
+                                    <Avatar sx={{ width: 32, height: 32 }}>M</Avatar>}
+                            </LinkSC>
+
                         </IconButton>
                     </Tooltip>
-                    <Button color="error" onClick={()=> handleUserLogout()}>Sair</Button>
+                    <Button color="error" onClick={() => handleUserLogout()}>Sair</Button>
                 </Box>
             </Box>
         </Container>
