@@ -28,6 +28,7 @@ export const ProgramaProvider = ({ children }: TChildren) => {
                 situacao: data.situacao
             })
             console.log(data);
+            navigate('/programas');
             toast.success("Programa cadastrado com sucesso!", toastConfig);
 
         } catch (error) {
@@ -57,7 +58,10 @@ export const ProgramaProvider = ({ children }: TChildren) => {
     const updatePrograma = async (data: IProgramaForm, idPrograma: number) => {
         try {
             nProgress.start();
+            await API.put(`/programa/${idPrograma}`, data);
+            await getProgramas(1);
             console.log(data);
+            navigate('/programas');
             toast.success("Programa editado com sucesso!", toastConfig);
 
         } catch (error) {
@@ -72,6 +76,9 @@ export const ProgramaProvider = ({ children }: TChildren) => {
     const deletePrograma = async (idPrograma: number) => {
         try {
             nProgress.start();
+            await API.delete(`/programa/${idPrograma}`);
+            await getProgramas(1);
+            navigate('/programas');
             toast.success("Programa excluído com sucesso!", toastConfig);
 
         } catch (error) {
