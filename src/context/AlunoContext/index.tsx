@@ -44,7 +44,7 @@ export const AlunoProvider = ({ children }: TChildren) =>{
         try {
             nProgress.start();
             API.defaults.headers.common['Authorization'] = token;
-            const { data } = await API.get(`/aluno?pagina=${(page - 1)}&tamanho=10`);
+            const { data } = await API.get(`/aluno?pagina=${(page - 1)}&tamanho=8`);
             setAlunos(data.elementos)            
             setTotalPages(data.quantidadePaginas);
         } catch (error) {
