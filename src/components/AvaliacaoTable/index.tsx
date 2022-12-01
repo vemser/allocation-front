@@ -5,60 +5,28 @@ import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
-import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
 import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, IconButton } from '@mui/material';
 import { Skeleton } from '@mui/material'
 import { TableHeadSC } from './AvaliacaoTable.styled';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { AvaliacaoContext } from '../../context/AvaliacaoContext';
 import { useContext, useState } from 'react';
-import {ConfirmDialog, TOptionsConfirmDialog } from '../ConfirmDialog';
+import { ConfirmDialog, TOptionsConfirmDialog } from '../ConfirmDialog';
+import { AvaliacaoPagination } from '../AvaliacaoPagination';
 
 export const AvaliacaoTable: React.FC = () => {
 
-    const { deleteAvaliacao } = useContext(AvaliacaoContext);
+    const { deleteAvaliacao, avaliacoes, getAvaliacoes } = useContext(AvaliacaoContext);
+    const navigate = useNavigate();
 
     const [confirmDialog, setConfirmDialog] = useState<TOptionsConfirmDialog>({
         isOpen: false,
         title: "",
-        onConfirm: () => {}
+        onConfirm: () => { }
     });
-
-    const rows: any = [
-        {
-            codigo: 1,
-            idAluno: 1,
-            idVaga: 1,
-            descricao: "teste teste teste",
-            nota: 5,
-            tipoAvaliacao: "teste",
-            dataAvaliacao: "27-11-2022",
-            dataEntrevistaGp: "27-11-2022",
-            dataEntrevistaCliente: "27-11-2022",
-            dataResposta: "27-11-2022",
-            dataCriacao: "27-11-2022",
-            situacao: "avaliado"
-        },
-        {
-            codigo: 2,
-            idAluno: 2,
-            idVaga: 2,
-            descricao: "teste teste teste",
-            nota: 5,
-            tipoAvaliacao: "teste",
-            dataAvaliacao: "27-11-2022",
-            dataEntrevistaGp: "27-11-2022",
-            dataEntrevistaCliente: "27-11-2022",
-            dataResposta: "27-11-2022",
-            dataCriacao: "27-11-2022",
-            situacao: "avaliado"
-        }
-
-    ];
-
 
     return (
 
@@ -67,7 +35,7 @@ export const AvaliacaoTable: React.FC = () => {
                 <TableHeadSC>
                     <TableRow>
                         <TableCell align="center" sx={{ color: 'white' }}>Código</TableCell>
-                        <TableCell align="center" sx={{ color: 'white' }}>Aluno</TableCell>
+                        <TableCell align="center" sx={{ color: 'white' }}>E-mail Aluno</TableCell>
                         <TableCell align="center" sx={{ color: 'white' }}>Vaga</TableCell>
                         <TableCell align="center" sx={{ color: 'white' }}>Descrição</TableCell>
                         <TableCell align="center" sx={{ color: 'white' }}>Nota</TableCell>
@@ -81,7 +49,7 @@ export const AvaliacaoTable: React.FC = () => {
                     </TableRow>
                 </TableHeadSC>
                 <TableBody>
-                    {rows.length === 0 || rows === '' ?
+                    {avaliacoes === undefined || avaliacoes.length === 0 ?
                         <TableRow
                             sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                         >
@@ -99,13 +67,13 @@ export const AvaliacaoTable: React.FC = () => {
                             <TableCell align="center"><Skeleton height={'60px'} /></TableCell>
                         </TableRow>
 
-                        : rows.map((row: any) => (
+                        : avaliacoes.map((row: any) => (
                             <TableRow
-                                key={row.codigo}
+                                key={row.idAvaliacao}
                                 sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                             >
-                                <TableCell component="th" scope="row" align="center"> {row.codigo} </TableCell>
-                                <TableCell align="center">{row.idAluno}</TableCell>
+                                <TableCell component="th" scope="row" align="center"> {row.idAvaliacao} </TableCell>
+                                <TableCell align="center">{row.emailAluno}</TableCell>
                                 <TableCell align="center">{row.idVaga}</TableCell>
                                 <TableCell align="center">{row.descricao}</TableCell>
                                 <TableCell align="center">{row.nota}</TableCell>
@@ -116,21 +84,24 @@ export const AvaliacaoTable: React.FC = () => {
                                 <TableCell align="center">{row.dataResposta}</TableCell>
                                 <TableCell align="center">{row.situacao}</TableCell>
                                 <TableCell align="center">
-                                    <Link style={{ textDecoration: 'none' }} to='/cadastro/avaliacao/entrevista'>
-                                        <IconButton>
-                                            <EditIcon />
-                                        </IconButton>
-                                    </Link>
+                                    {/* definindo o fluxo */}
+                                    <IconButton onClick={() => {
+                                        navigate(`/cadastro/avaliacao/${(row.situacao === "AVALIADO" ? "simples" : "entrevista")}`, {
+                                            state: row
+                                        })
+                                    }}>
+                                        <EditIcon />
+                                    </IconButton>
                                     <IconButton onClick={(event) => {
                                         setConfirmDialog({
                                             isOpen: true,
-                                            title: 'Are you sure to delete this record?',
-                                            onConfirm: () => { 
+                                            title: 'Confirma a exclusão desse registro?',
+                                            onConfirm: () => {
                                                 setConfirmDialog({
                                                     ...confirmDialog,
                                                     isOpen: false
                                                 })
-                                                deleteAvaliacao(row.codigo) 
+                                                deleteAvaliacao(row.idAvaliacao)
                                             }
                                         });
                                     }}>
@@ -145,6 +116,7 @@ export const AvaliacaoTable: React.FC = () => {
                 confirmDialog={confirmDialog}
                 setConfirmDialog={setConfirmDialog}
             />
+            <AvaliacaoPagination />
         </TableContainer>
     );
 }

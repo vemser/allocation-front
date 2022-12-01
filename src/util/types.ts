@@ -138,8 +138,8 @@ export type TReservaAlocacaoContext = {
 }
 
 export type TAvaliacao = {
-    codigo: number,
-    idAluno: number,
+    idAvaliacao: number,
+    emailAluno: string,
     idVaga: number,
     descricao: string,
     nota: number,
@@ -148,15 +148,18 @@ export type TAvaliacao = {
     dataEntrevistaGp: Date,
     dataEntrevistaCliente: Date,
     dataResposta: Date,
-    dataCriacao: Date,
+    dataCriacao: string,
     situacao: string
 }
 
 export type TAvaliacaoContext = {
     avaliacoes: TAvaliacao[],
     createAvaliacao: (data: TAvaliacao) => Promise<void>,
-    updateAvaliacao: (data: TAvaliacao) => Promise<void>,
-    deleteAvaliacao: (id: number) => Promise<void>,
+    updateAvaliacao: (data: TAvaliacao, idAvaliacao: number) => Promise<void>,
+    deleteAvaliacao: (idAvaliacao: number) => Promise<void>,
+    getAvaliacoes: (page: number) => Promise<void>,
+    setAvaliacoes: (avaliacoes: TAvaliacao[]) => void,
+    totalPages : number
 
 }
 

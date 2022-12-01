@@ -1,13 +1,15 @@
-import { Grid, Box, Typography, TextField, FormControl, FormLabel, Select, MenuItem, Button } from "@mui/material";
+import { Grid, Box, Typography, TextField, Button, InputAdornment } from "@mui/material";
 import { useContext, useEffect } from "react";
-import { useForm } from 'react-hook-form'
+import { FieldValues, useForm } from 'react-hook-form'
 import { Link, useNavigate } from 'react-router-dom';
 import { toast } from "react-toastify";
 import { AvaliacaoTable } from "../../components/AvaliacaoTable";
 import { HeaderPrincipal } from "../../components/HeaderPrincipal";
 import { AuthContext } from "../../context/AuthContext/AuthContext";
+import { AvaliacaoContext } from "../../context/AvaliacaoContext";
 import { toastConfig } from "../../util/toast";
 import { podeAcessarTela } from "../../util/valida-senha";
+import SearchIcon from '@mui/icons-material/Search';
 
 export const DashAvaliacao: React.FC = () => {
     const roles = [
@@ -18,14 +20,32 @@ export const DashAvaliacao: React.FC = () => {
     const { register, handleSubmit, reset } = useForm();
     const navigate = useNavigate();
     const { userLogged } = useContext(AuthContext);
+    const { avaliacoes, setAvaliacoes, getAvaliacoes } = useContext(AvaliacaoContext);
 
     useEffect(() => {
         if (userLogged && !podeAcessarTela(roles, userLogged)) {
-          toast.error("Usuário sem permissão.", toastConfig);
-          navigate('/painel-vagas');
+            toast.error("Usuário sem permissão.", toastConfig);
+            navigate('/painel-vagas');
         }
-    
-      }, [userLogged]);
+
+    }, [userLogged]);
+
+    const pesquisar = (data: FieldValues) => {
+        if (data && data.pesquisar) {
+            setAvaliacoes(avaliacoes.filter((item) => {
+                return item.idAvaliacao.toString() === data.pesquisar || item.descricao.toLowerCase().includes(data.pesquisar.toLowerCase())
+                    || item.emailAluno.toLowerCase().includes(data.pesquisar.toLowerCase());
+            }));
+        } else {
+            limpar();
+        }
+    }
+
+    const limpar = async () => {
+        await getAvaliacoes(1);
+        reset();
+    }
+
 
     return (
         <Grid
@@ -58,25 +78,21 @@ export const DashAvaliacao: React.FC = () => {
                 >
                     <Typography fontSize='20px' color='primary'>Filtro</Typography>
                 </Box>
-                <form>
+                <form onSubmit={handleSubmit(pesquisar)}>
                     <Box sx={{
                         display: 'flex',
                         justifyContent: 'center',
                         gap: '40px',
                     }}>
-                        <TextField type="text" placeholder='Digite o seu nome' id='nome' {...register('nome')} variant="outlined"
-
-                            label='Nome'
-                            sx={{
-                                width: '100%',
-                                "& .MuiInputBase-input": {
-                                    height: '10px'
-                                }
+                        <TextField type="text" id='pesquisar' {...register('pesquisar')} variant="outlined"
+                            InputProps={{
+                                endAdornment: (
+                                    <InputAdornment position="end">
+                                        <SearchIcon />
+                                    </InputAdornment>
+                                ),
                             }}
-                        />
-                        <TextField type="email" placeholder='Digite o seu nome' id='email' {...register('email')} variant="outlined"
-
-                            label='E-mail'
+                            label='Pesquisar'
                             sx={{
                                 width: '100%',
                                 "& .MuiInputBase-input": {
@@ -96,15 +112,12 @@ export const DashAvaliacao: React.FC = () => {
                             width: '200px'
                         }
                     }}>
-                        <FormControl >
-                            <FormLabel htmlFor="tipo-usuario"> Tipo de usuário *</FormLabel>
-                            <Select id="tipoVaga" defaultValue={"Frontend"} size="small" {...register("tipoVAaga")} >
-                                <MenuItem value="Frontend" sx={{ height: '30px' }}>Frontend</MenuItem>
-                                <MenuItem value="Backend" sx={{ height: '30px' }}>Backend</MenuItem>
-                                <MenuItem value="QA" sx={{ height: '30px' }}>QA</MenuItem>
-                            </Select>
-                        </FormControl>
-                        <Button variant="contained" sx={{
+                        <Button onClick={limpar} variant="contained" sx={{
+                            height: '50px'
+                        }}>
+                            Limpar
+                        </Button>
+                        <Button type="submit" variant="contained" sx={{
                             height: '50px'
                         }}>
                             Filtrar
