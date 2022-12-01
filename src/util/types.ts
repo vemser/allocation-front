@@ -94,7 +94,7 @@ export type TVagaContext = {
     totalPages: number,
     vagas: TVaga[],
     createVaga: (data: IVagaForm) => Promise<void>,
-    updateVaga: (data: IVagaForm, idVaga: number) => Promise<void>,
+    updateVaga: (data: IVagaForm, idVaga: number, dataCriacao: string) => Promise<void>
     deleteVaga: (id: number) => Promise<void>,
     getVagas: (page: number) => Promise<void>,
 }

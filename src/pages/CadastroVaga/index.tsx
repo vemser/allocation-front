@@ -1,4 +1,4 @@
-import { Autocomplete, Box, Button, Container, FormControl, FormLabel, Grid, MenuItem, OutlinedInput, Select, TextField, Typography } from "@mui/material";
+import { Box, Button, FormControl, FormLabel, Grid, MenuItem, OutlinedInput, Select, TextField, Typography } from "@mui/material";
 import { HeaderPrincipal } from "../../components/HeaderPrincipal";
 import { IVagaForm } from "../../util/interface";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -6,7 +6,6 @@ import { useForm } from "react-hook-form";
 import { vagaFormSchema } from "../../util/schemas";
 import { useContext, useEffect, useState } from "react";
 import { VagaContext } from "../../context/VagaContext";
-import Span from "../../components/Span";
 import { toast } from "react-toastify";
 import { AuthContext } from "../../context/AuthContext/AuthContext";
 import { toastConfig } from "../../util/toast";
@@ -43,9 +42,8 @@ export const CadastroVaga: React.FC = () => {
 const [codigoValue, setCodigoValue] = useState<any>(null)
 
 useEffect(()=> {
-  state != null? setCodigoValue(state.codigo) : setCodigoValue( null )
+  state != null? setCodigoValue(state.idVaga) : setCodigoValue( null )
 },[])
-
 
   return (
     <Grid
@@ -79,7 +77,7 @@ useEffect(()=> {
           <Typography fontSize='25px' color='primary'>{state != null? "Editar Vaga" : "Cadastro de Vaga"}</Typography>
         </Box>
         <Box component='form' id='form' onSubmit={handleSubmit((data: IVagaForm) => {          
-          state != null? updateVaga(data, state.codigo) : createVaga(data);
+          state != null? updateVaga(data, state.idVaga, state.dataCriacao) : createVaga(data);
           reset()
         })}
           sx={{
