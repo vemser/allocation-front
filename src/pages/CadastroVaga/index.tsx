@@ -28,7 +28,6 @@ export const CadastroVaga: React.FC = () => {
 
   const navigate = useNavigate();
   const { state } = useLocation();
-
   const { userLogged } = useContext(AuthContext);
 
   useEffect(() => {
@@ -119,7 +118,7 @@ useEffect(()=> {
               }}
               helperText={errors.emailCliente && errors.emailCliente ? errors.emailCliente.message : null}
               error={Boolean(errors.emailCliente && errors.emailCliente.message)}
-              defaultValue={state != null? state.emailCliente : ""}  
+              defaultValue={state != null? state.clienteDTO.email: ""}  
             />
 
 
@@ -221,9 +220,15 @@ useEffect(()=> {
                 <MenuItem value="FECHADO" >FECHADO</MenuItem>
               </Select>
             </FormControl>
-            <FormControl fullWidth>
-              <FormLabel htmlFor="observacoes">Observações/Lembretes</FormLabel>
-              <OutlinedInput id="observacoes" type="text" placeholder="Observações" size="small" multiline minRows={3} {...register("observacoes")} />
+            <FormControl fullWidth error={Boolean(errors.observacoes && errors.observacoes.message)}>
+              <FormLabel htmlFor="observacoes">{errors.observacoes? errors.observacoes.message : "Observações/Lembretes"}</FormLabel>
+              <OutlinedInput 
+              id="observacoes" 
+              type="text"
+              placeholder="Observações" 
+              size="small" 
+              multiline minRows={3}               
+              {...register("observacoes")} />              
             </FormControl >
           </Box>
           <Box sx={{ display: 'flex', gap: '40px', justifyContent: 'center', alignItems: 'center' }}>

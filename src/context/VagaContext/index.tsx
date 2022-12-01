@@ -79,7 +79,6 @@ export const VagaProvider = ({ children }: TChildren) => {
     const deleteVaga = async (idVaga: number) => {
         try {
             nProgress.start();
-            console.log(idVaga)
             API.defaults.headers.common['Authorization'] = token;
             await API.delete(`/vaga/${idVaga}`);
             toast.success('VAga deletada com sucesso!', toastConfig);
