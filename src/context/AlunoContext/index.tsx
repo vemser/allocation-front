@@ -27,7 +27,6 @@ export const AlunoProvider = ({ children }: TChildren) =>{
             API.defaults.headers.common["Authorization"] = token;
             await API.post("/aluno", aluno)        
             toast.success("Aluno cadastrado com sucesso!", toastConfig);
-            console.log(aluno);
             setTecnologias([]);
             navigate('/dash-alunos');
         } catch (error){
@@ -53,10 +52,10 @@ export const AlunoProvider = ({ children }: TChildren) =>{
         }
     }  
 
-    const updateAluno = async (data: TAluno, idCliente: number) => {
+    const updateAluno = async (data: TAluno, idAluno: number) => {
         try {
             nProgress.start();
-            await API.put(`/aluno/${idCliente}`, data);
+            await API.put(`/aluno/${idAluno}`, data);
             toast.success('Aluno atualizado com sucesso!', toastConfig);
             await getAlunos(1);
             // navigate('/alunos');
@@ -82,7 +81,6 @@ export const AlunoProvider = ({ children }: TChildren) =>{
             nProgress.done();
         }
     }
-
 
     return(
         <AlunoContext.Provider value={{handleCreateAluno, tecnologias, setTecnologias, deleteAluno, updateAluno, alunos, getAlunos, totalPages}}>

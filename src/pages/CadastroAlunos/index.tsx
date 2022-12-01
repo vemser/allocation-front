@@ -70,8 +70,6 @@ export const CadastroAlunos = () => {
 
   const isEdicao = state !== null;
 
-  console.log(state)
-
   return (
     <Grid
       sx={{
