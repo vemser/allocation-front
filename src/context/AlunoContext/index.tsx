@@ -16,7 +16,7 @@ export const AlunoProvider = ({ children }: TChildren) =>{
 
     const [alunos, setAlunos] = useState<TAluno[]>([]);
     const [totalPages, setTotalPages] = useState(0);
-    
+    console.log(alunos[0])
     const handleCreateAluno = async (aluno : TAluno)=>{        
         
         aluno.tecnologias = tecnologias;   

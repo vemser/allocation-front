@@ -29,6 +29,7 @@ import { CadastroCliente } from "../pages/CadastroCliente";
 import { ClienteProvider } from "../context/ClienteContext";
 import { DashClientes } from "../pages/DashClientes";
 import { DashPrograma } from "../pages/DashPrograma";
+import { AtualizarSenha } from "../pages/AtualizarSenha";
 
 export const PrivateRoute = () => {
   const { token } = useContext(AuthContext);
@@ -51,6 +52,7 @@ function Router() {
                         <Routes>
                           <Route index element={<Login />} />
                           <Route path='/cadastro-usuario' element={<CadastroUsuario />} />
+                          <Route path='/atualizar-senha' element={<AtualizarSenha />} />
                           <Route element={<PrivateRoute />}>
                             <Route path='/cadastro-vaga' element={<CadastroVaga />} />
                             <Route path='/painel-vagas' element={<PainelDeVagas />} />

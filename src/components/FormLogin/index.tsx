@@ -79,7 +79,7 @@ export const FormLogin: React.FC = () => {
                     error={Boolean(errors?.senha && errors.senha)}
                     label={errors.senha?.message ?? "Senha"}
                     />
-                  <Link to={'/'}>
+                  <Link to={'/atualizar-senha'}>
                     <Typography sx={{
                     mt: '10px',  
                     fontSize:'12px',
