@@ -6,6 +6,7 @@ import nProgress from 'nprogress';
 import { useNavigate } from 'react-router-dom';
 import { API } from '../../util/api';
 import { AuthContext } from '../AuthContext/AuthContext';
+import axios from 'axios';
 export const AvaliacaoContext = createContext({} as TAvaliacaoContext);
 
 
@@ -13,10 +14,9 @@ export const AvaliacaoProvider = ({ children }: TChildren) => {
     const navigate = useNavigate();
     const [totalPages, setTotalPages] = useState(0);
     const { token } = useContext(AuthContext);
-
     const [avaliacoes, setAvaliacoes] = useState<TAvaliacao[]>([]);
 
-    const getAvaliacoes = async (page : number) => {
+    const getAvaliacoes = async (page: number) => {
         try {
             nProgress.start();
             API.defaults.headers.common['Authorization'] = token;
@@ -39,24 +39,32 @@ export const AvaliacaoProvider = ({ children }: TChildren) => {
             await API.post(`/avaliacao`, data);
             toast.success("Avaliação cadastrada com sucesso!", toastConfig);
             navigate('/avaliacoes');
-
         } catch (error) {
             console.log(error);
-            toast.error('Houve um erro inesperado ao cadastrar a avaliação.', toastConfig);
-        }finally{
+            if (axios.isAxiosError(error) && error.response && error.response.data) {
+                toast.error(error.response.data.message, toastConfig);
+            } else {
+                toast.error('Houve um erro inesperado ao cadastrar a avaliação.', toastConfig);
+            }
+        } finally {
             nProgress.done();
         }
     }
     const updateAvaliacao = async (data: TAvaliacao, idAvaliacao: number) => {
         try {
             nProgress.start();
+            console.log(JSON.stringify(data));
             await API.put(`/avaliacao/${idAvaliacao}`, data);
-            toast.success('Avalição atualizada com sucesso!', toastConfig);
+            toast.success('Avaliação atualizada com sucesso!', toastConfig);
             await getAvaliacoes(1);
             navigate('/avaliacoes');
         } catch (error) {
             console.log(error);
-            toast.error('Houve um erro inesperado ao atualizar avaliação.', toastConfig);
+            if (axios.isAxiosError(error) && error.response && error.response.data) {
+                toast.error(error.response.data.message, toastConfig);
+            } else {
+                toast.error('Houve um erro inesperado ao editar a avaliação.', toastConfig);
+            }
         } finally {
             nProgress.done();
         }
@@ -66,7 +74,7 @@ export const AvaliacaoProvider = ({ children }: TChildren) => {
         try {
             nProgress.start();
             await API.delete(`/avaliacao/${idAvaliacao}`);
-            toast.success('Avaliçao deletada com sucesso!', toastConfig);
+            toast.success('Avaliaçao deletada com sucesso!', toastConfig);
             await getAvaliacoes(1);
             navigate('/avaliacoes');
         } catch (error) {

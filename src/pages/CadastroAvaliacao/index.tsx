@@ -1,7 +1,7 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Autocomplete, Box, Button, FormControl, FormLabel, Grid, MenuItem, Select, TextField, Typography } from '@mui/material';
 import React, { useContext, useEffect } from 'react';
-import { useForm } from 'react-hook-form';
+import { FieldValues, useForm } from 'react-hook-form';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { HeaderPrincipal } from '../../components/HeaderPrincipal';
@@ -30,8 +30,8 @@ export const CadastroAvaliacao: React.FC = () => {
     const isAvaliacaoSimples = tipo === "simples";
     const { state } = useLocation();
     const isEdicao = state !== null;
-    const {vagas, getVagas} = useContext(VagaContext);
-    const {alunos, getAlunos} = useContext(AlunoContext);
+    const { vagas, getVagas } = useContext(VagaContext);
+    const { alunos, getAlunos } = useContext(AlunoContext);
 
     const { register, handleSubmit, reset, setValue, formState: { errors } } = useForm<TAvaliacao>({
         resolver: yupResolver(tipo === 'simples' ? avaliacaoSimplesFormSchema : avaliacaoEntrevistaFormSchema)
@@ -44,20 +44,6 @@ export const CadastroAvaliacao: React.FC = () => {
             navigate('/painel-vagas');
         }
     }, [userLogged]);
-
-    const listaVagas = [
-        {
-            idVaga : 1,
-            descricao: 'vaga1'
-        }
-    ]
-
-    const listaAlunos = [
-        {
-            codigo : 1,
-            nome: 'Daniela'
-        }
-    ]
 
     return (
         <Grid
@@ -88,14 +74,14 @@ export const CadastroAvaliacao: React.FC = () => {
                         justifyContent: 'center',
                     }}
                 >
-                    <Typography fontSize='25px' color='primary'>Cadastro de Avaliação</Typography>
+                    <Typography fontSize='25px' color='primary'>{isEdicao ? "Editar Avaliação" : "Cadastro de Avaliação"}</Typography>
                 </Box>
                 <Box component='form' id='form' onSubmit={handleSubmit((data: TAvaliacao) => {
-                    const dataAtual = `${new Date().getFullYear()}-${new Date().getMonth()}-${("0"+new Date().getDate()).slice(-2)}`;
+                    const dataAtual = `${new Date().getFullYear()}-${new Date().getMonth()}-${("0" + new Date().getDate()).slice(-2)}`;
                     if (!isEdicao) {
                         createAvaliacao({ ...data, dataCriacao: dataAtual });  //cria novo registro
                     } else {
-                        updateAvaliacao({ ...data }, state.idAvalicao); //cria atualiza registro
+                        updateAvaliacao({ ...data }, state.idAvaliacao); //cria atualiza registro
                     }
                 })}
                     sx={{
@@ -114,7 +100,7 @@ export const CadastroAvaliacao: React.FC = () => {
                             id='idAvaliacao'
                             {...register("idAvaliacao")}
                             defaultValue={isEdicao ? state.idAvaliacao : null} // na edição carregar o valor na tela
-                            disabled={isEdicao}
+                            disabled={true}
                             variant="outlined"
                             label='Código'
                             sx={{
@@ -130,7 +116,7 @@ export const CadastroAvaliacao: React.FC = () => {
                         justifyContent: 'center',
                         gap: '40px',
                     }}>
-                       <TextField type="text"
+                        <TextField type="text"
                             placeholder='e-mail aluno'
                             id='emailAluno'
                             defaultValue={isEdicao ? state.emailAluno : undefined}
@@ -144,15 +130,16 @@ export const CadastroAvaliacao: React.FC = () => {
                                 }
                             }}
                             helperText={errors.emailAluno && errors.emailAluno.message ? errors.emailAluno.message : null}
-                            error={Boolean(errors.emailAluno&& errors.emailAluno.message)}
+                            error={Boolean(errors.emailAluno && errors.emailAluno.message)}
                         />
-                         <TextField
+                        <TextField
                             type="number"
                             placeholder='Digite o código da Vaga'
                             id='idVaga'
                             {...register("idVaga")}
+                            helperText={errors.idVaga && errors.idVaga ? errors.idVaga.message : null}
+                            error={Boolean(errors.idVaga && errors.idVaga.message)}
                             defaultValue={isEdicao ? state.idVaga : null} // na edição carregar o valor na tela
-                            disabled={isEdicao}
                             variant="outlined"
                             label='Código da vaga'
                             sx={{
@@ -183,7 +170,7 @@ export const CadastroAvaliacao: React.FC = () => {
                                 }
                             }}
                         /> */}
-                        
+
                         {/* <Autocomplete options={listaVagas}
                             id='idVaga'
                             getOptionLabel={(option) => option.descricao}
@@ -289,6 +276,7 @@ export const CadastroAvaliacao: React.FC = () => {
                             <TextField
                                 type="date"
                                 id='dataEntrevistaGp'
+                                disabled={tipo === "simples"}
                                 defaultValue={isEdicao ? state.dataEntrevistaGp : undefined}
                                 {...register("dataEntrevistaGp")}
                                 variant="outlined"
@@ -308,6 +296,7 @@ export const CadastroAvaliacao: React.FC = () => {
                             <TextField
                                 type="date"
                                 id='dataEntrevistaCliente'
+                                disabled={tipo === "simples"}
                                 defaultValue={isEdicao ? state.dataEntrevistaCliente : undefined}
                                 {...register("dataEntrevistaCliente")}
                                 variant="outlined"
@@ -335,6 +324,7 @@ export const CadastroAvaliacao: React.FC = () => {
                             <TextField
                                 type="date"
                                 id='dataResposta'
+                                disabled={tipo === "simples"}
                                 defaultValue={isEdicao ? state.dataResposta : undefined}
                                 {...register("dataResposta")}
                                 variant="outlined"
