@@ -23,12 +23,9 @@ import { HeaderLogin } from "../../components/HeaderLogin";
 import { AuthContext } from "../../context/AuthContext/AuthContext";
 import { HeaderPrincipal } from "../../components/HeaderPrincipal";
 import { useLocation, useNavigate } from "react-router-dom";
+
+
 export const CadastroUsuario: React.FC = () => {
-
-
-
-
-
 
   const { createUser, updateUser } = useContext(UserContext);
   const { isLogged, userLogged } = useContext(AuthContext);
@@ -212,12 +209,22 @@ export const CadastroUsuario: React.FC = () => {
                   </MenuItem>
                 </Select>
               </FormControl> : null}
-            <FormControl fullWidth>
-              <FormLabel>Enviar foto de perfil</FormLabel>
-              <Button variant="contained" component="label" >
-                Enviar
-                <input hidden accept="image/*" id="foto-perfil" type="file" onChange={e => handleSetImage(e)} />
-              </Button>
+            <FormControl fullWidth sx={{
+              width: '100%',
+            }}>
+              <Box sx={{
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center'
+              }}>
+                <FormLabel>Enviar foto de perfil</FormLabel>
+                <Button variant="contained" component="label" sx={{
+                  width: '90px'
+                }}>
+                  Enviar
+                  <input hidden accept="image/*" id="foto-perfil" type="file" onChange={e => handleSetImage(e)} />
+                </Button>
+              </Box>
             </FormControl>
           </Box>
           <Box sx={{ display: 'flex', gap: '40px', justifyContent: 'space-between', alignItems: 'center' }}>
