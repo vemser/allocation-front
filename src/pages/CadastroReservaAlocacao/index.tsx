@@ -2,7 +2,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { Autocomplete, Box, Button, FormControl, FormLabel, Grid, MenuItem, Select, TextField, Typography } from '@mui/material';
 import React, { useContext, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate, useSearchParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { HeaderPrincipal } from '../../components/HeaderPrincipal';
 import { AuthContext } from '../../context/AuthContext/AuthContext';
@@ -28,6 +28,9 @@ export const CadastroReservaAlocacao: React.FC = () => {
     const { userLogged } = useContext(AuthContext);
     const { state } = useLocation();
     const isEdicao = state !== null;
+    const [searchParam] = useSearchParams();
+    const idVaga = (searchParam.get("idVaga"));
+    const idAluno = (searchParam.get("idAluno"));
 
 
     useEffect(() => {
@@ -67,7 +70,7 @@ export const CadastroReservaAlocacao: React.FC = () => {
                         justifyContent: 'center',
                     }}
                 >
-                    <Typography fontSize='25px' color='primary'>Cadastro de Reserva e Alocação</Typography>
+                    <Typography fontSize='25px' color='primary'>{ !isEdicao ?  "Cadastro de Reserva e Alocação" : "Editar Cadastro de Reserva e Alocação"}</Typography>
                 </Box>
                 <Box component='form' id='form' onSubmit={handleSubmit((data: TReservaAlocacao) => {
 
@@ -109,7 +112,7 @@ export const CadastroReservaAlocacao: React.FC = () => {
                     }}>
                         <TextField type="number" placeholder='Digite o aluno' id='idAluno' {...register("idAluno")} variant="outlined"
                             label='Código do Aluno'
-                            defaultValue={isEdicao ? state.idAluno : null}
+                            defaultValue={isEdicao ? state.idAluno : (idAluno ?? null)}
                             sx={{
                                 width: '100%',
                                 "& .MuiInputBase-input": {
@@ -121,7 +124,7 @@ export const CadastroReservaAlocacao: React.FC = () => {
                         />
                         <TextField type="number" placeholder='Digite a vaga' id='idVaga' {...register("idVaga")} variant="outlined"
                             label='Código da Vaga'
-                            defaultValue={isEdicao ? state.idVaga : null}
+                            defaultValue={isEdicao ? state.idVaga : (idVaga ?? null)}
                             sx={{
                                 width: '100%',
                                 "& .MuiInputBase-input": {
