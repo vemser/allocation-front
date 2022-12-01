@@ -58,10 +58,11 @@ export const AlunoProvider = ({ children }: TChildren) =>{
             await API.put(`/aluno/${idAluno}`, data);
             toast.success('Aluno atualizado com sucesso!', toastConfig);
             await getAlunos(1);
+            setTecnologias([]);
             // navigate('/alunos');
         } catch (error) {
             console.log(error);
-            toast.error('Houve um erro inesperado ao buscar os clientes.', toastConfig);
+            toast.error('Houve um erro inesperado ao tentar atualizar o Aluno.', toastConfig);
         } finally {
             nProgress.done();
         }

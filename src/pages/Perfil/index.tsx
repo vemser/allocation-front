@@ -1,3 +1,4 @@
+import react from 'react'
 import { useForm } from 'react-hook-form';
 import {
     MenuItem,
@@ -96,6 +97,7 @@ export const Perfil = () => {
                         }}
                         // helperText={errors.nomeCompleto && errors.nomeCompleto ? errors.nomeCompleto.message : null}
                         // error={Boolean(errors.nomeCompleto && errors.nomeCompleto.message)}
+                        defaultValue={userLogged != null? userLogged?.nomeCompleto : ""}  
                         />
                         
 

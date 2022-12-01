@@ -203,7 +203,7 @@ export const CadastroAlunos = () => {
               alignItems: 'center',
               gap: '10px'
             }}>
-              {tecnologias.map((el) => (
+              {/* {tecnologias.map((el) => (
                 <Box key={el}
                   sx={{
                     display: 'flex',
@@ -227,7 +227,7 @@ export const CadastroAlunos = () => {
                     <DeleteIcon />
                   </Box>
                 </Box>
-              ))}
+              ))} */}
             </Box>
 
           </Box>
