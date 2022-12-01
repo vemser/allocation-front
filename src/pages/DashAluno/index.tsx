@@ -58,44 +58,13 @@ export const DashAluno = () => {
         onConfirm: () => { }
     });
 
-    // const alunos  = [
-    //     {
-    //         codigo: 1,
-    //         nome: 'julia'
-    //     },
-    //     {
-    //         codigo: 2,
-    //         nome: 'Fernando'
-    //     },
-    //     {
-    //         codigo: 3,
-    //         nome: 'João'
-    //     },
-    //     {
-    //         codigo: 4,
-    //         nome: 'Jenny'
-    //     },
-    //     {
-    //         codigo: 5,
-    //         nome: 'Leo'
-    //     },
-    //     {
-    //         codigo: 6,
-    //         nome: 'Pedro'
-    //     },
-    //     {
-    //         codigo: 7,
-    //         nome: 'Kaio'
-    //     },
-    //     {
-    //         codigo: 8,
-    //         nome: 'Dani'
-    //     },
-    // ]
+   const [pesquisa, setPesquisa] = useState<string | null >(null)
 
 const clicou = (data: string) => {
-    console.log(data)
+    setPesquisa(data)
 }
+
+
     return (
         <Grid
             sx={{
@@ -155,7 +124,8 @@ const clicou = (data: string) => {
                         "& .MuiInputBase-input": {
                         height: '10px'
                         }
-                    }}                     
+                    }}  
+                                     
                     />
                         <Button size="small" variant="contained" type="submit" sx={{
                         width: '100px',
