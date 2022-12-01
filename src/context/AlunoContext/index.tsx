@@ -43,7 +43,7 @@ export const AlunoProvider = ({ children }: TChildren) =>{
             API.defaults.headers.common['Authorization'] = token;
             const { data } = await API.get(`/aluno?pagina=${(page - 1)}&tamanho=8`);
             setAlunos(data.elementos)            
-            setTotalPages(data.quantidadePaginas);
+            setTotalPages(data.quantidadePaginas);            
         } catch (error) {
             console.log(error);
             toast.error('Houve um erro inesperado ao buscar os Alunos.', toastConfig);
@@ -53,11 +53,25 @@ export const AlunoProvider = ({ children }: TChildren) =>{
     }  
 
     const updateAluno = async (data: TAluno, idAluno: number) => {
+
+        let tecnologiaList: any = []
+
+        tecnologias.filter((el: any)=> {
+          tecnologiaList.push(el.nome)
+        })
+    
+        console.log(tecnologiaList)
+
+        data.tecnologias = tecnologiaList;
+
+        data.idPrograma = Number(data.idPrograma);
+        // data.tecnologias = ['']
         try {
             nProgress.start();
             await API.put(`/aluno/${idAluno}`, data);
             toast.success('Aluno atualizado com sucesso!', toastConfig);
             await getAlunos(1);
+            console.log(data)
             setTecnologias([]);
             // navigate('/alunos');
         } catch (error) {

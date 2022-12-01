@@ -16,7 +16,7 @@ import { podeAcessarTela } from "../../util/valida-senha";
 import { useLocation } from 'react-router-dom'
 
     
-export const CadastroAlunos = () => {
+export const EditarAlunos = () => {
   //permissoes necessárias para acessar a tela
   const roles = [
     { nome: "ROLE_ADMINISTRADOR" },
@@ -40,7 +40,15 @@ export const CadastroAlunos = () => {
     }, [])
 
     
-  console.log(tecnologias)
+  //  let tecnologiaList: any = []
+
+  //   tecnologias.filter((el: any)=> {
+  //     tecnologiaList.push(el.nome)
+  //   })
+
+  //   console.log(tecnologiaList)
+
+
 
   const incrementTec = (event: React.ChangeEvent<HTMLInputElement>) => {
     // event.target.value.length <= 0 ? toast.error('Valor vazio', toastConfig) : setTec(event.target.value);
@@ -134,8 +142,7 @@ export const CadastroAlunos = () => {
                 "& .MuiInputBase-input": {
                   height: '10px'
                 }
-              }}    
-              defaultValue={state != null? state.telefone : ""}           
+              }}             
               />                    
           </Box>
           <Box sx={{
@@ -152,7 +159,7 @@ export const CadastroAlunos = () => {
                   height: '10px'
                 }
               }}
-                 
+                            
               />
             <TextField type="text" placeholder='Digite o seu nome' id='estado' {...register('estado')} variant="outlined"                  
               error={Boolean(errors?.estado && errors.estado)}
@@ -206,7 +213,7 @@ export const CadastroAlunos = () => {
               alignItems: 'center',
               gap: '10px'
             }}>
-              {/* {tecnologias.map((el: any) => (
+              {tecnologias.map((el: any) => (
                 <Box key={el}
                   sx={{
                     display: 'flex',
@@ -230,7 +237,7 @@ export const CadastroAlunos = () => {
                     <DeleteIcon />
                   </Box>
                 </Box>
-              ))} */}
+              ))}
             </Box>
 
           </Box>
