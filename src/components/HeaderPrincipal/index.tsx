@@ -62,7 +62,7 @@ export const HeaderPrincipal = () => {
                         <LinkSC to='/painel-vagas'><MenuItem onClick={handleClose}>Vagas</MenuItem></LinkSC>
                         <LinkSC to='/programas'><MenuItem onClick={handleClose}>Programas</MenuItem></LinkSC>
                         <LinkSC to='/avaliacoes'><MenuItem onClick={handleClose}>Avaliações</MenuItem></LinkSC>
-                        <LinkSC to='/cadastro-reserva-alocacao'><MenuItem onClick={handleClose}>Reserva e Alocação</MenuItem></LinkSC>
+                        <LinkSC to='/reservas-alocacoes'><MenuItem onClick={handleClose}>Reserva e Alocação</MenuItem></LinkSC>
                     </Menu>
                     <Tooltip title="Perfil">
                         <IconButton

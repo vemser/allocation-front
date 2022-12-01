@@ -297,7 +297,13 @@ const clicou = (data: string) => {
                                 transform: 'scale(.99)',
                             }
                         }}>
-                            <Button size="small" variant="contained" sx={{
+                            <Button 
+                            onClick={() => {
+                                navigate(`/cadastro/reserva-alocacao?idAluno=${el.idAluno}`)
+                            }}
+                            size="small" 
+                            variant="contained" 
+                            sx={{
                                 fontSize: '10px',
                             }}>
                                 Reversar
