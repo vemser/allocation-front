@@ -54,8 +54,6 @@ export type TAuthContext = {
 
 export type TAlunoContext = {
     handleCreateAluno: (aluno: TAluno) => Promise<void>,
-    setRadioValue: React.Dispatch<any>,
-    radioValue: string,
     setTecnologias: React.Dispatch<React.SetStateAction<string[]>>,
     tecnologias: string[],
     updateAluno: (data: TAluno, idCliente: number) => Promise<void>
