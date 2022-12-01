@@ -29,7 +29,7 @@ export const AlunoProvider = ({ children }: TChildren) =>{
             toast.success("Aluno cadastrado com sucesso!", toastConfig);
             console.log(aluno);
             setTecnologias([]);
-            // navigate('/alunos');
+            navigate('/dash-alunos');
         } catch (error){
             toast.error('Houve algum erro, tente novamente mais tarde.', toastConfig)
         } finally {

@@ -103,7 +103,7 @@ export const CadastroAlunos = () => {
         >
             <Typography fontSize='25px' color='primary'>{state != null? "Editar Aluno" : "Cadastro de Aluno"}</Typography>
         </Box>
-        <Box component='form' id='form' onSubmit={handleSubmit((data: TAluno)=>{ !isEdicao? handleCreate(data) : updateAluno(data, state.idAluno)})        
+        <Box component='form' id='form' onSubmit={handleSubmit((data: TAluno)=>{ !isEdicao? handleCreateAluno(data) : updateAluno(data, state.idAluno)})        
         }
           sx={{
             display: 'flex',
