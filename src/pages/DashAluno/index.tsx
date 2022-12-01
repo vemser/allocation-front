@@ -17,6 +17,7 @@ import { ConfirmDialog, TOptionsConfirmDialog } from '../../components/ConfirmDi
 import { AlunoContext } from "../../context/AlunoContext";
 import { AlunoPagination } from "../../components/AlunoPagination";
 import { AlunoDashPagination } from "../../components/AlunoDashPagination";
+import { CleaningServicesOutlined } from "@mui/icons-material";
 
 
 export const DashAluno = () => {
@@ -57,40 +58,11 @@ export const DashAluno = () => {
         onConfirm: () => { }
     });
 
-    // const alunos  = [
-    //     {
-    //         codigo: 1,
-    //         nome: 'julia'
-    //     },
-    //     {
-    //         codigo: 2,
-    //         nome: 'Fernando'
-    //     },
-    //     {
-    //         codigo: 3,
-    //         nome: 'João'
-    //     },
-    //     {
-    //         codigo: 4,
-    //         nome: 'Jenny'
-    //     },
-    //     {
-    //         codigo: 5,
-    //         nome: 'Leo'
-    //     },
-    //     {
-    //         codigo: 6,
-    //         nome: 'Pedro'
-    //     },
-    //     {
-    //         codigo: 7,
-    //         nome: 'Kaio'
-    //     },
-    //     {
-    //         codigo: 8,
-    //         nome: 'Dani'
-    //     },
-    // ]
+   const [pesquisa, setPesquisa] = useState<string | null >(null)
+
+const clicou = (data: string) => {
+    setPesquisa(data)
+}
 
 
     return (
@@ -131,7 +103,9 @@ export const DashAluno = () => {
                 p: '0 30px'
             }}>
                 
-                <Box component='form' id='form' sx={{
+                <Box component='form' id='form' onSubmit={handleSubmit((data: string) => clicou(data))}
+
+                sx={{
                     display: 'flex',
                     width: '100%',
                     gap: '10px'
@@ -150,7 +124,8 @@ export const DashAluno = () => {
                         "& .MuiInputBase-input": {
                         height: '10px'
                         }
-                    }}                     
+                    }}  
+                                     
                     />
                         <Button size="small" variant="contained" type="submit" sx={{
                         width: '100px',
