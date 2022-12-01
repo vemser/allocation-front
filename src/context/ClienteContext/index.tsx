@@ -62,7 +62,7 @@ export const ClienteProvider = ({ children }: TChildren) => {
             navigate('/clientes');
         } catch (error) {
             console.log(error);
-            toast.error('Houve um erro inesperado ao buscar os clientes.', toastConfig);
+            toast.error('Houve um erro inesperado ao atualizar cliente.', toastConfig);
         } finally {
             nProgress.done();
         }

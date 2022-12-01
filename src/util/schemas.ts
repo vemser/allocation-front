@@ -60,8 +60,18 @@ export const reservaAlocacaoFormSchema = yup.object().shape({
 });
 
 
-export const avaliacaoFormSchema = yup.object().shape({
-    idAluno: yup.string().required("Por favor, informe o aluno"),
+export const avaliacaoSimplesFormSchema = yup.object().shape({
+    emailAluno: yup.string().required("Por favor, informe o email do aluno"),
+    descricao: yup.string().required("Por favor, informe a descrição"),
+    nota: yup.number().typeError("Por favor, informe a nota").required("Por favor, informe a nota").min(1, "A nota precisa ser maior que 0").max(10, "A nota precisa ser menor que 10"),
+    dataAvaliacao: yup.string().required("Por favor, informe a data da avaliação"),
+    dataEntrevistaGp: yup.string().required("Por favor, informe a data da entrevista GP"),
+    dataEntrevistaCliente: yup.string().required("Por favor, informe a data da entrevista cliente"),
+    dataResposta: yup.string().required("Por favor, informe a data de resposta"),
+});
+
+export const avaliacaoEntrevistaFormSchema = yup.object().shape({
+    emailAluno: yup.string().required("Por favor, informe o email do aluno"),
     idVaga: yup.string().required("Por favor, informe a vaga"),
     descricao: yup.string().required("Por favor, informe a descrição"),
     nota: yup.number().typeError("Por favor, informe a nota").required("Por favor, informe a nota").min(1, "A nota precisa ser maior que 0").max(10, "A nota precisa ser menor que 10"),
@@ -69,7 +79,6 @@ export const avaliacaoFormSchema = yup.object().shape({
     dataEntrevistaGp: yup.string().required("Por favor, informe a data da entrevista GP"),
     dataEntrevistaCliente: yup.string().required("Por favor, informe a data da entrevista cliente"),
     dataResposta: yup.string().required("Por favor, informe a data de resposta"),
-    // situacao: yup.string().required("Por favor, informe a situação")
 });
 
 export const clienteFormSchema = yup.object().shape({

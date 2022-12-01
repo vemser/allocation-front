@@ -7,7 +7,7 @@ import { toast } from 'react-toastify';
 import { HeaderPrincipal } from '../../components/HeaderPrincipal';
 import { AuthContext } from '../../context/AuthContext/AuthContext';
 import { AvaliacaoContext } from '../../context/AvaliacaoContext';
-import { avaliacaoFormSchema } from '../../util/schemas';
+import { avaliacaoEntrevistaFormSchema, avaliacaoSimplesFormSchema } from '../../util/schemas';
 import { toastConfig } from '../../util/toast';
 import { TAvaliacao } from '../../util/types';
 import { podeAcessarTela } from '../../util/valida-senha';
@@ -19,9 +19,7 @@ export const CadastroAvaliacao: React.FC = () => {
         { nome: "ROLE_INSTRUTOR" }
     ];
 
-    const { register, handleSubmit, reset, setValue, formState: { errors } } = useForm<TAvaliacao>({
-        resolver: yupResolver(avaliacaoFormSchema)
-    });
+   
     const { createAvaliacao, updateAvaliacao } = useContext(AvaliacaoContext);
     const navigate = useNavigate();
     const { userLogged } = useContext(AuthContext);
@@ -31,6 +29,10 @@ export const CadastroAvaliacao: React.FC = () => {
     const { state } = useLocation();
     const isEdicao = state !== null;
 
+    const { register, handleSubmit, reset, setValue, formState: { errors } } = useForm<TAvaliacao>({
+        resolver: yupResolver(tipo === 'simples' ? avaliacaoSimplesFormSchema : avaliacaoEntrevistaFormSchema)
+    });
+
     useEffect(() => {
         console.log(isEdicao);
         if (userLogged && !podeAcessarTela(roles, userLogged)) {
@@ -39,24 +41,7 @@ export const CadastroAvaliacao: React.FC = () => {
         }
     }, [userLogged]);
 
-    const listaAlunos = [
-        {
-            codigo: 1,
-            nome: "Daniela"
-        },
-        {
-            codigo: 2,
-            nome: "Renan"
-        }
-    ];
-
-    const listaVagas = [
-        "Front", "Qa"
-    ];
-
-
-
-    return (
+       return (
         <Grid
             sx={{
                 width: '100%',
@@ -88,10 +73,11 @@ export const CadastroAvaliacao: React.FC = () => {
                     <Typography fontSize='25px' color='primary'>Cadastro de Avaliação</Typography>
                 </Box>
                 <Box component='form' id='form' onSubmit={handleSubmit((data: TAvaliacao) => {
+                    const dataAtual = `${new Date().getFullYear()}-${new Date().getMonth()}-${new Date().getDate()}`;
                     if (!isEdicao) {
-                        createAvaliacao(data);  //cria novo registro
+                        createAvaliacao({ ...data, dataCriacao: dataAtual });  //cria novo registro
                     } else {
-                        updateAvaliacao(data); //cria atualiza registro
+                        updateAvaliacao({ ...data }, state.idAvalicao); //cria atualiza registro
                     }
                 })}
                     sx={{
@@ -107,9 +93,9 @@ export const CadastroAvaliacao: React.FC = () => {
                         <TextField
                             type="number"
                             placeholder='Digite o código'
-                            id='codigo'
-                            {...register("codigo")}
-                            defaultValue={isEdicao ? state.codigo : null} // na edição carregar o valor na tela
+                            id='idAvaliacao'
+                            {...register("idAvaliacao")}
+                            defaultValue={isEdicao ? state.idAvaliacao : null} // na edição carregar o valor na tela
                             disabled={isEdicao}
                             variant="outlined"
                             label='Código'
@@ -129,18 +115,18 @@ export const CadastroAvaliacao: React.FC = () => {
                         {/**/}
                         <Autocomplete
                             options={listaAlunos}
-                            id='idAluno'
+                            id='emailAluno'
                             getOptionLabel={(option) => option.nome}
                             isOptionEqualToValue={(option, value) => option.codigo === value.codigo}
-                            {...register("idAluno")}
-                            defaultValue={isEdicao ? state.idAluno : undefined}
+                            {...register("emailAluno")}
+                            defaultValue={isEdicao ? state.emailAluno : undefined}
                             renderInput={(params) => <TextField
                                 {...params}
                                 label='Selecionar Aluno'
-                                defaultValue={isEdicao ? state.idAluno : undefined}
-                                {...register("idAluno")}
-                                helperText={errors.idAluno && errors.idAluno ? errors.idAluno.message : null}
-                                error={Boolean(errors.idAluno && errors.idAluno.message)} />}
+                                defaultValue={isEdicao ? state.emailAluno : undefined}
+                                {...register("emailAluno")}
+                                helperText={errors.emailAluno && errors.emailAluno ? errors.emailAluno.message : null}
+                                error={Boolean(errors.emailAluno && errors.emailAluno.message)} />}
                             sx={{
                                 width: '100%',
                                 "& .MuiInputBase-input": {
@@ -150,6 +136,7 @@ export const CadastroAvaliacao: React.FC = () => {
                         />
                         <Autocomplete options={listaVagas}
                             id='idVaga'
+                            disabled={tipo === "simples"}
                             defaultValue={isEdicao ? state.idVaga : undefined}
                             {...register("idVaga")}
                             renderInput={(params) => <TextField {...params} label='Selecionar Vaga' defaultValue={isEdicao ? state.idVaga : undefined} {...register("idVaga")}
@@ -230,11 +217,11 @@ export const CadastroAvaliacao: React.FC = () => {
                             <FormLabel htmlFor="tipoAvaliacao"> Tipo Avaliação</FormLabel>
                             <Select
                                 id="tipoAvaliacao"
-                                defaultValue={isEdicao ? state.nota : "individual"}
+                                defaultValue={isEdicao ? state.tipoAvaliacao : "INDIVIDUAL"}
                                 size="small"
                                 {...register("tipoAvaliacao")} >
-                                <MenuItem value="individual" sx={{ height: '30px' }}>Individual</MenuItem>
-                                <MenuItem value="cliente" sx={{ height: '30px' }}>Cliente</MenuItem>
+                                <MenuItem value="INDIVIDUAL" sx={{ height: '30px' }}>Individual</MenuItem>
+                                <MenuItem value="CLIENTE" sx={{ height: '30px' }}>Cliente</MenuItem>
                             </Select>
                         </FormControl>
                     </Box>
@@ -312,28 +299,34 @@ export const CadastroAvaliacao: React.FC = () => {
                             <FormLabel htmlFor="situacao"> Situação</FormLabel>
                             <Select
                                 id="situacao"
-                                defaultValue={isEdicao ? state.nota : (tipo === "simples" ? "avaliado" : "agendado")}
+                                defaultValue={isEdicao ? state.situacao : (tipo === "simples" ? "AVALIADO" : "AGENDADO_RH")}
                                 size="small"
                                 {...register("situacao")} >
-                                <MenuItem value="avaliado" sx={{ height: '30px' }}>Avaliado</MenuItem>
-                                <MenuItem disabled={tipo === "simples"} value="agendado" sx={{ height: '30px' }}>Agendado</MenuItem>
-                                <MenuItem disabled={tipo === "simples"} value="entrevistado" sx={{ height: '30px' }}>Entrevistado</MenuItem>
-                                <MenuItem disabled={tipo === "simples"} value="agendadocliente" sx={{ height: '30px' }}>Agendado Cliente</MenuItem>
-                                <MenuItem disabled={tipo === "simples"} value="entrevistadocliente" sx={{ height: '30px' }}>Entrevistado Cliente</MenuItem>
-                                <MenuItem disabled={tipo === "simples"} value="aprovado" sx={{ height: '30px' }}>Aprovado</MenuItem>
-                                <MenuItem disabled={tipo === "simples"} value="reprovado" sx={{ height: '30px' }}>Reprovado</MenuItem>
+                                <MenuItem value="AVALIADO" sx={{ height: '30px' }}>Avaliado</MenuItem>
+                                <MenuItem disabled={tipo === "simples"} value="AGENDADO_RH" sx={{ height: '30px' }}>Agendado RH</MenuItem>
+                                <MenuItem disabled={tipo === "simples"} value="ENTREVISTADO_RH" sx={{ height: '30px' }}>Entrevistado RH</MenuItem>
+                                <MenuItem disabled={tipo === "simples"} value="AGENDADO_CLIENTE" sx={{ height: '30px' }}>Agendado Cliente</MenuItem>
+                                <MenuItem disabled={tipo === "simples"} value="ENTREVISTADO_CLIENTE" sx={{ height: '30px' }}>Entrevistado Cliente</MenuItem>
+                                <MenuItem disabled={tipo === "simples"} value="APROVADO" sx={{ height: '30px' }}>Aprovado</MenuItem>
+                                <MenuItem disabled={tipo === "simples"} value="REPROVADO" sx={{ height: '30px' }}>Reprovado</MenuItem>
+                                <MenuItem disabled={tipo === "simples"} value="CANCELADO" sx={{ height: '30px' }}>Cancelado</MenuItem>
+                                <MenuItem disabled={tipo === "simples"} value="FINALIZADO" sx={{ height: '30px' }}>Finalizado</MenuItem>
                             </Select>
                         </FormControl>
                     </Box>
-                    <Box sx={{ display: 'flex', gap: '40px', justifyContent: 'center', alignItems: 'center' }}>
-                        <Box sx={{ width: '100%', textAlign: 'center' }}>
-                            <input type="date" hidden id="data-criacao" {...register("dataCriacao")} />
-                            <Button variant="contained" type="submit" sx={{
+                    <Box sx={{ display: 'flex', gap: '40px', justifyContent: 'space-between', alignItems: 'center' }}>
+                        <Box sx={{ textAlign: 'center' }}>
+                            <Button variant="contained" onClick={() => navigate("/avaliacoes")} sx={{
                                 height: '50px'
                             }}>
-                                Salvar
+                                Voltar
                             </Button>
                         </Box>
+                        <Button variant="contained" color="success" type="submit" sx={{
+                            height: '50px'
+                        }}>
+                            Salvar
+                        </Button>
                     </Box>
                 </Box>
             </Box>
