@@ -36,7 +36,7 @@ export const CadastroAlunos = () => {
 
   const [tec, setTec] = useState<string>('');
     useEffect(()=>{      
-      // setTecnologias(state != null? state.tecnologias : [])
+      setTecnologias(state != null? state.tecnologias : [])
     }, [])
 
 
