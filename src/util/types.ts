@@ -77,17 +77,17 @@ export type TAluno = {
     idPrograma: number
 }
 export type TVaga = {
-    idVaga: number,
     idCliente: number,
     idPrograma: number,
     nome: string,
     quantidade: number,
-    dataAbertura: Date,
+    quantidadeAlocados: number,
+    dataAbertura: any,
     dataFechamento: Date,
-    dataCriacao: Date,
+    dataCriacao: string,
     situacao: string,
-    observacoes: string
-
+    observacoes: string,
+    emailCliente: string
 }
 
 export type TVagaContext = {

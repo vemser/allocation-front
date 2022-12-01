@@ -32,13 +32,6 @@ export const CadastroVaga: React.FC = () => {
 
   const { userLogged } = useContext(AuthContext);
 
-  const listaClientes = [
-    "Daniela", "Renan"
-  ];
-  const listaProgramas = [
-    "VemSer10", "VemSer11"
-  ];
-
   useEffect(() => {
     if (userLogged && !podeAcessarTela(roles, userLogged)) {
         toast.error("Usuário sem permissão.", toastConfig);
@@ -99,20 +92,7 @@ useEffect(()=> {
             justifyContent: 'center',
             gap: '40px',
           }}>
-            <TextField type="number" placeholder='Digite o código' id='idVaga' {...register("idVaga")} variant="outlined"
-              // label='Código'
-              sx={{
-                width: '100%',
-                "& .MuiInputBase-input": {
-                  height: '10px'
-                }
-              }}
-              helperText={errors.idVaga && errors.idVaga.message ? errors.idVaga.message : null}
-              error={Boolean(errors.idVaga && errors.idVaga.message)}
-              defaultValue={codigoValue}
-              value={codigoValue}
-              disabled={state !=null? true : false}  
-            />
+
             <TextField type="text" placeholder='Nome da vaga' id='nome' {...register('nome')} variant="outlined"
               label='Vaga'
               sx={{
@@ -130,29 +110,33 @@ useEffect(()=> {
             display: 'flex',
             justifyContent: 'center',
             gap: '40px',
-          }}>
-            {/*No options vai o array de clientes*/}
-            <Autocomplete options={listaClientes} id='idCliente' {...register("idCliente")}
-              renderInput={(params) => <TextField {...params} label='Selecionar Cliente' {...register("idCliente")}
-                helperText={errors.idCliente && errors.idCliente ? errors.idCliente.message : null}
-                error={Boolean(errors.idCliente && errors.idCliente.message)} />}
+          }}>           
+            <TextField type="text" placeholder='E-mail cliente' id='emailCliente' {...register('emailCliente')} variant="outlined"
+              label='E-mail cliente'
               sx={{
                 width: '100%',
                 "& .MuiInputBase-input": {
                   height: '10px'
                 }
               }}
+              helperText={errors.emailCliente && errors.emailCliente ? errors.emailCliente.message : null}
+              error={Boolean(errors.emailCliente && errors.emailCliente.message)}
+              defaultValue={state != null? state.emailCliente : ""}  
             />
-            <Autocomplete options={listaProgramas} id='idPrograma' {...register("idPrograma")}
-              renderInput={(params) => <TextField {...params} label='Selecionar Programa' {...register("idPrograma")}
-                helperText={errors.idPrograma && errors.idPrograma ? errors.idPrograma.message : null}
-                error={Boolean(errors.idPrograma && errors.idPrograma.message)} />}
+
+
+            <TextField type="number" placeholder='id Programa' id='idPrograma' {...register('idPrograma')} variant="outlined"
+              label='Id Programa'
               sx={{
                 width: '100%',
                 "& .MuiInputBase-input": {
                   height: '10px'
                 }
               }}
+              InputProps={{ inputProps: { min: 1 } }}
+              helperText={errors.idPrograma && errors.idPrograma ? errors.idPrograma.message : null}
+              error={Boolean(errors.idPrograma && errors.idPrograma.message)}
+              defaultValue={state != null? state.idPrograma : ""}  
             />
 
           </Box>
@@ -171,6 +155,7 @@ useEffect(()=> {
                     height: '10px'
                   }
                 }}
+                InputProps={{ inputProps: { min: 1 } }}
                 helperText={errors.quantidade && errors.quantidade.message ? errors.quantidade.message : null}
                 error={Boolean(errors.quantidade && errors.quantidade.message)}
                 defaultValue={state != null? state.quantidade : ""}  
@@ -184,6 +169,7 @@ useEffect(()=> {
                   height: '10px'
                 }
               }}
+              InputProps={{ inputProps: { min: 0 } }}
               defaultValue={state != null? state.quantidadeAlocados : ""}  
             />
 
@@ -204,10 +190,11 @@ useEffect(()=> {
                     height: '10px'
                   }
                 }}
-                helperText={errors.dataAbertura && errors.dataAbertura.message ? errors.dataAbertura.message : null}
+                // helperText={errors.dataAbertura && errors.dataAbertura.message ? errors.dataAbertura.message : null}
                 error={Boolean(errors.dataAbertura && errors.dataAbertura.message)}
                 defaultValue={state != null? state.dataAbertura : ""}  
               />
+              
             </FormControl>
             <FormControl fullWidth >
               <FormLabel htmlFor="dataFechamento">Data de Fechamento</FormLabel>

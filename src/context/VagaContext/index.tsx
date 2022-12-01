@@ -20,12 +20,19 @@ export const VagaProvider = ({ children }: TChildren) => {
     const [vagas, setVagas] = useState<TVaga[]>([]);
     
     const createVaga = async (data: IVagaForm) => {
-        data.situacao = data.situacao.toUpperCase();
+        data.quantidadeAlocados = Number(data.quantidadeAlocados)
+
+        const dataAberturaFormatada = data.dataAbertura.toLocaleDateString().split('/').reverse().join("-")        
+        const dataCriacao = new Date().toLocaleDateString().split('/').reverse().join("-")  
+        data.dataCriacao = dataCriacao
+        data.dataAbertura = dataAberturaFormatada;
+
         try {
             nProgress.start();
             toast.success("Vaga cadastrado com sucesso!", toastConfig);
-            console.log(data);
-            // navigate('/painel-vagas');            
+            API.defaults.headers.common['Authorization'] = token;
+            await API.post(`/vaga`, data);
+            navigate('/painel-vagas');            
 
         } catch (error) {
             console.log(error);
