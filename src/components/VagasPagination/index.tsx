@@ -1,6 +1,7 @@
 import { useContext, useMemo, useEffect } from "react";
 import { Link, useSearchParams } from "react-router-dom";
 import { VagaContext } from "../../context/VagaContext";
+import { Pagination, PaginationLink } from "../Pagination/Pagination.styled";
 
 export const VagasPagination = () => {
     const { totalPages, getVagas } = useContext(VagaContext);
@@ -21,10 +22,10 @@ export const VagasPagination = () => {
     }, [pageNumber]);
 
     return (
-        <div >
+        <Pagination>
             {pages.map((item) => (
-                <Link key={item} to={`/vagas?pagina=${item}`}>{item}</Link>
+                <PaginationLink key={item} to={`/vagas?pagina=${item}`}>{item}</PaginationLink>
             ))}
-        </div>
+        </Pagination>
     )
 }

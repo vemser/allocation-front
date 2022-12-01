@@ -1,6 +1,7 @@
 import { useContext, useMemo, useEffect } from "react";
 import { Link, useSearchParams } from "react-router-dom";
 import { AlunoContext } from "../../context/AlunoContext";
+import { Pagination, PaginationLink } from "../Pagination/Pagination.styled";
 
 export const AlunoPagination = () => {
     const { totalPages, getAlunos } = useContext(AlunoContext);
@@ -21,10 +22,10 @@ export const AlunoPagination = () => {
     }, [pageNumber]);
 
     return (
-        <div >
+        <Pagination>
             {pages.map((item) => (
-                <Link key={item} to={`/alunos?pagina=${item}`}>{item}</Link>
+                <PaginationLink key={item} to={`/alunos?pagina=${item}`}>{item}</PaginationLink>
             ))}
-        </div>
+        </Pagination>
     )
 }

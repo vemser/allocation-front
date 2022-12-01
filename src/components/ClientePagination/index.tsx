@@ -1,6 +1,7 @@
 import { useContext, useMemo, useEffect } from "react";
 import { Link, useSearchParams } from "react-router-dom";
 import { ClienteContext } from "../../context/ClienteContext";
+import { Pagination, PaginationLink } from "../Pagination/Pagination.styled";
 
 
 
@@ -23,10 +24,10 @@ export const ClientePagination = () => {
     }, [pageNumber]);
 
     return (
-        <div >
+        <Pagination>
             {pages.map((item) => (
-                <Link key={item} to={`/clientes?pagina=${item}`}>{item}</Link>
+                <PaginationLink key={item} to={`/clientes?pagina=${item}`}>{item}</PaginationLink>
             ))}
-        </div>
+        </Pagination>
     )
 }

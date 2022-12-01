@@ -1,7 +1,7 @@
 import { useContext, useMemo, useEffect } from "react";
 import { Link, useSearchParams } from "react-router-dom";
 import { ProgramaContext } from "../../context/ProgramaContext";
-import { UserContext } from "../../context/UserContext";
+import { Pagination, PaginationLink } from "../Pagination/Pagination.styled";
 
 
 export const ProgramaPagination = () => {
@@ -23,10 +23,12 @@ export const ProgramaPagination = () => {
     }, [pageNumber]);
 
     return (
-        <div >
+        <Pagination>
             {pages.map((item) => (
-                <Link key={item} to={`/programas?pagina=${item}`}>{item}</Link>
+                <PaginationLink key={item} to={`/programas?pagina=${item}`}>
+                    {item}
+                </PaginationLink>
             ))}
-        </div>
+        </Pagination>
     )
 }

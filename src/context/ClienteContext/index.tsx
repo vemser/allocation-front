@@ -33,6 +33,8 @@ export const ClienteProvider = ({ children }: TChildren) => {
         } catch (error) {
             console.log(error);
             toast.error('Houve um erro inesperado ao cadastrar o cliente.', toastConfig);
+        }finally{
+            nProgress.done();
         }
     }
 

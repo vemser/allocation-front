@@ -25,7 +25,7 @@ export const ConfirmDialog: React.FC<Props> = ({confirmDialog, setConfirmDialog}
             </DialogTitle>
             <DialogContent>
                 <DialogContentText id="alert-dialog-description">
-                    Confirma a exclusão desse registro?
+                    Confirma a exclusão desse registro? 
                 </DialogContentText>
             </DialogContent>
             <DialogActions>
