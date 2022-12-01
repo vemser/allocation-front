@@ -124,7 +124,7 @@ export const CadastroCliente: React.FC = () => {
                         gap: '40px'
                     }}>
                         <FormControl fullWidth error={Boolean(errors.telefone && errors.telefone.message)}>
-                            
+                        {/* <InputMask defaultValue={isEdicao ? state.telefone : undefined} mask="(99)99999-9999" type="text" id="telefone" {...register("telefone")} /> */}
                             <TextField type="number" id='telefone'  {...register("telefone")} variant="outlined"
                                 label='Telefone'
                                 defaultValue={isEdicao ? state.telefone : undefined}

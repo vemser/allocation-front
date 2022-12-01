@@ -65,9 +65,7 @@ export const avaliacaoSimplesFormSchema = yup.object().shape({
     descricao: yup.string().required("Por favor, informe a descrição"),
     nota: yup.number().typeError("Por favor, informe a nota").required("Por favor, informe a nota").min(1, "A nota precisa ser maior que 0").max(10, "A nota precisa ser menor que 10"),
     dataAvaliacao: yup.string().required("Por favor, informe a data da avaliação"),
-    dataEntrevistaGp: yup.string().required("Por favor, informe a data da entrevista GP"),
-    dataEntrevistaCliente: yup.string().required("Por favor, informe a data da entrevista cliente"),
-    dataResposta: yup.string().required("Por favor, informe a data de resposta"),
+   
 });
 
 export const avaliacaoEntrevistaFormSchema = yup.object().shape({

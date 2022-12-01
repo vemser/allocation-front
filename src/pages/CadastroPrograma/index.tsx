@@ -68,7 +68,7 @@ export const CadastroPrograma: React.FC = () => {
                     <Typography fontSize='25px' color='primary'>Cadastro de Programa</Typography>
                 </Box>
                 <Box component='form' id='form' onSubmit={handleSubmit((data: IProgramaForm) => {
-                    const dataAtual = `${new Date().getFullYear()}-${new Date().getMonth()}-${new Date().getDate()}`;
+                     const dataAtual = `${new Date().getFullYear()}-${new Date().getMonth()}-${("0"+new Date().getDate()).slice(-2)}`;
                     if (!isLogged || (isLogged && !isEdicao)) {
                         createPrograma({ ...data, dataCriacao: dataAtual});
                     } else if (isLogged && isEdicao) {

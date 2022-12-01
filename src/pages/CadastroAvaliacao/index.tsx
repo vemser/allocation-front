@@ -5,8 +5,10 @@ import { useForm } from 'react-hook-form';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { HeaderPrincipal } from '../../components/HeaderPrincipal';
+import { AlunoContext } from '../../context/AlunoContext';
 import { AuthContext } from '../../context/AuthContext/AuthContext';
 import { AvaliacaoContext } from '../../context/AvaliacaoContext';
+import { VagaContext } from '../../context/VagaContext';
 import { avaliacaoEntrevistaFormSchema, avaliacaoSimplesFormSchema } from '../../util/schemas';
 import { toastConfig } from '../../util/toast';
 import { TAvaliacao } from '../../util/types';
@@ -19,7 +21,7 @@ export const CadastroAvaliacao: React.FC = () => {
         { nome: "ROLE_INSTRUTOR" }
     ];
 
-   
+
     const { createAvaliacao, updateAvaliacao } = useContext(AvaliacaoContext);
     const navigate = useNavigate();
     const { userLogged } = useContext(AuthContext);
@@ -28,6 +30,8 @@ export const CadastroAvaliacao: React.FC = () => {
     const isAvaliacaoSimples = tipo === "simples";
     const { state } = useLocation();
     const isEdicao = state !== null;
+    const {vagas, getVagas} = useContext(VagaContext);
+    const {alunos, getAlunos} = useContext(AlunoContext);
 
     const { register, handleSubmit, reset, setValue, formState: { errors } } = useForm<TAvaliacao>({
         resolver: yupResolver(tipo === 'simples' ? avaliacaoSimplesFormSchema : avaliacaoEntrevistaFormSchema)
@@ -41,7 +45,21 @@ export const CadastroAvaliacao: React.FC = () => {
         }
     }, [userLogged]);
 
-       return (
+    const listaVagas = [
+        {
+            idVaga : 1,
+            descricao: 'vaga1'
+        }
+    ]
+
+    const listaAlunos = [
+        {
+            codigo : 1,
+            nome: 'Daniela'
+        }
+    ]
+
+    return (
         <Grid
             sx={{
                 width: '100%',
@@ -73,7 +91,7 @@ export const CadastroAvaliacao: React.FC = () => {
                     <Typography fontSize='25px' color='primary'>Cadastro de Avaliação</Typography>
                 </Box>
                 <Box component='form' id='form' onSubmit={handleSubmit((data: TAvaliacao) => {
-                    const dataAtual = `${new Date().getFullYear()}-${new Date().getMonth()}-${new Date().getDate()}`;
+                    const dataAtual = `${new Date().getFullYear()}-${new Date().getMonth()}-${("0"+new Date().getDate()).slice(-2)}`;
                     if (!isEdicao) {
                         createAvaliacao({ ...data, dataCriacao: dataAtual });  //cria novo registro
                     } else {
@@ -112,8 +130,39 @@ export const CadastroAvaliacao: React.FC = () => {
                         justifyContent: 'center',
                         gap: '40px',
                     }}>
-                        {/**/}
-                        <Autocomplete
+                       <TextField type="text"
+                            placeholder='e-mail aluno'
+                            id='emailAluno'
+                            defaultValue={isEdicao ? state.emailAluno : undefined}
+                            {...register('emailAluno')}
+                            variant="outlined"
+                            label='E-mail do Aluno'
+                            sx={{
+                                width: '100%',
+                                "& .MuiInputBase-input": {
+                                    height: '10px'
+                                }
+                            }}
+                            helperText={errors.emailAluno && errors.emailAluno.message ? errors.emailAluno.message : null}
+                            error={Boolean(errors.emailAluno&& errors.emailAluno.message)}
+                        />
+                         <TextField
+                            type="number"
+                            placeholder='Digite o código da Vaga'
+                            id='idVaga'
+                            {...register("idVaga")}
+                            defaultValue={isEdicao ? state.idVaga : null} // na edição carregar o valor na tela
+                            disabled={isEdicao}
+                            variant="outlined"
+                            label='Código da vaga'
+                            sx={{
+                                width: '100%',
+                                "& .MuiInputBase-input": {
+                                    height: '10px'
+                                }
+                            }}
+                        />
+                        {/* <Autocomplete
                             options={listaAlunos}
                             id='emailAluno'
                             getOptionLabel={(option) => option.nome}
@@ -133,9 +182,12 @@ export const CadastroAvaliacao: React.FC = () => {
                                     height: '10px'
                                 }
                             }}
-                        />
-                        <Autocomplete options={listaVagas}
+                        /> */}
+                        
+                        {/* <Autocomplete options={listaVagas}
                             id='idVaga'
+                            getOptionLabel={(option) => option.descricao}
+                            isOptionEqualToValue={(option, value) => option.idVaga === value.idVaga}
                             disabled={tipo === "simples"}
                             defaultValue={isEdicao ? state.idVaga : undefined}
                             {...register("idVaga")}
@@ -148,7 +200,7 @@ export const CadastroAvaliacao: React.FC = () => {
                                     height: '10px'
                                 }
                             }}
-                        />
+                        /> */}
                     </Box>
                     <Box sx={{
                         display: 'flex',
