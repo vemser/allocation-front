@@ -8,7 +8,6 @@ import { useNavigate } from 'react-router-dom';
 import { API } from '../../util/api';
 import { AuthContext } from '../AuthContext/AuthContext';
 
-
 export const VagaContext = createContext({} as TVagaContext);
 
 export const VagaProvider = ({ children }: TChildren) => {
@@ -20,12 +19,18 @@ export const VagaProvider = ({ children }: TChildren) => {
     const [vagas, setVagas] = useState<TVaga[]>([]);
     
     const createVaga = async (data: IVagaForm) => {
-        data.situacao = data.situacao.toUpperCase();
+        const dataAberturaFormatada = data.dataAbertura.toLocaleDateString().split('/').reverse().join("-")      ;  
+        const dataCriacao = new Date().toLocaleDateString().split('/').reverse().join("-") ; 
+        data.dataCriacao = dataCriacao;
+        data.dataAbertura = dataAberturaFormatada;
+        data.quantidadeAlocados = Number(data.quantidadeAlocados);
+
         try {
             nProgress.start();
             toast.success("Vaga cadastrado com sucesso!", toastConfig);
-            console.log(data);
-            // navigate('/painel-vagas');            
+            API.defaults.headers.common['Authorization'] = token;
+            await API.post(`/vaga`, data);
+            navigate('/painel-vagas');            
 
         } catch (error) {
             console.log(error);
@@ -50,14 +55,19 @@ export const VagaProvider = ({ children }: TChildren) => {
         }
     } 
 
-    const updateVaga = async (data: IVagaForm, idVaga: number) => {
+    const updateVaga = async (data: IVagaForm, idVaga: number, dataCriacao: string) => {
+        const dataAberturaFormatada = data.dataAbertura.toLocaleDateString().split('/').reverse().join("-");
+        data.dataCriacao = dataCriacao;
+        data.dataAbertura = dataAberturaFormatada;
+        data.quantidadeAlocados = Number(data.quantidadeAlocados);
+
         try {
-            // nProgress.start();
-            // await API.put(`/vaga/${idVaga}`, data);
+            nProgress.start();
+            await API.put(`/vaga/${idVaga}`, data);
             toast.success('Vaga atualizada com sucesso!', toastConfig);
-            console.log(idVaga)
+            console.log(data)
             await getVagas(1);
-            navigate('/vagas');
+            navigate('/painel-vagas');
         } catch (error) {
             console.log(error);
             toast.error('Houve um erro inesperado ao buscar as vagas.', toastConfig);
@@ -69,7 +79,6 @@ export const VagaProvider = ({ children }: TChildren) => {
     const deleteVaga = async (idVaga: number) => {
         try {
             nProgress.start();
-            console.log(idVaga)
             API.defaults.headers.common['Authorization'] = token;
             await API.delete(`/vaga/${idVaga}`);
             toast.success('VAga deletada com sucesso!', toastConfig);
@@ -90,4 +99,3 @@ export const VagaProvider = ({ children }: TChildren) => {
     )
 
 }
-

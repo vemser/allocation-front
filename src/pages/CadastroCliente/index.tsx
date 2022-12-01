@@ -77,7 +77,6 @@ export const CadastroCliente: React.FC = () => {
                     } else {
                         updateCliente(data, state.idCliente);
                     }
-
                 })}
                     sx={{
                         display: 'flex',

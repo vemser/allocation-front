@@ -11,27 +11,24 @@ export const AlunoContext = createContext({} as TAlunoContext);
 export const AlunoProvider = ({ children }: TChildren) =>{
     const token = localStorage.getItem('token');
     const navigate = useNavigate();
-    const [ radioValue, setRadioValue] = useState<string>('');
 
     const [tecnologias, setTecnologias] = useState<string[]>([])
 
     const [alunos, setAlunos] = useState<TAluno[]>([]);
     const [totalPages, setTotalPages] = useState(0);
     
-    const handleCreateAluno = async (aluno : TAluno)=>{
-        aluno.area = radioValue;
-        aluno.area = aluno.area.toUpperCase();
-        aluno.tecnologias = tecnologias;
-     
-        aluno.idPrograma = 3;
+    const handleCreateAluno = async (aluno : TAluno)=>{        
+        
+        aluno.tecnologias = tecnologias;   
+        aluno.idPrograma = Number(aluno.idPrograma)  
+        
         try{
             nProgress.start();
             API.defaults.headers.common["Authorization"] = token;
             await API.post("/aluno", aluno)        
             toast.success("Aluno cadastrado com sucesso!", toastConfig);
-            console.log(aluno);
             setTecnologias([]);
-            // navigate('/alunos');
+            navigate('/dash-alunos');
         } catch (error){
             toast.error('Houve algum erro, tente novamente mais tarde.', toastConfig)
         } finally {
@@ -55,13 +52,13 @@ export const AlunoProvider = ({ children }: TChildren) =>{
         }
     }  
 
-    const updateAluno = async (data: TAluno, idCliente: number) => {
+    const updateAluno = async (data: TAluno, idAluno: number) => {
         try {
             nProgress.start();
-            await API.put(`/cliente/${idCliente}`, data);
-            toast.success('Cliente atualizado com sucesso!', toastConfig);
+            await API.put(`/aluno/${idAluno}`, data);
+            toast.success('Aluno atualizado com sucesso!', toastConfig);
             await getAlunos(1);
-            navigate('/alunos');
+            // navigate('/alunos');
         } catch (error) {
             console.log(error);
             toast.error('Houve um erro inesperado ao buscar os clientes.', toastConfig);
@@ -85,9 +82,8 @@ export const AlunoProvider = ({ children }: TChildren) =>{
         }
     }
 
-
     return(
-        <AlunoContext.Provider value={{handleCreateAluno, setRadioValue, radioValue, tecnologias, setTecnologias, deleteAluno, updateAluno, alunos, getAlunos, totalPages}}>
+        <AlunoContext.Provider value={{handleCreateAluno, tecnologias, setTecnologias, deleteAluno, updateAluno, alunos, getAlunos, totalPages}}>
             {children}
         </AlunoContext.Provider>
     )

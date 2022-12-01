@@ -63,9 +63,9 @@ export default function AlunoTable() {
               key={aluno.email}
               sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
             >
-              <TableCell component="th" scope="row" align="center"> {aluno.id} </TableCell>
+              <TableCell component="th" scope="row" align="center"> {aluno.idAluno} </TableCell>
               <TableCell align="center">{aluno.nome}</TableCell>
-              {/* <TableCell align="center">{aluno.email}</TableCell> */}
+              <TableCell align="center">{aluno.email}</TableCell>
               <TableCell align="center">{aluno.area}</TableCell>
               <TableCell align="center">
                 <IconButton onClick={() => navigate('/cadastro-alunos', {state: aluno})}>
@@ -81,7 +81,7 @@ export default function AlunoTable() {
                                 ...confirmDialog,
                                 isOpen: false
                             })
-                            deleteAluno(aluno.idCliente)
+                            deleteAluno(aluno.idAluno)
                               }
                         });
                       }}>
@@ -104,6 +104,10 @@ export default function AlunoTable() {
           }}>            
             <Pagination count={totalPages} color="primary" />
           </Box>
+          <ConfirmDialog
+                confirmDialog={confirmDialog}
+                setConfirmDialog={setConfirmDialog}
+            />
     </TableContainer>   
   );
 }

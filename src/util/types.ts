@@ -54,8 +54,6 @@ export type TAuthContext = {
 
 export type TAlunoContext = {
     handleCreateAluno: (aluno: TAluno) => Promise<void>,
-    setRadioValue: React.Dispatch<any>,
-    radioValue: string,
     setTecnologias: React.Dispatch<React.SetStateAction<string[]>>,
     tecnologias: string[],
     updateAluno: (data: TAluno, idCliente: number) => Promise<void>
@@ -79,24 +77,24 @@ export type TAluno = {
     idPrograma: number
 }
 export type TVaga = {
-    idVaga: number,
     idCliente: number,
     idPrograma: number,
     nome: string,
     quantidade: number,
-    dataAbertura: Date,
+    quantidadeAlocados: number,
+    dataAbertura: any,
     dataFechamento: Date,
-    dataCriacao: Date,
+    dataCriacao: string,
     situacao: string,
-    observacoes: string
-
+    observacoes: string,
+    emailCliente: string
 }
 
 export type TVagaContext = {
     totalPages: number,
     vagas: TVaga[],
     createVaga: (data: IVagaForm) => Promise<void>,
-    updateVaga: (data: IVagaForm, idVaga: number) => Promise<void>,
+    updateVaga: (data: IVagaForm, idVaga: number, dataCriacao: string) => Promise<void>
     deleteVaga: (id: number) => Promise<void>,
     getVagas: (page: number) => Promise<void>,
 }

@@ -1,4 +1,4 @@
-import { Autocomplete, Box, Button, Container, FormControl, FormLabel, Grid, MenuItem, OutlinedInput, Select, TextField, Typography } from "@mui/material";
+import { Box, Button, FormControl, FormLabel, Grid, MenuItem, OutlinedInput, Select, TextField, Typography } from "@mui/material";
 import { HeaderPrincipal } from "../../components/HeaderPrincipal";
 import { IVagaForm } from "../../util/interface";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -6,7 +6,6 @@ import { useForm } from "react-hook-form";
 import { vagaFormSchema } from "../../util/schemas";
 import { useContext, useEffect, useState } from "react";
 import { VagaContext } from "../../context/VagaContext";
-import Span from "../../components/Span";
 import { toast } from "react-toastify";
 import { AuthContext } from "../../context/AuthContext/AuthContext";
 import { toastConfig } from "../../util/toast";
@@ -29,15 +28,7 @@ export const CadastroVaga: React.FC = () => {
 
   const navigate = useNavigate();
   const { state } = useLocation();
-
   const { userLogged } = useContext(AuthContext);
-
-  const listaClientes = [
-    "Daniela", "Renan"
-  ];
-  const listaProgramas = [
-    "VemSer10", "VemSer11"
-  ];
 
   useEffect(() => {
     if (userLogged && !podeAcessarTela(roles, userLogged)) {
@@ -50,9 +41,8 @@ export const CadastroVaga: React.FC = () => {
 const [codigoValue, setCodigoValue] = useState<any>(null)
 
 useEffect(()=> {
-  state != null? setCodigoValue(state.codigo) : setCodigoValue( null )
+  state != null? setCodigoValue(state.idVaga) : setCodigoValue( null )
 },[])
-
 
   return (
     <Grid
@@ -86,7 +76,7 @@ useEffect(()=> {
           <Typography fontSize='25px' color='primary'>{state != null? "Editar Vaga" : "Cadastro de Vaga"}</Typography>
         </Box>
         <Box component='form' id='form' onSubmit={handleSubmit((data: IVagaForm) => {          
-          state != null? updateVaga(data, state.codigo) : createVaga(data);
+          state != null? updateVaga(data, state.idVaga, state.dataCriacao) : createVaga(data);
           reset()
         })}
           sx={{
@@ -99,20 +89,7 @@ useEffect(()=> {
             justifyContent: 'center',
             gap: '40px',
           }}>
-            <TextField type="number" placeholder='Digite o código' id='idVaga' {...register("idVaga")} variant="outlined"
-              // label='Código'
-              sx={{
-                width: '100%',
-                "& .MuiInputBase-input": {
-                  height: '10px'
-                }
-              }}
-              helperText={errors.idVaga && errors.idVaga.message ? errors.idVaga.message : null}
-              error={Boolean(errors.idVaga && errors.idVaga.message)}
-              defaultValue={codigoValue}
-              value={codigoValue}
-              disabled={state !=null? true : false}  
-            />
+
             <TextField type="text" placeholder='Nome da vaga' id='nome' {...register('nome')} variant="outlined"
               label='Vaga'
               sx={{
@@ -130,29 +107,33 @@ useEffect(()=> {
             display: 'flex',
             justifyContent: 'center',
             gap: '40px',
-          }}>
-            {/*No options vai o array de clientes*/}
-            <Autocomplete options={listaClientes} id='idCliente' {...register("idCliente")}
-              renderInput={(params) => <TextField {...params} label='Selecionar Cliente' {...register("idCliente")}
-                helperText={errors.idCliente && errors.idCliente ? errors.idCliente.message : null}
-                error={Boolean(errors.idCliente && errors.idCliente.message)} />}
+          }}>           
+            <TextField type="text" placeholder='E-mail cliente' id='emailCliente' {...register('emailCliente')} variant="outlined"
+              label='E-mail cliente'
               sx={{
                 width: '100%',
                 "& .MuiInputBase-input": {
                   height: '10px'
                 }
               }}
+              helperText={errors.emailCliente && errors.emailCliente ? errors.emailCliente.message : null}
+              error={Boolean(errors.emailCliente && errors.emailCliente.message)}
+              defaultValue={state != null? state.clienteDTO.email: ""}  
             />
-            <Autocomplete options={listaProgramas} id='idPrograma' {...register("idPrograma")}
-              renderInput={(params) => <TextField {...params} label='Selecionar Programa' {...register("idPrograma")}
-                helperText={errors.idPrograma && errors.idPrograma ? errors.idPrograma.message : null}
-                error={Boolean(errors.idPrograma && errors.idPrograma.message)} />}
+
+
+            <TextField type="number" placeholder='id Programa' id='idPrograma' {...register('idPrograma')} variant="outlined"
+              label='Id Programa'
               sx={{
                 width: '100%',
                 "& .MuiInputBase-input": {
                   height: '10px'
                 }
               }}
+              InputProps={{ inputProps: { min: 1 } }}
+              helperText={errors.idPrograma && errors.idPrograma ? errors.idPrograma.message : null}
+              error={Boolean(errors.idPrograma && errors.idPrograma.message)}
+              defaultValue={state != null? state.idPrograma : ""}  
             />
 
           </Box>
@@ -171,6 +152,7 @@ useEffect(()=> {
                     height: '10px'
                   }
                 }}
+                InputProps={{ inputProps: { min: 1 } }}
                 helperText={errors.quantidade && errors.quantidade.message ? errors.quantidade.message : null}
                 error={Boolean(errors.quantidade && errors.quantidade.message)}
                 defaultValue={state != null? state.quantidade : ""}  
@@ -184,6 +166,7 @@ useEffect(()=> {
                   height: '10px'
                 }
               }}
+              InputProps={{ inputProps: { min: 0 } }}
               defaultValue={state != null? state.quantidadeAlocados : ""}  
             />
 
@@ -204,10 +187,11 @@ useEffect(()=> {
                     height: '10px'
                   }
                 }}
-                helperText={errors.dataAbertura && errors.dataAbertura.message ? errors.dataAbertura.message : null}
+                // helperText={errors.dataAbertura && errors.dataAbertura.message ? errors.dataAbertura.message : null}
                 error={Boolean(errors.dataAbertura && errors.dataAbertura.message)}
                 defaultValue={state != null? state.dataAbertura : ""}  
               />
+              
             </FormControl>
             <FormControl fullWidth >
               <FormLabel htmlFor="dataFechamento">Data de Fechamento</FormLabel>
@@ -236,9 +220,15 @@ useEffect(()=> {
                 <MenuItem value="FECHADO" >FECHADO</MenuItem>
               </Select>
             </FormControl>
-            <FormControl fullWidth>
-              <FormLabel htmlFor="observacoes">Observações/Lembretes</FormLabel>
-              <OutlinedInput id="observacoes" type="text" placeholder="Observações" size="small" multiline minRows={3} {...register("observacoes")} />
+            <FormControl fullWidth error={Boolean(errors.observacoes && errors.observacoes.message)}>
+              <FormLabel htmlFor="observacoes">{errors.observacoes? errors.observacoes.message : "Observações/Lembretes"}</FormLabel>
+              <OutlinedInput 
+              id="observacoes" 
+              type="text"
+              placeholder="Observações" 
+              size="small" 
+              multiline minRows={3}               
+              {...register("observacoes")} />              
             </FormControl >
           </Box>
           <Box sx={{ display: 'flex', gap: '40px', justifyContent: 'center', alignItems: 'center' }}>
