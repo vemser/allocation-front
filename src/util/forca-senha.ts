@@ -1,7 +1,6 @@
 import { TSpanProps } from "./types";
 
 
-
 const verificaForcaSenha = (senha: string): string => {
 
     let numeros = /([0-9])/;
