@@ -80,7 +80,7 @@ const clicou = (data :any) =>{
                     display: 'flex',
                     width: '100%',
                     gap: '10px'
-                }} onSubmit={handleSubmit(clicou)}>
+                }} onSubmit={handleSubmit((data: string) => clicou(data))}>
                     <TextField type="text" placeholder='Digite o nome da vaga' id='pesquisa' {...register('pesquisa')} variant="outlined"
                     label="Pesquisar"
                     InputProps={{

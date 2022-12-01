@@ -39,6 +39,7 @@ export const CadastroAlunos = () => {
       setTecnologias(state != null? state.tecnologias : [])
     }, [])
 
+    console.log(tecnologias)
 
   const incrementTec = (event: React.ChangeEvent<HTMLInputElement>) => {
     // event.target.value.length <= 0 ? toast.error('Valor vazio', toastConfig) : setTec(event.target.value);

@@ -17,6 +17,7 @@ import { ConfirmDialog, TOptionsConfirmDialog } from '../../components/ConfirmDi
 import { AlunoContext } from "../../context/AlunoContext";
 import { AlunoPagination } from "../../components/AlunoPagination";
 import { AlunoDashPagination } from "../../components/AlunoDashPagination";
+import { CleaningServicesOutlined } from "@mui/icons-material";
 
 
 export const DashAluno = () => {
@@ -92,7 +93,9 @@ export const DashAluno = () => {
     //     },
     // ]
 
-
+const clicou = (data: string) => {
+    console.log(data)
+}
     return (
         <Grid
             sx={{
@@ -131,7 +134,9 @@ export const DashAluno = () => {
                 p: '0 30px'
             }}>
                 
-                <Box component='form' id='form' sx={{
+                <Box component='form' id='form' onSubmit={handleSubmit((data: string) => clicou(data))}
+
+                sx={{
                     display: 'flex',
                     width: '100%',
                     gap: '10px'
