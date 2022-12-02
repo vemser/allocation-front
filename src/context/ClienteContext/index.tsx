@@ -6,6 +6,7 @@ import { API } from '../../util/api';
 import nProgress from 'nprogress';
 import { AuthContext } from '../AuthContext/AuthContext';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 export const ClienteContext = createContext({} as TClienteContext);
 
@@ -33,7 +34,7 @@ export const ClienteProvider = ({ children }: TChildren) => {
         } catch (error) {
             console.log(error);
             toast.error('Houve um erro inesperado ao cadastrar o cliente.', toastConfig);
-        }finally{
+        } finally {
             nProgress.done();
         }
     }
@@ -42,7 +43,7 @@ export const ClienteProvider = ({ children }: TChildren) => {
         try {
             nProgress.start();
             API.defaults.headers.common['Authorization'] = token;
-            const { data } = await API.get(`/cliente?pagina=${(page-1)}&tamanho=20`);
+            const { data } = await API.get(`/cliente?pagina=${(page - 1)}&tamanho=20`);
             setClientes(data.elementos);//a API retorna um objeto no qual os clientes estão no array elementos
             setTotalPages(data.quantidadePaginas);
         } catch (error) {
@@ -83,8 +84,38 @@ export const ClienteProvider = ({ children }: TChildren) => {
         }
     }
 
+    const getPesquisaClientesEmail = async (email: string) => {
+        try {
+            nProgress.start();
+            API.defaults.headers.common['Authorization'] = token;
+            const { data } = await API.get(`/cliente/email/${email}`);
+            setClientes([data]);
+            setTotalPages(1);
+        } catch (error) {
+            console.log(error);
+            if (axios.isAxiosError(error) && error.response && error.response.data) {
+                toast.error(error.response.data.message, toastConfig);
+            } else {
+                toast.error('Houve um erro inesperado ao pesquisar o cliente.', toastConfig);
+            }
+        } finally {
+            nProgress.done();
+        }
+    }
+
     return (
-        <ClienteContext.Provider value={{ clientes, createCliente, getClientes, updateCliente, deleteCliente, totalPages, setClientes }}>
+        <ClienteContext.Provider value={
+            {
+                clientes,
+                createCliente,
+                getClientes,
+                updateCliente,
+                deleteCliente,
+                totalPages,
+                setClientes,
+                getPesquisaClientesEmail
+            }
+        }>
             {children}
         </ClienteContext.Provider>
     )

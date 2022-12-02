@@ -1,6 +1,6 @@
 import { Grid, Box, Typography, TextField,  Button, InputAdornment } from "@mui/material";
 import { useContext, useEffect } from "react";
-import { FieldValues, useForm } from 'react-hook-form'
+import {  useForm } from 'react-hook-form';
 import { Link, useNavigate } from 'react-router-dom';
 import { toast } from "react-toastify";
 import { ClienteTable } from "../../components/ClienteTable";
@@ -19,7 +19,7 @@ export const DashClientes: React.FC = () => {
     const { register, handleSubmit, reset } = useForm();
     const navigate = useNavigate();
     const { userLogged } = useContext(AuthContext);
-    const { clientes, getClientes, setClientes } = useContext(ClienteContext);
+    const { clientes, getClientes, setClientes, getPesquisaClientesEmail } = useContext(ClienteContext);
 
     useEffect(() => {
         if (userLogged && !podeAcessarTela(roles, userLogged)) {
@@ -30,20 +30,18 @@ export const DashClientes: React.FC = () => {
     }, [userLogged]);
 
     //Pesquisar
-    const pesquisar = (data: FieldValues) => {
+    const pesquisar =async (data: any) => {
         if (data && data.pesquisar) {
-            setClientes(clientes.filter((item) => {
-                return item.idCliente.toString() === data.pesquisar || item.nome.toLowerCase().includes(data.pesquisar.toLowerCase())
-                    || item.email.toLowerCase().includes(data.pesquisar.toLowerCase()) || item.telefone.includes(data.pesquisar);
-            }));
+            await getPesquisaClientesEmail(data.pesquisar);
         } else {
             limpar();
         }
     }
 
-    const limpar = async () => {
-        await getClientes(1);
+    const limpar =  () => {
         reset();
+        getClientes(1);
+        
     }
 
     return (
@@ -82,7 +80,12 @@ export const DashClientes: React.FC = () => {
                         justifyContent: 'center',
                         gap: '40px',
                     }}>
-                        <TextField type="text" id='pesquisar' {...register('pesquisar')} variant="outlined"
+                        <TextField 
+                        type="text" 
+                        id='pesquisar' 
+                        placeholder='Digite o e-mail do cliente'
+                        {...register('pesquisar')} 
+                        variant="outlined"
                             InputProps={{
                                 endAdornment: (
                                     <InputAdornment position="end">

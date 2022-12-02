@@ -60,7 +60,11 @@ export type TAlunoContext = {
     deleteAluno: (idCliente: number) => Promise<void>,
     getAlunos: (page: number) => Promise<void>,
     alunos: TAluno[],
-    totalPages: number
+    setAlunos: (data: TAluno[]) =>void,
+    totalPages: number,
+    pesquisaAlunoNome: (page: number, nome: string) => Promise<void>,
+    pesquisaAlunoEmail: (email: string) => Promise<void>,
+    pesquisaAlunoStatus: () => Promise<void>
 }
 
 export type TAluno = {
@@ -133,7 +137,7 @@ export type TReservaAlocacao = {
     statusAluno: string
 }
 
-export type TReservaAlocacaoGet ={
+export type TReservaAlocacaoGet = {
     idReservaAlocacao: number,
     aluno: TAluno,
     vaga: TVaga,
@@ -153,7 +157,7 @@ export type TReservaAlocacaoContext = {
     deleteReservaAlocacao: (idReservaAlocacao: number) => Promise<void>,
     getReservasAlocacoes: (page: number) => Promise<void>,
     setReservasAlocacoes: (reservasAlocacoes: TReservaAlocacaoGet[]) => void,
-    totalPages : number
+    totalPages: number
 }
 
 export type TAvaliacao = {
@@ -178,7 +182,7 @@ export type TAvaliacaoContext = {
     deleteAvaliacao: (idAvaliacao: number) => Promise<void>,
     getAvaliacoes: (page: number) => Promise<void>,
     setAvaliacoes: (avaliacoes: TAvaliacao[]) => void,
-    totalPages : number
+    totalPages: number
 
 }
 
@@ -197,6 +201,7 @@ export type TClienteContext = {
     updateCliente: (data: TCliente, idCliente: number) => Promise<void>,
     deleteCliente: (idCliente: number) => Promise<void>,
     getClientes: (page: number) => Promise<void>,
-    setClientes: (clientes: TCliente[]) => void
+    setClientes: (clientes: TCliente[]) => void,
+    getPesquisaClientesEmail: (email: string) => Promise<void>
 
 }
