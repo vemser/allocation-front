@@ -1,3 +1,21 @@
+# Projeto Allocation - Sistema de Reserva e Alocação​
+
+
+Sistema para gerenciar a reserva e alocação do alunos formados no VemSerDBC nas vagas disponíveis dos clientes.
+
+## Perfis dos usuários
+
+
+- Adminsitrador: possui permissão total no sistema;
+- Gestor: pode criar as vagas, alunos, clientes, reservar e alocar;
+- Gestão de Pessoas: pode criar as vagas, alunos, reservar, alocar e avaliar/entrevistar alunos;
+- Instrutor: pode criar e avaliar alunos.
+
+## Equipe Front-end
+
+
+- Daniela Leguari
+- Renan Cesar
 
 
 ## Tecnologias utilizadas
