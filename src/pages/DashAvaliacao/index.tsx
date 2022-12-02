@@ -20,7 +20,7 @@ export const DashAvaliacao: React.FC = () => {
     const { register, handleSubmit, reset } = useForm();
     const navigate = useNavigate();
     const { userLogged } = useContext(AuthContext);
-    const { avaliacoes, setAvaliacoes, getAvaliacoes } = useContext(AvaliacaoContext);
+    const { avaliacoes, setAvaliacoes, getAvaliacoes, getPesquisaIdAvaliacao } = useContext(AvaliacaoContext);
 
     useEffect(() => {
         if (userLogged && !podeAcessarTela(roles, userLogged)) {
@@ -30,19 +30,16 @@ export const DashAvaliacao: React.FC = () => {
 
     }, [userLogged]);
 
-    const pesquisar = (data: FieldValues) => {
+    const pesquisar = async (data: any) => {
         if (data && data.pesquisar) {
-            setAvaliacoes(avaliacoes.filter((item) => {
-                return item.idAvaliacao.toString() === data.pesquisar || item.descricao.toLowerCase().includes(data.pesquisar.toLowerCase())
-                    || item.emailAluno.toLowerCase().includes(data.pesquisar.toLowerCase());
-            }));
+            await getPesquisaIdAvaliacao(data.pesquisar);
         } else {
             limpar();
         }
     }
 
-    const limpar = async () => {
-        await getAvaliacoes(1);
+    const limpar = () => {
+        getAvaliacoes(1);
         reset();
     }
 
@@ -78,16 +75,24 @@ export const DashAvaliacao: React.FC = () => {
                 >
                     <Typography fontSize='20px' color='primary'>Filtro</Typography>
                 </Box>
-                <form onSubmit={handleSubmit(pesquisar)}>
-                    <Box sx={{
+                <form onSubmit=
+                {handleSubmit(pesquisar)}>
+                    <Box 
+                    sx={{
                         display: 'flex',
                         justifyContent: 'center',
                         gap: '40px',
                     }}>
-                        <TextField type="text" id='pesquisar' {...register('pesquisar')} variant="outlined"
+                        <TextField 
+                        type="text" 
+                        id='pesquisar' 
+                        placeholder="Digite o código da avaliação"
+                        {...register('pesquisar')} 
+                        variant="outlined"
                             InputProps={{
                                 endAdornment: (
-                                    <InputAdornment position="end">
+                                    <InputAdornment 
+                                    position="end">
                                         <SearchIcon />
                                     </InputAdornment>
                                 ),

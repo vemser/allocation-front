@@ -93,8 +93,41 @@ export const ProgramaProvider = ({ children }: TChildren) => {
         }
     }
 
+    //pesquisa
+    const getPesquisaNomePrograma = async (nome: string, page: number) => {
+        try {
+            nProgress.start();
+            API.defaults.headers.common['Authorization'] = token;
+            const { data } = await API.get(`/programa/nome/${nome}?pagina=${(page - 1)}&tamanho=10`);
+            setProgramas(data.elementos);
+            setTotalPages(1);
+        } catch (error) {
+            console.log(error);
+            if (axios.isAxiosError(error) && error.response && error.response.data) {
+                toast.error(error.response.data.message, toastConfig);
+            } else {
+                toast.error('Houve um erro inesperado ao pesquisar o programa.', toastConfig);
+            }
+        } finally {
+            nProgress.done();
+        }
+    }
+
+
+
     return (
-        <ProgramaContext.Provider value={{ programas, createPrograma, getProgramas, updatePrograma, deletePrograma, totalPages, setProgramas }}>
+        <ProgramaContext.Provider value={
+            {
+                programas,
+                createPrograma,
+                getProgramas,
+                updatePrograma,
+                deletePrograma,
+                totalPages,
+                setProgramas,
+                getPesquisaNomePrograma
+            }
+        }>
             {children}
         </ProgramaContext.Provider>
     )
