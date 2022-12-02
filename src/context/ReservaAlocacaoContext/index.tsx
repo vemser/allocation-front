@@ -89,8 +89,28 @@ export const ReservaAlocacaoProvider = ({ children }: TChildren) => {
         }
     }
 
+    const getPesquisaIdAlocacao = async (idAlocacao: number) => {
+        try {
+            nProgress.start();
+            // API.defaults.headers.common['Authorization'] = token;
+            // const { data } = await API.get(`/vaga/${idAlocacao}`);
+            // setReservasAlocacoes([data]);
+            console.log(idAlocacao)
+            setTotalPages(1);
+        } catch (error) {
+            console.log(error);
+            if (axios.isAxiosError(error) && error.response && error.response.data) {
+                toast.error(error.response.data.message, toastConfig);
+            } else {
+                toast.error('Houve um erro inesperado ao pesquisar a Reserva.', toastConfig);
+            }
+        } finally {
+            nProgress.done();
+        }
+    }
+
     return (
-        <ReservaAlocacaoContext.Provider value={{ reservasAlocacoes, createReservaAlocacao, getReservasAlocacoes, updateReservaAlocacao, setReservasAlocacoes, deleteReservaAlocacao, totalPages }}>
+        <ReservaAlocacaoContext.Provider value={{ reservasAlocacoes, createReservaAlocacao, getReservasAlocacoes, updateReservaAlocacao, setReservasAlocacoes, deleteReservaAlocacao, totalPages, getPesquisaIdAlocacao }}>
             {children}
         </ReservaAlocacaoContext.Provider>
     )

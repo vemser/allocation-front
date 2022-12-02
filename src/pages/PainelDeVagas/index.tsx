@@ -423,7 +423,7 @@ export const PainelDeVagas = () => {
                         fontSize: "10px",
                       }}
                     >
-                      Reversar Aluno para vaga
+                      Reservar Aluno para vaga
                     </Button>
                   </Box>
                 </Box>

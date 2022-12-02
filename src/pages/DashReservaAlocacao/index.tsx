@@ -20,7 +20,7 @@ export const DashReservaAlocacao: React.FC = () => {
     const { register, handleSubmit, reset } = useForm();
     const navigate = useNavigate();
     const { userLogged } = useContext(AuthContext);
-    const { reservasAlocacoes, setReservasAlocacoes, getReservasAlocacoes } = useContext(ReservaAlocacaoContext);
+    const { reservasAlocacoes, setReservasAlocacoes, getReservasAlocacoes, getPesquisaIdAlocacao } = useContext(ReservaAlocacaoContext);
 
     useEffect(() => {
         if (userLogged && !podeAcessarTela(roles, userLogged)) {
@@ -30,20 +30,15 @@ export const DashReservaAlocacao: React.FC = () => {
 
     }, [userLogged]);
 
-    const pesquisar = (data: FieldValues) => {
-        if (data && data.pesquisar) {
-            setReservasAlocacoes(reservasAlocacoes.filter((item) => {
-                return item.idReservaAlocacao.toString() === data.pesquisar ||
-                 item.descricao.toLowerCase().includes(data.pesquisar.toLowerCase()) ||
-                 item.aluno.nome.toLowerCase().includes(data.pesquisar.toLowerCase()) ||
-                 item.vaga.nome.toLowerCase().includes(data.pesquisar.toLowerCase()) ||
-                 item.avaliacaoEntity.descricao.toLowerCase().includes(data.pesquisar.toLowerCase());
-                    ;
-            }));
+    const pesquisaIdAlocacao = async (data: any) => {
+        console.log(data);
+        if (data.pesquisa && !isNaN(data.pesquisa)) {
+          await getPesquisaIdAlocacao(Number(data.pesquisa));
         } else {
-            limpar();
+          limpar();
         }
-    }
+    
+      }
 
     const limpar = async () => {
         await getReservasAlocacoes(1);
@@ -82,7 +77,7 @@ export const DashReservaAlocacao: React.FC = () => {
                 >
                     <Typography fontSize='20px' color='primary'>Reserva e Alocação</Typography>
                 </Box>
-                <form onSubmit={handleSubmit(pesquisar)}>
+                <form onSubmit={handleSubmit(pesquisaIdAlocacao)}>
                     <Box sx={{
                         display: 'flex',
                         justifyContent: 'center',
