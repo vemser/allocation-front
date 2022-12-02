@@ -18,12 +18,12 @@ export const CadastroVaga: React.FC = () => {
     { nome: "ROLE_ADMINISTRADOR" },
     { nome: "ROLE_GESTOR" },
     { nome: "ROLE_GESTAO_DE_PESSOAS" },
-    ];
+  ];
 
   const { register, handleSubmit, reset, formState: { errors } } = useForm<IVagaForm>({
     resolver: yupResolver(vagaFormSchema)
   });
-  
+
   const { createVaga, updateVaga } = useContext(VagaContext);
 
   const navigate = useNavigate();
@@ -32,17 +32,17 @@ export const CadastroVaga: React.FC = () => {
 
   useEffect(() => {
     if (userLogged && !podeAcessarTela(roles, userLogged)) {
-        toast.error("Usuário sem permissão.", toastConfig);
-        navigate('/painel-vagas');
+      toast.error("Usuário sem permissão.", toastConfig);
+      navigate('/painel-vagas');
     }
 
-}, [userLogged]);
+  }, [userLogged]);
 
-const [codigoValue, setCodigoValue] = useState<any>(null)
+  const [codigoValue, setCodigoValue] = useState<any>(null)
 
-useEffect(()=> {
-  state != null? setCodigoValue(state.idVaga) : setCodigoValue( null )
-},[])
+  useEffect(() => {
+    state != null ? setCodigoValue(state.idVaga) : setCodigoValue(null)
+  }, [])
 
   return (
     <Grid
@@ -73,11 +73,10 @@ useEffect(()=> {
             justifyContent: 'center',
           }}
         >
-          <Typography fontSize='25px' color='primary'>{state != null? "Editar Vaga" : "Cadastro de Vaga"}</Typography>
+          <Typography fontSize='25px' color='primary'>{state != null ? "Editar Vaga" : "Cadastro de Vaga"}</Typography>
         </Box>
-        <Box component='form' id='form' onSubmit={handleSubmit((data: IVagaForm) => {          
-          state != null? updateVaga(data, state.idVaga, state.dataCriacao) : createVaga(data);
-          reset()
+        <Box component='form' id='form' onSubmit={handleSubmit((data: IVagaForm) => {
+          state != null ? updateVaga(data, state.idVaga, state.dataCriacao) : createVaga(data);
         })}
           sx={{
             display: 'flex',
@@ -100,14 +99,14 @@ useEffect(()=> {
               }}
               helperText={errors.nome && errors.nome.message ? errors.nome.message : null}
               error={Boolean(errors.nome && errors.nome.message)}
-              defaultValue={state != null? state.nome : ""}  
+              defaultValue={state != null ? state.nome : ""}
             />
           </Box>
           <Box sx={{
             display: 'flex',
             justifyContent: 'center',
             gap: '40px',
-          }}>           
+          }}>
             <TextField type="text" placeholder='E-mail cliente' id='emailCliente' {...register('emailCliente')} variant="outlined"
               label='E-mail cliente'
               sx={{
@@ -118,7 +117,7 @@ useEffect(()=> {
               }}
               helperText={errors.emailCliente && errors.emailCliente ? errors.emailCliente.message : null}
               error={Boolean(errors.emailCliente && errors.emailCliente.message)}
-              defaultValue={state != null? state.clienteDTO.email: ""}  
+              defaultValue={state != null ? state.clienteDTO.email : ""}
             />
 
 
@@ -133,7 +132,7 @@ useEffect(()=> {
               InputProps={{ inputProps: { min: 1 } }}
               helperText={errors.idPrograma && errors.idPrograma ? errors.idPrograma.message : null}
               error={Boolean(errors.idPrograma && errors.idPrograma.message)}
-              defaultValue={state != null? state.idPrograma : ""}  
+              defaultValue={state != null ? state.idPrograma : ""}
             />
 
           </Box>
@@ -155,7 +154,7 @@ useEffect(()=> {
                 InputProps={{ inputProps: { min: 1 } }}
                 helperText={errors.quantidade && errors.quantidade.message ? errors.quantidade.message : null}
                 error={Boolean(errors.quantidade && errors.quantidade.message)}
-                defaultValue={state != null? state.quantidade : ""}  
+                defaultValue={state != null ? state.quantidade : ""}
               />
             </FormControl>
             <TextField type="number" placeholder='Quantidade de Alocados' id='quantidadeAlocados' {...register("quantidadeAlocados")} variant="outlined"
@@ -167,7 +166,7 @@ useEffect(()=> {
                 }
               }}
               InputProps={{ inputProps: { min: 0 } }}
-              defaultValue={state != null? state.quantidadeAlocados : ""}  
+              defaultValue={state != null ? state.quantidadeAlocados : ""}
             />
 
           </Box>
@@ -189,9 +188,9 @@ useEffect(()=> {
                 }}
                 // helperText={errors.dataAbertura && errors.dataAbertura.message ? errors.dataAbertura.message : null}
                 error={Boolean(errors.dataAbertura && errors.dataAbertura.message)}
-                defaultValue={state != null? state.dataAbertura : ""}  
+                defaultValue={state != null ? state.dataAbertura : ""}
               />
-              
+
             </FormControl>
             <FormControl fullWidth >
               <FormLabel htmlFor="dataFechamento">Data de Fechamento</FormLabel>
@@ -203,7 +202,7 @@ useEffect(()=> {
                     height: '10px'
                   }
                 }}
-                defaultValue={state != null? state.dataFechamento : ""}  
+                defaultValue={state != null ? state.dataFechamento : ""}
               />
             </FormControl>
           </Box>
@@ -215,20 +214,20 @@ useEffect(()=> {
           }}>
             <FormControl fullWidth error={Boolean(errors.situacao && errors.situacao.message)} >
               <FormLabel htmlFor="situacao"> Situação</FormLabel>
-              <Select error={Boolean(errors.situacao && errors.situacao.message)} id="situacao" defaultValue={state != null? state.situacao : ""}   labelId="situacao" size="small" {...register("situacao")} >
+              <Select error={Boolean(errors.situacao && errors.situacao.message)} id="situacao" defaultValue={state != null ? state.situacao : ""} labelId="situacao" size="small" {...register("situacao")} >
                 <MenuItem value="ABERTO" >ABERTO</MenuItem>
                 <MenuItem value="FECHADO" >FECHADO</MenuItem>
               </Select>
             </FormControl>
             <FormControl fullWidth error={Boolean(errors.observacoes && errors.observacoes.message)}>
-              <FormLabel htmlFor="observacoes">{errors.observacoes? errors.observacoes.message : "Observações/Lembretes"}</FormLabel>
-              <OutlinedInput 
-              id="observacoes" 
-              type="text"
-              placeholder="Observações" 
-              size="small" 
-              multiline minRows={3}               
-              {...register("observacoes")} />              
+              <FormLabel htmlFor="observacoes">{errors.observacoes ? errors.observacoes.message : "Observações/Lembretes"}</FormLabel>
+              <OutlinedInput
+                id="observacoes"
+                type="text"
+                placeholder="Observações"
+                size="small"
+                multiline minRows={3}
+                {...register("observacoes")} />
             </FormControl >
           </Box>
           <Box sx={{ display: 'flex', gap: '40px', justifyContent: 'center', alignItems: 'center' }}>

@@ -80,7 +80,7 @@ export const DashReservaAlocacao: React.FC = () => {
                         justifyContent: 'center',
                     }}
                 >
-                    <Typography fontSize='20px' color='primary'>Filtro</Typography>
+                    <Typography fontSize='20px' color='primary'>Reserva e Alocação</Typography>
                 </Box>
                 <form onSubmit={handleSubmit(pesquisar)}>
                     <Box sx={{
@@ -97,6 +97,7 @@ export const DashReservaAlocacao: React.FC = () => {
                                 ),
                             }}
                             label='Pesquisar'
+                            placeholder='Pesquisar'
                             sx={{
                                 width: '100%',
                                 "& .MuiInputBase-input": {

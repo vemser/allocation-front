@@ -1,4 +1,4 @@
-import { Box, Typography, TextField, FormControl, FormLabel, Select, MenuItem, Button, InputAdornment } from "@mui/material";
+import { Box, Typography, TextField, Button, InputAdornment } from "@mui/material";
 import { FieldValues, useForm } from 'react-hook-form'
 import UsuarioTable from "../UsuarioTable";
 import { Link } from 'react-router-dom';
@@ -8,14 +8,11 @@ import SearchIcon from '@mui/icons-material/Search';
 
 export const DashUsuario = () => {
   const { register, handleSubmit, reset, formState: { errors } } = useForm();
-  const { getUsers, setUsers, users } = useContext(UserContext);
+  const { getUsers, getPesquisaUsuariosEmail } = useContext(UserContext);
 
-  const pesquisar = (data: FieldValues) => {
+  const pesquisar = async (data: FieldValues) => {
     if (data && data.pesquisar) {
-      setUsers(users.filter((item) => {
-        return item.idUsuario.toString() === data.pesquisar || item.nomeCompleto.toLowerCase().includes(data.pesquisar.toLowerCase())
-          || item.email.toLowerCase().includes(data.pesquisar.toLowerCase());
-      }));
+     await getPesquisaUsuariosEmail(data.pesquisar, 1);
     } else {
       limpar();
     }
@@ -45,7 +42,7 @@ export const DashUsuario = () => {
           justifyContent: 'center',
         }}
       >
-        <Typography fontSize='20px' color='primary'>Filtro</Typography>
+        <Typography fontSize='20px' color='primary'>Usuários</Typography>
       </Box>
       <form onSubmit={handleSubmit(pesquisar)}>
         <Box sx={{
@@ -63,6 +60,7 @@ export const DashUsuario = () => {
               ),
             }}
             label='Pesquisar'
+            placeholder='Digite um e-mail'
             sx={{
               width: '100%',
               "& .MuiInputBase-input": {
@@ -93,7 +91,10 @@ export const DashUsuario = () => {
           }}>
             Filtrar
           </Button>
-          <Link style={{ textDecoration: 'none' }} to='/cadastro-usuario'><Button variant="contained"
+          <Link style={{ textDecoration: 'none' }} 
+          to='/cadastro-usuario'><Button 
+          variant="contained"
+          color={"success"}
             sx={{
               height: '50px'
             }}>

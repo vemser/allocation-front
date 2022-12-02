@@ -1,7 +1,6 @@
-import { Grid, Box, Typography, TextField, FormControl, FormLabel, Select, MenuItem, Button } from "@mui/material";
+import { Grid } from "@mui/material";
 import { useForm } from 'react-hook-form'
-import AlunoTable from "../../components/AlunoTable";
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { DashAluno } from "../../components/DashAluno";
 import { HeaderPrincipal } from "../../components/HeaderPrincipal";
 import { useContext, useEffect } from "react";
