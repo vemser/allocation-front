@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { TrocarSenhaFormSchema } from "../../util/schemas";
@@ -13,8 +13,23 @@ import {
 import { HeaderLogin } from "../../components/HeaderLogin";
 import { SenhaContext } from "../../context/SenhaContext";
 import verificaForcaSenha from "../../util/forca-senha";
+import { useParams, useSearchParams } from "react-router-dom";
 
 export const RedefinirSenha = () => {
+
+  let [searchParams, setSearchParams] = useSearchParams()
+
+  let token = searchParams.get('token');
+ 
+
+// console.log(token)
+  
+
+  const {tokenState, setTokenState} = useContext(SenhaContext)
+
+  useEffect(()=>{
+    setTokenState(token)
+  }, [token])
 
   const { enviarSenha } = useContext(SenhaContext)
 
