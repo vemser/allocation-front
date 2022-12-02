@@ -1,4 +1,3 @@
-import React, { useEffect } from "react";
 import { createContext, useContext, useState } from "react";
 import { TChildren, TEmail, TSenha, TSenhaContext } from '../../util/types';
 import { toastConfig } from "../../util/toast";
@@ -37,7 +36,7 @@ const enviarSenha = async (senha : TSenha)=>{
     console.log(tokenState)
   try{
       nProgress.start();       
-      // await API.put("/auth/atualizar-senha", senha)     
+      // await API.put(`/auth/atualizar-senha?token=${tokenState}`, senha)    
       console.log(senha)   
       toast.success("Senha alterada com sucesso!", toastConfig);
     //   navigate('/')
