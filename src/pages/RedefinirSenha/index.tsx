@@ -127,7 +127,7 @@ export const RedefinirSenha = () => {
                       height: "10px",
                     },
                   }}
-                  label={errors.senha && errors.senha.message ? `${errors.senha.message}` : `Confirmar senha`}
+                  label={errors.senha && errors.senha.message ? `${errors.senha.message}` : `Senha`}
                   helperText={errors.senha && errors.senha.message ? errors.senha.message : (mensagemSenha ? mensagemSenha : null)}
                   // error={Boolean(errors.senha && errors.senha.message)}
                 />
