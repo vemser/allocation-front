@@ -1,5 +1,5 @@
 import { createContext, useContext, useState } from "react";
-import { TChildren, TSenha, TSenhaContext } from '../../util/types';
+import { TChildren, TEmail, TSenha, TSenhaContext } from '../../util/types';
 import { toastConfig } from "../../util/toast";
 import { toast } from "react-toastify";
 import nProgress from "nprogress";
@@ -13,12 +13,14 @@ export const SenhaProvider = ({ children }: TChildren)=>{
 
   const navigate = useNavigate()
 
-  const enviarEmail = async (email : TSenha)=>{   
+  const enviarEmail = async (data : TEmail)=>{   
+    let email = data.email
     try{
-        nProgress.start();       
-        await API.post("/recuperar-senha", email)   
-        toast.success("E-mail enviado com sucesso!", toastConfig);
-        navigate('/')        
+        nProgress.start();    
+        await API.post("/auth/recuperar-senha", email)   
+        toast.success("E-mail enviado com sucesso! Verifique sua caixa de entrada.", toastConfig);
+        // navigate('/')        
+        console.log(email)
     } catch (error){
         toast.error('Houve algum erro, tente novamente mais tarde.', toastConfig)
     } finally {
@@ -27,12 +29,12 @@ export const SenhaProvider = ({ children }: TChildren)=>{
 
 }
 
-const enviarSenha = async (email : TSenha)=>{   
+const enviarSenha = async (senha : TSenha)=>{   
   try{
       nProgress.start();       
-      // await API.post("/recuperar-senha", email)     
-      console.log(email)   
-      toast.success("E-mail enviado com sucesso!", toastConfig);
+      // await API.put("/auth/atualizar-senha", senha)     
+      console.log(senha)   
+      toast.success("Senha alterada com sucesso!", toastConfig);
       navigate('/')
       
   } catch (error){

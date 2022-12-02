@@ -81,7 +81,7 @@ export const VagaProvider = ({ children }: TChildren) => {
             nProgress.start();
             API.defaults.headers.common['Authorization'] = token;
             await API.delete(`/vaga/${idVaga}`);
-            toast.success('VAga deletada com sucesso!', toastConfig);
+            toast.success('Vaga deletada com sucesso!', toastConfig);
             await getVagas(1);
             navigate('/painel-vagas');
         } catch (error) {

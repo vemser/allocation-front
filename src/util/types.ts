@@ -201,10 +201,14 @@ export type TClienteContext = {
 }
 
 export type TSenhaContext = {
-    enviarEmail: (email: TSenha) => Promise<void>,
+    enviarEmail: (email: TEmail) => Promise<void>,
     enviarSenha: (email: TSenha) => Promise<void>
 }
 
 export type TSenha = {
     senha: string
+}
+
+export type TEmail = {
+    email: string
 }

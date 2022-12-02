@@ -26,7 +26,7 @@ import { VagasPainelPagination } from "../../components/VagasPainelPagination";
 export const PainelDeVagas = () => {
   const navigate = useNavigate();
 
-  const { deleteVaga, totalPages, vagas } = useContext(VagaContext);
+  const { deleteVaga, totalPages, vagas  } = useContext(VagaContext);
 
   const {
     register,
@@ -46,7 +46,13 @@ export const PainelDeVagas = () => {
   }, [vagas]);
 
   const clicou = (data: any) => {
-    console.log(data);
+    let str = data.pesquisa.toLowerCase()
+    console.log(data.pesquisa);
+
+    // str.includes("@dbccompany.com.br")? buscarEmail(data.pesquisa) : str.includes('disponível')? busca
+    
+
+
   };
 
   return (

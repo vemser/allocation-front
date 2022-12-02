@@ -39,6 +39,7 @@ import { AtualizarSenha } from "../pages/AtualizarSenha";
 import { DashReservaAlocacao } from "../pages/DashReservaAlocacao";
 import { SenhaProvider } from "../context/SenhaContext";
 import { RedefinirSenha } from "../pages/RedefinirSenha";
+import { Token } from "@mui/icons-material";
 
 export const PrivateRoute = () => {
   const { token } = useContext(AuthContext);
@@ -70,7 +71,8 @@ function Router() {
                               element={<AtualizarSenha />}
                             />
                             <Route
-                              path="/redefinir-senha"
+                              // path={`/atualizar-senha?token=${Token}`}
+                              path='/recuperar-senha'
                               element={<RedefinirSenha />}
                             />
                             <Route element={<PrivateRoute />}>
