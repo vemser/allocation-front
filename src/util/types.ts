@@ -199,3 +199,16 @@ export type TClienteContext = {
     setClientes: (clientes: TCliente[]) => void
 
 }
+
+export type TSenhaContext = {
+    enviarEmail: (email: TEmail) => Promise<void>,
+    enviarSenha: (email: TSenha) => Promise<void>
+}
+
+export type TSenha = {
+    senha: string
+}
+
+export type TEmail = {
+    email: string
+}

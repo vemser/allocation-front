@@ -1,5 +1,7 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { TrocarSenhaFormSchema } from "../../util/schemas";
 import {
   FormControl,
   Button,
@@ -10,18 +12,21 @@ import {
 } from "@mui/material";
 import { HeaderLogin } from "../../components/HeaderLogin";
 import { SenhaContext } from "../../context/SenhaContext";
-import { TSenha } from "../../util/types";
+import verificaForcaSenha from "../../util/forca-senha";
 
-export const AtualizarSenha = () => {
+export const RedefinirSenha = () => {
 
-    const { enviarEmail } = useContext(SenhaContext)
+  const { enviarSenha } = useContext(SenhaContext)
 
-  const {
-    register,
-    handleSubmit,
-    reset,
-    formState: { errors },
-  } = useForm();
+  const { register, handleSubmit, reset, formState: { errors } } = useForm<any>({
+    resolver: yupResolver((TrocarSenhaFormSchema))
+  });
+
+  const [mensagemSenha, setMensagemSenha] = useState<any>(undefined);
+
+  const validarSenha = (senha: string) => {
+    setMensagemSenha(verificaForcaSenha(senha));
+  }
 
   return (
     <Grid
@@ -60,7 +65,10 @@ export const AtualizarSenha = () => {
         >
           <Box
             component="form"
-            onSubmit={handleSubmit((data: any)=> enviarEmail(data))}
+            onSubmit={handleSubmit((data: any)=> {
+              enviarSenha(data);
+              reset()
+            })}
             id="form"
             sx={{
               width: "80%",
@@ -91,61 +99,44 @@ export const AtualizarSenha = () => {
                   Redefinir Senha
                 </Typography>
               </Box>
-
-              <TextField
-                type="email"
-                placeholder="Digite seu E-mail"
-                id="email"
-                {...register("email")}
-                variant="outlined"
-                label="E-mail"
-                sx={{
-                  width: "100%",
-                  "& .MuiInputBase-input": {
-                    height: "10px",
-                  },
-                }}
-                // helperText={errors.nomeCompleto && errors.nomeCompleto ? errors.nomeCompleto.message : null}
-                // error={Boolean(errors.nomeCompleto && errors.nomeCompleto.message)}
-              />
-
-              {/* <FormControl fullWidth>
+              
                 <TextField
                   type="password"
-                  id="novaSenha"
-                  // {...register("novaSenha", { onChange: (event) => { validarSenha(event.target.value) } })}
+                  id="senha"
+                  {...register("senha", { onChange: (event) => { validarSenha(event.target.value) } })}
                   variant="outlined"
-                  label="Nova Senha"
+                  // label="Nova Senha"
                   sx={{
                     width: "100%",
                     "& .MuiInputBase-input": {
                       height: "10px",
                     },
                   }}
-                  // helperText={errors.senha && errors.senha.message ? errors.senha.message : (mensagemSenha ? mensagemSenha : null)}
+                  label={errors.senha && errors.senha.message ? `${errors.senha.message}` : `Confirmar senha`}
+                  helperText={errors.senha && errors.senha.message ? errors.senha.message : (mensagemSenha ? mensagemSenha : null)}
                   // error={Boolean(errors.senha && errors.senha.message)}
                 />
-              </FormControl>
+             
               <FormControl
                 fullWidth
-                // error={Boolean(errors.senhaIgual && errors.senhaIgual.message)}
+                error={Boolean(errors.senhaIgual && errors.senhaIgual.message)}
               >
                 <TextField
                   type="password"
-                  id="senhaIgual"
-                  {...register("senhaIgual")}
-                  variant="outlined"
-                  label="Confirme a senha"
+                  id="confirmarSenha"
+                  {...register("confirmarSenha")}
+                  variant="outlined"                
                   sx={{
                     width: "100%",
                     "& .MuiInputBase-input": {
                       height: "10px",
                     },
                   }}
-                  // helperText={errors.senhaIgual && errors.senhaIgual.message ? errors.senhaIgual.message : null}
-                  // error={Boolean(errors.senhaIgual && errors.senhaIgual.message)}
+                   label={errors.senhaIgual && errors.senhaIgual.message ? `${errors.senhaIgual.message}` : `Confirmar senha`}
+                   error={Boolean(errors.senhaIgual && errors.senhaIgual.message)}
+                  // helperText={errors.senha && errors.senha.message ? errors.senha.message : (mensagemSenha ? mensagemSenha : null)}
                 />
-              </FormControl> */}
+              </FormControl>
             </Box>
             <Box
               sx={{

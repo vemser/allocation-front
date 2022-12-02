@@ -1,8 +1,8 @@
 import nProgress from "nprogress";
 import { createContext, useState } from "react";
 import { API } from "../../util/api";
-import { toastConfig } from "../../util/toast";
 import { TAlunoContext, TChildren, TAluno } from "../../util/types";
+import { toastConfig } from "../../util/toast";
 import { toast } from "react-toastify";
 import { useNavigate } from 'react-router-dom';
 
@@ -76,15 +76,25 @@ export const AlunoProvider = ({ children }: TChildren) =>{
         try {
             nProgress.start();
             await API.delete(`/aluno/${idAluno}`);
-            toast.success('Cliente deletado com sucesso!', toastConfig);
+            toast.success('Aluno deletado com sucesso!', toastConfig);
             await getAlunos(1);
             navigate('/dash-alunos');
         } catch (error) {
             console.log(error);
-            toast.error('Houve um erro inesperado ao deletar cliente.', toastConfig);
+            toast.error('Houve um erro inesperado ao deletar Aluno.', toastConfig);
         } finally {
             nProgress.done();
         }
+    }
+
+    const buscarNome = async(nome : string, page: number)=> {
+        // API.defaults.headers.common['Authorization'] = token;
+        // const { data } = await API.get(`aluno/nome/${nome}?pagina=${(page - 1)}&tamanho=8`);
+    }
+
+    const buscarEmail = async (email: string, page: number)=> {
+        // API.defaults.headers.common['Authorization'] = token;
+        // const { data } = await API.get(`aluno/email/${nome}?pagina=${(page - 1)}&tamanho=8`);
     }
 
     return(
