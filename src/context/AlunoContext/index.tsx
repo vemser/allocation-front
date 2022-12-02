@@ -1,10 +1,10 @@
 import nProgress from "nprogress";
-import { createContext, useEffect, useState } from "react";
+import { createContext, useState } from "react";
 import { API } from "../../util/api";
 import { toastConfig } from "../../util/toast";
 import { TAlunoContext, TChildren, TAluno } from "../../util/types";
 import { toast } from "react-toastify";
-import { useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom';
 
 export const AlunoContext = createContext({} as TAlunoContext);
 
@@ -15,7 +15,8 @@ export const AlunoProvider = ({ children }: TChildren) =>{
     const [tecnologias, setTecnologias] = useState<string[]>([])
 
     const [alunos, setAlunos] = useState<TAluno[]>([]);
-    const [totalPages, setTotalPages] = useState(0);    
+    const [totalPages, setTotalPages] = useState(0);
+        
     const handleCreateAluno = async (aluno : TAluno)=>{        
         
         aluno.tecnologias = tecnologias;   
@@ -45,26 +46,14 @@ export const AlunoProvider = ({ children }: TChildren) =>{
             setTotalPages(data.quantidadePaginas);            
         } catch (error) {
             console.log(error);
-            toast.error('Houve um erro inesperado ao buscar os Alunos.', toastConfig);
+            toast.error('Houve um erro inesperado ao buscar os Alunos.', toastConfig);           
         } finally {
             nProgress.done();
         }
     }  
 
     const updateAluno = async (data: TAluno, idAluno: number) => {
-
-        // let tecnologiaList: any = []
-
-        // tecnologias.filter((el: any)=> {
-        //   tecnologiaList.push(el.nome)
-        // })
-    
-        // console.log(tecnologiaList)
-
-        data.tecnologias = tecnologias;
-
-        
-
+        data.tecnologias = tecnologias;     
         data.idPrograma = Number(data.idPrograma);
        
         try {
@@ -74,9 +63,9 @@ export const AlunoProvider = ({ children }: TChildren) =>{
             await getAlunos(1);
             console.log(data)
             setTecnologias([]);
-            // navigate('/alunos');
+            navigate('/alunos');
         } catch (error) {
-            console.log(error);
+            console.log(error);           
             toast.error('Houve um erro inesperado ao tentar atualizar o Aluno.', toastConfig);
         } finally {
             nProgress.done();
