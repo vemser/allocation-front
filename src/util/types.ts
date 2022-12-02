@@ -209,7 +209,9 @@ export type TClienteContext = {
 
 export type TSenhaContext = {
     enviarEmail: (email: TEmail) => Promise<void>,
-    enviarSenha: (email: TSenha) => Promise<void>
+    enviarSenha: (email: TSenha) => Promise<void>,
+    tokenState: any,
+    setTokenState: any
 }
 
 export type TSenha = {
