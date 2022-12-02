@@ -1,8 +1,8 @@
 import nProgress from "nprogress";
 import { createContext, useState } from "react";
 import { API } from "../../util/api";
-import { toastConfig } from "../../util/toast";
 import { TAlunoContext, TChildren, TAluno } from "../../util/types";
+import { toastConfig } from "../../util/toast";
 import { toast } from "react-toastify";
 import { useNavigate } from 'react-router-dom';
 

@@ -1,5 +1,7 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { userFormSchema } from "../../util/schemas";
 import {
   FormControl,
   Button,
@@ -10,18 +12,21 @@ import {
 } from "@mui/material";
 import { HeaderLogin } from "../../components/HeaderLogin";
 import { SenhaContext } from "../../context/SenhaContext";
-import { TSenha } from "../../util/types";
+import verificaForcaSenha from "../../util/forca-senha";
 
-export const AtualizarSenha = () => {
+export const RedefinirSenha = () => {
 
-    const { enviarEmail } = useContext(SenhaContext)
+  const { enviarSenha } = useContext(SenhaContext)
 
-  const {
-    register,
-    handleSubmit,
-    reset,
-    formState: { errors },
-  } = useForm();
+  const { register, handleSubmit, reset, formState: { errors } } = useForm<any>({
+    resolver: yupResolver((userFormSchema))
+  });
+
+  const [mensagemSenha, setMensagemSenha] = useState<any>(undefined);
+
+  const validarSenha = (senha: string) => {
+    setMensagemSenha(verificaForcaSenha(senha));
+  }
 
   return (
     <Grid
@@ -60,7 +65,7 @@ export const AtualizarSenha = () => {
         >
           <Box
             component="form"
-            onSubmit={handleSubmit((data: any)=> enviarEmail(data))}
+            onSubmit={handleSubmit((data: any)=> enviarSenha(data))}
             id="form"
             sx={{
               width: "80%",
@@ -91,29 +96,11 @@ export const AtualizarSenha = () => {
                   Redefinir Senha
                 </Typography>
               </Box>
-
-              <TextField
-                type="email"
-                placeholder="Digite seu E-mail"
-                id="email"
-                {...register("email")}
-                variant="outlined"
-                label="E-mail"
-                sx={{
-                  width: "100%",
-                  "& .MuiInputBase-input": {
-                    height: "10px",
-                  },
-                }}
-                // helperText={errors.nomeCompleto && errors.nomeCompleto ? errors.nomeCompleto.message : null}
-                // error={Boolean(errors.nomeCompleto && errors.nomeCompleto.message)}
-              />
-
-              {/* <FormControl fullWidth>
+              <FormControl fullWidth>
                 <TextField
                   type="password"
                   id="novaSenha"
-                  // {...register("novaSenha", { onChange: (event) => { validarSenha(event.target.value) } })}
+                  {...register("novaSenha")}
                   variant="outlined"
                   label="Nova Senha"
                   sx={{
@@ -128,24 +115,24 @@ export const AtualizarSenha = () => {
               </FormControl>
               <FormControl
                 fullWidth
-                // error={Boolean(errors.senhaIgual && errors.senhaIgual.message)}
+                error={Boolean(errors.senhaIgual && errors.senhaIgual.message)}
               >
                 <TextField
                   type="password"
                   id="senhaIgual"
                   {...register("senhaIgual")}
                   variant="outlined"
-                  label="Confirme a senha"
+                  // label="Confirme a senha"
                   sx={{
                     width: "100%",
                     "& .MuiInputBase-input": {
                       height: "10px",
                     },
                   }}
-                  // helperText={errors.senhaIgual && errors.senhaIgual.message ? errors.senhaIgual.message : null}
+                  // label={errors.senhaIgual && errors.senhaIgual.message ? errors.senhaIgual.message : null}
                   // error={Boolean(errors.senhaIgual && errors.senhaIgual.message)}
                 />
-              </FormControl> */}
+              </FormControl>
             </Box>
             <Box
               sx={{
