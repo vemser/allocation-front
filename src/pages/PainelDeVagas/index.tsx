@@ -26,7 +26,7 @@ import { VagasPainelPagination } from "../../components/VagasPainelPagination";
 export const PainelDeVagas = () => {
   const navigate = useNavigate();
 
-  const { deleteVaga, totalPages, vagas  } = useContext(VagaContext);
+  const { deleteVaga, totalPages, vagas, getPesquisaIdVagas, getVagas } = useContext(VagaContext);
 
   const {
     register,
@@ -38,22 +38,29 @@ export const PainelDeVagas = () => {
   const [confirmDialog, setConfirmDialog] = useState<TOptionsConfirmDialog>({
     isOpen: false,
     title: "",
-    onConfirm: () => {},
+    onConfirm: () => { },
   });
 
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [vagas]);
 
-  const clicou = (data: any) => {
-    let str = data.pesquisa.toLowerCase()
-    console.log(data.pesquisa);
+  const limparPesquisa = () => {
+    reset();
+    getVagas(1);
+  }
 
-    // str.includes("@dbccompany.com.br")? buscarEmail(data.pesquisa) : str.includes('disponível')? busca
-    
+  const pesquisaIdVaga = async (data: any) => {
+    console.log(data);
+    if (data.pesquisa && !isNaN(data.pesquisa)) {
+      await getPesquisaIdVagas(Number(data.pesquisa));
+    } else {
+      limparPesquisa();
+    }
+
+  }
 
 
-  };
 
   return (
     <Grid
@@ -108,15 +115,20 @@ export const PainelDeVagas = () => {
               width: "100%",
               gap: "10px",
             }}
-            onSubmit={handleSubmit(clicou)}
+            onSubmit={handleSubmit(pesquisaIdVaga)}
           >
             <TextField
-              type="text"
-              placeholder="Digite o nome da vaga"
+              type="number"
+              placeholder="Digite o id da vaga"
               id="pesquisa"
               {...register("pesquisa")}
+              onChange={(e) => {
+                if (!e.target.value) {
+                  limparPesquisa();
+                }
+              }}
               variant="outlined"
-              label="Pesquisar"
+              label="Pesquisar "
               InputProps={{
                 startAdornment: (
                   <InputAdornment position="start">
@@ -152,6 +164,27 @@ export const PainelDeVagas = () => {
               }}
             >
               Buscar
+            </Button>
+            <Button
+              size="small"
+              variant="contained"
+              onClick={limparPesquisa}
+              type="submit"
+              sx={{
+                width: "100px",
+                transition: ".5s",
+                "& :hover": {
+                  transition: ".8s",
+                  transform: "scale(1.05)",
+                  background: "#a41a1a",
+                },
+
+                "& :active": {
+                  transform: "scale(.99)",
+                },
+              }}
+            >
+              Limpar
             </Button>
           </Box>
 

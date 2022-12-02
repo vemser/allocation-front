@@ -97,6 +97,7 @@ export type TVagaContext = {
     updateVaga: (data: IVagaForm, idVaga: number, dataCriacao: string) => Promise<void>
     deleteVaga: (id: number) => Promise<void>,
     getVagas: (page: number) => Promise<void>,
+    getPesquisaIdVagas: (idVaga: number) => Promise<void>
 }
 
 export type TPrograma = {
