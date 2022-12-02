@@ -15,8 +15,7 @@ export const AlunoProvider = ({ children }: TChildren) =>{
     const [tecnologias, setTecnologias] = useState<string[]>([])
 
     const [alunos, setAlunos] = useState<TAluno[]>([]);
-    const [totalPages, setTotalPages] = useState(0);
-    console.log(alunos[0])
+    const [totalPages, setTotalPages] = useState(0);    
     const handleCreateAluno = async (aluno : TAluno)=>{        
         
         aluno.tecnologias = tecnologias;   
@@ -54,18 +53,20 @@ export const AlunoProvider = ({ children }: TChildren) =>{
 
     const updateAluno = async (data: TAluno, idAluno: number) => {
 
-        let tecnologiaList: any = []
+        // let tecnologiaList: any = []
 
-        tecnologias.filter((el: any)=> {
-          tecnologiaList.push(el.nome)
-        })
+        // tecnologias.filter((el: any)=> {
+        //   tecnologiaList.push(el.nome)
+        // })
     
-        console.log(tecnologiaList)
+        // console.log(tecnologiaList)
 
-        data.tecnologias = tecnologiaList;
+        data.tecnologias = tecnologias;
+
+        
 
         data.idPrograma = Number(data.idPrograma);
-        // data.tecnologias = ['']
+       
         try {
             nProgress.start();
             await API.put(`/aluno/${idAluno}`, data);
