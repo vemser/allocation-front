@@ -130,6 +130,7 @@ export const PainelDeVagas = () => {
               variant="outlined"
               label="Pesquisar "
               InputProps={{
+                inputProps: { min: 1 },
                 startAdornment: (
                   <InputAdornment position="start">
                     <SearchIcon />
