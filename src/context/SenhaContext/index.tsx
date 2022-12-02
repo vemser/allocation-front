@@ -1,15 +1,19 @@
+import React, { useEffect } from "react";
 import { createContext, useContext, useState } from "react";
 import { TChildren, TEmail, TSenha, TSenhaContext } from '../../util/types';
 import { toastConfig } from "../../util/toast";
 import { toast } from "react-toastify";
 import nProgress from "nprogress";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { API } from "../../util/api";
 
 
-export const SenhaContext = createContext({} as TSenhaContext)
+export const SenhaContext = createContext({} as TSenhaContext);
+
 
 export const SenhaProvider = ({ children }: TChildren)=>{
+
+    const [tokenState, setTokenState] = useState<string | null>(null);
 
   const navigate = useNavigate()
 
@@ -30,6 +34,7 @@ export const SenhaProvider = ({ children }: TChildren)=>{
 }
 
 const enviarSenha = async (senha : TSenha)=>{   
+    console.log(tokenState)
   try{
       nProgress.start();       
       // await API.put("/auth/atualizar-senha", senha)     
@@ -46,7 +51,7 @@ const enviarSenha = async (senha : TSenha)=>{
 }
 
     return (
-        <SenhaContext.Provider value={{enviarEmail, enviarSenha}}>
+        <SenhaContext.Provider value={{enviarEmail, enviarSenha, tokenState, setTokenState}}>
         {children}
       </SenhaContext.Provider>
     )
