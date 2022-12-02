@@ -7,6 +7,7 @@ import nProgress from 'nprogress';
 import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../AuthContext/AuthContext';
 import { API } from '../../util/api';
+import axios from 'axios';
 
 
 export const ProgramaContext = createContext({} as TProgramaContext);
@@ -81,7 +82,11 @@ export const ProgramaProvider = ({ children }: TChildren) => {
 
         } catch (error) {
             console.log(error);
-            toast.error('Houve um erro inesperado ao excluir o programa.', toastConfig);
+            if (axios.isAxiosError(error) && error.response && error.response.data) {
+                toast.error(error.response.data.message, toastConfig);
+            } else {
+                toast.error('Houve um erro inesperado ao excluir o programa.', toastConfig);
+            }
         }
         finally {
             nProgress.done();

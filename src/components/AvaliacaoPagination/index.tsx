@@ -1,7 +1,6 @@
 import { useContext, useMemo, useEffect } from "react";
 import { Link, useSearchParams } from "react-router-dom";
 import { AvaliacaoContext } from "../../context/AvaliacaoContext";
-import { ClienteContext } from "../../context/ClienteContext";
 import { Pagination, PaginationLink } from "../Pagination/Pagination.styled";
 
 
