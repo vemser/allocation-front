@@ -97,6 +97,7 @@ export type TVagaContext = {
     updateVaga: (data: IVagaForm, idVaga: number, dataCriacao: string) => Promise<void>
     deleteVaga: (id: number) => Promise<void>,
     getVagas: (page: number) => Promise<void>,
+    getPesquisaIdVagas: (idVaga: number) => Promise<void>
 }
 
 export type TPrograma = {
@@ -120,21 +121,39 @@ export type TProgramaContext = {
 }
 
 export type TReservaAlocacao = {
-    codigo: number,
+    idReservaAlocacao: number,
     idAluno: number,
     idVaga: number,
-    avaliacao: string,
+    idAvaliacao: string,
     descricao: string,
     dataReserva: Date,
     dataAlocacao: Date,
     dataCancelamento: Date,
     dataFinalizacao: Date,
-    situacao: string
+    statusAluno: string
+}
+
+export type TReservaAlocacaoGet ={
+    idReservaAlocacao: number,
+    aluno: TAluno,
+    vaga: TVaga,
+    avaliacaoEntity: TAvaliacao,
+    descricao: string,
+    dataReserva: Date,
+    dataAlocacao: Date,
+    dataCancelamento: Date,
+    dataFinalizacao: Date,
+    statusAluno: string
 }
 
 export type TReservaAlocacaoContext = {
-    reservasAlocacoes: TReservaAlocacao[],
-    createReservaAlocacao: (data: TReservaAlocacao) => Promise<void>
+    reservasAlocacoes: TReservaAlocacaoGet[],
+    createReservaAlocacao: (data: TReservaAlocacao) => Promise<void>,
+    updateReservaAlocacao: (data: TReservaAlocacao, idReservaAlocacao: number) => Promise<void>,
+    deleteReservaAlocacao: (idReservaAlocacao: number) => Promise<void>,
+    getReservasAlocacoes: (page: number) => Promise<void>,
+    setReservasAlocacoes: (reservasAlocacoes: TReservaAlocacaoGet[]) => void,
+    totalPages : number
 }
 
 export type TAvaliacao = {
@@ -180,4 +199,19 @@ export type TClienteContext = {
     getClientes: (page: number) => Promise<void>,
     setClientes: (clientes: TCliente[]) => void
 
+}
+
+export type TSenhaContext = {
+    enviarEmail: (email: TEmail) => Promise<void>,
+    enviarSenha: (email: TSenha) => Promise<void>,
+    tokenState: any,
+    setTokenState: any
+}
+
+export type TSenha = {
+    senha: string
+}
+
+export type TEmail = {
+    email: string
 }

@@ -7,6 +7,7 @@ import nProgress from 'nprogress';
 import { useNavigate } from 'react-router-dom';
 import { API } from '../../util/api';
 import { AuthContext } from '../AuthContext/AuthContext';
+import axios from 'axios';
 
 export const VagaContext = createContext({} as TVagaContext);
 
@@ -17,10 +18,10 @@ export const VagaProvider = ({ children }: TChildren) => {
     const [totalPages, setTotalPages] = useState(0);
 
     const [vagas, setVagas] = useState<TVaga[]>([]);
-    
+
     const createVaga = async (data: IVagaForm) => {
-        const dataAberturaFormatada = data.dataAbertura.toLocaleDateString().split('/').reverse().join("-")      ;  
-        const dataCriacao = new Date().toLocaleDateString().split('/').reverse().join("-") ; 
+        const dataAberturaFormatada = data.dataAbertura.toLocaleDateString().split('/').reverse().join("-");
+        const dataCriacao = new Date().toLocaleDateString().split('/').reverse().join("-");
         data.dataCriacao = dataCriacao;
         data.dataAbertura = dataAberturaFormatada;
         data.quantidadeAlocados = Number(data.quantidadeAlocados);
@@ -30,21 +31,21 @@ export const VagaProvider = ({ children }: TChildren) => {
             toast.success("Vaga cadastrado com sucesso!", toastConfig);
             API.defaults.headers.common['Authorization'] = token;
             await API.post(`/vaga`, data);
-            navigate('/painel-vagas');            
+            navigate('/painel-vagas');
 
         } catch (error) {
             console.log(error);
             toast.error('Houve um erro inesperado ao cadastrar vaga.', toastConfig);
-        } finally{
+        } finally {
             nProgress.done();
         }
     }
 
-    const getVagas = async (page: number)=> {
-        try{
+    const getVagas = async (page: number) => {
+        try {
             nProgress.start();
             API.defaults.headers.common['Authorization'] = token;
-            const { data } = await API.get(`/vaga?pagina=${(page-1)}&tamanho=8`);
+            const { data } = await API.get(`/vaga?pagina=${(page - 1)}&tamanho=8`);
             setVagas(data.elementos);
             setTotalPages(data.quantidadePaginas);
         } catch (error) {
@@ -53,7 +54,7 @@ export const VagaProvider = ({ children }: TChildren) => {
         } finally {
             nProgress.done();
         }
-    } 
+    }
 
     const updateVaga = async (data: IVagaForm, idVaga: number, dataCriacao: string) => {
         const dataAberturaFormatada = data.dataAbertura.toLocaleDateString().split('/').reverse().join("-");
@@ -81,7 +82,7 @@ export const VagaProvider = ({ children }: TChildren) => {
             nProgress.start();
             API.defaults.headers.common['Authorization'] = token;
             await API.delete(`/vaga/${idVaga}`);
-            toast.success('VAga deletada com sucesso!', toastConfig);
+            toast.success('Vaga deletada com sucesso!', toastConfig);
             await getVagas(1);
             navigate('/painel-vagas');
         } catch (error) {
@@ -92,8 +93,27 @@ export const VagaProvider = ({ children }: TChildren) => {
         }
     }
 
+    const getPesquisaIdVagas = async (idVaga: number) => {
+        try {
+            nProgress.start();
+            API.defaults.headers.common['Authorization'] = token;
+            const { data } = await API.get(`/vaga/${idVaga}`);
+            setVagas([data]);
+            setTotalPages(1);
+        } catch (error) {
+            console.log(error);
+            if (axios.isAxiosError(error) && error.response && error.response.data) {
+                toast.error(error.response.data.message, toastConfig);
+            } else {
+                toast.error('Houve um erro inesperado ao pesquisar a vaga.', toastConfig);
+            }
+        } finally {
+            nProgress.done();
+        }
+    }
+
     return (
-        <VagaContext.Provider value={{ vagas, createVaga, deleteVaga, getVagas, updateVaga, totalPages }}>
+        <VagaContext.Provider value={{ vagas, createVaga, deleteVaga, getVagas, updateVaga, totalPages, getPesquisaIdVagas }}>
             {children}
         </VagaContext.Provider>
     )

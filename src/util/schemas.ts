@@ -7,6 +7,7 @@ export const userFormSchema = yup.object().shape({
     senhaIgual: yup.string().required("Por favor, confirme sua senha").min(8, "A senha precisa ter no mínimo 8 caracteres")
 });
 
+
 export const userEditFormSchema = yup.object().shape({
     nomeCompleto: yup.string().required("Por favor, digite seu nome").min(2, "O nome precisa ter no mínimo 2 caracteres"),
     email: yup.string().required("Por favor, digite seu e-mail").email("Por favor, digite um e-mail válido"),
@@ -52,9 +53,9 @@ export const reservaAlocacaoFormSchema = yup.object().shape({
     idVaga: yup.string().required("Por favor, informe a vaga"),
     descricao: yup.string().required("Por favor, informe a descrição"),
     dataReserva: yup.string().required("Por favor, informe a data de reserva"),
-    situacao: yup.string().required("Por favor, informe a situação"),
-    avaliacao: yup.string().when('situacao', {
-        is: (situacao: string) => situacao && situacao === "alocado",
+    statusAluno: yup.string().required("Por favor, informe a situação"),
+    idAvaliacao: yup.string().when('statusAluno', {
+        is: (statusAluno: string) => statusAluno && statusAluno === "ALOCADO",
         then: yup.string().required("Por favor, informe a avaliação")
     })
 });
@@ -85,4 +86,10 @@ export const clienteFormSchema = yup.object().shape({
     email: yup.string().required("Por favor, informe o e-mail do cliente"),
     telefone: yup.string().required("Por favor, informe um telefone"),
     situacao: yup.string().required("Por favor, informe a situação")
+});
+
+
+export const TrocarSenhaFormSchema = yup.object().shape({
+    senha: yup.string().required("Por favor, digite sua senha").min(8, "A senha precisa ter no mínimo 8 caracteres"),
+    confirmarSenha: yup.string().required("Por favor, confirme sua senha").min(8, "A senha precisa ter no mínimo 8 caracteres")
 });

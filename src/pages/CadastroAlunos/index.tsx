@@ -40,7 +40,7 @@ export const CadastroAlunos = () => {
     }, [])
 
     
-  console.log(tecnologias)
+  // console.log(tecnologias)
 
   const incrementTec = (event: React.ChangeEvent<HTMLInputElement>) => {
     // event.target.value.length <= 0 ? toast.error('Valor vazio', toastConfig) : setTec(event.target.value);
@@ -206,7 +206,7 @@ export const CadastroAlunos = () => {
               alignItems: 'center',
               gap: '10px'
             }}>
-              {/* {tecnologias.map((el: any) => (
+              {tecnologias.map((el: any) => (
                 <Box key={el}
                   sx={{
                     display: 'flex',
@@ -230,7 +230,7 @@ export const CadastroAlunos = () => {
                     <DeleteIcon />
                   </Box>
                 </Box>
-              ))} */}
+              ))}
             </Box>
 
           </Box>

@@ -2,7 +2,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { Autocomplete, Box, Button, FormControl, FormLabel, Grid, MenuItem, Select, TextField, Typography } from '@mui/material';
 import React, { useContext, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate, useSearchParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { HeaderPrincipal } from '../../components/HeaderPrincipal';
 import { AuthContext } from '../../context/AuthContext/AuthContext';
@@ -23,21 +23,15 @@ export const CadastroReservaAlocacao: React.FC = () => {
         resolver: yupResolver(reservaAlocacaoFormSchema)
     });
 
-    const { createReservaAlocacao } = useContext(ReservaAlocacaoContext);
+    const { createReservaAlocacao, updateReservaAlocacao } = useContext(ReservaAlocacaoContext);
     const navigate = useNavigate();
     const { userLogged } = useContext(AuthContext);
+    const { state } = useLocation();
+    const isEdicao = state !== null;
+    const [searchParam] = useSearchParams();
+    const idVaga = (searchParam.get("idVaga"));
+    const idAluno = (searchParam.get("idAluno"));
 
-    const listaAlunos = [
-        "Daniela", "Renan"
-    ];
-
-    const listaVagas = [
-        "Front", "Qa"
-    ];
-
-    const listaAvaliacoes = [
-        "av1", "av2"
-    ];
 
     useEffect(() => {
         if (userLogged && !podeAcessarTela(roles, userLogged)) {
@@ -76,10 +70,16 @@ export const CadastroReservaAlocacao: React.FC = () => {
                         justifyContent: 'center',
                     }}
                 >
-                    <Typography fontSize='25px' color='primary'>Cadastro de Reserva e Alocação</Typography>
+                    <Typography fontSize='25px' color='primary'>{ !isEdicao ?  "Cadastro de Reserva e Alocação" : "Editar Cadastro de Reserva e Alocação"}</Typography>
                 </Box>
                 <Box component='form' id='form' onSubmit={handleSubmit((data: TReservaAlocacao) => {
-                    createReservaAlocacao(data);
+
+                    const dataAtual = `${new Date().getFullYear()}-${new Date().getMonth()}-${("0" + new Date().getDate()).slice(-2)}`;
+                    if (!isEdicao) {
+                        createReservaAlocacao(data);  //cria novo registro
+                    } else {
+                        updateReservaAlocacao({ ...data }, state.idReservaAlocacao); //cria atualiza registro
+                    }
                 })}
                     sx={{
                         display: 'flex',
@@ -91,16 +91,18 @@ export const CadastroReservaAlocacao: React.FC = () => {
                         justifyContent: 'center',
                         gap: '40px',
                     }}>
-                        <TextField type="number" placeholder='Digite o código' id='codigo' {...register("codigo")} variant="outlined"
+                        <TextField type="number" placeholder='Digite o código' id='idReservaAlocacao' {...register("idReservaAlocacao")} variant="outlined"
                             label='Código'
+                            defaultValue={isEdicao ? state.idReservaAlocacao : null}
+                            disabled={true}
                             sx={{
                                 width: '100%',
                                 "& .MuiInputBase-input": {
                                     height: '10px'
                                 }
                             }}
-                            helperText={errors.codigo && errors.codigo.message ? errors.codigo.message : null}
-                            error={Boolean(errors.codigo && errors.codigo.message)}
+                            helperText={errors.idReservaAlocacao && errors.idReservaAlocacao.message ? errors.idReservaAlocacao.message : null}
+                            error={Boolean(errors.idReservaAlocacao && errors.idReservaAlocacao.message)}
                         />
                     </Box>
                     <Box sx={{
@@ -108,8 +110,32 @@ export const CadastroReservaAlocacao: React.FC = () => {
                         justifyContent: 'center',
                         gap: '40px',
                     }}>
-                        {/**/}
-                        <Autocomplete options={listaAlunos} id='idAluno' {...register("idAluno")}
+                        <TextField type="number" placeholder='Digite o aluno' id='idAluno' {...register("idAluno")} variant="outlined"
+                            label='Código do Aluno'
+                            defaultValue={isEdicao ? state.idAluno : (idAluno ?? null)}
+                            sx={{
+                                width: '100%',
+                                "& .MuiInputBase-input": {
+                                    height: '10px'
+                                }
+                            }}
+                            helperText={errors.idAluno && errors.idAluno.message ? errors.idAluno.message : null}
+                            error={Boolean(errors.idAluno && errors.idAluno.message)}
+                        />
+                        <TextField type="number" placeholder='Digite a vaga' id='idVaga' {...register("idVaga")} variant="outlined"
+                            label='Código da Vaga'
+                            defaultValue={isEdicao ? state.idVaga : (idVaga ?? null)}
+                            sx={{
+                                width: '100%',
+                                "& .MuiInputBase-input": {
+                                    height: '10px'
+                                }
+                            }}
+                            helperText={errors.idVaga && errors.idVaga.message ? errors.idVaga.message : null}
+                            error={Boolean(errors.idVaga && errors.idVaga.message)}
+                        />
+
+                        {/* <Autocomplete options={listaAlunos} id='idAluno' {...register("idAluno")}
                             renderInput={(params) => <TextField {...params} label='Selecionar Aluno' {...register("idAluno")}
                                 helperText={errors.idAluno && errors.idAluno ? errors.idAluno.message : null}
                                 error={Boolean(errors.idAluno && errors.idAluno.message)} />}
@@ -130,27 +156,40 @@ export const CadastroReservaAlocacao: React.FC = () => {
                                     height: '10px'
                                 }
                             }}
-                        />
+                        /> */}
                     </Box>
                     <Box sx={{
                         display: 'flex',
                         justifyContent: 'center',
                         gap: '40px',
                     }}>
-                        {/*Lista avaliações campo obrigario caso alocado*/}
-                        <Autocomplete options={listaAvaliacoes} id='avaliacao' {...register("avaliacao")}
-                            renderInput={(params) => <TextField {...params} label='Selecionar Avaliação' {...register("avaliacao")}
-                                helperText={errors.avaliacao && errors.avaliacao ? errors.avaliacao.message : null}
-                                error={Boolean(errors.avaliacao && errors.avaliacao.message)} />}
+                        <TextField type="number" placeholder='Digite a avaliação' id='idAvaliacao' {...register("idAvaliacao")} variant="outlined"
+                            label="Código da Avaliação"
+                            defaultValue={isEdicao ? state.idAvaliacao : null}
                             sx={{
                                 width: '100%',
                                 "& .MuiInputBase-input": {
                                     height: '10px'
                                 }
                             }}
+                            helperText={errors.idAvaliacao && errors.idAvaliacao.message ? errors.idAvaliacao.message : null}
+                            error={Boolean(errors.idAvaliacao && errors.idAvaliacao.message)}
                         />
+                        {/*Lista avaliações campo obrigario caso alocado*/}
+                        {/* <Autocomplete options={listaAvaliacoes} id='idAvaliacao' {...register("idAvaliacao")}
+                            renderInput={(params) => <TextField {...params} label='Selecionar Avaliação' {...register("idAvaliacao")}
+                                helperText={errors.idAvaliacao && errors.idAvaliacao ? errors.idAvaliacao.message : null}
+                                error={Boolean(errors.idAvaliacao && errors.idAvaliacao.message)} />}
+                            sx={{
+                                width: '100%',
+                                "& .MuiInputBase-input": {
+                                    height: '10px'
+                                }
+                            }}
+                        /> */}
                         <TextField type="text" placeholder='Descrição' id='descricao' {...register('descricao')} variant="outlined"
                             label='Descrição'
+                            defaultValue={isEdicao ? state.descricao : null}
                             sx={{
                                 width: '100%',
                                 "& .MuiInputBase-input": {
@@ -171,6 +210,7 @@ export const CadastroReservaAlocacao: React.FC = () => {
                             <FormLabel htmlFor="dataReserva">Data de Reserva</FormLabel>
                             <TextField type="date" id='dataReserva'  {...register("dataReserva")} variant="outlined"
                                 label=''
+                                defaultValue={isEdicao ? state.dataReserva : null}
                                 sx={{
                                     width: '100%',
                                     "& .MuiInputBase-input": {
@@ -185,6 +225,7 @@ export const CadastroReservaAlocacao: React.FC = () => {
                             <FormLabel htmlFor="dataAlocacao">Data de Alocação</FormLabel>
                             <TextField type="date" id='dataAlocacao'  {...register("dataAlocacao")} variant="outlined"
                                 label=''
+                                defaultValue={isEdicao ? state.dataAlocacao : null}
                                 sx={{
                                     width: '100%',
                                     "& .MuiInputBase-input": {
@@ -204,6 +245,7 @@ export const CadastroReservaAlocacao: React.FC = () => {
                             <FormLabel htmlFor="dataCancelamento">Data de Cancelamento</FormLabel>
                             <TextField type="date" id='dataCancelamento'  {...register("dataCancelamento")} variant="outlined"
                                 label=''
+                                defaultValue={isEdicao ? state.dataCancelamento : null}
                                 sx={{
                                     width: '100%',
                                     "& .MuiInputBase-input": {
@@ -216,6 +258,7 @@ export const CadastroReservaAlocacao: React.FC = () => {
                             <FormLabel htmlFor="dataFinalizacao">Data de Finalização</FormLabel>
                             <TextField type="date" id='dataFinalizacao'  {...register("dataFinalizacao")} variant="outlined"
                                 label=''
+                                defaultValue={isEdicao ? state.dataFinalizacao : null}
                                 sx={{
                                     width: '100%',
                                     "& .MuiInputBase-input": {
@@ -232,23 +275,28 @@ export const CadastroReservaAlocacao: React.FC = () => {
                         gap: '40px'
                     }}>
                         <FormControl fullWidth >
-                            <FormLabel htmlFor="situacao"> Situação</FormLabel>
-                            <Select id="situacao" defaultValue={"reservado"} size="small" {...register("situacao")} >
-                                <MenuItem value="reservado" sx={{ height: '30px' }}>Reservado</MenuItem>
-                                <MenuItem value="alocado" sx={{ height: '30px' }}>Alocado</MenuItem>
-                                <MenuItem value="cancelado" sx={{ height: '30px' }}>Cancelado</MenuItem>
-                                <MenuItem value="finalizado" sx={{ height: '30px' }}>Finalizado</MenuItem>
+                            <FormLabel htmlFor="statusAluno"> Situação</FormLabel>
+                            <Select id="statusAluno" defaultValue={isEdicao ? state.statusAluno : "RESERVADO"} size="small" {...register("statusAluno")} >
+                                <MenuItem value="RESERVADO" sx={{ height: '30px' }}>Reservado</MenuItem>
+                                <MenuItem value="ALOCADO" sx={{ height: '30px' }}>Alocado</MenuItem>
+                                <MenuItem value="INATIVO" sx={{ height: '30px' }}>Inativo</MenuItem>
+                                <MenuItem value="DISPONIVEL" sx={{ height: '30px' }}>Disponível</MenuItem>
                             </Select>
                         </FormControl>
                     </Box>
-                    <Box sx={{ display: 'flex', gap: '40px', justifyContent: 'center', alignItems: 'center' }}>
-                        <Box sx={{ width: '100%', textAlign: 'center' }}>
-                            <Button variant="contained" type="submit" sx={{
+                    <Box sx={{ display: 'flex', gap: '40px', justifyContent: 'space-between', alignItems: 'center' }}>
+                        <Box sx={{ textAlign: 'center' }}>
+                            <Button variant="contained" onClick={() => navigate("/reservas-alocacoes")} sx={{
                                 height: '50px'
                             }}>
-                                Salvar
+                                Voltar
                             </Button>
                         </Box>
+                        <Button variant="contained" color="success" type="submit" sx={{
+                            height: '50px'
+                        }}>
+                            Salvar
+                        </Button>
                     </Box>
                 </Box>
             </Box>

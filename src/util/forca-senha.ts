@@ -1,7 +1,6 @@
 import { TSpanProps } from "./types";
 
 
-
 const verificaForcaSenha = (senha: string): string => {
 
     let numeros = /([0-9])/;
@@ -12,7 +11,7 @@ const verificaForcaSenha = (senha: string): string => {
 
     }
     if ((senha.match(numeros) && !senha.match(alfabeto) && !senha.match(chEspeciais)) ||
-        (senha.match(numeros) && senha.match(alfabeto) && !senha.match(chEspeciais))) {
+        (!senha.match(numeros) && senha.match(alfabeto) && !senha.match(chEspeciais))) {
         return "Força de senha fraca. Insira caracteres especiais e letras.";
 
     }

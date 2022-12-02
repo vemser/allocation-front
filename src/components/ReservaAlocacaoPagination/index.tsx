@@ -1,14 +1,13 @@
 import { useContext, useMemo, useEffect } from "react";
-import { Link, useSearchParams } from "react-router-dom";
-import { AvaliacaoContext } from "../../context/AvaliacaoContext";
+import {  useSearchParams } from "react-router-dom";
+import { ReservaAlocacaoContext } from "../../context/ReservaAlocacaoContext";
 import { Pagination, PaginationLink } from "../Pagination/Pagination.styled";
 
 
-
-export const AvaliacaoPagination = () => {
-    const { totalPages, getAvaliacoes } = useContext(AvaliacaoContext);
+export const ReservaAlocacaoPagination = () => {
+    const { totalPages, getReservasAlocacoes } = useContext(ReservaAlocacaoContext);
     const [searchParam] = useSearchParams();
-    const pageNumber = (searchParam.get("page") || "1");
+    const pageNumber = (searchParam.get("pagina") || "1");
 
     const pages = useMemo(() => {
         const pageList: number[] = [];
@@ -20,13 +19,15 @@ export const AvaliacaoPagination = () => {
     }, [totalPages]);
 
     useEffect(() => {
-        getAvaliacoes(Number(pageNumber));
+        getReservasAlocacoes(Number(pageNumber));
     }, [pageNumber]);
 
     return (
         <Pagination>
             {pages.map((item) => (
-                <PaginationLink key={item} to={`/avaliacoes?pagina=${item}`}>{item}</PaginationLink>
+                <PaginationLink key={item} to={`/reservas-alocacoes?pagina=${item}`}>
+                    {item}
+                </PaginationLink>
             ))}
         </Pagination>
     )
