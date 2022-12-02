@@ -71,9 +71,9 @@ function Router() {
                               element={<AtualizarSenha />}
                             />
                             <Route
-                              // path={`/atualizar-senha?token=${Token}`}
-                              path='/recuperar-senha/:token'
-                              element={<RedefinirSenha />}
+                              // path={`/recuperar-senha?token=${Token}`}
+                              path='/recuperar-senha'
+                              element={<RedefinirSenha />}  
                             />
                             <Route element={<PrivateRoute />}>
                               <Route
@@ -133,7 +133,7 @@ function Router() {
                                 path="/cadastro/cliente"
                                 element={<CadastroCliente />}
                               />
-                              <Route path="*" element={<PaginaErro />} />
+                              {/* <Route path="*" element={<PaginaErro />} /> */}
                             </Route>
                           </Routes>
                         </ClienteProvider>

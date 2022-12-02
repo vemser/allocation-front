@@ -13,11 +13,17 @@ import {
 import { HeaderLogin } from "../../components/HeaderLogin";
 import { SenhaContext } from "../../context/SenhaContext";
 import verificaForcaSenha from "../../util/forca-senha";
-import { useParams } from "react-router-dom";
+import { useParams, useSearchParams } from "react-router-dom";
 
 export const RedefinirSenha = () => {
 
-  let {token} = useParams()
+  let [searchParams, setSearchParams] = useSearchParams()
+
+  let token = searchParams.get('token');
+ 
+
+// console.log(token)
+  
 
   const {tokenState, setTokenState} = useContext(SenhaContext)
 

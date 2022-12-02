@@ -40,7 +40,7 @@ const enviarSenha = async (senha : TSenha)=>{
       // await API.put("/auth/atualizar-senha", senha)     
       console.log(senha)   
       toast.success("Senha alterada com sucesso!", toastConfig);
-      navigate('/')
+    //   navigate('/')
       
   } catch (error){
       toast.error('Houve algum erro, tente novamente mais tarde.', toastConfig)
