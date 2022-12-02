@@ -121,7 +121,8 @@ export type TProgramaContext = {
     updatePrograma: (data: IProgramaForm, idPrograma: number) => Promise<void>,
     deletePrograma: (idPrograma: number) => Promise<void>,
     getProgramas: (page: number) => Promise<void>,
-    setProgramas: (programas: IProgramaForm[]) => void
+    setProgramas: (programas: IProgramaForm[]) => void,
+    getPesquisaNomePrograma: (nome: string, page: number) => Promise<void>
 }
 
 export type TReservaAlocacao = {
@@ -182,8 +183,8 @@ export type TAvaliacaoContext = {
     deleteAvaliacao: (idAvaliacao: number) => Promise<void>,
     getAvaliacoes: (page: number) => Promise<void>,
     setAvaliacoes: (avaliacoes: TAvaliacao[]) => void,
-    totalPages: number
-
+    totalPages: number,
+    getPesquisaIdAvaliacao: (idAvaliacao: number) => Promise<void>
 }
 
 export type TCliente = {

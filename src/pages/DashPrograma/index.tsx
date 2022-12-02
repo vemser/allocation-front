@@ -19,7 +19,7 @@ export const DashPrograma: React.FC = () => {
     const { register, handleSubmit, reset } = useForm();
     const navigate = useNavigate();
     const { userLogged } = useContext(AuthContext);
-    const { programas , getProgramas, setProgramas } = useContext(ProgramaContext);
+    const { programas , getProgramas, setProgramas, getPesquisaNomePrograma } = useContext(ProgramaContext);
 
     useEffect(() => {
         if (userLogged && !podeAcessarTela(roles, userLogged)) {
@@ -30,12 +30,9 @@ export const DashPrograma: React.FC = () => {
     }, [userLogged]);
 
     //Pesquisar
-    const pesquisar = (data: FieldValues) => {
+    const pesquisar = async (data:any) => {
         if (data && data.pesquisar) {
-            setProgramas(programas.filter((item) => {
-                return item.idPrograma.toString() === data.pesquisar || item.nome.toLowerCase().includes(data.pesquisar.toLowerCase())
-                    || item.descricao.toLowerCase().includes(data.pesquisar.toLowerCase()) || item.situacao.includes(data.pesquisar);
-            }));
+           await getPesquisaNomePrograma(data.pesquisar, 1);
         } else {
             limpar();
         }
@@ -74,15 +71,24 @@ export const DashPrograma: React.FC = () => {
                         display: 'flex',
                         justifyContent: 'center',
                     }}
-                ><Typography fontSize='20px' color='primary'>Programas</Typography>
+                ><Typography fontSize='20px' 
+                color='primary'>
+                    Programas
+                    </Typography>
                 </Box>
-                <form onSubmit={handleSubmit(pesquisar)}>
+                <form 
+                onSubmit={handleSubmit(pesquisar)}>
                     <Box sx={{
                         display: 'flex',
                         justifyContent: 'center',
                         gap: '40px',
                     }}>
-                        <TextField type="text" id='pesquisar' {...register('pesquisar')} variant="outlined"
+                        <TextField 
+                        type='text' 
+                        id='pesquisar' 
+                        placeholder='Digite o nome do programa'
+                        {...register('pesquisar')}
+                         variant='outlined'
                             InputProps={{
                                 endAdornment: (
                                     <InputAdornment position="end">

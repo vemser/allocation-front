@@ -119,7 +119,7 @@ export const PainelDeVagas = () => {
           >
             <TextField
               type="number"
-              placeholder="Digite o id da vaga"
+              placeholder="Digite o código da vaga"
               id="pesquisa"
               {...register("pesquisa")}
               onChange={(e) => {

@@ -85,8 +85,38 @@ export const AvaliacaoProvider = ({ children }: TChildren) => {
         }
     }
 
+    const getPesquisaIdAvaliacao = async (idAvaliacao: number) => {
+        try {
+            nProgress.start();
+            API.defaults.headers.common['Authorization'] = token;
+            const { data } = await API.get(`/avaliacao/${idAvaliacao}`);
+            setAvaliacoes([data]);
+            setTotalPages(1);
+        } catch (error) {
+            console.log(error);
+            if (axios.isAxiosError(error) && error.response && error.response.data) {
+                toast.error(error.response.data.message, toastConfig);
+            } else {
+                toast.error('Houve um erro inesperado ao pesquisar avaliacao.', toastConfig);
+            }
+        } finally {
+            nProgress.done();
+        }
+    }
+
     return (
-        <AvaliacaoContext.Provider value={{ avaliacoes, setAvaliacoes, createAvaliacao, updateAvaliacao, deleteAvaliacao, getAvaliacoes, totalPages }}>
+        <AvaliacaoContext.Provider value={
+            {
+                avaliacoes,
+                setAvaliacoes,
+                createAvaliacao,
+                updateAvaliacao,
+                deleteAvaliacao,
+                getAvaliacoes,
+                totalPages,
+                getPesquisaIdAvaliacao
+            }
+        }>
             {children}
         </AvaliacaoContext.Provider>
     )
