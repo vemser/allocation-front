@@ -22,7 +22,8 @@ export type TUserContext = {
     getUsers: (page: number) => Promise<void>,
     updateUser: (data: TUser, idUsuario: number, cargo: string, image?: File) => Promise<void>,
     deleteUser: (idUsuario: number) => Promise<void>,
-    setUsers: (usuarios: IUser[]) => void
+    setUsers: (usuarios: IUser[]) => void,
+    getPesquisaUsuariosEmail: (email: string, page: number) => Promise<void>
 }
 
 export type TSpanProps = {

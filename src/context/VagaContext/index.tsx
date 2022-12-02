@@ -1,6 +1,6 @@
-import { TChildren, TUser, TUserContext, TVaga, TVagaContext } from '../../util/types';
-import { createContext, useContext, useEffect, useState } from "react";
-import { IUserForm, IVagaForm } from '../../util/interface';
+import { TChildren, TVaga, TVagaContext } from '../../util/types';
+import { createContext, useContext, useState } from "react";
+import { IVagaForm } from '../../util/interface';
 import { toast } from 'react-toastify';
 import { toastConfig } from '../../util/toast';
 import nProgress from 'nprogress';
@@ -28,14 +28,22 @@ export const VagaProvider = ({ children }: TChildren) => {
 
         try {
             nProgress.start();
-            toast.success("Vaga cadastrado com sucesso!", toastConfig);
             API.defaults.headers.common['Authorization'] = token;
             await API.post(`/vaga`, data);
+            toast.success("Vaga cadastrada com sucesso!", toastConfig);
             navigate('/painel-vagas');
 
         } catch (error) {
             console.log(error);
-            toast.error('Houve um erro inesperado ao cadastrar vaga.', toastConfig);
+            if (axios.isAxiosError(error) && error.response && error.response.data) {
+                if (error.response.data.message) {
+                    toast.error(error.response.data.message, toastConfig);
+                } else if (error.response.data.errors && Array.isArray(error.response.data.errors)) {
+                    toast.error(error.response.data.errors.join("\n"), toastConfig);
+                }
+            } else {
+                toast.error('Houve um erro inesperado ao cadastrar a vaga.', toastConfig);
+            }
         } finally {
             nProgress.done();
         }

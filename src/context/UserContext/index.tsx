@@ -138,9 +138,39 @@ export const UserProvider = ({ children }: TChildren) => {
       nProgress.done();
     }
   }
+  const getPesquisaUsuariosEmail = async (email: string, page: number) => {
+    try {
+      nProgress.start();
+      API.defaults.headers.common['Authorization'] = token;
+      const { data } = await API.get(`/usuario/listarPorEmail?pagina=${(page - 1)}&tamanho=20&email=${email}`);
+      setUsers(data.elementos);
+      setTotalPages(1);
+    } catch (error) {
+      console.log(error);
+      if (axios.isAxiosError(error) && error.response && error.response.data) {
+        toast.error(error.response.data.message, toastConfig);
+      } else {
+        toast.error('Houve um erro inesperado ao pesquisar o usuario.', toastConfig);
+      }
+    } finally {
+      nProgress.done();
+    }
+  }
+
 
   return (
-    <UserContext.Provider value={{ users, createUser, getUsers, totalPages, updateUser, deleteUser, setUsers}}>
+    <UserContext.Provider value={
+      {
+        users,
+        createUser,
+        getUsers,
+        totalPages,
+        updateUser,
+        deleteUser,
+        setUsers,
+        getPesquisaUsuariosEmail
+      }
+    }>
       {children}
     </UserContext.Provider>
   )

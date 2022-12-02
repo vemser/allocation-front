@@ -42,7 +42,7 @@ export const vagaFormSchema = yup.object().shape({
 
 export const programaFormSchema = yup.object().shape({
     nome: yup.string().required("Por favor, informe o nome do programa"),
-    descricao: yup.string().required("Por favor, informe a descrição vaga"),
+    descricao: yup.string().required("Por favor, informe a descrição do programa"),
     situacao: yup.string().required("Por favor, informe a situação"),
     dataTermino: yup.string().required("Por favor, informe a data de término"),
 });
