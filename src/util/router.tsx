@@ -133,7 +133,7 @@ function Router() {
                                 path="/cadastro/cliente"
                                 element={<CadastroCliente />}
                               />
-                              {/* <Route path="*" element={<PaginaErro />} /> */}
+                              <Route path="*" element={<PaginaErro />} />
                             </Route>
                           </Routes>
                         </ClienteProvider>
