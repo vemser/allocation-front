@@ -69,7 +69,6 @@ export const UserProvider = ({ children }: TChildren) => {
       nProgress.start();
       API.defaults.headers.common['Authorization'] = token;
       const { data } = await API.get(`/usuario/listAllUsers?pagina=${(page - 1)}&tamanho=20`);
-      console.log(data);
       setUsers(data.elementos);
       setTotalPages(data.quantidadePaginas);
     } catch (error) {
@@ -103,15 +102,15 @@ export const UserProvider = ({ children }: TChildren) => {
         }
         user = { ...data };
       }
-      console.log(user);
+      // console.log(user, idUsuario, cargo);
       await API.put(`/usuario/${idUsuario}?cargo=${cargo}`, user);
-      if (image) {
-        const formData = new FormData();
-        formData.append("file", image, image.name)
-        await uploadImage(data.email, formData);
-        console.log(image);
-      }
-      console.log(data);
+      // if (image) {
+      //   const formData = new FormData();
+      //   formData.append("file", image, image.name)
+      //   await uploadImage(data.email, formData);
+      //   console.log(image);
+      // }
+      // console.log(data);
       toast.success('Usuário editado com sucesso!', toastConfig);
       await getUsers(1);
       navigate('/usuarios');

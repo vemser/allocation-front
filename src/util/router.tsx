@@ -76,6 +76,7 @@ function Router() {
                               element={<RedefinirSenha />}  
                             />
                             <Route element={<PrivateRoute />}>
+                              <Route path="/perfil" element={<Perfil />} />
                               <Route
                                 path="/cadastro-vaga"
                                 element={<CadastroVaga />}
@@ -88,7 +89,6 @@ function Router() {
                                 path="/alunos"
                                 element={<DashCadastroAluno />}
                               />
-                              <Route path="/perfil" element={<Perfil />} />
                               <Route
                                 path="/usuarios"
                                 element={<DashCadastroUsuarios />}
