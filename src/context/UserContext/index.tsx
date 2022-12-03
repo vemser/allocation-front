@@ -7,9 +7,7 @@ import { API } from '../../util/api';
 import nProgress from 'nprogress';
 import { AuthContext } from '../AuthContext/AuthContext';
 import { useNavigate } from 'react-router-dom';
-import { DateRange, SendSharp } from '@mui/icons-material';
 import axios, { AxiosError } from 'axios';
-import { string } from 'yup';
 
 
 export const UserContext = createContext({} as TUserContext);
@@ -175,4 +173,3 @@ export const UserProvider = ({ children }: TChildren) => {
   )
 
 }
-

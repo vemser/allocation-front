@@ -223,3 +223,9 @@ export type TSenha = {
 export type TEmail = {
     email: string
 }
+
+export type TPerfil = {
+    nomeCompleto: string,
+    senha: string,
+    senhaIgual: string
+}
