@@ -39,6 +39,7 @@ import { AtualizarSenha } from "../pages/AtualizarSenha";
 import { DashReservaAlocacao } from "../pages/DashReservaAlocacao";
 import { SenhaProvider } from "../context/SenhaContext";
 import { RedefinirSenha } from "../pages/RedefinirSenha";
+import 'nprogress/nprogress.css';
 
 export const PrivateRoute = () => {
   const { token } = useContext(AuthContext);
