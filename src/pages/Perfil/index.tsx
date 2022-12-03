@@ -19,11 +19,12 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { PerfilFormSchema } from '../../util/schemas';
 import { TPerfil } from '../../util/types';
 import verificaForcaSenha from '../../util/forca-senha';
+import { useNavigate } from 'react-router-dom';
 
 
 export const Perfil = () => {
     const { updateUser } = useContext(UserContext);
-    const { userLogged } = useContext<any>(AuthContext);
+    const { userLogged, handleUserLogged } = useContext(AuthContext);
     const [mensagemSenha, setMensagemSenha] = useState<string | undefined>(undefined);
 
     const { register, handleSubmit, reset, formState: { errors } } = useForm<TPerfil>({
@@ -31,6 +32,7 @@ export const Perfil = () => {
     });
 
     const [image, setImage] = useState<File>();
+    const navigate = useNavigate();
 
     const handleSetImage = (event: any) => {
         const { files } = event.target;
@@ -42,17 +44,20 @@ export const Perfil = () => {
 
     const handleSubmitUser = async (data: any) => {
 
-        let cargoIn = userLogged.cargos[0].nome == 'ROLE_ADMINISTRADOR' ? "Administrador" :
-            userLogged.cargos[0].nome == 'ROLE_GESTOR' ? 'Gestor' :
-                userLogged.cargos[0].nome == 'ROLE_GESTAO_DE_PESSOAS' ? 'Gestão de pessoas' :
-                    userLogged.cargos[0].nome == 'ROLE_INSTRUTOR' ? 'Instrutor' :
-                        userLogged.cargos[0].nome == null ? 'Não atribuído' :
-                            userLogged.cargos[0].nome;
+        let cargoIn = userLogged?.cargos[0].nome === 'ROLE_ADMINISTRADOR' ? "Administrador" :
+            userLogged?.cargos[0].nome === 'ROLE_GESTOR' ? 'Gestor' :
+                userLogged?.cargos[0].nome === 'ROLE_GESTAO_DE_PESSOAS' ? 'Gestão de pessoas' :
+                    userLogged?.cargos[0].nome === 'ROLE_INSTRUTOR' ? 'Instrutor' :
+                        userLogged?.cargos[0].nome === null ? 'Não atribuído' :
+                            userLogged?.cargos[0].nome;
 
-        data.email = userLogged.email;
+        data.email = userLogged?.email;
 
-        let cargo = cargoIn.toUpperCase()
-        updateUser(data, userLogged.idUsuario, cargo, image);
+        let cargo = cargoIn?.toUpperCase() ?? "";
+        console.log(image);
+        await updateUser(data, userLogged?.idUsuario ?? 0, cargo, image, "/perfil");
+        await handleUserLogged(false);
+                      
     }
 
     const validarSenha = (senha: string) => {
