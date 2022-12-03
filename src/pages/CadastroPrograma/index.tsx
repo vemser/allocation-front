@@ -65,7 +65,7 @@ export const CadastroPrograma: React.FC = () => {
                         justifyContent: 'center',
                     }}
                 >
-                    <Typography fontSize='25px' color='primary'>Cadastro de Programa</Typography>
+                    <Typography fontSize='25px' color='primary'>{isEdicao ? 'Editar Programa' : 'Cadastro de Programa'}</Typography>
                 </Box>
                 <Box component='form' id='form' onSubmit={handleSubmit((data: IProgramaForm) => {
                      const dataAtual = `${new Date().getFullYear()}-${new Date().getMonth()}-${("0"+new Date().getDate()).slice(-2)}`;

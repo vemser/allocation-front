@@ -159,6 +159,7 @@ export const CadastroVaga: React.FC = () => {
             </FormControl>
             <TextField type="number" placeholder='Quantidade de Alocados' id='quantidadeAlocados' {...register("quantidadeAlocados")} variant="outlined"
               label='Quantidade de Alocados'
+              disabled
               sx={{
                 width: '100%',
                 "& .MuiInputBase-input": {

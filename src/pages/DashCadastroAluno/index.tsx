@@ -17,7 +17,7 @@ export const DashCadastroAluno = () => {
     { nome: "ROLE_INSTRUTOR" }
   ];
 
-  const { register, handleSubmit, reset, formState: { errors } } = useForm();
+  const { formState: { errors } } = useForm();
   const navigate = useNavigate();
   const { userLogged } = useContext(AuthContext);
 

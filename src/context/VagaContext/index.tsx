@@ -72,6 +72,7 @@ export const VagaProvider = ({ children }: TChildren) => {
 
         try {
             nProgress.start();
+            console.log(JSON.stringify(data));
             await API.put(`/vaga/${idVaga}`, data);
             toast.success('Vaga atualizada com sucesso!', toastConfig);
             console.log(data)

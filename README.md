@@ -35,5 +35,10 @@ Sistema para gerenciar a reserva e alocação do alunos formados no VemSerDBC na
 - toastify
 
 
+# Instruções para executar o projeto 
+
+- clonar o repositório;
+- executar o comando no terminal para instalar as dependências `npm i` ou `npm install`;
+- executar o comando no terminal para rodar o projeto `npm start`;
 
 

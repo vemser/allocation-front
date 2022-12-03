@@ -352,7 +352,7 @@ export const DashAluno = () => {
                                             sx={{
                                                 fontSize: '10px',
                                             }}>
-                                            Reversar
+                                            Reservar
                                         </Button>
                                     </Box>
                                 </Box>

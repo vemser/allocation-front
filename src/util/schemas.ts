@@ -7,7 +7,6 @@ export const userFormSchema = yup.object().shape({
     senhaIgual: yup.string().required("Por favor, confirme sua senha").min(8, "A senha precisa ter no mínimo 8 caracteres")
 });
 
-
 export const userEditFormSchema = yup.object().shape({
     nomeCompleto: yup.string().required("Por favor, digite seu nome").min(2, "O nome precisa ter no mínimo 2 caracteres"),
     email: yup.string().required("Por favor, digite seu e-mail").email("Por favor, digite um e-mail válido"),
@@ -29,6 +28,7 @@ export const alunoSchema = yup.object().shape({
     edicao: yup.string(),
     descricao: yup.string().required("Por favor, preencha esse campo"),
 })
+
 export const vagaFormSchema = yup.object().shape({
     emailCliente: yup.string().required("Por favor, informe o e-mail do cliente"),
     idPrograma: yup.number().required("Por favor, informe o id do programa"),
@@ -36,17 +36,14 @@ export const vagaFormSchema = yup.object().shape({
     quantidade: yup.number().typeError("Por favor, informe a quantidade").min(1, "Por favor, a quantidade de vagas deve ser maior que zero").required("Por favor, informe a quantidade"),
     dataAbertura: yup.date().typeError("Por favor, informe a data de abertura").required("Por favor, informe a data de abertura"),
     situacao: yup.string().required("Por favor, informe a situação"),
-    observacoes: yup.string().required("Por favor, preencha esse campo"),
+    
 });
-
 
 export const programaFormSchema = yup.object().shape({
     nome: yup.string().required("Por favor, informe o nome do programa"),
-    descricao: yup.string().required("Por favor, informe a descrição do programa"),
     situacao: yup.string().required("Por favor, informe a situação"),
     dataTermino: yup.string().required("Por favor, informe a data de término"),
 });
-
 
 export const reservaAlocacaoFormSchema = yup.object().shape({
     idAluno: yup.string().required("Por favor, informe o aluno"),
@@ -59,7 +56,6 @@ export const reservaAlocacaoFormSchema = yup.object().shape({
         then: yup.string().required("Por favor, informe a avaliação")
     })
 });
-
 
 export const avaliacaoSimplesFormSchema = yup.object().shape({
     emailAluno: yup.string().required("Por favor, informe o email do aluno"),
