@@ -37,6 +37,7 @@ export const ProgramaTable: React.FC = () => {
                         <TableCell align="center" sx={{ color: 'white' }}>Código</TableCell>
                         <TableCell align="center" sx={{ color: 'white' }}>Nome</TableCell>
                         <TableCell align="center" sx={{ color: 'white' }}>Descrição</TableCell>
+                        <TableCell align="center" sx={{ color: 'white' }}>Data Criação</TableCell>
                         <TableCell align="center" sx={{ color: 'white' }}>Data Término</TableCell>
                         <TableCell align="center" sx={{ color: 'white' }}>Situação</TableCell>
                         <TableCell align="center" sx={{ color: 'white' }}>Ações</TableCell>
@@ -63,7 +64,8 @@ export const ProgramaTable: React.FC = () => {
                                 <TableCell component="th" scope="row" align="center"> {row.idPrograma} </TableCell>
                                 <TableCell align="center">{row.nome}</TableCell>
                                 <TableCell align="center">{row.descricao}</TableCell>
-                                <TableCell align="center">{row.data}</TableCell>
+                                <TableCell align="center">{row.dataCriacao}</TableCell>
+                                <TableCell align="center">{row.dataTermino}</TableCell>
                                 <TableCell align="center">{row.situacao}</TableCell>
                                 <TableCell align="center">
 

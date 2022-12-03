@@ -68,7 +68,7 @@ export const VagaProvider = ({ children }: TChildren) => {
         const dataAberturaFormatada = data.dataAbertura.toLocaleDateString().split('/').reverse().join("-");
         data.dataCriacao = dataCriacao;
         data.dataAbertura = dataAberturaFormatada;
-        data.quantidadeAlocados = Number(data.quantidadeAlocados);
+        data.quantidadeAlocados = Number(data.quantidadeAlocados ?? '0');
 
         try {
             nProgress.start();

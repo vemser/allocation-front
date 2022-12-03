@@ -148,6 +148,7 @@ export const CadastroAvaliacao: React.FC = () => {
                                     height: '10px'
                                 }
                             }}
+                            InputProps={{ inputProps: { min: 1 } }}
                         />
                         {/* <Autocomplete
                             options={listaAlunos}

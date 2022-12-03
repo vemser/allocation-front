@@ -109,7 +109,7 @@ export type TPrograma = {
     idPrograma: number,
     nome: string,
     descricao: string,
-    dataTermino?: Date,
+    dataTermino?: string,
     dataCriacao?: string,
     situacao: string
 
