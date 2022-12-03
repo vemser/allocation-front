@@ -279,8 +279,7 @@ export const PainelDeVagas = () => {
                   >
                     <Box>
                       <Typography sx={{ fontSize: "12px" }}>
-                        <strong>Código: </strong>
-                        {el.idVaga}
+                        <strong>{el.idVaga}</strong>                        
                       </Typography>
                     </Box>
                     <Box
@@ -389,13 +388,13 @@ export const PainelDeVagas = () => {
                       sx={{ fontSize: "12px", wordWrap: "break-word" }}
                     >
                       <strong>Data de abertura: </strong>
-                      {el.dataAbertura.split("-").reverse().join("-")}
+                      {el.dataAbertura.split("-").reverse().join("/")}
                     </Typography>
                     <Typography
                       sx={{ fontSize: "12px", wordWrap: "break-word" }}
                     >
                       <strong>Data de fechamento: </strong>
-                      {el.dataFechamento.split("-").reverse().join("-")}
+                      {el.dataFechamento.split("-").reverse().join("/")}
                     </Typography>
                   </Box>
                   <Box
