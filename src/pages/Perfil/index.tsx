@@ -1,4 +1,4 @@
-import react from 'react'
+import react, { useState } from 'react'
 import { useForm } from 'react-hook-form';
 import {
     MenuItem,
@@ -21,8 +21,29 @@ import { AuthContext } from '../../context/AuthContext/AuthContext';
 
 
 export const Perfil = () => {
-    const {userLogged} = useContext(AuthContext);
+    const { createUser, updateUser } = useContext(UserContext);
+    const { isLogged, userLogged } = useContext<any>(AuthContext);
+    const [mensagemSenha, setMensagemSenha] = useState<string | undefined>(undefined);
+
+   
+
     const {register, handleSubmit, reset, formState:{ errors }} = useForm();
+    const [image, setImage] = useState<File>();
+   
+
+    const handleSetImage = (event: any) => {
+        const { files } = event.target;
+        console.log(files);
+        if (files && files?.length > 0) {
+          setImage(files[0]);
+        }
+    }
+
+    const handleSubmitUser = async (data: any) => {
+        data.email = userLogged.email;
+        let cargo = userLogged.cargos[0].nome
+        updateUser(data, userLogged.idUsuario, cargo , image);       
+    }
 
   return (
     <Grid
@@ -57,6 +78,7 @@ export const Perfil = () => {
                 p: '25px',
             }}>
                 <Box component='form' id='form' 
+                onSubmit={handleSubmit((data: any) => handleSubmitUser(data))}
                     sx={{
                         width: '80%',
                         display: 'flex',
@@ -77,7 +99,7 @@ export const Perfil = () => {
                             <FormLabel>Enviar foto de perfil</FormLabel>                           
                             <Button variant="contained" component="label" sx={{ width: '50px'}}>
                                 Enviar
-                                <input hidden accept="image/*" id="foto-perfil" type="file" />
+                                <input hidden accept="image/*" id="foto-perfil" type="file" onChange={e => handleSetImage(e)}  />
                             </Button>                        
                         </FormControl>
                     </Box>  
@@ -101,7 +123,7 @@ export const Perfil = () => {
                         />
                         
 
-                        <FormControl fullWidth error={Boolean(errors.senha && errors.senha.message)}>
+                        {/* <FormControl fullWidth error={Boolean(errors.senha && errors.senha.message)}>
                         <TextField type="password" 
                             id='senhaAtual'  
                             // {...register("senhaAtual", { onChange: (event) => { validarSenha(event.target.value) } })}
@@ -116,11 +138,11 @@ export const Perfil = () => {
                             // helperText={errors.senha && errors.senha.message ? errors.senha.message : (mensagemSenha ? mensagemSenha : null)}
                             // error={Boolean(errors.senha && errors.senha.message)}
                         />
-                        </FormControl>
+                        </FormControl> */}
                         <FormControl fullWidth error={Boolean(errors.senha && errors.senha.message)}>
                         <TextField type="password" 
-                            id='novaSenha'  
-                            // {...register("novaSenha", { onChange: (event) => { validarSenha(event.target.value) } })}
+                            id='senha'  
+                            {...register("senha")}
                             variant="outlined"
                             label='Nova Senha'
                             sx={{

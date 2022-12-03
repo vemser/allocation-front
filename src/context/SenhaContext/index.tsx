@@ -17,13 +17,13 @@ export const SenhaProvider = ({ children }: TChildren)=>{
   const navigate = useNavigate()
 
   const enviarEmail = async (data : TEmail)=>{   
-    let email = data.email
+    // let email = data.email
     try{
         nProgress.start();    
-        await API.post("/auth/recuperar-senha", email)   
+        await API.post("/auth/recuperar-senha", data)   
         toast.success("E-mail enviado com sucesso! Verifique sua caixa de entrada.", toastConfig);
         // navigate('/')        
-        console.log(email)
+        console.log(data)
     } catch (error){
         toast.error('Houve algum erro, tente novamente mais tarde.', toastConfig)
     } finally {
