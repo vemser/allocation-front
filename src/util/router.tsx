@@ -73,7 +73,7 @@ function Router() {
                             <Route
                               // path={`/recuperar-senha?token=${Token}`}
                               path='/recuperar-senha'
-                              element={<RedefinirSenha />}  
+                              element={<RedefinirSenha />}
                             />
                             <Route element={<PrivateRoute />}>
                               <Route path="/perfil" element={<Perfil />} />

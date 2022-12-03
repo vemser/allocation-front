@@ -1,5 +1,4 @@
 import { Grid } from "@mui/material";
-import { useForm } from 'react-hook-form'
 import { useNavigate } from 'react-router-dom';
 import { DashUsuario } from "../../components/DashUsuario";
 import { HeaderPrincipal } from "../../components/HeaderPrincipal";
@@ -9,21 +8,16 @@ import { toast } from "react-toastify";
 import { toastConfig } from "../../util/toast";
 import { podeAcessarTela } from "../../util/valida-senha";
 
-
 export const DashCadastroUsuarios = () => {
 
   const roles = [
     { nome: "ROLE_ADMINISTRADOR" },
     { nome: "ROLE_GESTOR" },
     { nome: "ROLE_GESTAO_DE_PESSOAS" }
-
   ];
 
   const navigate = useNavigate();
   const { userLogged } = useContext(AuthContext);
-
-
-  const { register, handleSubmit, reset, formState: { errors } } = useForm();
 
   useEffect(() => {
     if (userLogged && !podeAcessarTela(roles, userLogged)) {
@@ -32,7 +26,6 @@ export const DashCadastroUsuarios = () => {
     }
 
   }, [userLogged]);
-
 
   return (
     <Grid

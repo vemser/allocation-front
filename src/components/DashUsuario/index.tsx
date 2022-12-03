@@ -5,14 +5,18 @@ import { Link } from 'react-router-dom';
 import { useContext } from "react";
 import { UserContext } from "../../context/UserContext";
 import SearchIcon from '@mui/icons-material/Search';
+import { yupResolver } from "@hookform/resolvers/yup";
+import { userPesquisaSchema } from "../../util/schemas";
 
 export const DashUsuario = () => {
-  const { register, handleSubmit, reset, formState: { errors } } = useForm();
+  const { register, handleSubmit, reset, formState: { errors } } = useForm({
+    resolver: yupResolver(userPesquisaSchema)
+  });
   const { getUsers, getPesquisaUsuariosEmail } = useContext(UserContext);
 
   const pesquisar = async (data: FieldValues) => {
     if (data && data.pesquisar) {
-     await getPesquisaUsuariosEmail(data.pesquisar, 1);
+      await getPesquisaUsuariosEmail(data.pesquisar, 1);
     } else {
       limpar();
     }
@@ -22,7 +26,6 @@ export const DashUsuario = () => {
     await getUsers(1);
     reset();
   }
-
 
   return (
     <Box sx={{
@@ -61,6 +64,8 @@ export const DashUsuario = () => {
             }}
             label='Pesquisar'
             placeholder='Digite um e-mail'
+            helperText={errors.pesquisar && errors.pesquisar.message ? `${errors.pesquisar.message}` : ''}
+            error={Boolean(errors.pesquisar && errors.pesquisar.message)}
             sx={{
               width: '100%',
               "& .MuiInputBase-input": {
@@ -91,15 +96,15 @@ export const DashUsuario = () => {
           }}>
             Filtrar
           </Button>
-          <Link style={{ textDecoration: 'none' }} 
-          to='/cadastro-usuario'><Button 
-          variant="contained"
-          color={"success"}
-            sx={{
-              height: '50px'
-            }}>
-            Cadastrar usuário
-          </Button></Link>
+          <Link style={{ textDecoration: 'none' }}
+            to='/cadastro-usuario'><Button
+              variant="contained"
+              color={"success"}
+              sx={{
+                height: '50px'
+              }}>
+              Cadastrar usuário
+            </Button></Link>
         </Box>
       </form>
       <UsuarioTable />

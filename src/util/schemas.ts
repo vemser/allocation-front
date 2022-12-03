@@ -17,6 +17,10 @@ export const userLoginSchema = yup.object().shape({
     senha: yup.string().required("Por favor Digite sua senha").min(6, "A senha deve ter no mínimo 6 dígitos")
 })
 
+export const userPesquisaSchema = yup.object().shape({
+    pesquisar: yup.string().required("Por favor Digite um e-mail").email('Por favor, digite um email válido')
+})
+
 export const alunoSchema = yup.object().shape({
     nome: yup.string().required("Por favor, digite o nome completo").min(2, "O nome precisa ter no mínimo 2 caracteres"),
     telefone: yup.string().required("Por favor, digite um número de telefone").min(10, "Por favor, digite um número de telefone válido"),
