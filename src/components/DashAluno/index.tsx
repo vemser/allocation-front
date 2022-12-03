@@ -47,11 +47,14 @@ export const DashAluno = () => {
         <Typography fontSize='20px' color='primary'>Alunos</Typography>
       </Box>
       <form onSubmit={handleSubmit(pesquisaAluno)}>
-        <Box sx={{
-          display: 'flex',
-          justifyContent: 'center',
-          gap: '40px',
-        }}>
+        <Box
+          sx={{
+            display: "flex",
+            alignitems: "center",
+            height: "50px",
+            width: "60%",
+            gap: "10px",
+          }}>
           <TextField
             type="text"
             id='pesquisar'
@@ -74,41 +77,61 @@ export const DashAluno = () => {
               }
             }}
           />
+          <Button type="submit"
+            variant="contained"
+            sx={{
+              width: "100px",
+              transition: ".5s",
 
+              "& :hover": {
+                transition: ".8s",
+                transform: "scale(1.05)",
+                background: "#a41a1a",
+              },
 
-        </Box>
-        <Box sx={{
-          display: 'flex',
-          justifyContent: 'space-between',
-          alignItems: 'center',
-          m: "30px 0 100px 0",
+              "& :active": {
+                transform: "scale(.99)",
+              },
+            }}>
+            Buscar
+          </Button>
+          <Button onClick={limparPesquisa} variant="contained"
+            sx={{
+              width: "100px",
+              transition: ".5s",
+              "& :hover": {
+                transition: ".8s",
+                transform: "scale(1.05)",
+                background: "#a41a1a",
+              },
 
-          "& .MuiSelect-select": {
-            height: '10px',
-            width: '200px'
-          }
-        }}>
-          <Button onClick={limparPesquisa} variant="contained" sx={{
-            height: '50px'
-          }}>
+              "& :active": {
+                transform: "scale(.99)",
+              },
+            }}
+          >
             Limpar
           </Button>
-          <Button type="submit" variant="contained" sx={{
-            height: '50px'
-          }}>
-            Filtrar
-          </Button>
 
-          <Link style={{ textDecoration: 'none' }} 
-          to='/cadastro-alunos'>
-            <Button 
-          variant="contained"
-          color={"success"}
-            sx={{
-              height: '50px'
-            }}>
-            Cadastrar Aluno
-          </Button></Link>
+        </Box>
+
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "end",
+          }}>
+
+
+          <Link style={{ textDecoration: 'none' }}
+            to='/cadastro-alunos'>
+            <Button
+              variant="contained"
+              color={"success"}
+              sx={{
+                height: '50px'
+              }}>
+              Cadastrar Aluno
+            </Button></Link>
         </Box>
       </form>
       <AlunoTable />

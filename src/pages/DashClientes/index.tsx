@@ -1,6 +1,6 @@
-import { Grid, Box, Typography, TextField,  Button, InputAdornment } from "@mui/material";
+import { Grid, Box, Typography, TextField, Button, InputAdornment } from "@mui/material";
 import { useContext, useEffect } from "react";
-import {  useForm } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import { Link, useNavigate } from 'react-router-dom';
 import { toast } from "react-toastify";
 import { ClienteTable } from "../../components/ClienteTable";
@@ -30,7 +30,7 @@ export const DashClientes: React.FC = () => {
     }, [userLogged]);
 
     //Pesquisar
-    const pesquisar =async (data: any) => {
+    const pesquisar = async (data: any) => {
         if (data && data.pesquisar) {
             await getPesquisaClientesEmail(data.pesquisar);
         } else {
@@ -38,10 +38,10 @@ export const DashClientes: React.FC = () => {
         }
     }
 
-    const limpar =  () => {
+    const limpar = () => {
         reset();
         getClientes(1);
-        
+
     }
 
     return (
@@ -75,17 +75,21 @@ export const DashClientes: React.FC = () => {
                 ><Typography fontSize='20px' color='primary'>Clientes</Typography>
                 </Box>
                 <form onSubmit={handleSubmit(pesquisar)}>
-                    <Box sx={{
-                        display: 'flex',
-                        justifyContent: 'center',
-                        gap: '40px',
-                    }}>
-                        <TextField 
-                        type="text" 
-                        id='pesquisar' 
-                        placeholder='Digite o e-mail do cliente'
-                        {...register('pesquisar')} 
-                        variant="outlined"
+                    <Box
+                        sx={{
+                            display: "flex",
+                            alignitems: "center",
+                            height: "50px",
+                            width: "60%",
+                            gap: "10px",
+                        }}
+                    >
+                        <TextField
+                            type="text"
+                            id='pesquisar'
+                            placeholder='Digite o e-mail do cliente'
+                            {...register('pesquisar')}
+                            variant="outlined"
                             InputProps={{
                                 endAdornment: (
                                     <InputAdornment position="end">
@@ -101,30 +105,49 @@ export const DashClientes: React.FC = () => {
                                 }
                             }}
                         />
+                        <Button type="submit" variant="contained"
+                            sx={{
+                                width: "100px",
+                                transition: ".5s",
+                                "& :hover": {
+                                    transition: ".8s",
+                                    transform: "scale(1.05)",
+                                    background: "#a41a1a",
+                                },
 
-                    </Box>
-                    <Box sx={{
-                        display: 'flex',
-                        justifyContent: 'space-between',
-                        alignItems: 'center',
-                        m: "30px 0 100px 0",
+                                "& :active": {
+                                    transform: "scale(.99)",
+                                },
+                            }}>
+                            Buscar
+                        </Button>
+                        <Button
+                            onClick={limpar}
+                            variant="contained"
+                            sx={{
+                                width: "100px",
+                                transition: ".5s",
 
-                        "& .MuiSelect-select": {
-                            height: '10px',
-                            width: '200px'
-                        }
-                    }}>
+                                "& :hover": {
+                                    transition: ".8s",
+                                    transform: "scale(1.05)",
+                                    background: "#a41a1a",
+                                },
 
-                        <Button onClick={limpar} variant="contained" sx={{
-                            height: '50px'
-                        }}>
+                                "& :active": {
+                                    transform: "scale(.99)",
+                                },
+                            }}>
                             Limpar
                         </Button>
-                        <Button type="submit" variant="contained" sx={{
-                            height: '50px'
-                        }}>
-                            Filtrar
-                        </Button>
+
+                    </Box>
+                    <Box
+                        sx={{
+                            display: "flex",
+                            justifyContent: "end",
+                        }}
+                    >
                         <Link style={{ textDecoration: 'none' }} to='/cadastro/cliente'>
                             <Button variant="contained"
                                 color="success"

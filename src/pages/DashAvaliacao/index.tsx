@@ -33,6 +33,7 @@ export const DashAvaliacao: React.FC = () => {
     const pesquisar = async (data: any) => {
         if (data && data.pesquisar) {
             await getPesquisaIdAvaliacao(data.pesquisar);
+            console.log(data);
         } else {
             limpar();
         }
@@ -76,23 +77,25 @@ export const DashAvaliacao: React.FC = () => {
                     <Typography fontSize='20px' color='primary'>Avaliação</Typography>
                 </Box>
                 <form onSubmit=
-                {handleSubmit(pesquisar)}>
-                    <Box 
-                    sx={{
-                        display: 'flex',
-                        justifyContent: 'center',
-                        gap: '40px',
-                    }}>
-                        <TextField 
-                        type="text" 
-                        id='pesquisar' 
-                        placeholder="Digite o código da avaliação"
-                        {...register('pesquisar')} 
-                        variant="outlined"
+                    {handleSubmit(pesquisar)}>
+                    <Box
+                        sx={{
+                            display: "flex",
+                            alignitems: "center",
+                            height: "50px",
+                            width: "60%",
+                            gap: "10px",
+                        }}>
+                        <TextField
+                            type="text"
+                            id='pesquisar'
+                            placeholder="Digite o código da avaliação"
+                            {...register('pesquisar')}
+                            variant="outlined"
                             InputProps={{
                                 endAdornment: (
-                                    <InputAdornment 
-                                    position="end">
+                                    <InputAdornment
+                                        position="end">
                                         <SearchIcon />
                                     </InputAdornment>
                                 ),
@@ -105,28 +108,45 @@ export const DashAvaliacao: React.FC = () => {
                                 }
                             }}
                         />
-                    </Box>
-                    <Box sx={{
-                        display: 'flex',
-                        justifyContent: 'space-between',
-                        alignItems: 'center',
-                        m: "30px 0 100px 0",
+                        <Button type="submit" variant="contained"
+                            sx={{
+                                width: "100px",
+                                transition: ".5s",
+                                "& :hover": {
+                                    transition: ".8s",
+                                    transform: "scale(1.05)",
+                                    background: "#a41a1a",
+                                },
 
-                        "& .MuiSelect-select": {
-                            height: '10px',
-                            width: '200px'
-                        }
-                    }}>
+                                "& :active": {
+                                    transform: "scale(.99)",
+                                },
+                            }}>
+                            Buscar
+                        </Button>
                         <Button onClick={limpar} variant="contained" sx={{
-                            height: '50px'
+                            width: "100px",
+                            transition: ".5s",
+                            "& :hover": {
+                                transition: ".8s",
+                                transform: "scale(1.05)",
+                                background: "#a41a1a",
+                            },
+
+                            "& :active": {
+                                transform: "scale(.99)",
+                            },
                         }}>
                             Limpar
                         </Button>
-                        <Button type="submit" variant="contained" sx={{
-                            height: '50px'
+                    </Box>
+                    <Box
+                        sx={{
+                            display: "flex",
+                            justifyContent: "end",
+                            gap: "1rem"
                         }}>
-                            Filtrar
-                        </Button>
+
                         <Link style={{ textDecoration: 'none' }} to='/cadastro/avaliacao/simples'>
                             <Button variant="contained"
                                 color="success"
