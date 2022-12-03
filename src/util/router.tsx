@@ -73,6 +73,7 @@ function Router() {
                             />
                             <Route
                               // path={`/recuperar-senha?token=${Token}`}
+                              // https://allocation-front.vercel.app/recuperar-senha?token=
                               path='/recuperar-senha'
                               element={<RedefinirSenha />}
                             />
