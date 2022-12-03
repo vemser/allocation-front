@@ -279,8 +279,7 @@ export const PainelDeVagas = () => {
                   >
                     <Box>
                       <Typography sx={{ fontSize: "12px" }}>
-                        <strong>Código: </strong>
-                        {el.idVaga}
+                        <strong>{el.idVaga}</strong>                        
                       </Typography>
                     </Box>
                     <Box
