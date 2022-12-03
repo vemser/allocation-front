@@ -64,8 +64,8 @@ export const ProgramaTable: React.FC = () => {
                                 <TableCell component="th" scope="row" align="center"> {row.idPrograma} </TableCell>
                                 <TableCell align="center">{row.nome}</TableCell>
                                 <TableCell align="center">{row.descricao}</TableCell>
-                                <TableCell align="center">{row.dataCriacao}</TableCell>
-                                <TableCell align="center">{row.dataTermino}</TableCell>
+                                <TableCell align="center">{row.dataCriacao?.split("-").reverse().join("/")}</TableCell>
+                                <TableCell align="center">{row.dataTermino?.split("-").reverse().join("/")}</TableCell>
                                 <TableCell align="center">{row.situacao}</TableCell>
                                 <TableCell align="center">
 

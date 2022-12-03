@@ -75,11 +75,18 @@ export const ReservaAlocacaoTable: React.FC = () => {
                                 <TableCell align="center">{`${row.vaga.idVaga} - ${row.vaga.nome}`}</TableCell>
                                 <TableCell align="center">{`${row.avaliacaoEntity.idAvaliacao} - ${row.avaliacaoEntity.descricao}`}</TableCell>
                                 <TableCell align="center">{row.descricao}</TableCell>
-                                <TableCell align="center">{row.dataReserva}</TableCell>
-                                <TableCell align="center">{row.dataAlocacao}</TableCell>
-                                <TableCell align="center">{row.dataCancelamento}</TableCell>
-                                <TableCell align="center">{row.dataFinalizacao}</TableCell>
-                                <TableCell align="center">{row.statusAluno}</TableCell>
+                                <TableCell align="center">{row.dataReserva?.split("-").reverse().join("/")}</TableCell>
+                                <TableCell align="center">{row.dataAlocacao?.split("-").reverse().join("/")}</TableCell>
+                                <TableCell align="center">{row.dataCancelamento?.split("-").reverse().join("/")}</TableCell>
+                                <TableCell align="center">{row.dataFinalizacao?.split("-").reverse().join("/")}</TableCell>
+                                <TableCell align="center"
+                                    sx={{
+                                        color: row.statusAluno == "RESERVADO" ? '#cfb037' :
+                                            row.statusAluno == "ALOCADO" ? 'red' :
+                                                row.statusAluno == "DISPONIVEL" ? 'green' :
+                                                    row.statusAluno == "DESALOCADO" ? 'brown' : row.statusAluno
+                                    }}
+                                >{row.statusAluno}</TableCell>
                                 <TableCell align="center">
 
                                     <IconButton onClick={() => {
@@ -101,21 +108,21 @@ export const ReservaAlocacaoTable: React.FC = () => {
                                         <EditIcon />
                                     </IconButton>
                                     <Button
-                                    startIcon={ <DeleteIcon />}
-                                    onClick={(event) => {
-                                        setConfirmDialog({
-                                            isOpen: true,
-                                            title: 'Deseja desativar esse registro?',
-                                            onConfirm: () => {
-                                                setConfirmDialog({
-                                                    ...confirmDialog,
-                                                    isOpen: false
-                                                })
-                                                deleteReservaAlocacao(row.idReservaAlocacao)
-                                            }
-                                        });
-                                    }}>
-                                       Desativar
+                                        startIcon={<DeleteIcon />}
+                                        onClick={(event) => {
+                                            setConfirmDialog({
+                                                isOpen: true,
+                                                title: 'Deseja desativar esse registro?',
+                                                onConfirm: () => {
+                                                    setConfirmDialog({
+                                                        ...confirmDialog,
+                                                        isOpen: false
+                                                    })
+                                                    deleteReservaAlocacao(row.idReservaAlocacao)
+                                                }
+                                            });
+                                        }}>
+                                        Desativar
                                     </Button>
                                 </TableCell>
                             </TableRow>

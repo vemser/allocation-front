@@ -79,10 +79,10 @@ export const AvaliacaoTable: React.FC = () => {
                                 <TableCell align="center">{row.descricao}</TableCell>
                                 <TableCell align="center">{row.nota}</TableCell>
                                 <TableCell align="center">{row.tipoAvaliacao}</TableCell>
-                                <TableCell align="center">{row.dataAvaliacao}</TableCell>
-                                <TableCell align="center">{row.dataEntrevistaGp}</TableCell>
-                                <TableCell align="center">{row.dataEntrevistaCliente}</TableCell>
-                                <TableCell align="center">{row.dataResposta}</TableCell>
+                                <TableCell align="center">{row.dataAvaliacao?.split("-").reverse().join("/")}</TableCell>
+                                <TableCell align="center">{row.dataEntrevistaGp?.split("-").reverse().join("/")}</TableCell>
+                                <TableCell align="center">{row.dataEntrevistaCliente?.split("-").reverse().join("/")}</TableCell>
+                                <TableCell align="center">{row.dataResposta?.split("-").reverse().join("/")}</TableCell>
                                 <TableCell align="center">{row.situacao}</TableCell>
                                 <TableCell align="center">
                                     {/* definindo o fluxo */}
