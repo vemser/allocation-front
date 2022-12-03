@@ -91,7 +91,7 @@ export const clienteFormSchema = yup.object().shape({
 
 export const TrocarSenhaFormSchema = yup.object().shape({
     senha: yup.string().required("Por favor, digite sua senha").min(8, "A senha precisa ter no mínimo 8 caracteres"),
-    confirmarSenha: yup.string().required("Por favor, confirme sua senha").min(8, "A senha precisa ter no mínimo 8 caracteres")
+    senhaIgual: yup.string().required("Por favor, confirme sua senha").min(8, "A senha precisa ter no mínimo 8 caracteres")
 });
 
 export const PerfilFormSchema = yup.object().shape({

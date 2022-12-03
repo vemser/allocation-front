@@ -138,8 +138,8 @@ export const RedefinirSenha = () => {
               >
                 <TextField
                   type="password"
-                  id="confirmarSenha"
-                  {...register("confirmarSenha")}
+                  id="senhaIgual"
+                  {...register("senhaIgual")}
                   variant="outlined"                
                   sx={{
                     width: "100%",
