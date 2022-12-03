@@ -20,9 +20,9 @@ export const SenhaProvider = ({ children }: TChildren) => {
         let email = data.email
         try {
             nProgress.start();
-            // await API.post("/auth/recuperar-senha", email)   
+            await API.post(`/auth/recuperar-senha?email=${email}`)   
             toast.success("E-mail enviado com sucesso! Verifique sua caixa de entrada.", toastConfig);
-            // navigate('/')        
+            navigate('/')        
             console.log(email)
         } catch (error) {
             toast.error('Houve algum erro, tente novamente mais tarde.', toastConfig)
