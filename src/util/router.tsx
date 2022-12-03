@@ -39,7 +39,6 @@ import { AtualizarSenha } from "../pages/AtualizarSenha";
 import { DashReservaAlocacao } from "../pages/DashReservaAlocacao";
 import { SenhaProvider } from "../context/SenhaContext";
 import { RedefinirSenha } from "../pages/RedefinirSenha";
-import { Token } from "@mui/icons-material";
 
 export const PrivateRoute = () => {
   const { token } = useContext(AuthContext);
@@ -62,6 +61,7 @@ function Router() {
                         <ClienteProvider>
                           <Routes>
                             <Route index element={<Login />} />
+                            <Route path="*" element={<PaginaErro />} />
                             <Route
                               path="/cadastro-usuario"
                               element={<CadastroUsuario />}
@@ -73,9 +73,10 @@ function Router() {
                             <Route
                               // path={`/recuperar-senha?token=${Token}`}
                               path='/recuperar-senha'
-                              element={<RedefinirSenha />}  
+                              element={<RedefinirSenha />}
                             />
                             <Route element={<PrivateRoute />}>
+                              <Route path="/perfil" element={<Perfil />} />
                               <Route
                                 path="/cadastro-vaga"
                                 element={<CadastroVaga />}
@@ -88,7 +89,6 @@ function Router() {
                                 path="/alunos"
                                 element={<DashCadastroAluno />}
                               />
-                              <Route path="/perfil" element={<Perfil />} />
                               <Route
                                 path="/usuarios"
                                 element={<DashCadastroUsuarios />}
@@ -133,7 +133,6 @@ function Router() {
                                 path="/cadastro/cliente"
                                 element={<CadastroCliente />}
                               />
-                              <Route path="*" element={<PaginaErro />} />
                             </Route>
                           </Routes>
                         </ClienteProvider>

@@ -41,6 +41,7 @@ export const ProgramaProvider = ({ children }: TChildren) => {
             nProgress.start();
             API.defaults.headers.common['Authorization'] = token;
             const { data } = await API.get(`/programa?pagina=${(page - 1)}&tamanho=20`);
+            //console.log(JSON.stringify(data));
             setProgramas(data.elementos);//a API retorna um objeto no qual os programas estão no array elementos
             setTotalPages(data.quantidadePaginas);
         } catch (error) {

@@ -5,7 +5,7 @@ import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableRow from '@mui/material/TableRow';
-import { IconButton } from '@mui/material';
+import { Button, IconButton } from '@mui/material';
 import { Skeleton } from '@mui/material'
 import { TableHeadSC } from './ReservaAlocacaoTable.styled';
 import EditIcon from '@mui/icons-material/Edit';
@@ -100,10 +100,12 @@ export const ReservaAlocacaoTable: React.FC = () => {
                                     }}>
                                         <EditIcon />
                                     </IconButton>
-                                    <IconButton onClick={(event) => {
+                                    <Button
+                                    startIcon={ <DeleteIcon />}
+                                    onClick={(event) => {
                                         setConfirmDialog({
                                             isOpen: true,
-                                            title: 'Confirma a exclusão desse registro?',
+                                            title: 'Deseja desativar esse registro?',
                                             onConfirm: () => {
                                                 setConfirmDialog({
                                                     ...confirmDialog,
@@ -113,8 +115,8 @@ export const ReservaAlocacaoTable: React.FC = () => {
                                             }
                                         });
                                     }}>
-                                        <DeleteIcon />
-                                    </IconButton>
+                                       Desativar
+                                    </Button>
                                 </TableCell>
                             </TableRow>
                         ))}

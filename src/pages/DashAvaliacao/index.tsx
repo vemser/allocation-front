@@ -73,7 +73,7 @@ export const DashAvaliacao: React.FC = () => {
                         justifyContent: 'center',
                     }}
                 >
-                    <Typography fontSize='20px' color='primary'>Filtro</Typography>
+                    <Typography fontSize='20px' color='primary'>Avaliação</Typography>
                 </Box>
                 <form onSubmit=
                 {handleSubmit(pesquisar)}>

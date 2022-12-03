@@ -10,48 +10,47 @@ import { API } from "../../util/api";
 export const SenhaContext = createContext({} as TSenhaContext);
 
 
-export const SenhaProvider = ({ children }: TChildren)=>{
+export const SenhaProvider = ({ children }: TChildren) => {
 
     const [tokenState, setTokenState] = useState<string | null>(null);
 
-  const navigate = useNavigate()
+    const navigate = useNavigate()
 
-  const enviarEmail = async (data : TEmail)=>{   
-    let email = data.email
-    try{
-        nProgress.start();    
-        await API.post("/auth/recuperar-senha", email)   
-        toast.success("E-mail enviado com sucesso! Verifique sua caixa de entrada.", toastConfig);
-        // navigate('/')        
-        console.log(email)
-    } catch (error){
-        toast.error('Houve algum erro, tente novamente mais tarde.', toastConfig)
-    } finally {
-        nProgress.done();
+    const enviarEmail = async (data: TEmail) => {
+        let email = data.email
+        try {
+            nProgress.start();
+            await API.post(`/auth/recuperar-senha?email=${email}`)   
+            toast.success("E-mail enviado com sucesso! Verifique sua caixa de entrada.", toastConfig);
+            navigate('/')        
+            console.log(email)
+        } catch (error) {
+            toast.error('Houve algum erro, tente novamente mais tarde.', toastConfig)
+        } finally {
+            nProgress.done();
+        }
+
     }
 
-}
+    const enviarSenha = async (senha: TSenha) => {
 
-const enviarSenha = async (senha : TSenha)=>{   
-    console.log(tokenState)
-  try{
-      nProgress.start();       
-      // await API.put(`/auth/atualizar-senha?token=${tokenState}`, senha)    
-      console.log(senha)   
-      toast.success("Senha alterada com sucesso!", toastConfig);
-    //   navigate('/')
-      
-  } catch (error){
-      toast.error('Houve algum erro, tente novamente mais tarde.', toastConfig)
-  } finally {
-      nProgress.done();
-  }
+        try {
+            nProgress.start();
+            console.log(senha, tokenState)
+            // await API.put(`/auth/atualizar-senha?token=${tokenState}`, senha)    
+            toast.success("Senha alterada com sucesso!", toastConfig);
+            //   navigate('/')
 
-}
+        } catch (error) {
+            toast.error('Houve algum erro, tente novamente mais tarde.', toastConfig)
+        } finally {
+            nProgress.done();
+        }
 
+    }
     return (
-        <SenhaContext.Provider value={{enviarEmail, enviarSenha, tokenState, setTokenState}}>
-        {children}
-      </SenhaContext.Provider>
+        <SenhaContext.Provider value={{ enviarEmail, enviarSenha, tokenState, setTokenState }}>
+            {children}
+        </SenhaContext.Provider>
     )
 }

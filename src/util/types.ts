@@ -22,7 +22,8 @@ export type TUserContext = {
     getUsers: (page: number) => Promise<void>,
     updateUser: (data: TUser, idUsuario: number, cargo: string, image?: File) => Promise<void>,
     deleteUser: (idUsuario: number) => Promise<void>,
-    setUsers: (usuarios: IUser[]) => void
+    setUsers: (usuarios: IUser[]) => void,
+    getPesquisaUsuariosEmail: (email: string, page: number) => Promise<void>
 }
 
 export type TSpanProps = {
@@ -108,7 +109,7 @@ export type TPrograma = {
     idPrograma: number,
     nome: string,
     descricao: string,
-    dataTermino?: Date,
+    dataTermino?: string,
     dataCriacao?: string,
     situacao: string
 
@@ -158,6 +159,7 @@ export type TReservaAlocacaoContext = {
     deleteReservaAlocacao: (idReservaAlocacao: number) => Promise<void>,
     getReservasAlocacoes: (page: number) => Promise<void>,
     setReservasAlocacoes: (reservasAlocacoes: TReservaAlocacaoGet[]) => void,
+    getPesquisaIdAlocacao: (idAlocacao: number) => Promise<void>,
     totalPages: number
 }
 
@@ -220,4 +222,10 @@ export type TSenha = {
 
 export type TEmail = {
     email: string
+}
+
+export type TPerfil = {
+    nomeCompleto: string,
+    senha: string,
+    senhaIgual: string
 }

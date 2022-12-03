@@ -1,15 +1,13 @@
 import { TChildren, TUser, TUserContext } from '../../util/types';
 import { createContext, useContext, useState } from "react";
-import { IUser, IUserForm } from '../../util/interface';
+import { IUser } from '../../util/interface';
 import { toast } from 'react-toastify';
 import { toastConfig } from '../../util/toast';
 import { API } from '../../util/api';
 import nProgress from 'nprogress';
 import { AuthContext } from '../AuthContext/AuthContext';
 import { useNavigate } from 'react-router-dom';
-import { DateRange, SendSharp } from '@mui/icons-material';
-import axios, { AxiosError } from 'axios';
-import { string } from 'yup';
+import axios from 'axios';
 
 
 export const UserContext = createContext({} as TUserContext);
@@ -69,7 +67,6 @@ export const UserProvider = ({ children }: TChildren) => {
       nProgress.start();
       API.defaults.headers.common['Authorization'] = token;
       const { data } = await API.get(`/usuario/listAllUsers?pagina=${(page - 1)}&tamanho=20`);
-      console.log(data);
       setUsers(data.elementos);
       setTotalPages(data.quantidadePaginas);
     } catch (error) {
@@ -103,15 +100,15 @@ export const UserProvider = ({ children }: TChildren) => {
         }
         user = { ...data };
       }
-      console.log(user);
+      // console.log(user, idUsuario, cargo);
       await API.put(`/usuario/${idUsuario}?cargo=${cargo}`, user);
-      if (image) {
-        const formData = new FormData();
-        formData.append("file", image, image.name)
-        await uploadImage(data.email, formData);
-        console.log(image);
-      }
-      console.log(data);
+      // if (image) {
+      //   const formData = new FormData();
+      //   formData.append("file", image, image.name)
+      //   await uploadImage(data.email, formData);
+      //   console.log(image);
+      // }
+      // console.log(data);
       toast.success('Usuário editado com sucesso!', toastConfig);
       await getUsers(1);
       navigate('/usuarios');
@@ -139,11 +136,40 @@ export const UserProvider = ({ children }: TChildren) => {
     }
   }
 
+  const getPesquisaUsuariosEmail = async (email: string, page: number) => {
+    try {
+      nProgress.start();
+      API.defaults.headers.common['Authorization'] = token;
+      const { data } = await API.get(`/usuario/listarPorEmail?pagina=${(page - 1)}&tamanho=20&email=${email}`);
+      setUsers(data.elementos);
+      setTotalPages(1);
+    } catch (error) {
+      console.log(error);
+      if (axios.isAxiosError(error) && error.response && error.response.data) {
+        toast.error(error.response.data.message, toastConfig);
+      } else {
+        toast.error('Houve um erro inesperado ao pesquisar o usuario.', toastConfig);
+      }
+    } finally {
+      nProgress.done();
+    }
+  }
+
   return (
-    <UserContext.Provider value={{ users, createUser, getUsers, totalPages, updateUser, deleteUser, setUsers}}>
+    <UserContext.Provider value={
+      {
+        users,
+        createUser,
+        getUsers,
+        totalPages,
+        updateUser,
+        deleteUser,
+        setUsers,
+        getPesquisaUsuariosEmail
+      }
+    }>
       {children}
     </UserContext.Provider>
   )
 
 }
-

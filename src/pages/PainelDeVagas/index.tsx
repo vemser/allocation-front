@@ -60,8 +60,6 @@ export const PainelDeVagas = () => {
 
   }
 
-
-
   return (
     <Grid
       sx={{
@@ -144,7 +142,6 @@ export const PainelDeVagas = () => {
                 },
               }}
             />
-
             <Button
               size="small"
               variant="contained"
@@ -257,9 +254,10 @@ export const PainelDeVagas = () => {
               </Box>
             ) : (
               vagas.map((el: any) => (
-                <Box
+                <Box                
                   sx={{
-                    background: "#D9D9D9",
+                    background: (el.quantidade - el.quantidadeAlocados) !== 0? "#D9D9D9" : "#d76969",
+                    color: (el.quantidade - el.quantidadeAlocados) !== 0? "black" : "white",
                     borderRadius: "15px",
                     width: "250px",
                     boxShadow: "-5px 7px 15px -4px rgba(0,0,0,0.75)",
@@ -281,8 +279,7 @@ export const PainelDeVagas = () => {
                   >
                     <Box>
                       <Typography sx={{ fontSize: "12px" }}>
-                        <strong>Código: </strong>
-                        {el.idVaga}
+                        <strong>{el.idVaga}</strong>                        
                       </Typography>
                     </Box>
                     <Box
@@ -357,17 +354,23 @@ export const PainelDeVagas = () => {
                       <strong>Nome: </strong>
                       {el.nome}
                     </Typography>
-                    <Typography
+                    {/* <Typography
                       sx={{ fontSize: "12px", wordWrap: "break-word" }}
                     >
                       <strong>Descrição: </strong>
                       {el.observacoes}
+                    </Typography> */}
+                    <Typography
+                      sx={{ fontSize: "12px", wordWrap: "break-word" }}
+                    >
+                      <strong>Total de Vagas: </strong>
+                      {el.quantidade} vaga{(el.quantidade > 1? 's': '')}
                     </Typography>
                     <Typography
                       sx={{ fontSize: "12px", wordWrap: "break-word" }}
                     >
-                      <strong>Vagas: </strong>
-                      {el.quantidade} vaga
+                      <strong>Vagas disponíveis: </strong>
+                      {(el.quantidade - el.quantidadeAlocados)} vaga{(el.quantidade - el.quantidadeAlocados > 1? 's': '')}
                     </Typography>
                     <Typography
                       sx={{ fontSize: "12px", wordWrap: "break-word" }}
@@ -378,8 +381,8 @@ export const PainelDeVagas = () => {
                     <Typography
                       sx={{ fontSize: "12px", wordWrap: "break-word" }}
                     >
-                      <strong>E-mail do cliente: </strong>
-                      {el.emailCliente}
+                      <strong>Cliente: </strong>
+                      {el.clienteDTO.nome}
                     </Typography>
                     <Typography
                       sx={{ fontSize: "12px", wordWrap: "break-word" }}
@@ -423,7 +426,7 @@ export const PainelDeVagas = () => {
                         fontSize: "10px",
                       }}
                     >
-                      Reversar Aluno para vaga
+                      Reservar Aluno para vaga
                     </Button>
                   </Box>
                 </Box>

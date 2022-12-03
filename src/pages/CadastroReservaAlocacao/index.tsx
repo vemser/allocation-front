@@ -119,6 +119,7 @@ export const CadastroReservaAlocacao: React.FC = () => {
                                     height: '10px'
                                 }
                             }}
+                            InputProps={{ inputProps: { min: 1 } }}
                             helperText={errors.idAluno && errors.idAluno.message ? errors.idAluno.message : null}
                             error={Boolean(errors.idAluno && errors.idAluno.message)}
                         />
@@ -131,6 +132,7 @@ export const CadastroReservaAlocacao: React.FC = () => {
                                     height: '10px'
                                 }
                             }}
+                            InputProps={{ inputProps: { min: 1 } }}
                             helperText={errors.idVaga && errors.idVaga.message ? errors.idVaga.message : null}
                             error={Boolean(errors.idVaga && errors.idVaga.message)}
                         />
@@ -172,6 +174,7 @@ export const CadastroReservaAlocacao: React.FC = () => {
                                     height: '10px'
                                 }
                             }}
+                            InputProps={{ inputProps: { min: 1 } }}
                             helperText={errors.idAvaliacao && errors.idAvaliacao.message ? errors.idAvaliacao.message : null}
                             error={Boolean(errors.idAvaliacao && errors.idAvaliacao.message)}
                         />
