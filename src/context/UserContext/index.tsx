@@ -1,13 +1,13 @@
 import { TChildren, TUser, TUserContext } from '../../util/types';
 import { createContext, useContext, useState } from "react";
-import { IUser, IUserForm } from '../../util/interface';
+import { IUser } from '../../util/interface';
 import { toast } from 'react-toastify';
 import { toastConfig } from '../../util/toast';
 import { API } from '../../util/api';
 import nProgress from 'nprogress';
 import { AuthContext } from '../AuthContext/AuthContext';
 import { useNavigate } from 'react-router-dom';
-import axios, { AxiosError } from 'axios';
+import axios from 'axios';
 
 
 export const UserContext = createContext({} as TUserContext);
@@ -135,6 +135,7 @@ export const UserProvider = ({ children }: TChildren) => {
       nProgress.done();
     }
   }
+
   const getPesquisaUsuariosEmail = async (email: string, page: number) => {
     try {
       nProgress.start();
@@ -153,7 +154,6 @@ export const UserProvider = ({ children }: TChildren) => {
       nProgress.done();
     }
   }
-
 
   return (
     <UserContext.Provider value={
