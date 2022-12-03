@@ -1,5 +1,5 @@
 import { Grid, Box, Typography, TextField, Button, InputAdornment } from "@mui/material";
-import { useContext,  useEffect } from "react";
+import { useContext, useEffect } from "react";
 import { FieldValues, useForm } from 'react-hook-form'
 import { Link, useNavigate } from 'react-router-dom';
 import { toast } from "react-toastify";
@@ -19,7 +19,7 @@ export const DashPrograma: React.FC = () => {
     const { register, handleSubmit, reset } = useForm();
     const navigate = useNavigate();
     const { userLogged } = useContext(AuthContext);
-    const { programas , getProgramas, setProgramas, getPesquisaNomePrograma } = useContext(ProgramaContext);
+    const { programas, getProgramas, setProgramas, getPesquisaNomePrograma } = useContext(ProgramaContext);
 
     useEffect(() => {
         if (userLogged && !podeAcessarTela(roles, userLogged)) {
@@ -30,9 +30,9 @@ export const DashPrograma: React.FC = () => {
     }, [userLogged]);
 
     //Pesquisar
-    const pesquisar = async (data:any) => {
+    const pesquisar = async (data: any) => {
         if (data && data.pesquisar) {
-           await getPesquisaNomePrograma(data.pesquisar, 1);
+            await getPesquisaNomePrograma(data.pesquisar, 1);
         } else {
             limpar();
         }
@@ -71,24 +71,27 @@ export const DashPrograma: React.FC = () => {
                         display: 'flex',
                         justifyContent: 'center',
                     }}
-                ><Typography fontSize='20px' 
-                color='primary'>
-                    Programas
+                ><Typography fontSize='20px'
+                    color='primary'>
+                        Programas
                     </Typography>
                 </Box>
-                <form 
-                onSubmit={handleSubmit(pesquisar)}>
-                    <Box sx={{
-                        display: 'flex',
-                        justifyContent: 'center',
-                        gap: '40px',
-                    }}>
-                        <TextField 
-                        type='text' 
-                        id='pesquisar' 
-                        placeholder='Digite o nome do programa'
-                        {...register('pesquisar')}
-                         variant='outlined'
+                <form
+                    onSubmit={handleSubmit(pesquisar)}>
+                    <Box
+                        sx={{
+                            display: "flex",
+                            alignitems: "center",
+                            height: "50px",
+                            width: "60%",
+                            gap: "10px",
+                        }}>
+                        <TextField
+                            type='text'
+                            id='pesquisar'
+                            placeholder='Digite o nome do programa'
+                            {...register('pesquisar')}
+                            variant='outlined'
                             InputProps={{
                                 endAdornment: (
                                     <InputAdornment position="end">
@@ -104,30 +107,43 @@ export const DashPrograma: React.FC = () => {
                                 }
                             }}
                         />
+                        <Button type="submit" variant="contained"
+                            sx={{
+                                width: "100px",
+                                transition: ".5s",
+                                "& :hover": {
+                                    transition: ".8s",
+                                    transform: "scale(1.05)",
+                                    background: "#a41a1a",
+                                },
 
-                    </Box>
-                    <Box sx={{
-                        display: 'flex',
-                        justifyContent: 'space-between',
-                        alignItems: 'center',
-                        m: "30px 0 100px 0",
-
-                        "& .MuiSelect-select": {
-                            height: '10px',
-                            width: '200px'
-                        }
-                    }}>
-
+                                "& :active": {
+                                    transform: "scale(.99)",
+                                },
+                            }}>
+                            Buscar
+                        </Button>
                         <Button onClick={limpar} variant="contained" sx={{
-                            height: '50px'
+                            width: "100px",
+                            transition: ".5s",
+                            "& :hover": {
+                                transition: ".8s",
+                                transform: "scale(1.05)",
+                                background: "#a41a1a",
+                            },
+
+                            "& :active": {
+                                transform: "scale(.99)",
+                            },
                         }}>
                             Limpar
                         </Button>
-                        <Button type="submit" variant="contained" sx={{
-                            height: '50px'
+                    </Box>
+                    <Box
+                        sx={{
+                            display: "flex",
+                            justifyContent: "end",
                         }}>
-                            Filtrar
-                        </Button>
                         <Link style={{ textDecoration: 'none' }} to='/cadastro-programa'>
                             <Button variant="contained"
                                 color="success"

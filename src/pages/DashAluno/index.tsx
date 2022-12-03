@@ -188,6 +188,7 @@ export const DashAluno = () => {
                         </Button>
                     </Box>
 
+
                     <Box sx={{
                         width: '100%',
                         display: 'flex',
@@ -319,13 +320,13 @@ export const DashAluno = () => {
                                         flexDirection: 'column',
                                     }}>
 
-                        <Typography sx={{fontSize: '12px', wordWrap: 'break-word'}}><strong>Nome: </strong>{el.nome}</Typography>
-                        <Typography sx={{fontSize: '12px', wordWrap: 'break-word'}}><strong>Área: </strong>{el.area}</Typography>
-                        <Typography sx={{fontSize: '12px', wordWrap: 'break-word'}}><strong>Id Programa: </strong>{el.idPrograma}</Typography>
-                        <Typography sx={{fontSize: '12px', wordWrap: 'break-word'}}><strong>Processo: </strong>{el.emProcesso}</Typography>
-                        <Typography sx={{fontSize: '12px', wordWrap: 'break-word'}}><strong>Status do Aluno: </strong>{el.statusAluno}</Typography>
-                        <Typography sx={{fontSize: '12px', wordWrap: 'break-word'}}><strong>Tecnologias: </strong>{el.tecnologias.map((item: string)=> {return  `${item} `   })}</Typography>
-                        <Typography sx={{fontSize: '12px', wordWrap: 'break-word'}}><strong>E-mail: </strong>{el.email}</Typography>
+                                        <Typography sx={{ fontSize: '12px', wordWrap: 'break-word' }}><strong>Nome: </strong>{el.nome}</Typography>
+                                        <Typography sx={{ fontSize: '12px', wordWrap: 'break-word' }}><strong>Área: </strong>{el.area}</Typography>
+                                        <Typography sx={{ fontSize: '12px', wordWrap: 'break-word' }}><strong>Id Programa: </strong>{el.idPrograma}</Typography>
+                                        <Typography sx={{ fontSize: '12px', wordWrap: 'break-word' }}><strong>Processo: </strong>{el.emProcesso}</Typography>
+                                        <Typography sx={{ fontSize: '12px', wordWrap: 'break-word' }}><strong>Status do Aluno: </strong>{el.statusAluno}</Typography>
+                                        <Typography sx={{ fontSize: '12px', wordWrap: 'break-word' }}><strong>Tecnologias: </strong>{el.tecnologias.map((item: string) => { return `${item} ` })}</Typography>
+                                        <Typography sx={{ fontSize: '12px', wordWrap: 'break-word' }}><strong>E-mail: </strong>{el.email}</Typography>
 
                                     </Box>
                                     <Box sx={{

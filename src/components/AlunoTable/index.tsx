@@ -14,12 +14,12 @@ import { IconButton } from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { AlunoPagination } from "../AlunoPagination";
-import Pagination from "@mui/material/Pagination";
+
 
 export default function AlunoTable() {
   const navigate = useNavigate();
 
-  const { alunos, deleteAluno, getAlunos, totalPages } =
+  const { alunos, deleteAluno } =
     useContext(AlunoContext);
 
   const [confirmDialog, setConfirmDialog] = useState<TOptionsConfirmDialog>({
@@ -119,17 +119,6 @@ export default function AlunoTable() {
         </TableBody>
       </Table>
       <AlunoPagination />
-      <Box
-        sx={{
-          height: "40px",
-          width: "100%",
-          display: "flex",
-          justifyContent: "end",
-          alignItems: "center",
-        }}
-      >
-        <Pagination count={totalPages} color="primary" />
-      </Box>
       <ConfirmDialog
         confirmDialog={confirmDialog}
         setConfirmDialog={setConfirmDialog}

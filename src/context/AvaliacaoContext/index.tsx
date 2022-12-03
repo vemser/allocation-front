@@ -90,8 +90,9 @@ export const AvaliacaoProvider = ({ children }: TChildren) => {
             nProgress.start();
             API.defaults.headers.common['Authorization'] = token;
             const { data } = await API.get(`/avaliacao/${idAvaliacao}`);
-            setAvaliacoes([data]);
-            setTotalPages(1);
+            console.log(data);
+            setAvaliacoes(data.elementos);
+            setTotalPages(data.quantidadePaginas);
         } catch (error) {
             console.log(error);
             if (axios.isAxiosError(error) && error.response && error.response.data) {

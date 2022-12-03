@@ -51,6 +51,7 @@ export const AvaliacaoTable: React.FC = () => {
                 <TableBody>
                     {avaliacoes === undefined || avaliacoes.length === 0 ?
                         <TableRow
+                            key={1}
                             sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                         >
                             <TableCell align="center"><Skeleton height={'60px'} /></TableCell>
