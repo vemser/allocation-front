@@ -159,8 +159,8 @@ export type TReservaAlocacaoContext = {
     deleteReservaAlocacao: (idReservaAlocacao: number) => Promise<void>,
     getReservasAlocacoes: (page: number) => Promise<void>,
     setReservasAlocacoes: (reservasAlocacoes: TReservaAlocacaoGet[]) => void,
-    getPesquisaIdAlocacao: (idAlocacao: number) => Promise<void>,
-    totalPages: number
+    totalPages: number,
+    getPesquisaAlocacao: (nomeAluno: string, nomeVaga: string, page: number) => Promise<void>
 }
 
 export type TAvaliacao = {

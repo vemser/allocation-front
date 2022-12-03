@@ -20,7 +20,7 @@ export const DashReservaAlocacao: React.FC = () => {
     const { register, handleSubmit, reset } = useForm();
     const navigate = useNavigate();
     const { userLogged } = useContext(AuthContext);
-    const { reservasAlocacoes, setReservasAlocacoes, getReservasAlocacoes, getPesquisaIdAlocacao } = useContext(ReservaAlocacaoContext);
+    const { reservasAlocacoes, setReservasAlocacoes, getReservasAlocacoes, getPesquisaAlocacao } = useContext(ReservaAlocacaoContext);
 
     useEffect(() => {
         if (userLogged && !podeAcessarTela(roles, userLogged)) {
@@ -32,8 +32,8 @@ export const DashReservaAlocacao: React.FC = () => {
 
     const pesquisaIdAlocacao = async (data: any) => {
         console.log(data);
-        if (data.pesquisa && !isNaN(data.pesquisa)) {
-          await getPesquisaIdAlocacao(Number(data.pesquisa));
+        if (data.pesquisar && !isNaN(data.pesquisar)) {
+          await getPesquisaAlocacao(data.pesquisar, data.pesquisar, 1);
         } else {
           limpar();
         }
@@ -92,7 +92,7 @@ export const DashReservaAlocacao: React.FC = () => {
                                 ),
                             }}
                             label='Pesquisar'
-                            placeholder='Pesquisar'
+                            placeholder='Pesquisar por nome do aluno e/ou nome da vaga'
                             sx={{
                                 width: '100%',
                                 "& .MuiInputBase-input": {

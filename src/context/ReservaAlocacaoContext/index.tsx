@@ -89,20 +89,20 @@ export const ReservaAlocacaoProvider = ({ children }: TChildren) => {
         }
     }
 
-    const getPesquisaIdAlocacao = async (idAlocacao: number) => {
+    const getPesquisaAlocacao = async (nomeAluno: string, nomeVaga: string, page: number) => {
         try {
             nProgress.start();
-            // API.defaults.headers.common['Authorization'] = token;
-            // const { data } = await API.get(`/vaga/${idAlocacao}`);
-            // setReservasAlocacoes([data]);
-            console.log(idAlocacao)
-            setTotalPages(1);
+            API.defaults.headers.common['Authorization'] = token;
+            const { data } = await API.get(`/reserva-alocacao/filtro?pagina=${page}&tamanho=20&nomeAluno=${nomeAluno}&nomeVaga=${nomeVaga}`);
+            console.log(data)
+            setReservasAlocacoes(data.elementos);
+            setTotalPages(data.quantidadePaginas);
         } catch (error) {
             console.log(error);
             if (axios.isAxiosError(error) && error.response && error.response.data) {
                 toast.error(error.response.data.message, toastConfig);
             } else {
-                toast.error('Houve um erro inesperado ao pesquisar a Reserva.', toastConfig);
+                toast.error('Houve um erro inesperado ao pesquisar a Reserva alocação.', toastConfig);
             }
         } finally {
             nProgress.done();
@@ -110,7 +110,17 @@ export const ReservaAlocacaoProvider = ({ children }: TChildren) => {
     }
 
     return (
-        <ReservaAlocacaoContext.Provider value={{ reservasAlocacoes, createReservaAlocacao, getReservasAlocacoes, updateReservaAlocacao, setReservasAlocacoes, deleteReservaAlocacao, totalPages, getPesquisaIdAlocacao }}>
+        <ReservaAlocacaoContext.Provider value={
+            {
+                reservasAlocacoes,
+                createReservaAlocacao,
+                getReservasAlocacoes,
+                updateReservaAlocacao,
+                setReservasAlocacoes,
+                deleteReservaAlocacao,
+                totalPages,
+                getPesquisaAlocacao
+            }}>
             {children}
         </ReservaAlocacaoContext.Provider>
     )
