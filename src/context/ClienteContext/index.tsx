@@ -84,13 +84,14 @@ export const ClienteProvider = ({ children }: TChildren) => {
         }
     }
 
-    const getPesquisaClientesEmail = async (email: string) => {
+    const getPesquisaClientesEmail = async (email: string, page:number) => {
         try {
             nProgress.start();
             API.defaults.headers.common['Authorization'] = token;
-            const { data } = await API.get(`/cliente/email/${email}`);
-            setClientes([data]);
-            setTotalPages(1);
+            const { data } = await API.get(`/cliente/email/${email}?email=${email}&tamanho=20&pagina=${page}`);
+            console.log(data);
+            setClientes(data.elementos);
+            setTotalPages(data.quantidadePaginas);
         } catch (error) {
             console.log(error);
             if (axios.isAxiosError(error) && error.response && error.response.data) {

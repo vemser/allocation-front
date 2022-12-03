@@ -206,7 +206,7 @@ export type TClienteContext = {
     deleteCliente: (idCliente: number) => Promise<void>,
     getClientes: (page: number) => Promise<void>,
     setClientes: (clientes: TCliente[]) => void,
-    getPesquisaClientesEmail: (email: string) => Promise<void>
+    getPesquisaClientesEmail: (email: string, page:number) => Promise<void>
 
 }
 
