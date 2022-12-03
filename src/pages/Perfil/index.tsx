@@ -25,8 +25,6 @@ export const Perfil = () => {
     const { isLogged, userLogged } = useContext<any>(AuthContext);
     const [mensagemSenha, setMensagemSenha] = useState<string | undefined>(undefined);
 
-   
-
     const {register, handleSubmit, reset, formState:{ errors }} = useForm();
     const [image, setImage] = useState<File>();
    
@@ -39,10 +37,20 @@ export const Perfil = () => {
         }
     }
 
+    
     const handleSubmitUser = async (data: any) => {
-        data.email = userLogged.email;
-        let cargo = userLogged.cargos[0].nome
-        updateUser(data, userLogged.idUsuario, cargo , image);       
+        
+        let cargoIn = userLogged.cargos[0].nome == 'ROLE_ADMINISTRADOR'? "Administrador": 
+        userLogged.cargos[0].nome == 'ROLE_GESTOR'? 'Gestor' : 
+        userLogged.cargos[0].nome == 'ROLE_GESTAO_DE_PESSOAS'? 'Gestão de pessoas' : 
+        userLogged.cargos[0].nome == 'ROLE_INSTRUTOR'? 'Instrutor' :
+        userLogged.cargos[0].nome == null? 'Não atribuído' : 
+        userLogged.cargos[0].nome;       
+        
+        data.email = userLogged.email;       
+        
+        let cargo = cargoIn.toUpperCase()
+        updateUser(data, userLogged.idUsuario, cargo , image);               
     }
 
   return (
@@ -117,7 +125,7 @@ export const Perfil = () => {
                             height: '10px'
                             }
                         }}
-                        // helperText={errors.nomeCompleto && errors.nomeCompleto ? errors.nomeCompleto.message : null}
+                        // helperText={errors.nomeCompleto && errors.nomeCompleto ? `${errors.nomeCompleto.message}` : null}
                         // error={Boolean(errors.nomeCompleto && errors.nomeCompleto.message)}
                         defaultValue={userLogged != null? userLogged?.nomeCompleto : ""}  
                         />

@@ -102,18 +102,18 @@ export const UserProvider = ({ children }: TChildren) => {
         }
         user = { ...data };
       }
-      console.log(user, idUsuario, cargo);
+      // console.log(user, idUsuario, cargo);
       await API.put(`/usuario/${idUsuario}?cargo=${cargo}`, user);
-      if (image) {
-        const formData = new FormData();
-        formData.append("file", image, image.name)
-        await uploadImage(data.email, formData);
-        console.log(image);
-      }
+      // if (image) {
+      //   const formData = new FormData();
+      //   formData.append("file", image, image.name)
+      //   await uploadImage(data.email, formData);
+      //   console.log(image);
+      // }
       // console.log(data);
       toast.success('Usuário editado com sucesso!', toastConfig);
       await getUsers(1);
-      // navigate('/usuarios');
+      navigate('/usuarios');
     } catch (error) {
       console.log(error);
       toast.error('Houve um erro inesperado ao editar o usuário.', toastConfig);
