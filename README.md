@@ -11,11 +11,26 @@ Sistema para gerenciar a reserva e alocação do alunos formados no VemSerDBC na
 - Gestão de Pessoas: pode criar as vagas, alunos, reservar, alocar e avaliar/entrevistar alunos;
 - Instrutor: pode criar e avaliar alunos.
 
-## Equipe Front-end
+## Equipe 
 
+### Front-end
 
 - Daniela Leguari
 - Renan Cesar
+
+### Back-end
+
+- Gustavo Lucena
+- Kaio Antônio
+- Jhennyfer Sobrinho
+
+### Quality Assurance
+
+- Pedro Thomé
+
+### Product Owner
+
+- Rafael Lazzari
 
 
 ## Tecnologias utilizadas

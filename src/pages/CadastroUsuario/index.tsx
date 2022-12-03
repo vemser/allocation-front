@@ -27,7 +27,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 
 export const CadastroUsuario: React.FC = () => {
 
-  const { createUser, updateUser } = useContext(UserContext);
+  const { createUser, updateUser, updateCargo } = useContext(UserContext);
   const { isLogged, userLogged } = useContext(AuthContext);
   const [mensagemSenha, setMensagemSenha] = useState<string | undefined>(undefined);
   const navigate = useNavigate();
@@ -35,7 +35,7 @@ export const CadastroUsuario: React.FC = () => {
   const isEdicao = state !== null;
   const [image, setImage] = useState<File>();
 
-  const { register, handleSubmit, reset, formState: { errors } } = useForm<IUserForm>({
+  const { register, handleSubmit, reset, formState: { errors, isDirty, dirtyFields } } = useForm<IUserForm>({
     resolver: yupResolver((isEdicao ? userEditFormSchema : userFormSchema))
   });
 
@@ -51,7 +51,7 @@ export const CadastroUsuario: React.FC = () => {
     }
   }
 
-  const toBase64 = (file: File)=> new Promise<string>((resolve, reject) => {
+  const toBase64 = (file: File) => new Promise<string>((resolve, reject) => {
     const reader = new FileReader();
     reader.readAsDataURL(file);
     reader.onload = () => resolve(reader.result?.toString() || "");
@@ -62,7 +62,12 @@ export const CadastroUsuario: React.FC = () => {
     if (!isLogged || (isLogged && !isEdicao)) {
       createUser({ ...data }, (isLogged ? data.cargo : ""), image);
     } else if (isLogged && isEdicao) {
-      updateUser(data, state.idUsuario, (data.cargo === "NENHUM" ? "" : data.cargo), image);
+      console.log(dirtyFields);
+      if (Object.keys(dirtyFields).length === 1 && dirtyFields.cargo) {
+        await updateCargo(data.cargo ?? "", data.email);
+      } else {
+        updateUser(data, state.idUsuario, (data.cargo === "NENHUM" ? "" : data.cargo), image);
+      }
     }
   }
 
@@ -97,7 +102,7 @@ export const CadastroUsuario: React.FC = () => {
             justifyContent: 'center',
           }}
         >
-          <Typography fontSize='25px' color='primary'>Cadastro de Usuário</Typography>
+          <Typography fontSize='25px' color='primary'>{isEdicao ? 'Editar Usuário' : 'Cadastro de Usuário'}</Typography>
         </Box>
         <Box component='form' id='form' onSubmit={handleSubmit((data: IUserForm) => handleSubmitUser(data))}
           sx={{

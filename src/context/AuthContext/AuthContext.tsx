@@ -48,7 +48,7 @@ export const AuthProvider = ({ children }: TChildren) => {
     }
 
     // retorna os dados do usuário logado no sistema
-    const handleUserLogged = async () => {
+    const handleUserLogged = async (redirecionar? : boolean) => {
         const { data } = await API.get("/auth/logged");
         const imagem = await getImageUser(data.email);
         setUserLogged({ ...data, image: imagem });
@@ -56,7 +56,7 @@ export const AuthProvider = ({ children }: TChildren) => {
         if (data && data.cargos.length === 0) {
             toast.error('Usuário sem permissão. Verifique com o Administrador.', toastConfig);
             handleUserLogout();
-        } else {
+        } else if(redirecionar ?? true) {
             navigate('/painel-vagas');
         }
     }

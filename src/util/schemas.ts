@@ -40,7 +40,7 @@ export const vagaFormSchema = yup.object().shape({
     quantidade: yup.number().typeError("Por favor, informe a quantidade").min(1, "Por favor, a quantidade de vagas deve ser maior que zero").required("Por favor, informe a quantidade"),
     dataAbertura: yup.date().typeError("Por favor, informe a data de abertura").required("Por favor, informe a data de abertura"),
     situacao: yup.string().required("Por favor, informe a situação"),
-    
+
 });
 
 export const programaFormSchema = yup.object().shape({
@@ -67,7 +67,7 @@ export const avaliacaoSimplesFormSchema = yup.object().shape({
     descricao: yup.string().required("Por favor, informe a descrição"),
     nota: yup.number().typeError("Por favor, informe a nota").required("Por favor, informe a nota").min(1, "A nota precisa ser maior que 0").max(10, "A nota precisa ser menor que 10"),
     dataAvaliacao: yup.string().required("Por favor, informe a data da avaliação"),
-   
+
 });
 
 export const avaliacaoEntrevistaFormSchema = yup.object().shape({

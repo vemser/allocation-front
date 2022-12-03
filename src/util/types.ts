@@ -20,10 +20,11 @@ export type TUserContext = {
     totalPages: number,
     createUser: (data: TUser, cargo?: string, image?: File) => Promise<void>,
     getUsers: (page: number) => Promise<void>,
-    updateUser: (data: TUser, idUsuario: number, cargo: string, image?: File) => Promise<void>,
+    updateUser: (data: TUser, idUsuario: number, cargo: string, image?: File, paginaNavigate?: string) => Promise<void>,
     deleteUser: (idUsuario: number) => Promise<void>,
     setUsers: (usuarios: IUser[]) => void,
-    getPesquisaUsuariosEmail: (email: string, page: number) => Promise<void>
+    getPesquisaUsuariosEmail: (email: string, page: number) => Promise<void>,
+    updateCargo: (cargo: string, emailUsuario: string) => Promise<void>
 }
 
 export type TSpanProps = {
@@ -48,7 +49,7 @@ export type TAuthContext = {
     token: string | null,
     userLogged?: IUserLogged,
     isLogged: boolean,
-    handleUserLogged: () => Promise<void>,
+    handleUserLogged: (redirecionar? : boolean) => Promise<void>,
     uploadImage: (email: string, formData: FormData) => Promise<void>,
     getImageUser: (email: string) => Promise<string>
 }
@@ -61,7 +62,7 @@ export type TAlunoContext = {
     deleteAluno: (idCliente: number) => Promise<void>,
     getAlunos: (page: number) => Promise<void>,
     alunos: TAluno[],
-    setAlunos: (data: TAluno[]) =>void,
+    setAlunos: (data: TAluno[]) => void,
     totalPages: number,
     pesquisaAlunoNome: (page: number, nome: string) => Promise<void>,
     pesquisaAlunoEmail: (email: string) => Promise<void>,

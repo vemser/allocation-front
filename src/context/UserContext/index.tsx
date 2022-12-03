@@ -53,9 +53,13 @@ export const UserProvider = ({ children }: TChildren) => {
     } catch (error) {
       console.log(error);
       if (axios.isAxiosError(error) && error.response && error.response.data) {
-        toast.error(error.response.data.message, toastConfig);
+          if (error.response.data.message) {
+              toast.error(error.response.data.message, toastConfig);
+          } else if (error.response.data.errors && Array.isArray(error.response.data.errors)) {
+              toast.error(error.response.data.errors.join("\n"), toastConfig);
+          }
       } else {
-        toast.error('Houve um erro inesperado ao cadastrar usuário.', toastConfig);
+          toast.error('Houve um erro inesperado ao cadastrar o usuário.', toastConfig);
       }
     } finally {
       nProgress.done();
@@ -77,7 +81,7 @@ export const UserProvider = ({ children }: TChildren) => {
     }
   }
 
-  const updateUser = async (data: TUser, idUsuario: number, cargo: string, image?: File) => {
+  const updateUser = async (data: TUser, idUsuario: number, cargo: string, image?: File, paginaNavigate? : string) => {
     try {
       nProgress.start();
       API.defaults.headers.common['Authorization'] = token;
@@ -102,19 +106,26 @@ export const UserProvider = ({ children }: TChildren) => {
       }
       // console.log(user, idUsuario, cargo);
       await API.put(`/usuario/${idUsuario}?cargo=${cargo}`, user);
-      // if (image) {
-      //   const formData = new FormData();
-      //   formData.append("file", image, image.name)
-      //   await uploadImage(data.email, formData);
-      //   console.log(image);
-      // }
-      // console.log(data);
+      if (image) {
+        const formData = new FormData();
+        formData.append("file", image, image.name)
+        await uploadImage(data.email, formData);
+      }
       toast.success('Usuário editado com sucesso!', toastConfig);
       await getUsers(1);
-      navigate('/usuarios');
+      console.log(paginaNavigate);
+      navigate(paginaNavigate ?? '/usuarios');
     } catch (error) {
       console.log(error);
-      toast.error('Houve um erro inesperado ao editar o usuário.', toastConfig);
+      if (axios.isAxiosError(error) && error.response && error.response.data) {
+        if (error.response.data.message) {
+          toast.error(error.response.data.message, toastConfig);
+        } else if (error.response.data.errors && Array.isArray(error.response.data.errors)) {
+          toast.error(error.response.data.errors.join("\n"), toastConfig);
+        }
+      } else {
+        toast.error('Houve um erro inesperado ao editar o usuário.', toastConfig);
+      }
 
     } finally {
       nProgress.done();
@@ -155,6 +166,36 @@ export const UserProvider = ({ children }: TChildren) => {
     }
   }
 
+  const updateCargo = async (cargo: string, emailUsuario: string) => {
+    try {
+      nProgress.start();
+      API.defaults.headers.common['Authorization'] = token;
+      console.log(cargo + " " + emailUsuario);
+      await API.put('/cargo/atualizar', {
+        emailUsuario: emailUsuario,
+        cargo: {
+          nome: "ROLE_" + cargo
+        }
+      });
+      toast.success('Cargo de usuário atualizado com sucesso!', toastConfig);
+      await getUsers(1);
+      navigate('/usuarios');
+    } catch (error) {
+      console.log(error);
+      if (axios.isAxiosError(error) && error.response && error.response.data) {
+        if (error.response.data.message) {
+          toast.error(error.response.data.message, toastConfig);
+        } else if (error.response.data.errors && Array.isArray(error.response.data.errors)) {
+          toast.error(error.response.data.errors.join("\n"), toastConfig);
+        }
+      } else {
+        toast.error('Houve um erro inesperado ao atualizar o cargo do usuário.', toastConfig);
+      }
+    } finally {
+      nProgress.done();
+    }
+  }
+
   return (
     <UserContext.Provider value={
       {
@@ -165,7 +206,8 @@ export const UserProvider = ({ children }: TChildren) => {
         updateUser,
         deleteUser,
         setUsers,
-        getPesquisaUsuariosEmail
+        getPesquisaUsuariosEmail,
+        updateCargo
       }
     }>
       {children}
