@@ -91,7 +91,7 @@ export type TVaga = {
     dataAbertura: any,
     dataFechamento: Date,
     dataCriacao: string,
-    situacaoCliente: string,
+    situacao: string,
     observacoes: string
   }
 
@@ -136,7 +136,7 @@ export type TReservaAlocacao = {
     dataAlocacao: Date,
     dataCancelamento: Date,
     dataFinalizacao: Date,
-    situacaoAlocacao: string
+    situacaoAllocation: string
 }
 
 export type TReservaAlocacaoGet = {

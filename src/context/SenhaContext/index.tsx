@@ -20,8 +20,7 @@ export const SenhaProvider = ({ children }: TChildren) => {
             nProgress.start();
             await API.post(`/auth/recuperar-senha?email=${email}`)
             toast.success("E-mail enviado com sucesso! Verifique sua caixa de entrada.", toastConfig);
-            navigate('/')
-            console.log(email)
+            navigate('/');
         } catch (error) {
             toast.error('Houve algum erro, tente novamente mais tarde.', toastConfig)
         } finally {
@@ -34,7 +33,6 @@ export const SenhaProvider = ({ children }: TChildren) => {
 
         try {
             nProgress.start();
-            console.log(senha, tokenState)
             await API.put(`/auth/atualizar-senha/${tokenState}`, senha)
             toast.success("Senha alterada com sucesso!", toastConfig);
             navigate('/')

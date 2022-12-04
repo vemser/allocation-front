@@ -62,7 +62,6 @@ export const AlunoProvider = ({ children }: TChildren) => {
             await API.put(`/aluno/${idAluno}`, data);
             toast.success('Aluno atualizado com sucesso!', toastConfig);
             await getAlunos(1);
-            console.log(data)
             setTecnologias([]);
             navigate('/alunos');
         } catch (error) {

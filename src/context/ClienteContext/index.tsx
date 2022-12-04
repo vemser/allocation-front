@@ -18,7 +18,6 @@ export const ClienteProvider = ({ children }: TChildren) => {
 
     const createCliente = async (data: TCliente) => {
         try {
-            console.log(JSON.stringify(data));
             nProgress.start();
 
             API.defaults.headers.common['Authorization'] = token;
@@ -48,7 +47,15 @@ export const ClienteProvider = ({ children }: TChildren) => {
             setTotalPages(data.quantidadePaginas);
         } catch (error) {
             console.log(error);
-            toast.error('Houve um erro inesperado ao buscar os clientes.', toastConfig);
+            if (axios.isAxiosError(error) && error.response && error.response.data) {
+                if (error.response.data.message) {
+                    toast.error(error.response.data.message, toastConfig);
+                } else if (error.response.data.errors && Array.isArray(error.response.data.errors)) {
+                    toast.error(error.response.data.errors.join("\n"), toastConfig);
+                }
+            } else {
+                toast.error('Houve um erro inesperado ao buscar os clientes.', toastConfig);
+            }
         } finally {
             nProgress.done();
         }
@@ -63,7 +70,15 @@ export const ClienteProvider = ({ children }: TChildren) => {
             navigate('/clientes');
         } catch (error) {
             console.log(error);
-            toast.error('Houve um erro inesperado ao atualizar cliente.', toastConfig);
+            if (axios.isAxiosError(error) && error.response && error.response.data) {
+                if (error.response.data.message) {
+                    toast.error(error.response.data.message, toastConfig);
+                } else if (error.response.data.errors && Array.isArray(error.response.data.errors)) {
+                    toast.error(error.response.data.errors.join("\n"), toastConfig);
+                }
+            } else {
+                toast.error('Houve um erro inesperado ao atualizar cliente.', toastConfig);
+            }
         } finally {
             nProgress.done();
         }
@@ -78,7 +93,15 @@ export const ClienteProvider = ({ children }: TChildren) => {
             navigate('/clientes');
         } catch (error) {
             console.log(error);
-            toast.error('Houve um erro inesperado ao deletar cliente.', toastConfig);
+            if (axios.isAxiosError(error) && error.response && error.response.data) {
+                if (error.response.data.message) {
+                    toast.error(error.response.data.message, toastConfig);
+                } else if (error.response.data.errors && Array.isArray(error.response.data.errors)) {
+                    toast.error(error.response.data.errors.join("\n"), toastConfig);
+                }
+            } else {
+                toast.error('Houve um erro inesperado ao deletar cliente.', toastConfig);
+            }
         } finally {
             nProgress.done();
         }
@@ -88,8 +111,7 @@ export const ClienteProvider = ({ children }: TChildren) => {
         try {
             nProgress.start();
             API.defaults.headers.common['Authorization'] = token;
-            const { data } = await API.get(`/cliente/email/${email}?email=${email}&tamanho=20&pagina=${page}`);
-            console.log(data);
+            const { data } = await API.get(`/cliente/email/${email}?tamanho=20&pagina=${page-1}`);
             setClientes(data.elementos);
             setTotalPages(data.quantidadePaginas);
         } catch (error) {

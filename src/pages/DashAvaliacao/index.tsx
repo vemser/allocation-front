@@ -42,7 +42,6 @@ export const DashAvaliacao: React.FC = () => {
     const pesquisar = async (data: any) => {
         if (data && data.pesquisar) {
             await getPesquisaIdAvaliacao(data.pesquisar);
-            console.log(data);
         } else {
             limpar();
         }

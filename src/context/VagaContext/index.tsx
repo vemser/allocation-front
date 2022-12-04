@@ -72,15 +72,21 @@ export const VagaProvider = ({ children }: TChildren) => {
 
         try {
             nProgress.start();
-            console.log(JSON.stringify(data));
             await API.put(`/vaga/${idVaga}`, data);
             toast.success('Vaga atualizada com sucesso!', toastConfig);
-            console.log(data)
             await getVagas(1);
             navigate('/painel-vagas');
         } catch (error) {
             console.log(error);
-            toast.error('Houve um erro inesperado ao buscar as vagas.', toastConfig);
+            if (axios.isAxiosError(error) && error.response && error.response.data) {
+                if (error.response.data.message) {
+                    toast.error(error.response.data.message, toastConfig);
+                } else if (error.response.data.errors && Array.isArray(error.response.data.errors)) {
+                    toast.error(error.response.data.errors.join("\n"), toastConfig);
+                }
+            } else {
+                toast.error('Houve um erro inesperado ao atualizar a vaga.', toastConfig);
+            }
         } finally {
             nProgress.done();
         }
@@ -96,7 +102,15 @@ export const VagaProvider = ({ children }: TChildren) => {
             navigate('/painel-vagas');
         } catch (error) {
             console.log(error);
-            toast.error('Houve um erro inesperado ao deletar a vaga.', toastConfig);
+            if (axios.isAxiosError(error) && error.response && error.response.data) {
+                if (error.response.data.message) {
+                    toast.error(error.response.data.message, toastConfig);
+                } else if (error.response.data.errors && Array.isArray(error.response.data.errors)) {
+                    toast.error(error.response.data.errors.join("\n"), toastConfig);
+                }
+            } else {
+                toast.error('Houve um erro inesperado ao deletar a vaga.', toastConfig);
+            }
         } finally {
             nProgress.done();
         }

@@ -33,7 +33,6 @@ export const AvaliacaoProvider = ({ children }: TChildren) => {
 
     const createAvaliacao = async (data: TAvaliacao) => {
         try {
-            console.log(JSON.stringify(data));
             nProgress.start();
             API.defaults.headers.common['Authorization'] = token;
             await API.post(`/avaliacao`, data);
@@ -53,7 +52,6 @@ export const AvaliacaoProvider = ({ children }: TChildren) => {
     const updateAvaliacao = async (data: TAvaliacao, idAvaliacao: number) => {
         try {
             nProgress.start();
-            console.log(JSON.stringify(data));
             await API.put(`/avaliacao/${idAvaliacao}`, data);
             toast.success('Avaliação atualizada com sucesso!', toastConfig);
             await getAvaliacoes(1);
@@ -90,7 +88,6 @@ export const AvaliacaoProvider = ({ children }: TChildren) => {
             nProgress.start();
             API.defaults.headers.common['Authorization'] = token;
             const { data } = await API.get(`/avaliacao/${idAvaliacao}`);
-            console.log(data);
             setAvaliacoes(data.elementos);
             setTotalPages(data.quantidadePaginas);
         } catch (error) {

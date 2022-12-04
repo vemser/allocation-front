@@ -40,12 +40,10 @@ export const Perfil = () => {
 
     useEffect(() => {
      setImageUser(userLogged?.image);
-     console.log(userLogged?.image)
     }, [userLogged]);
 
     const handleSetImage = async (event: any) => {
         const { files } = event.target;
-        console.log(files);
         if (files && files?.length > 0) {
             setImage(files[0]);
             setImageUser(await toBase64(files[0]));
@@ -64,7 +62,6 @@ export const Perfil = () => {
         data.email = userLogged?.email;
 
         let cargo = cargoIn?.toUpperCase() ?? "";
-        console.log(image);
         await updateUser(data, userLogged?.idUsuario ?? 0, cargo, image, "/perfil");
         await handleUserLogged(false);
                       

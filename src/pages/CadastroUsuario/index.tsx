@@ -55,7 +55,6 @@ export const CadastroUsuario: React.FC = () => {
 
   const handleSetImage = async (event: ChangeEvent<HTMLInputElement>) => {
     const { files } = event.target;
-    console.log(files);
     if (files && files?.length > 0) {
       setImage(files[0]);
       setImageUser(await toBase64(files[0]));
@@ -66,7 +65,6 @@ export const CadastroUsuario: React.FC = () => {
     if (!isLogged || (isLogged && !isEdicao)) {
       createUser({ ...data }, isLogged ? data.cargo : "", image);
     } else if (isLogged && isEdicao) {
-      console.log(dirtyFields);
       if (Object.keys(dirtyFields).length === 1 && dirtyFields.cargo) {
         await updateCargo(data.cargo ?? "", data.email);
       } else {

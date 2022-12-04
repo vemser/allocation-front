@@ -81,13 +81,13 @@ export const ReservaAlocacaoTable: React.FC = () => {
                                 <TableCell align="center">{row.dataFinalizacao?.split("-").reverse().join("/")}</TableCell>
                                 <TableCell align="center"
                                     sx={{
-                                        color: row.situacaoAlocacao === "RESERVADO" ? '#cfb037' :
-                                            row.situacaoAlocacao === "ALOCADO" ? 'red' :
-                                                row.situacaoAlocacao === "DISPONIVEL" ? 'green' :
-                                                    row.situacaoAlocacao === "FINALIZADO" ? 'brown' : 
-                                                        row.situacaoAlocacao === "INATIVO"  ? 'orange' : 'black'
+                                        color: row.situacaoAllocation === "RESERVADO" ? '#cfb037' :
+                                            row.situacaoAllocation === "ALOCADO" ? 'red' :
+                                                row.situacaoAllocation === "DISPONIVEL" ? 'green' :
+                                                    row.situacaoAllocation === "FINALIZADO" ? 'brown' : 
+                                                        row.situacaoAllocation === "INATIVO"  ? 'orange' : 'black'
                                     }}
-                                >{row.situacaoAlocacao}</TableCell>
+                                >{row.situacaoAllocation}</TableCell>
                                 <TableCell align="center">
 
                                     <IconButton onClick={() => {
@@ -102,7 +102,7 @@ export const ReservaAlocacaoTable: React.FC = () => {
                                                 dataAlocacao: row.dataAlocacao,
                                                 dataCancelamento: row.dataCancelamento,
                                                 dataFinalizacao: row.dataFinalizacao,
-                                                situacaoAlocacao: row.situacaoAlocacao
+                                                situacaoAllocation: row.situacaoAllocation
                                             }
                                         })
                                     }}>
@@ -110,7 +110,7 @@ export const ReservaAlocacaoTable: React.FC = () => {
                                     </IconButton>
                                     <Button
                                         startIcon={<DeleteIcon />}
-                                        disabled={row.situacaoAlocacao === "INATIVO"  ? true : false}
+                                        disabled={row.situacaoAllocation === "INATIVO"  ? true : false}
                                         onClick={(event) => {
                                             setConfirmDialog({
                                                 isOpen: true,

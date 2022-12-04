@@ -55,9 +55,9 @@ export const reservaAlocacaoFormSchema = yup.object().shape({
     idVaga: yup.string().required("Por favor, informe a vaga"),
     descricao: yup.string().required("Por favor, informe a descrição"),
     dataReserva: yup.string().required("Por favor, informe a data de reserva"),
-    statusAluno: yup.string().required("Por favor, informe a situação"),
-    idAvaliacao: yup.string().when('statusAluno', {
-        is: (statusAluno: string) => statusAluno && statusAluno === "ALOCADO",
+    situacaoAllocation: yup.string().required("Por favor, informe a situação"),
+    idAvaliacao: yup.string().when('situacaoAllocation', {
+        is: (situacaoAllocation: string) => situacaoAllocation && situacaoAllocation === "ALOCADO",
         then: yup.string().required("Por favor, informe a avaliação")
     })
 });

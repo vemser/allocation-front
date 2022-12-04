@@ -306,9 +306,9 @@ export const CadastroVaga: React.FC = () => {
             justifyContent: 'start',
             gap: '40px',
           }}>
-            <FormControl fullWidth error={Boolean(errors.situacaoCliente && errors.situacaoCliente.message)} >
-              <FormLabel htmlFor="situacaoCliente"> Situação</FormLabel>
-              <Select error={Boolean(errors.situacaoCliente && errors.situacaoCliente.message)} id="situacaoCliente" defaultValue={state != null ? state.situacaoCliente : ""} labelId="situacaoCliente" size="small" {...register("situacaoCliente")} >
+            <FormControl fullWidth error={Boolean(errors.situacao && errors.situacao.message)} >
+              <FormLabel htmlFor="situacao"> Situação</FormLabel>
+              <Select error={Boolean(errors.situacao && errors.situacao.message)} id="situacao" defaultValue={state != null ? state.situacao : ""} labelId="situacao" size="small" {...register("situacao")} >
                 <MenuItem value="ABERTO" >ABERTO</MenuItem>
                 <MenuItem value="FECHADO" >FECHADO</MenuItem>
               </Select>
@@ -329,6 +329,7 @@ export const CadastroVaga: React.FC = () => {
                 size="small"
                 multiline
                 minRows={3}
+                defaultValue={state != null ? state.observacoes : ""}
                 {...register("observacoes")}
               />
             </FormControl>

@@ -38,7 +38,6 @@ export const DashClientes: React.FC = () => {
     //Pesquisar
     const pesquisar = async (data: any) => {
         if (data && data.pesquisar) {
-            console.log(data);
             await getPesquisaClientesEmail(data.pesquisar, 1);
         } else {
             limpar();

@@ -19,7 +19,6 @@ export const ReservaAlocacaoProvider = ({ children }: TChildren) => {
 
     const createReservaAlocacao = async (data: TReservaAlocacao) => {
         try {
-            console.log(JSON.stringify(data));
             nProgress.start();
             API.defaults.headers.common['Authorization'] = token;
             await API.post(`/reserva-alocacao`, data);
@@ -28,7 +27,11 @@ export const ReservaAlocacaoProvider = ({ children }: TChildren) => {
         } catch (error) {
             console.log(error);
             if (axios.isAxiosError(error) && error.response && error.response.data) {
-                toast.error(error.response.data.message, toastConfig);
+                if (error.response.data.message) {
+                    toast.error(error.response.data.message, toastConfig);
+                } else if (error.response.data.errors && Array.isArray(error.response.data.errors)) {
+                    toast.error(error.response.data.errors.join("\n"), toastConfig);
+                }
             } else {
                 toast.error('Houve um erro inesperado ao cadastrar a reserva/alocação.', toastConfig);
             }
@@ -45,7 +48,6 @@ export const ReservaAlocacaoProvider = ({ children }: TChildren) => {
             const { data } = await API.get(`/reserva-alocacao?pagina=${(page - 1)}&tamanho=20`);
             setReservasAlocacoes(data.elementos);
             setTotalPages(data.quantidadePaginas);
-            console.log(data);
         } catch (error) {
             console.log(error);
             toast.error('Houve um erro inesperado ao buscar as reservas/alocações.', toastConfig);
@@ -57,7 +59,6 @@ export const ReservaAlocacaoProvider = ({ children }: TChildren) => {
     const updateReservaAlocacao = async (data: TReservaAlocacao, idReservaAlocacao: number) => {
         try {
             nProgress.start();
-            console.log(JSON.stringify(data));
             await API.put(`/reserva-alocacao/${idReservaAlocacao}`, data);
             toast.success('Reserva/alocação atualizada com sucesso!', toastConfig);
             await getReservasAlocacoes(1);
@@ -65,7 +66,11 @@ export const ReservaAlocacaoProvider = ({ children }: TChildren) => {
         } catch (error) {
             console.log(error);
             if (axios.isAxiosError(error) && error.response && error.response.data) {
-                toast.error(error.response.data.message, toastConfig);
+                if (error.response.data.message) {
+                    toast.error(error.response.data.message, toastConfig);
+                } else if (error.response.data.errors && Array.isArray(error.response.data.errors)) {
+                    toast.error(error.response.data.errors.join("\n"), toastConfig);
+                }
             } else {
                 toast.error('Houve um erro inesperado ao editar a reserva/alocação.', toastConfig);
             }
@@ -83,7 +88,15 @@ export const ReservaAlocacaoProvider = ({ children }: TChildren) => {
             navigate('/reservas-alocacoes');
         } catch (error) {
             console.log(error);
-            toast.error('Houve um erro inesperado ao desativar reserva/alocação.', toastConfig);
+            if (axios.isAxiosError(error) && error.response && error.response.data) {
+                if (error.response.data.message) {
+                    toast.error(error.response.data.message, toastConfig);
+                } else if (error.response.data.errors && Array.isArray(error.response.data.errors)) {
+                    toast.error(error.response.data.errors.join("\n"), toastConfig);
+                }
+            } else { 
+                toast.error('Houve um erro inesperado ao desativar reserva/alocação.', toastConfig); 
+            }
         } finally {
             nProgress.done();
         }
@@ -93,8 +106,7 @@ export const ReservaAlocacaoProvider = ({ children }: TChildren) => {
         try {
             nProgress.start();
             API.defaults.headers.common['Authorization'] = token;
-            const { data } = await API.get(`/reserva-alocacao/filtro?pagina=${page}&tamanho=20&nomeAluno=${nomeAluno}&nomeVaga=${nomeVaga}`);
-            console.log(data)
+            const { data } = await API.get(`/reserva-alocacao/filtro?pagina=${page - 1}&tamanho=20&nomeAluno=${nomeAluno}&nomeVaga=${nomeVaga}`);
             setReservasAlocacoes(data.elementos);
             setTotalPages(data.quantidadePaginas);
         } catch (error) {

@@ -62,7 +62,6 @@ export const CadastroAvaliacao: React.FC = () => {
     });
 
     useEffect(() => {
-        console.log(isEdicao);
         if (userLogged && !podeAcessarTela(roles, userLogged)) {
             toast.error("Usuário sem permissão.", toastConfig);
             navigate("/painel-vagas");

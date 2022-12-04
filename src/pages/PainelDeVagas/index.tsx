@@ -53,7 +53,6 @@ export const PainelDeVagas = () => {
   }
 
   const pesquisaIdVaga = async (data: any) => {
-    console.log(data);
     if (data.pesquisa && !isNaN(data.pesquisa)) {
       await getPesquisaIdVagas(Number(data.pesquisa));
     } else {
@@ -251,7 +250,7 @@ export const PainelDeVagas = () => {
               flexWrap: "wrap",
             }}
           >
-            {vagas.length == 0 || vagas == null ? (
+            {vagas.length === 0 || vagas == null ? (
               <Box
                 sx={{
                   display: "flex",

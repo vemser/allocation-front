@@ -23,10 +23,6 @@ export const RedefinirSenha = () => {
 
   let token = searchParams.get('token');
  
-
-// console.log(token)
-  
-
   const {tokenState, setTokenState} = useContext(SenhaContext)
 
   useEffect(()=>{

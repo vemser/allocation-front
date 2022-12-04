@@ -21,7 +21,6 @@ export const UserProvider = ({ children }: TChildren) => {
   const createUser = async (data: TUser, cargo?: string, image?: File) => {
     nProgress.start();
     try {
-      console.log(JSON.stringify(data));
       if (data.senha !== data.senhaIgual) {
         toast.error('As senhas digitadas não conferem.', toastConfig);
         return;
@@ -39,7 +38,6 @@ export const UserProvider = ({ children }: TChildren) => {
         const formData = new FormData();
         formData.append("file", image, image.name)
         await uploadImage(data.email, formData);
-        console.log(image);
       }
 
       toast.success("Usuário cadastrado com sucesso!", toastConfig);
@@ -104,7 +102,6 @@ export const UserProvider = ({ children }: TChildren) => {
         }
         user = { ...data };
       }
-      // console.log(user, idUsuario, cargo);
       await API.put(`/usuario/${idUsuario}?cargo=${cargo}`, user);
       if (image) {
         const formData = new FormData();
@@ -113,7 +110,6 @@ export const UserProvider = ({ children }: TChildren) => {
       }
       toast.success('Usuário editado com sucesso!', toastConfig);
       await getUsers(1);
-      console.log(paginaNavigate);
       navigate(paginaNavigate ?? '/usuarios');
     } catch (error) {
       console.log(error);
@@ -170,7 +166,6 @@ export const UserProvider = ({ children }: TChildren) => {
     try {
       nProgress.start();
       API.defaults.headers.common['Authorization'] = token;
-      console.log(cargo + " " + emailUsuario);
       await API.put('/cargo/atualizar', {
         emailUsuario: emailUsuario,
         cargo: {

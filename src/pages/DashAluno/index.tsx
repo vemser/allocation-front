@@ -69,7 +69,6 @@ export const DashAluno = () => {
     }
 
     const pesquisaAluno = async (data: any) => {
-        console.log(data);
         if (data.pesquisa) {
             await pesquisaAlunoNome(1, data.pesquisa);
         } else {

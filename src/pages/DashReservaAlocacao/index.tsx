@@ -44,7 +44,6 @@ export const DashReservaAlocacao: React.FC = () => {
     }, [userLogged]);
 
     const pesquisaIdAlocacao = async (data: any) => {
-        console.log(data.pesquisar);
         if (data.pesquisar) {
             await getPesquisaAlocacao(data.pesquisar, data.pesquisar, 1);
         } else {

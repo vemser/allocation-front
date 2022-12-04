@@ -23,7 +23,6 @@ export const ProgramaProvider = ({ children }: TChildren) => {
             nProgress.start();
             API.defaults.headers.common['Authorization'] = token;
             await API.post(`/programa`, data);
-            console.log(data);
             navigate('/programas');
             toast.success("Programa cadastrado com sucesso!", toastConfig);
 
@@ -41,7 +40,6 @@ export const ProgramaProvider = ({ children }: TChildren) => {
             nProgress.start();
             API.defaults.headers.common['Authorization'] = token;
             const { data } = await API.get(`/programa?pagina=${(page - 1)}&tamanho=20`);
-            //console.log(JSON.stringify(data));
             setProgramas(data.elementos);//a API retorna um objeto no qual os programas estão no array elementos
             setTotalPages(data.quantidadePaginas);
         } catch (error) {
@@ -55,11 +53,9 @@ export const ProgramaProvider = ({ children }: TChildren) => {
     const updatePrograma = async (data: IProgramaForm, idPrograma: number) => {
         try {
             nProgress.start();
-            console.log(data);
             API.defaults.headers.common['Authorization'] = token;
             await API.put(`/programa/${idPrograma}`, data);
             await getProgramas(1);
-            console.log(data);
             navigate('/programas');
             toast.success("Programa editado com sucesso!", toastConfig);
 

@@ -405,12 +405,12 @@ export const CadastroReservaAlocacao: React.FC = () => {
                         }}
                     >
                         <FormControl fullWidth>
-                            <FormLabel htmlFor="situacaoAlocacao"> Situação</FormLabel>
+                            <FormLabel htmlFor="situacaoAllocation"> Situação</FormLabel>
                             <Select
-                                id="situacaoAlocacao"
-                                defaultValue={isEdicao ? state.situacaoAlocacao : "RESERVADO"}
+                                id="situacaoAllocation"
+                                defaultValue={isEdicao ? state.situacaoAllocation : "RESERVADO"}
                                 size="small"
-                                {...register("situacaoAlocacao")}
+                                {...register("situacaoAllocation")}
                             >
                                 <MenuItem value="RESERVADO" sx={{ height: "30px" }}>
                                     Reservado
