@@ -73,7 +73,7 @@ export const UserProvider = ({ children }: TChildren) => {
       setTotalPages(data.quantidadePaginas);
     } catch (error) {
       console.log(error);
-      toast.error('Houve um erro inesperado ao listar os clientes.', toastConfig);
+      toast.error('Houve um erro inesperado ao listar os Usuários.', toastConfig);
     } finally {
       nProgress.done();
     }
