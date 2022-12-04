@@ -4,7 +4,7 @@ import logo from '../../assets/dbclogo.png';
 import { useContext, useState } from "react";
 import { AuthContext } from "../../context/AuthContext/AuthContext";
 import { useNavigate } from 'react-router-dom'
-import { LinkSC, LinkMenu } from "./HeaderPrincipal.styled";
+import { LinkSC, LinkMenu, LinkMenuMin } from "./HeaderPrincipal.styled";
 export const HeaderPrincipal = () => {
     const { handleUserLogout } = useContext(AuthContext);
 
@@ -62,9 +62,9 @@ export const HeaderPrincipal = () => {
                                 'aria-labelledby': 'basic-button',
                             }}
                         >
-                            <LinkSC to='/painel-vagas'><MenuItem onClick={handleClose}>Vagas</MenuItem></LinkSC>
-                            {/* <LinkSC to='/alunos'><MenuItem onClick={handleClose}>Alunos</MenuItem></LinkSC> */}
-                            <LinkSC to='/dash-alunos'><MenuItem onClick={handleClose}>Alunos</MenuItem></LinkSC>
+                            <LinkMenuMin to='/painel-vagas'><MenuItem onClick={handleClose}>Painel de Vagas</MenuItem></LinkMenuMin>
+                            <LinkMenuMin to='/dash-alunos'><MenuItem onClick={handleClose}>Painel de Alunos</MenuItem></LinkMenuMin>
+                            <LinkSC to='/alunos'><MenuItem onClick={handleClose}>Alunos</MenuItem></LinkSC>
                             <LinkSC to='/usuarios'><MenuItem onClick={handleClose}>Usuários</MenuItem></LinkSC>
                             <LinkSC to='/clientes'><MenuItem onClick={handleClose}>Clientes</MenuItem></LinkSC>
                             <LinkSC to='/programas'><MenuItem onClick={handleClose}>Programas</MenuItem></LinkSC>
@@ -99,5 +99,3 @@ export const HeaderPrincipal = () => {
         </Container>
     );
 }
-
-
