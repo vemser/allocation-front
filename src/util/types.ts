@@ -91,10 +91,9 @@ export type TVaga = {
     dataAbertura: any,
     dataFechamento: Date,
     dataCriacao: string,
-    situacao: string,
-    observacoes: string,
-    emailCliente: string
-}
+    situacaoCliente: string,
+    observacoes: string
+  }
 
 export type TVagaContext = {
     totalPages: number,

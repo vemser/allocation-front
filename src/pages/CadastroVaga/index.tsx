@@ -300,29 +300,17 @@ export const CadastroVaga: React.FC = () => {
               />
             </FormControl>
           </Box>
-          <Box
-            sx={{
-              display: "flex",
-              justifyContent: "start",
-              gap: "40px",
-              flexDirection: smDown ? "column" : "row",
-            }}
-          >
-            <FormControl
-              fullWidth
-              error={Boolean(errors.situacao && errors.situacao.message)}
-            >
+
+          <Box sx={{
+            display: 'flex',
+            justifyContent: 'start',
+            gap: '40px',
+          }}>
+            <FormControl fullWidth error={Boolean(errors.situacao && errors.situacao.message)} >
               <FormLabel htmlFor="situacao"> Situação</FormLabel>
-              <Select
-                error={Boolean(errors.situacao && errors.situacao.message)}
-                id="situacao"
-                defaultValue={state != null ? state.situacao : ""}
-                labelId="situacao"
-                size="small"
-                {...register("situacao")}
-              >
-                <MenuItem value="ABERTO">ABERTO</MenuItem>
-                <MenuItem value="FECHADO">FECHADO</MenuItem>
+              <Select error={Boolean(errors.situacao && errors.situacao.message)} id="situacao" defaultValue={state != null ? state.situacao : ""} labelId="situacao" size="small" {...register("situacao")} >
+                <MenuItem value="ABERTO" >ABERTO</MenuItem>
+                <MenuItem value="FECHADO" >FECHADO</MenuItem>
               </Select>
             </FormControl>
             <FormControl
