@@ -74,9 +74,7 @@ export const CadastroUsuario: React.FC = () => {
   }
 
   const theme = useTheme();   
-  const xsDown = useMediaQuery(theme.breakpoints.down('xs')) // menor que 420px 
   const smDown = useMediaQuery(theme.breakpoints.down('sm')) // menor que 600px 
-
 
   return (
     <Grid
