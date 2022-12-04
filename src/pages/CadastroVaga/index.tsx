@@ -149,11 +149,11 @@ export const CadastroVaga: React.FC = () => {
           >
             <TextField
               type="text"
-              placeholder="E-mail cliente"
-              id="emailCliente"
-              {...register("emailCliente")}
+              placeholder="Id cliente"
+              id="idCliente"
+              {...register("idCliente")}
               variant="outlined"
-              label="E-mail cliente"
+              label="Id cliente"
               sx={{
                 width: "100%",
                 "& .MuiInputBase-input": {
@@ -161,14 +161,14 @@ export const CadastroVaga: React.FC = () => {
                 },
               }}
               helperText={
-                errors.emailCliente && errors.emailCliente
-                  ? errors.emailCliente.message
+                errors.idCliente && errors.idCliente
+                  ? errors.idCliente.message
                   : null
               }
               error={Boolean(
-                errors.emailCliente && errors.emailCliente.message
+                errors.idCliente && errors.idCliente.message
               )}
-              defaultValue={state != null ? state.clienteDTO.email : ""}
+              defaultValue={state != null ? state.clienteDTO.idCliente : ""}
             />
 
             <TextField
@@ -306,9 +306,9 @@ export const CadastroVaga: React.FC = () => {
             justifyContent: 'start',
             gap: '40px',
           }}>
-            <FormControl fullWidth error={Boolean(errors.situacao && errors.situacao.message)} >
-              <FormLabel htmlFor="situacao"> Situação</FormLabel>
-              <Select error={Boolean(errors.situacao && errors.situacao.message)} id="situacao" defaultValue={state != null ? state.situacao : ""} labelId="situacao" size="small" {...register("situacao")} >
+            <FormControl fullWidth error={Boolean(errors.situacaoCliente && errors.situacaoCliente.message)} >
+              <FormLabel htmlFor="situacaoCliente"> Situação</FormLabel>
+              <Select error={Boolean(errors.situacaoCliente && errors.situacaoCliente.message)} id="situacaoCliente" defaultValue={state != null ? state.situacaoCliente : ""} labelId="situacaoCliente" size="small" {...register("situacaoCliente")} >
                 <MenuItem value="ABERTO" >ABERTO</MenuItem>
                 <MenuItem value="FECHADO" >FECHADO</MenuItem>
               </Select>
