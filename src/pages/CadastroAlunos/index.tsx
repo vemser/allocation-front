@@ -182,13 +182,14 @@ export const CadastroAlunos = () => {
                 width: '100%',
                 displar: 'flex',
                 alignItems: 'center',
-                gap: '20px'
+                gap: '20px',
+                justifyContent: smDown? 'center' : 'flex-start'
               }}
             >
               <TextField type="text" placeholder='Tecnologias' id='tecnologias' variant="outlined"  {...register('tecnologias')}
                 label='Tecnologias'
                 sx={{
-                  width: '50%',
+                  width: smDown? '100%' : '50%',
                   "& .MuiInputBase-input": {
                     height: '10px'
                   }
