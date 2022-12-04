@@ -86,7 +86,7 @@ export const HeaderPrincipal = () => {
                                 <Typography sx={{ m: 0.5 }}>{userLogged?.nomeCompleto} </Typography>
                                 <LinkSC to={'/perfil'}>
                                     {userLogged?.image ?
-                                        <Avatar src={`data:image/jpg;base64,${userLogged?.image}`} sx={{ width: 32, height: 32 }}> </Avatar> :
+                                        <Avatar src={`${userLogged?.image}`} sx={{ width: 32, height: 32 }}> </Avatar> :
                                         <Avatar sx={{ width: 32, height: 32 }}>{userLogged?.nomeCompleto.substring(0, 1)}</Avatar>}
                                 </LinkSC>
 

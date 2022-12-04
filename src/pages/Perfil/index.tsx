@@ -1,4 +1,4 @@
-import react, { useState } from 'react'
+import react, { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form';
 import {
     FormLabel,
@@ -20,6 +20,7 @@ import { PerfilFormSchema } from '../../util/schemas';
 import { TPerfil } from '../../util/types';
 import verificaForcaSenha from '../../util/forca-senha';
 import { useNavigate } from 'react-router-dom';
+import { toBase64 } from '../../util/image-utils';
 
 
 export const Perfil = () => {
@@ -32,13 +33,20 @@ export const Perfil = () => {
     });
 
     const [image, setImage] = useState<File>();
+    const [imageUser, setImageUser] = useState<string | undefined>(userLogged?.image);
     const navigate = useNavigate();
 
-    const handleSetImage = (event: any) => {
+    useEffect(() => {
+     setImageUser(userLogged?.image);
+     console.log(userLogged?.image)
+    }, [userLogged]);
+
+    const handleSetImage = async (event: any) => {
         const { files } = event.target;
         console.log(files);
         if (files && files?.length > 0) {
             setImage(files[0]);
+            setImageUser(await toBase64(files[0]));
         }
     }
 
@@ -113,7 +121,7 @@ export const Perfil = () => {
                             gap: '20px',
                             width: '100%',
                         }}>
-                            <Avatar src={userLogged?.image ? `data:image/jpg;base64,${userLogged?.image}` : perfil} sx={{ width: 128, height: 128 }} alt="perfil" />
+                            <Avatar src={imageUser ? imageUser : perfil} sx={{ width: 128, height: 128 }} alt="perfil" />
                             <FormControl fullWidth>
                                 <FormLabel>Enviar foto de perfil</FormLabel>
                                 <Button variant="contained" component="label" sx={{ width: '50px' }}>

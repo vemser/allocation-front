@@ -12,28 +12,32 @@ import {
   Typography,
   OutlinedInput,
   Box,
-  TextField
+  TextField,
+  Avatar
 }
   from '@mui/material';
 import { UserContext } from "../../context/UserContext";
-import { ChangeEvent, useContext, useState } from "react";
+import { ChangeEvent, useContext, useEffect, useState } from "react";
 import { IUserForm } from "../../util/interface";
 import verificaForcaSenha from "../../util/forca-senha";
 import { HeaderLogin } from "../../components/HeaderLogin";
 import { AuthContext } from "../../context/AuthContext/AuthContext";
 import { HeaderPrincipal } from "../../components/HeaderPrincipal";
 import { useLocation, useNavigate } from "react-router-dom";
+import perfil from '../../assets/perfil.png';
+import { toBase64 } from "../../util/image-utils";
 
 
 export const CadastroUsuario: React.FC = () => {
 
   const { createUser, updateUser, updateCargo } = useContext(UserContext);
-  const { isLogged, userLogged } = useContext(AuthContext);
+  const { isLogged, userLogged, getImageUser } = useContext(AuthContext);
   const [mensagemSenha, setMensagemSenha] = useState<string | undefined>(undefined);
   const navigate = useNavigate();
   const { state } = useLocation();
   const isEdicao = state !== null;
   const [image, setImage] = useState<File>();
+  const [imageUser, setImageUser] = useState<string>();
 
   const { register, handleSubmit, reset, formState: { errors, isDirty, dirtyFields } } = useForm<IUserForm>({
     resolver: yupResolver((isEdicao ? userEditFormSchema : userFormSchema))
@@ -43,20 +47,16 @@ export const CadastroUsuario: React.FC = () => {
     setMensagemSenha(verificaForcaSenha(senha));
   }
 
-  const handleSetImage = (event: ChangeEvent<HTMLInputElement>) => {
+  const handleSetImage = async (event: ChangeEvent<HTMLInputElement>) => {
     const { files } = event.target;
     console.log(files);
     if (files && files?.length > 0) {
       setImage(files[0]);
+      setImageUser(await toBase64(files[0]));
     }
   }
 
-  const toBase64 = (file: File) => new Promise<string>((resolve, reject) => {
-    const reader = new FileReader();
-    reader.readAsDataURL(file);
-    reader.onload = () => resolve(reader.result?.toString() || "");
-    reader.onerror = error => reject(error);
-  });
+ 
 
   const handleSubmitUser = async (data: IUserForm) => {
     if (!isLogged || (isLogged && !isEdicao)) {
@@ -70,6 +70,16 @@ export const CadastroUsuario: React.FC = () => {
       }
     }
   }
+
+  const getImagemUsuario = async () =>{
+    if(isEdicao){
+      setImageUser(await getImageUser(state.email));
+     }
+  }
+
+  useEffect(() => {
+    getImagemUsuario();
+  }, []);
 
   return (
     <Grid
@@ -110,6 +120,20 @@ export const CadastroUsuario: React.FC = () => {
             flexDirection: 'column',
             gap: '20px'
           }}>
+            <Box sx={{
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center'
+              }}>
+                <FormLabel>Enviar foto de perfil</FormLabel>
+                <Avatar src={imageUser ? imageUser : perfil} sx={{ width: 128, height: 128 }} alt="perfil" />
+                <Button variant="contained" component="label" sx={{
+                  width: '90px'
+                }}>
+                  Enviar
+                  <input hidden accept="image/*" id="foto-perfil" type="file" onChange={e => handleSetImage(e)} />
+                </Button>
+              </Box>
           <Box sx={{
             display: 'flex',
             justifyContent: 'center',
@@ -217,19 +241,7 @@ export const CadastroUsuario: React.FC = () => {
             <FormControl fullWidth sx={{
               width: '100%',
             }}>
-              <Box sx={{
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'center'
-              }}>
-                <FormLabel>Enviar foto de perfil</FormLabel>
-                <Button variant="contained" component="label" sx={{
-                  width: '90px'
-                }}>
-                  Enviar
-                  <input hidden accept="image/*" id="foto-perfil" type="file" onChange={e => handleSetImage(e)} />
-                </Button>
-              </Box>
+              
             </FormControl>
           </Box>
           <Box sx={{ display: 'flex', gap: '40px', justifyContent: 'space-between', alignItems: 'center' }}>

@@ -76,7 +76,7 @@ export const AuthProvider = ({ children }: TChildren) => {
     const getImageUser = async (email: string): Promise<string> => {
         try {
             const { data } = await API.get(`/usuario?email=${email}`);
-            return data;
+            return `data:image/jpg;base64,${data}`;
         } catch (error) {
         }
         return "";
