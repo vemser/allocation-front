@@ -12,7 +12,9 @@ import {
   Typography,
   OutlinedInput,
   Box,
-  TextField
+  TextField,
+  useTheme,
+  useMediaQuery
 }
   from '@mui/material';
 import { UserContext } from "../../context/UserContext";
@@ -71,6 +73,11 @@ export const CadastroUsuario: React.FC = () => {
     }
   }
 
+  const theme = useTheme();   
+  const xsDown = useMediaQuery(theme.breakpoints.down('xs')) // menor que 420px 
+  const smDown = useMediaQuery(theme.breakpoints.down('sm')) // menor que 600px 
+
+
   return (
     <Grid
       sx={{
@@ -114,6 +121,7 @@ export const CadastroUsuario: React.FC = () => {
             display: 'flex',
             justifyContent: 'center',
             gap: '40px',
+            flexDirection: smDown? 'column': 'row', 
           }}>
             <TextField type="text" placeholder='Nome Completo' id='nomeCompleto' {...register("nomeCompleto")} variant="outlined"
               label='Nome Completo'
@@ -144,7 +152,8 @@ export const CadastroUsuario: React.FC = () => {
             display: 'flex',
             justifyContent: 'space-between',
             alignItems: 'top',
-            gap: '40px'
+            gap: '40px',
+            flexDirection: smDown? 'column': 'row', 
           }}>
             <FormControl fullWidth error={Boolean(errors.senha && errors.senha.message)}>
               <TextField type="password" id='senha'  {...register("senha", { onChange: (event) => { validarSenha(event.target.value) } })} variant="outlined"
@@ -179,6 +188,7 @@ export const CadastroUsuario: React.FC = () => {
             display: 'flex',
             justifyContent: 'start',
             gap: '40px',
+            flexDirection: smDown? 'column': 'row', 
           }}>
             {isLogged ?
               <FormControl fullWidth error={Boolean(errors.cargo && errors.cargo.message)}  >
