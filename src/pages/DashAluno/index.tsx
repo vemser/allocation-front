@@ -204,7 +204,7 @@ export const DashAluno = () => {
                         display: 'flex',
                         justifyContent: 'flex-end',
                         alignItems: 'center',
-                        mt: (mdDown ? '20px' : '') 
+                        mt: mdDown ? '20px' : ''
                     }}>
                         <LinkSC to="/cadastro-alunos">
                             <Button size="medium" variant="contained"

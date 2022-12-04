@@ -103,83 +103,84 @@ export const DashAvaliacao: React.FC = () => {
                         p: "0 30px",
                         flexDirection: mdDown ? "column" : "row",
                     }}
-                ></Box>
-                <Box
-                    component="form"
-                    onSubmit={handleSubmit(pesquisar)}
-                    sx={{
-                        display: "flex",
-                        width: mdDown ? "100%" : "75%",
-                        gap: "5px",
-                        flexDirection: mdDown ? "column" : "row",
-                    }}
-                >
-                    <TextField
-                        type="text"
-                        id="pesquisar"
-                        placeholder="Digite o código da avaliação"
-                        {...register("pesquisar")}
-                        variant="outlined"
-                        InputProps={{
-                            endAdornment: (
-                                <InputAdornment position="end">
-                                    <SearchIcon />
-                                </InputAdornment>
-                            ),
-                        }}
-                        label="Pesquisar"
-                        sx={{
-                            width: "100%",
-                            "& .MuiInputBase-input": {
-                                height: "10px",
-                            },
-                        }}
-                    />
+                >                    
                     <Box
+                        component="form"
+                        onSubmit={handleSubmit(pesquisar)}
                         sx={{
                             display: "flex",
-                            gap: "10px",
-                            mt: mdDown ? "10px" : "",
+                            width: mdDown ? "100%" : "75%",
+                            gap: "5px",
+                            flexDirection: mdDown ? "column" : "row",
                         }}
                     >
-                        <Button
-                            type="submit"
-                            variant="contained"
+                        <TextField
+                            type="text"
+                            id="pesquisar"
+                            placeholder="Digite o código da avaliação"
+                            {...register("pesquisar")}
+                            variant="outlined"
+                            InputProps={{
+                                endAdornment: (
+                                    <InputAdornment position="end">
+                                        <SearchIcon />
+                                    </InputAdornment>
+                                ),
+                            }}
+                            label="Pesquisar"
                             sx={{
-                                width: "100px",
-                                transition: ".5s",
-                                "& :hover": {
-                                    transition: ".8s",
-                                    transform: "scale(1.05)",
-                                    background: "#a41a1a",
-                                },
-
-                                "& :active": {
-                                    transform: "scale(.99)",
+                                width: "100%",
+                                "& .MuiInputBase-input": {
+                                    height: "10px",
                                 },
                             }}
-                        >
-                            Buscar
-                        </Button>
-                        <Button
-                            onClick={limpar}
-                            variant="contained"
+                        />
+                        <Box
                             sx={{
-                                width: "100px",
-                                transition: ".5s",
-                                "& :hover": {
-                                    transition: ".8s",
-                                    transform: "scale(1.05)",
-                                    background: "#a41a1a",
-                                },
-
-                                "& :active": {
-                                    transform: "scale(.99)",
-                                },
+                                display: "flex",
+                                gap: "10px",
+                                mt: mdDown ? "10px" : "",
                             }}
                         >
-                            Limpar
-                        </Button>
+                            <Button
+                                type="submit"
+                                variant="contained"
+                                sx={{
+                                    width: "100px",
+                                    transition: ".5s",
+                                    "& :hover": {
+                                        transition: ".8s",
+                                        transform: "scale(1.05)",
+                                        background: "#a41a1a",
+                                    },
+
+                                    "& :active": {
+                                        transform: "scale(.99)",
+                                    },
+                                }}
+                            >
+                                Buscar
+                            </Button>
+                            <Button
+                                onClick={limpar}
+                                variant="contained"
+                                sx={{
+                                    width: "100px",
+                                    transition: ".5s",
+                                    "& :hover": {
+                                        transition: ".8s",
+                                        transform: "scale(1.05)",
+                                        background: "#a41a1a",
+                                    },
+
+                                    "& :active": {
+                                        transform: "scale(.99)",
+                                    },
+                                }}
+                            >
+                                Limpar
+                            </Button>
+                        </Box>
                     </Box>
                 </Box>
                 <Box
@@ -188,7 +189,7 @@ export const DashAvaliacao: React.FC = () => {
                         display: "flex",
                         justifyContent: "center",
                         alignItems: "center",
-                        mt: "20px",
+                        mt: mdDown ? '50px' : '',
                         gap: "20px",
                         flexDirection: smDown? 'column' : 'row'
                     }}
