@@ -66,11 +66,8 @@ export const Perfil = () => {
         setMensagemSenha(verificaForcaSenha(senha));
     }
 
-    const theme = useTheme();
-    const mdDown = useMediaQuery(theme.breakpoints.down('md')) // menor que 600px
+    const theme = useTheme();   
     const xsDown = useMediaQuery(theme.breakpoints.down('xs')) // menor que 420px 
-
-    // flexDirection: xsDown ? 'column' : 'row'
 
     return (
         <Grid

@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { Box, TextField, Button, InputAdornment, Typography, OutlinedInput, FormControl } from "@mui/material";
+import { Box, TextField, Button, InputAdornment, Typography, OutlinedInput, FormControl, useTheme, useMediaQuery } from "@mui/material";
 import { AccountCircle } from '@mui/icons-material';
 import HttpsIcon from '@mui/icons-material/Https';
 import { Link } from 'react-router-dom';
@@ -22,10 +22,13 @@ export const FormLogin: React.FC = () => {
     reset();
   }
 
+  const theme = useTheme();   
+  const xsDown = useMediaQuery(theme.breakpoints.down('xs')) // menor que 420px 
+
   return (
     <div>
           <Box sx={{
-            width: '380px',            
+            width: xsDown? '360px' : '380px',           
             boxShadow: '-5px 7px 15px -4px rgba(0,0,0,0.75)',
             height: '400px',
             p: '15px',            
