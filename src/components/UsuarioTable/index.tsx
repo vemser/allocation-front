@@ -60,11 +60,7 @@ export default function UsuarioTable() {
             <TableRow
               sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
             >
-              <TableCell align="center"><Skeleton height={'60px'} /></TableCell>
-              <TableCell align="center"><Skeleton height={'60px'} /></TableCell>
-              <TableCell align="center"><Skeleton height={'60px'} /></TableCell>
-              <TableCell align="center"><Skeleton height={'60px'} /></TableCell>
-              <TableCell align="center"><Skeleton height={'60px'} /></TableCell>
+              <TableCell align="center" colSpan={5}>Nenhum registro encontrado.</TableCell>
             </TableRow>
 
             : users.map((row: any) => (

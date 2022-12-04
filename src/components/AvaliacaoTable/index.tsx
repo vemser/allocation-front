@@ -54,18 +54,7 @@ export const AvaliacaoTable: React.FC = () => {
                             key={1}
                             sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                         >
-                            <TableCell align="center"><Skeleton height={'60px'} /></TableCell>
-                            <TableCell align="center"><Skeleton height={'60px'} /></TableCell>
-                            <TableCell align="center"><Skeleton height={'60px'} /></TableCell>
-                            <TableCell align="center"><Skeleton height={'60px'} /></TableCell>
-                            <TableCell align="center"><Skeleton height={'60px'} /></TableCell>
-                            <TableCell align="center"><Skeleton height={'60px'} /></TableCell>
-                            <TableCell align="center"><Skeleton height={'60px'} /></TableCell>
-                            <TableCell align="center"><Skeleton height={'60px'} /></TableCell>
-                            <TableCell align="center"><Skeleton height={'60px'} /></TableCell>
-                            <TableCell align="center"><Skeleton height={'60px'} /></TableCell>
-                            <TableCell align="center"><Skeleton height={'60px'} /></TableCell>
-                            <TableCell align="center"><Skeleton height={'60px'} /></TableCell>
+                            <TableCell align="center" colSpan={12}>Nenhum registro encontrado.</TableCell>
                         </TableRow>
 
                         : avaliacoes.map((row: any) => (

@@ -47,12 +47,7 @@ export const ClienteTable: React.FC = () => {
                         <TableRow
                             sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                         >
-                            <TableCell align="center"><Skeleton height={'60px'} /></TableCell>
-                            <TableCell align="center"><Skeleton height={'60px'} /></TableCell>
-                            <TableCell align="center"><Skeleton height={'60px'} /></TableCell>
-                            <TableCell align="center"><Skeleton height={'60px'} /></TableCell>
-                            <TableCell align="center"><Skeleton height={'60px'} /></TableCell>
-                            <TableCell align="center"><Skeleton height={'60px'} /></TableCell>
+                            <TableCell align="center" colSpan={6}>Nenhum registro encontrado.</TableCell>
                         </TableRow>
 
                         : clientes.map((row: any) => (

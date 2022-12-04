@@ -10,8 +10,8 @@ import { TableHeadSC } from './ProgramaTable.styled';
 import { IconButton } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
-import {  useNavigate } from 'react-router-dom';
-import { useContext,  useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useContext, useState } from 'react';
 import { ConfirmDialog, TOptionsConfirmDialog } from '../ConfirmDialog';
 import { ProgramaContext } from '../../context/ProgramaContext';
 import { ProgramaPagination } from '../ProgramaPagination';
@@ -27,7 +27,7 @@ export const ProgramaTable: React.FC = () => {
         onConfirm: () => { }
     });
 
-    
+
     return (
 
         <TableContainer component={Paper}>
@@ -48,12 +48,7 @@ export const ProgramaTable: React.FC = () => {
                         <TableRow
                             sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                         >
-                            <TableCell align="center"><Skeleton height={'60px'} /></TableCell>
-                            <TableCell align="center"><Skeleton height={'60px'} /></TableCell>
-                            <TableCell align="center"><Skeleton height={'60px'} /></TableCell>
-                            <TableCell align="center"><Skeleton height={'60px'} /></TableCell>
-                            <TableCell align="center"><Skeleton height={'60px'} /></TableCell>
-                            <TableCell align="center"><Skeleton height={'60px'} /></TableCell>
+                            <TableCell align="center" colSpan={7}>Nenhum registro encontrado.</TableCell>
                         </TableRow>
 
                         : programas.map((row: any) => (
@@ -101,7 +96,7 @@ export const ProgramaTable: React.FC = () => {
                 confirmDialog={confirmDialog}
                 setConfirmDialog={setConfirmDialog}
             />
-            <ProgramaPagination/>
+            <ProgramaPagination />
         </TableContainer>
     );
 }
