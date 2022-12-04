@@ -49,7 +49,7 @@ export const PrivateRoute = () => {
 function Router() {
   return (
     <ThemeProvider theme={DbcTheme}>
-      <BrowserRouter>
+      <BrowserRouter basename={process.env.PUBLIC_URL}>
         <ToastContainer />
         <AuthProvider>
           <SenhaProvider>
