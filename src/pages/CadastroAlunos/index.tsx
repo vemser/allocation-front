@@ -72,7 +72,7 @@ export const CadastroAlunos = () => {
 
   const isEdicao = state !== null;
 
-  const theme = useTheme();   
+  const theme = useTheme();
   const smDown = useMediaQuery(theme.breakpoints.down('sm')) // menor que 600px 
 
   return (
@@ -88,7 +88,7 @@ export const CadastroAlunos = () => {
       <HeaderPrincipal />
       <Box
         sx={{
-          width: smDown? '90%' : '80%',
+          width: smDown ? '90%' : '80%',
           height: '90%',
           display: 'flex',
           flexDirection: 'column',
@@ -117,7 +117,7 @@ export const CadastroAlunos = () => {
             display: 'flex',
             justifyContent: 'center',
             gap: '40px',
-            flexDirection: smDown? 'column': 'row', 
+            flexDirection: smDown ? 'column' : 'row',
           }}>
             <TextField type="text" placeholder='Digite o nome completo' id='nome' {...register('nome')} variant="outlined"
               error={Boolean(errors?.nome && errors.nome)}
@@ -146,11 +146,11 @@ export const CadastroAlunos = () => {
             display: 'flex',
             justifyContent: 'center',
             gap: '40px',
-            flexDirection: smDown? 'column': 'row', 
+            flexDirection: smDown ? 'column' : 'row',
           }}>
             <TextField type="text" placeholder='Digite a sua cidade' id='cidade' {...register('cidade')} variant="outlined"
               error={Boolean(errors?.cidade && errors.cidade)}
-              defaultValue={state ? state.cidade : "" }
+              defaultValue={state ? state.cidade : ""}
               label={errors.cidade?.message ?? "Cidade"}
               sx={{
                 width: '100%',
@@ -162,7 +162,7 @@ export const CadastroAlunos = () => {
             />
             <TextField type="text" placeholder='Digite o seu nome' id='estado' {...register('estado')} variant="outlined"
               error={Boolean(errors?.estado && errors.estado)}
-              defaultValue={state ? state.estado : "" }
+              defaultValue={state ? state.estado : ""}
               label={errors.estado?.message ?? "Estado"}
               sx={{
                 width: '100%',
@@ -177,7 +177,7 @@ export const CadastroAlunos = () => {
             width: '100%',
             justifyContent: 'center',
             gap: '40px',
-            flexDirection: smDown? 'column': 'row', 
+            flexDirection: smDown ? 'column' : 'row',
           }}>
             <Box
               sx={{
@@ -185,13 +185,13 @@ export const CadastroAlunos = () => {
                 displar: 'flex',
                 alignItems: 'center',
                 gap: '20px',
-                justifyContent: smDown? 'center' : 'flex-start'
+                justifyContent: smDown ? 'center' : 'flex-start'
               }}
             >
               <TextField type="text" placeholder='Tecnologias' id='tecnologias' variant="outlined"  {...register('tecnologias')}
                 label='Tecnologias'
                 sx={{
-                  width: smDown? '100%' : '50%',
+                  width: smDown ? '100%' : '50%',
                   "& .MuiInputBase-input": {
                     height: '10px'
                   }
@@ -243,14 +243,13 @@ export const CadastroAlunos = () => {
                 </Box>
               ))}
             </Box>
-
           </Box>
           <Box sx={{
             display: 'flex',
             justifyContent: 'center',
             gap: '40px',
             alignItems: 'end',
-            flexDirection: smDown? 'column': 'row', 
+            flexDirection: smDown ? 'column' : 'row',
           }}>
             <TextField type="email" placeholder='Digite o seu e-mail' id='email' {...register('email')} variant="outlined"
               error={Boolean(errors?.email && errors.email)}
@@ -263,7 +262,6 @@ export const CadastroAlunos = () => {
               }}
               defaultValue={state != null ? state.email : ""}
             />
-
             <FormControl sx={{
               width: '100%',
               display: 'flex',
@@ -282,7 +280,7 @@ export const CadastroAlunos = () => {
               justifyContent: 'space-between',
               alignItems: 'end',
               gap: '40px',
-              flexDirection: smDown? 'column': 'row', 
+              flexDirection: smDown ? 'column' : 'row',
 
               "& .MuiSelect-select": {
                 height: '10px',
@@ -301,7 +299,6 @@ export const CadastroAlunos = () => {
               }}
               defaultValue={state != null ? state.idPrograma : ""}
             />
-
             <FormControl sx={{ width: '100%' }}>
               <FormLabel> Status do Aluno</FormLabel>
               <Select id="situacao" defaultValue={state != null ? state.situacao : "DISPONIVEL"} size="small" {...register("situacao")} >
@@ -312,13 +309,12 @@ export const CadastroAlunos = () => {
                 <MenuItem value="INATIVO" sx={{ height: '30px' }}>INATIVO</MenuItem>
               </Select>
             </FormControl>
-
           </Box>
           <Box sx={{ display: 'flex', gap: '40px', alignItems: 'center', width: '100%', justifyContent: 'center', mt: '20px' }}>
             <Box sx={{ width: '100%', display: 'flex', justifyContent: 'center' }}>
               <TextField
                 placeholder="Descrição"
-                defaultValue={state ? state.descricao : "" }
+                defaultValue={state ? state.descricao : ""}
                 multiline
                 rows={5}
                 sx={{
