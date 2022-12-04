@@ -107,8 +107,8 @@ export const VagaProvider = ({ children }: TChildren) => {
             nProgress.start();
             API.defaults.headers.common['Authorization'] = token;
             const { data } = await API.get(`/vaga/${idVaga}`);
-            setVagas([data]);
-            setTotalPages(1);
+            setVagas(data.elementos);
+            setTotalPages(data.quantidadePaginas);
         } catch (error) {
             console.log(error);
             if (axios.isAxiosError(error) && error.response && error.response.data) {
