@@ -18,7 +18,7 @@ export const userLoginSchema = yup.object().shape({
 })
 
 export const userPesquisaSchema = yup.object().shape({
-    pesquisar: yup.string().required("Por favor Digite um e-mail").email('Por favor, digite um email válido')
+    // pesquisar: yup.string().required("Por favor Digite um e-mail").email('Por favor, digite um email válido')
 })
 
 export const alunoSchema = yup.object().shape({
