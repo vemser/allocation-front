@@ -107,17 +107,18 @@ export const CadastroVaga: React.FC = () => {
             justifyContent: 'center',
             gap: '40px',
           }}>
-            <TextField type="text" placeholder='E-mail cliente' id='emailCliente' {...register('emailCliente')} variant="outlined"
-              label='E-mail cliente'
+            <TextField type="text" placeholder='Id cliente' id='idCliente' {...register('idCliente')} variant="outlined"
+              label='Id cliente'
+              InputProps={{ inputProps: { min: 1 } }}
               sx={{
                 width: '100%',
                 "& .MuiInputBase-input": {
                   height: '10px'
                 }
               }}
-              helperText={errors.emailCliente && errors.emailCliente ? errors.emailCliente.message : null}
-              error={Boolean(errors.emailCliente && errors.emailCliente.message)}
-              defaultValue={state != null ? state.clienteDTO.email : ""}
+              helperText={errors.idCliente && errors.idCliente ? errors.idCliente.message : null}
+              error={Boolean(errors.idCliente && errors.idCliente.message)}
+              defaultValue={state != null ? state.clienteDTO.idCliente : ""}
             />
 
 
@@ -213,9 +214,9 @@ export const CadastroVaga: React.FC = () => {
             justifyContent: 'start',
             gap: '40px',
           }}>
-            <FormControl fullWidth error={Boolean(errors.situacao && errors.situacao.message)} >
-              <FormLabel htmlFor="situacao"> Situação</FormLabel>
-              <Select error={Boolean(errors.situacao && errors.situacao.message)} id="situacao" defaultValue={state != null ? state.situacao : ""} labelId="situacao" size="small" {...register("situacao")} >
+            <FormControl fullWidth error={Boolean(errors.situacaoCliente && errors.situacaoCliente.message)} >
+              <FormLabel htmlFor="situacaoCliente"> Situação</FormLabel>
+              <Select error={Boolean(errors.situacaoCliente && errors.situacaoCliente.message)} id="situacaoCliente" defaultValue={state != null ? state.situacaoCliente : ""} labelId="situacaoCliente" size="small" {...register("situacaoCliente")} >
                 <MenuItem value="ABERTO" >ABERTO</MenuItem>
                 <MenuItem value="FECHADO" >FECHADO</MenuItem>
               </Select>

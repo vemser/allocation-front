@@ -35,7 +35,7 @@ export const alunoSchema = yup.object().shape({
 })
 
 export const vagaFormSchema = yup.object().shape({
-    emailCliente: yup.string().required("Por favor, informe o e-mail do cliente"),
+    idCliente: yup.string().required("Por favor, informe o id do cliente"),
     idPrograma: yup.number().required("Por favor, informe o id do programa"),
     nome: yup.string().required("Por favor, digite a vaga "),
     quantidade: yup.number().typeError("Por favor, informe a quantidade").min(1, "Por favor, a quantidade de vagas deve ser maior que zero").required("Por favor, informe a quantidade"),
