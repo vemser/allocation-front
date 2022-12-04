@@ -125,11 +125,11 @@ export const PainelDeVagas = () => {
               placeholder="Digite o código da vaga"
               id="pesquisa"
               {...register("pesquisa")}
-              onChange={(e) => {
-                if (!e.target.value) {
-                  limparPesquisa();
-                }
-              }}
+              // onChange={(e) => {
+              //   if (!e.target.value) {
+              //     limparPesquisa();
+              //   }
+              // }}
               variant="outlined"
               label="Pesquisar "
               InputProps={{
