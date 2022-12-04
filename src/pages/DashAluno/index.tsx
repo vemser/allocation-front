@@ -312,6 +312,7 @@ export const DashAluno = () => {
                                                     }
                                                 });
                                             }} sx={{
+                                                background: 'red',
                                                 color: 'white',
                                                 width: '25px',
                                                 height: '25px',
@@ -344,7 +345,7 @@ export const DashAluno = () => {
                                                             el.statusAluno == "DESALOCADO" ? 'brown' : el.statusAluno
                                         }}>{el.statusAluno}</Box></strong></Typography>
                                         <Typography sx={{ fontSize: '12px', wordWrap: 'break-word' }}><strong>Tecnologias: </strong>{el.tecnologias.map((item: string) => { return `${item} ` })}</Typography>
-                                        <Typography sx={{ fontSize: '12px', wordWrap: 'break-word', background:'red'}}><strong>E-mail: </strong>{(el.email)}</Typography>
+                                        <Typography sx={{ fontSize: '12px', wordWrap: 'break-word' }}><strong>E-mail: </strong>{(el.email)}</Typography>
                                     </Box>
                                     <Box sx={{
                                         marginTop: '20px',
