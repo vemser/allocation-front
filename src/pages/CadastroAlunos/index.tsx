@@ -306,7 +306,8 @@ export const CadastroAlunos = () => {
                 <MenuItem value="DISPONIVEL" sx={{ height: '30px' }}>DISPONIVEL</MenuItem>
                 <MenuItem value="ALOCADO" sx={{ height: '30px' }}>ALOCADO</MenuItem>
                 <MenuItem value="RESERVADO" sx={{ height: '30px' }}>RESERVADO</MenuItem>
-                <MenuItem value="DESALOCADO" sx={{ height: '30px' }}>DESALOCADO</MenuItem>
+                <MenuItem value="FINALIZADO" sx={{ height: '30px' }}>FINALIZADO</MenuItem>
+                <MenuItem value="INATIVO" sx={{ height: '30px' }}>INATIVO</MenuItem>
               </Select>
             </FormControl>
 
@@ -330,7 +331,7 @@ export const CadastroAlunos = () => {
           </Box>
           <Box sx={{ display: 'flex', gap: '40px', justifyContent: 'space-between', alignItems: 'center' }}>
             <Box sx={{ textAlign: 'center' }}>
-              <Button variant="contained" onClick={() => navigate("/alunos")} sx={{
+              <Button variant="contained" onClick={() => navigate("/dash-alunos")} sx={{
                 height: '50px'
               }}>
                 Voltar

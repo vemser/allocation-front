@@ -136,7 +136,7 @@ export type TReservaAlocacao = {
     dataAlocacao: Date,
     dataCancelamento: Date,
     dataFinalizacao: Date,
-    statusAluno: string
+    situacaoAlocacao: string
 }
 
 export type TReservaAlocacaoGet = {
