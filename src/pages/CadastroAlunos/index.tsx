@@ -229,12 +229,14 @@ export const CadastroAlunos = () => {
                   {el}
                   <Box sx={{
                     width: '30px',
-                    borderRadius: '50%',
+                    borderRadius: '100%',
                     background: 'red',
                     display: 'flex',
                     justigyContent: 'center',
                     alignItems: 'center',
-                    cursor: 'pointer'
+                    cursor: 'pointer',
+                    color: 'white',
+                    paddingLeft: '2px'
                   }} onClick={() => deleteTec(el)}>
                     <DeleteIcon />
                   </Box>
