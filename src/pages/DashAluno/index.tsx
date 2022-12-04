@@ -1,4 +1,4 @@
-import { Grid, Box, Typography, Button, TextField, InputAdornment } from "@mui/material";
+import { Grid, Box, Typography, Button, TextField, InputAdornment, useTheme, useMediaQuery } from "@mui/material";
 import SearchIcon from '@mui/icons-material/Search';
 import { IconButton } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
@@ -78,6 +78,9 @@ export const DashAluno = () => {
 
     }
 
+    const theme = useTheme();
+    const mdDown = useMediaQuery(theme.breakpoints.down('md'))
+
     return (
         <Grid
             sx={{
@@ -113,7 +116,8 @@ export const DashAluno = () => {
                     height: '40px',
                     display: 'flex',
                     justifyContent: 'space-between',
-                    p: '0 30px'
+                    p: '0 30px',
+                    flexDirection: mdDown ? 'column' : 'row'
                 }}>
 
                     <Box
@@ -123,7 +127,8 @@ export const DashAluno = () => {
                         sx={{
                             display: 'flex',
                             width: '100%',
-                            gap: '10px'
+                            gap: '5px',
+                            flexDirection: mdDown ? 'column' : 'row'
                         }}>
                         <TextField type="text"
                             placeholder='Digite o nome do aluno'
@@ -146,54 +151,61 @@ export const DashAluno = () => {
                             }}
 
                         />
-                        <Button
-                            size="small"
-                            variant="contained"
-                            type="submit"
-                            sx={{
-                                width: '100px',
-                                transition: '.5s',
+                        <Box
+                        sx={{
+                            display: 'flex',
+                            gap: "10px",
+                            mt: mdDown ? '10px' : '',
+                          }}
+                        >
+                            <Button
+                                size="small"
+                                variant="contained"
+                                type="submit"
+                                sx={{
+                                    width: '100px',
+                                    transition: '.5s',
 
-                                "& :hover": {
-                                    transition: '.8s',
-                                    transform: 'scale(1.05)',
-                                    background: "#080f26"
-                                },
+                                    "& :hover": {
+                                        transition: '.8s',
+                                        transform: 'scale(1.05)',
+                                        background: "#080f26"
+                                    },
 
-                                "& :active": {
-                                    transform: 'scale(.99)',
+                                    "& :active": {
+                                        transform: 'scale(.99)',
+                                    }
                                 }
-                            }
-                            }>Buscar
-                        </Button>
-                        <Button size="small" variant="contained"
-                            onClick={() => {
-                                limparPesquisa();
-                            }}
-                            type="button"
-                            sx={{
-                                width: '100px',
-                                transition: '.5s',
-                                "& :hover": {
-                                    transition: '.8s',
-                                    transform: 'scale(1.05)',
-                                    background: "#080f26"
-                                },
+                                }>Buscar
+                            </Button>
+                            <Button size="small" variant="contained"
+                                onClick={() => {
+                                    limparPesquisa();
+                                }}
+                                type="button"
+                                sx={{
+                                    width: '100px',
+                                    transition: '.5s',
+                                    "& :hover": {
+                                        transition: '.8s',
+                                        transform: 'scale(1.05)',
+                                        background: "#080f26"
+                                    },
 
-                                "& :active": {
-                                    transform: 'scale(.99)',
+                                    "& :active": {
+                                        transform: 'scale(.99)',
+                                    }
                                 }
-                            }
-                            }>Limpar
-                        </Button>
+                                }>Limpar
+                            </Button>
+                        </Box>
                     </Box>
-
-
                     <Box sx={{
                         width: '100%',
                         display: 'flex',
                         justifyContent: 'flex-end',
-                        alignItems: 'center'
+                        alignItems: 'center',
+                        mt: (mdDown ? '20px' : '') 
                     }}>
                         <LinkSC to="/cadastro-alunos">
                             <Button size="medium" variant="contained"
@@ -216,6 +228,7 @@ export const DashAluno = () => {
                         background: '#1e62fe',
                         borderRadius: '15px',
                         p: '25px',
+                        mt: mdDown ? '100px' : '',
                     }}
                 >
                     <Box sx={{
@@ -332,7 +345,7 @@ export const DashAluno = () => {
                                                             el.statusAluno == "DESALOCADO" ? 'brown' : el.statusAluno
                                         }}>{el.statusAluno}</Box></strong></Typography>
                                         <Typography sx={{ fontSize: '12px', wordWrap: 'break-word' }}><strong>Tecnologias: </strong>{el.tecnologias.map((item: string) => { return `${item} ` })}</Typography>
-                                        <Typography sx={{ fontSize: '12px', wordWrap: 'break-word' }}><strong>E-mail: </strong>{el.email}</Typography>
+                                        <Typography sx={{ fontSize: '12px', wordWrap: 'break-word', background:'red'}}><strong>E-mail: </strong>{(el.email)}</Typography>
                                     </Box>
                                     <Box sx={{
                                         marginTop: '20px',
