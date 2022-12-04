@@ -228,26 +228,24 @@ export const PainelDeVagas = () => {
         </Box>
         <Box
           sx={{
+            background: "#1e62fe",
             display: "flex",
             justifyContent: "center",
             alignItems: "center",
-            background: "#1e62fe",
             borderRadius: "15px",
-            p: "25px",
             mt: mdDown ? '100px' : '',
           }}
         >
           <Box
             sx={{
-              background: "#1952d7",
+              display: "flex",
+              justifyContent: "center",
               borderRadius: "15px",
+              gap: "10px",
               width: "100%",
               height: "95%",
-              p: "20px",
-              display: "flex",
-              gap: "10px",
-              justifyContent: "center",
               flexWrap: "wrap",
+              p: "20px 0px",
             }}
           >
             {vagas.length === 0 || vagas == null ? (

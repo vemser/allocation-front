@@ -226,21 +226,18 @@ export const DashAluno = () => {
                         alignItems: 'center',
                         background: '#1e62fe',
                         borderRadius: '15px',
-                        p: '25px',
                         mt: mdDown ? '100px' : '',
                     }}
                 >
                     <Box sx={{
-                        background: '#1952d7',
+                        display: 'flex',
+                        justifyContent: 'center',
+                        flexWrap: 'wrap',
                         borderRadius: '15px',
                         width: '100%',
                         height: '95%',
-                        p: '20px',
-                        display: 'flex',
+                        p: '20px 0px',
                         gap: '10px',
-                        justifyContent: 'center',
-                        flexWrap: 'wrap'
-
                     }}>
 
                         {alunos.length == 0 || alunos == null ?
