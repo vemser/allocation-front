@@ -339,11 +339,11 @@ export const DashAluno = () => {
                                         <Typography sx={{ fontSize: '12px', wordWrap: 'break-word' }}><strong>Processo: </strong>{el.emProcesso}</Typography>
                                         <Typography sx={{ fontSize: '12px', wordWrap: 'break-word' }}><strong>Status do Aluno: <Box component="span"
                                             sx={{
-                                                color: el.statusAluno == "RESERVADO" ? '#cfb037' :
-                                                    el.statusAluno == "ALOCADO" ? 'red' :
-                                                        el.statusAluno == "DISPONIVEL" ? 'green' :
-                                                            el.statusAluno == "DESALOCADO" ? 'brown' : el.statusAluno
-                                        }}>{el.statusAluno}</Box></strong></Typography>
+                                                color: el.situacao == "RESERVADO" ? '#cfb037' :
+                                                    el.situacao == "ALOCADO" ? 'red' :
+                                                        el.situacao == "DISPONIVEL" ? 'green' :
+                                                            el.situacao == "DESALOCADO" ? 'brown' : el.situacao
+                                        }}>{el.situacao}</Box></strong></Typography>
                                         <Typography sx={{ fontSize: '12px', wordWrap: 'break-word' }}><strong>Tecnologias: </strong>{el.tecnologias.map((item: string) => { return `${item} ` })}</Typography>
                                         <Typography sx={{ fontSize: '12px', wordWrap: 'break-word' }}><strong>E-mail: </strong>{(el.email)}</Typography>
                                     </Box>

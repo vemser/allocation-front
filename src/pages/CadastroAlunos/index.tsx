@@ -150,6 +150,7 @@ export const CadastroAlunos = () => {
           }}>
             <TextField type="text" placeholder='Digite a sua cidade' id='cidade' {...register('cidade')} variant="outlined"
               error={Boolean(errors?.cidade && errors.cidade)}
+              defaultValue={state ? state.cidade : "" }
               label={errors.cidade?.message ?? "Cidade"}
               sx={{
                 width: '100%',
@@ -161,6 +162,7 @@ export const CadastroAlunos = () => {
             />
             <TextField type="text" placeholder='Digite o seu nome' id='estado' {...register('estado')} variant="outlined"
               error={Boolean(errors?.estado && errors.estado)}
+              defaultValue={state ? state.estado : "" }
               label={errors.estado?.message ?? "Estado"}
               sx={{
                 width: '100%',
@@ -300,7 +302,7 @@ export const CadastroAlunos = () => {
 
             <FormControl sx={{ width: '100%' }}>
               <FormLabel> Status do Aluno</FormLabel>
-              <Select id="statusAluno" defaultValue={state != null ? state.statusAluno : "DISPONIVEL"} size="small" {...register("statusAluno")} >
+              <Select id="situacao" defaultValue={state != null ? state.situacao : "DISPONIVEL"} size="small" {...register("situacao")} >
                 <MenuItem value="DISPONIVEL" sx={{ height: '30px' }}>DISPONIVEL</MenuItem>
                 <MenuItem value="ALOCADO" sx={{ height: '30px' }}>ALOCADO</MenuItem>
                 <MenuItem value="RESERVADO" sx={{ height: '30px' }}>RESERVADO</MenuItem>
@@ -313,6 +315,7 @@ export const CadastroAlunos = () => {
             <Box sx={{ width: '100%', display: 'flex', justifyContent: 'center' }}>
               <TextField
                 placeholder="Descrição"
+                defaultValue={state ? state.descricao : "" }
                 multiline
                 rows={5}
                 sx={{
