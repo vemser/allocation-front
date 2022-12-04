@@ -1,4 +1,4 @@
-import { Box, Button, FormControl, FormLabel, Grid, MenuItem, OutlinedInput, Select, TextField, Typography } from "@mui/material";
+import { Box, Button, FormControl, FormLabel, Grid, MenuItem, OutlinedInput, Select, TextField, Typography, useMediaQuery, useTheme } from "@mui/material";
 import { HeaderPrincipal } from "../../components/HeaderPrincipal";
 import { IVagaForm } from "../../util/interface";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -43,6 +43,9 @@ export const CadastroVaga: React.FC = () => {
   useEffect(() => {
     state != null ? setCodigoValue(state.idVaga) : setCodigoValue(null)
   }, [])
+
+  const theme = useTheme();   
+  const smDown = useMediaQuery(theme.breakpoints.down('sm')) // menor que 600px 
 
   return (
     <Grid
@@ -106,6 +109,7 @@ export const CadastroVaga: React.FC = () => {
             display: 'flex',
             justifyContent: 'center',
             gap: '40px',
+            flexDirection: smDown? 'column': 'row',
           }}>
             <TextField type="text" placeholder='E-mail cliente' id='emailCliente' {...register('emailCliente')} variant="outlined"
               label='E-mail cliente'
@@ -140,7 +144,8 @@ export const CadastroVaga: React.FC = () => {
             display: 'flex',
             justifyContent: 'space-between',
             alignItems: 'top',
-            gap: '40px'
+            gap: '40px',
+            flexDirection: smDown? 'column': 'row',
           }}>
             <FormControl fullWidth error={Boolean(errors.quantidade && errors.quantidade.message)}>
               <TextField type="number" id='quantidade'  {...register("quantidade")} variant="outlined"
@@ -175,7 +180,8 @@ export const CadastroVaga: React.FC = () => {
             display: 'flex',
             justifyContent: 'space-between',
             alignItems: 'top',
-            gap: '40px'
+            gap: '40px',
+            flexDirection: smDown? 'column': 'row',
           }}>
             <FormControl fullWidth error={Boolean(errors.dataAbertura && errors.dataAbertura.message)}>
               <FormLabel htmlFor="dataAbertura">Data de Abertura</FormLabel>
@@ -207,11 +213,11 @@ export const CadastroVaga: React.FC = () => {
               />
             </FormControl>
           </Box>
-
           <Box sx={{
             display: 'flex',
             justifyContent: 'start',
             gap: '40px',
+            flexDirection: smDown? 'column': 'row',
           }}>
             <FormControl fullWidth error={Boolean(errors.situacao && errors.situacao.message)} >
               <FormLabel htmlFor="situacao"> Situação</FormLabel>

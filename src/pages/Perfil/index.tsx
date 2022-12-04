@@ -7,7 +7,9 @@ import {
     Grid,
     Box,
     TextField,
-    Avatar
+    Avatar,
+    useTheme,
+    useMediaQuery
 }
     from '@mui/material';
 import { HeaderPrincipal } from '../../components/HeaderPrincipal';
@@ -72,6 +74,9 @@ export const Perfil = () => {
         setMensagemSenha(verificaForcaSenha(senha));
     }
 
+    const theme = useTheme();   
+    const xsDown = useMediaQuery(theme.breakpoints.down('xs')) // menor que 420px 
+
     return (
         <Grid
             sx={{
@@ -85,7 +90,7 @@ export const Perfil = () => {
             <HeaderPrincipal />
             <Box
                 sx={{
-                    width: '40%',
+                    width: xsDown? '90%' : '420px',
                     height: '90%',
                     display: 'flex',
                     gap: '15px',

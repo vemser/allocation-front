@@ -8,7 +8,9 @@ import {
   Grid,
   Typography,
   Box,
-  TextField
+  TextField,
+  useTheme,
+  useMediaQuery
 } from "@mui/material";
 import { HeaderLogin } from "../../components/HeaderLogin";
 import { SenhaContext } from "../../context/SenhaContext";
@@ -43,6 +45,9 @@ export const RedefinirSenha = () => {
     setMensagemSenha(verificaForcaSenha(senha));
   }
 
+  const theme = useTheme();   
+  const xsDown = useMediaQuery(theme.breakpoints.down('xs')) // menor que 420px 
+
   return (
     <Grid
       sx={{
@@ -57,7 +62,7 @@ export const RedefinirSenha = () => {
       <HeaderLogin />
       <Box
         sx={{
-          width: "40%",
+          width: xsDown? '360px' : '380px',
           height: "90%",
           display: "flex",
           gap: "15px",

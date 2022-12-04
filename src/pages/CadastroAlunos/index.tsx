@@ -1,5 +1,5 @@
 import { HeaderPrincipal } from "../../components/HeaderPrincipal";
-import { Grid, Box, TextField, FormControl, FormLabel, Select, MenuItem, Button, Typography, RadioGroup, FormControlLabel, Radio, TextareaAutosize } from "@mui/material";
+import { Grid, Box, TextField, FormControl, FormLabel, Select, MenuItem, Button, Typography, RadioGroup, FormControlLabel, Radio, TextareaAutosize, useTheme, useMediaQuery } from "@mui/material";
 import { useForm } from 'react-hook-form'
 import { TAluno } from "../../util/types";
 import { alunoSchema } from "../../util/schemas";
@@ -72,6 +72,9 @@ export const CadastroAlunos = () => {
 
   const isEdicao = state !== null;
 
+  const theme = useTheme();   
+  const smDown = useMediaQuery(theme.breakpoints.down('sm')) // menor que 600px 
+
   return (
     <Grid
       sx={{
@@ -114,6 +117,7 @@ export const CadastroAlunos = () => {
             display: 'flex',
             justifyContent: 'center',
             gap: '40px',
+            flexDirection: smDown? 'column': 'row', 
           }}>
             <TextField type="text" placeholder='Digite o nome completo' id='nome' {...register('nome')} variant="outlined"
               error={Boolean(errors?.nome && errors.nome)}
@@ -142,6 +146,7 @@ export const CadastroAlunos = () => {
             display: 'flex',
             justifyContent: 'center',
             gap: '40px',
+            flexDirection: smDown? 'column': 'row', 
           }}>
             <TextField type="text" placeholder='Digite a sua cidade' id='cidade' {...register('cidade')} variant="outlined"
               error={Boolean(errors?.cidade && errors.cidade)}
@@ -169,20 +174,22 @@ export const CadastroAlunos = () => {
             display: 'flex',
             width: '100%',
             justifyContent: 'center',
-            gap: '40px'
+            gap: '40px',
+            flexDirection: smDown? 'column': 'row', 
           }}>
             <Box
               sx={{
                 width: '100%',
                 displar: 'flex',
                 alignItems: 'center',
-                gap: '20px'
+                gap: '20px',
+                justifyContent: smDown? 'center' : 'flex-start'
               }}
             >
               <TextField type="text" placeholder='Tecnologias' id='tecnologias' variant="outlined"  {...register('tecnologias')}
                 label='Tecnologias'
                 sx={{
-                  width: '50%',
+                  width: smDown? '100%' : '50%',
                   "& .MuiInputBase-input": {
                     height: '10px'
                   }
@@ -238,7 +245,8 @@ export const CadastroAlunos = () => {
             display: 'flex',
             justifyContent: 'center',
             gap: '40px',
-            alignItems: 'end'
+            alignItems: 'end',
+            flexDirection: smDown? 'column': 'row', 
           }}>
             <TextField type="email" placeholder='Digite o seu e-mail' id='email' {...register('email')} variant="outlined"
               error={Boolean(errors?.email && errors.email)}
@@ -270,6 +278,7 @@ export const CadastroAlunos = () => {
               justifyContent: 'space-between',
               alignItems: 'end',
               gap: '40px',
+              flexDirection: smDown? 'column': 'row', 
 
               "& .MuiSelect-select": {
                 height: '10px',
