@@ -1,13 +1,10 @@
-import { Avatar, Box, Button, Container, IconButton, Menu, MenuItem, Stack, Tooltip, Typography, useMediaQuery, useTheme } from "@mui/material";
+import { Avatar, Box, Button, Container, IconButton, Menu, MenuItem, Tooltip, Typography, useMediaQuery, useTheme } from "@mui/material";
 import { BoxSC } from "../HeaderLogin/HeaderLogin.styled";
 import logo from '../../assets/dbclogo.png';
 import { useContext, useState } from "react";
 import { AuthContext } from "../../context/AuthContext/AuthContext";
-import { Link, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { LinkSC, LinkMenu } from "./HeaderPrincipal.styled";
-import { DbcTheme } from "../../themes";
-import { useEffect } from "react";
-
 export const HeaderPrincipal = () => {
     const { handleUserLogout } = useContext(AuthContext);
 
@@ -24,24 +21,20 @@ export const HeaderPrincipal = () => {
 
     const theme = useTheme();
     const mdDown = useMediaQuery(theme.breakpoints.down('md')) // menor que 600px
-    const xsDown = useMediaQuery(theme.breakpoints.down('xs')) // menor que 420px
-    
-    useEffect(()=>{
-        console.log(mdDown)
-    }, [mdDown])
+    const xsDown = useMediaQuery(theme.breakpoints.down('xs')) // menor que 420px 
 
     return (
         <Container>
             <Box sx={{
                 mt: '20px',
-                height: xsDown? '120px' : '70px',
+                height: xsDown ? '120px' : '70px',
                 borderRadius: '15px',
                 boxShadow: '-5px 7px 15px -4px rgba(0,0,0,0.75)',
                 display: 'flex',
                 alignItems: 'center',
                 p: 2,
                 justifyContent: "space-between",
-                flexDirection: xsDown? 'column' : 'row'
+                flexDirection: xsDown ? 'column' : 'row'
             }}>
                 <BoxSC>
                     <img src={logo} alt="logo" />
@@ -82,7 +75,7 @@ export const HeaderPrincipal = () => {
                     <Box>
                         <Tooltip title="Perfil">
                             <IconButton
-                            onClick={()=> navigate('/perfil')}
+                                onClick={() => navigate('/perfil')}
                                 size="small"
                                 sx={{ ml: 2 }}
                                 aria-controls={true ? 'account-menu' : undefined}

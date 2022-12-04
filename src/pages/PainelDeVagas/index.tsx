@@ -5,6 +5,8 @@ import {
   Button,
   TextField,
   InputAdornment,
+  useTheme,
+  useMediaQuery,
 } from "@mui/material";
 import { HeaderPrincipal } from "../../components/HeaderPrincipal";
 import Skeleton from "@mui/material/Skeleton";
@@ -57,8 +59,12 @@ export const PainelDeVagas = () => {
     } else {
       limparPesquisa();
     }
-
   }
+
+  const theme = useTheme();
+  const mdDown = useMediaQuery(theme.breakpoints.down('md')) // menor que 600px
+  const xsDown = useMediaQuery(theme.breakpoints.down('xs')) // menor que 420px 
+  const smDown = useMediaQuery(theme.breakpoints.down('sm')) 
 
   return (
     <Grid
@@ -103,6 +109,7 @@ export const PainelDeVagas = () => {
             display: "flex",
             justifyContent: "space-between",
             p: "0 30px",
+            flexDirection: mdDown ? 'column' : 'row'
           }}
         >
           <Box
@@ -111,7 +118,8 @@ export const PainelDeVagas = () => {
             sx={{
               display: "flex",
               width: "100%",
-              gap: "10px",
+              gap: "5px",
+              flexDirection: mdDown ? 'column' : 'row',              
             }}
             onSubmit={handleSubmit(pesquisaIdVaga)}
           >
@@ -137,61 +145,68 @@ export const PainelDeVagas = () => {
               }}
               sx={{
                 width: "100%",
+                
                 "& .MuiInputBase-input": {
                   height: "10px",
                 },
               }}
             />
-            <Button
-              size="small"
-              variant="contained"
-              type="submit"
-              sx={{
-                width: "100px",
-                transition: ".5s",
+            <Box sx={{
+              display: 'flex',
+              gap: "10px",
+              mt: mdDown ? '10px' : '',
+            }}>
+              <Button
+                size="small"
+                variant="contained"
+                type="submit"
+                sx={{
+                  width: "100px",
+                  transition: ".5s",
 
-                "& :hover": {
-                  transition: ".8s",
-                  transform: "scale(1.05)",
-                  background: "#a41a1a",
-                },
+                  "& :hover": {
+                    transition: ".8s",
+                    transform: "scale(1.05)",
+                    background: "#a41a1a",
+                  },
 
-                "& :active": {
-                  transform: "scale(.99)",
-                },
-              }}
-            >
-              Buscar
-            </Button>
-            <Button
-              size="small"
-              variant="contained"
-              onClick={limparPesquisa}
-              type="submit"
-              sx={{
-                width: "100px",
-                transition: ".5s",
-                "& :hover": {
-                  transition: ".8s",
-                  transform: "scale(1.05)",
-                  background: "#a41a1a",
-                },
+                  "& :active": {
+                    transform: "scale(.99)",
+                  },
+                }}
+              >
+                Buscar
+              </Button>
+              <Button
+                size="small"
+                variant="contained"
+                onClick={limparPesquisa}
+                type="submit"
+                sx={{
+                  width: "100px",
+                  transition: ".5s",
+                  "& :hover": {
+                    transition: ".8s",
+                    transform: "scale(1.05)",
+                    background: "#a41a1a",
+                  },
 
-                "& :active": {
-                  transform: "scale(.99)",
-                },
-              }}
-            >
-              Limpar
-            </Button>
+                  "& :active": {
+                    transform: "scale(.99)",
+                  },
+                }}
+              >
+                Limpar
+              </Button>
+            </Box>
           </Box>
-
           <Box
             sx={{
               width: "100%",
               display: "flex",
               justifyContent: "flex-end",
               alignItems: "center",
+              mt: (mdDown ? '20px' : '') 
             }}
           >
             <LinkSC to="/cadastro-vaga">
@@ -222,6 +237,7 @@ export const PainelDeVagas = () => {
             background: "#1e62fe",
             borderRadius: "15px",
             p: "25px",
+            mt: mdDown ? '100px' : '',
           }}
         >
           <Box
