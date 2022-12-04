@@ -1,32 +1,38 @@
-import { Grid, Box, Typography, TextField, Button, InputAdornment } from "@mui/material";
+import {
+    Grid,
+    Box,
+    Typography,
+    TextField,
+    Button,
+    InputAdornment,
+    useTheme,
+    useMediaQuery,
+} from "@mui/material";
 import { useContext, useEffect } from "react";
-import { FieldValues, useForm } from 'react-hook-form'
-import { Link, useNavigate } from 'react-router-dom';
+import { FieldValues, useForm } from "react-hook-form";
+import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { HeaderPrincipal } from "../../components/HeaderPrincipal";
 import { AuthContext } from "../../context/AuthContext/AuthContext";
 import { toastConfig } from "../../util/toast";
 import { podeAcessarTela } from "../../util/valida-senha";
-import SearchIcon from '@mui/icons-material/Search';
+import SearchIcon from "@mui/icons-material/Search";
 import { ProgramaTable } from "../../components/ProgramaTable";
 import { ProgramaContext } from "../../context/ProgramaContext";
 
 export const DashPrograma: React.FC = () => {
-    const roles = [
-        { nome: "ROLE_ADMINISTRADOR" },
-        { nome: "ROLE_GESTOR" }
-    ];
+    const roles = [{ nome: "ROLE_ADMINISTRADOR" }, { nome: "ROLE_GESTOR" }];
     const { register, handleSubmit, reset } = useForm();
     const navigate = useNavigate();
     const { userLogged } = useContext(AuthContext);
-    const { programas, getProgramas, setProgramas, getPesquisaNomePrograma } = useContext(ProgramaContext);
+    const { programas, getProgramas, setProgramas, getPesquisaNomePrograma } =
+        useContext(ProgramaContext);
 
     useEffect(() => {
         if (userLogged && !podeAcessarTela(roles, userLogged)) {
             toast.error("Usuário sem permissão.", toastConfig);
-            navigate('/painel-vagas');
+            navigate("/painel-vagas");
         }
-
     }, [userLogged]);
 
     //Pesquisar
@@ -36,62 +42,81 @@ export const DashPrograma: React.FC = () => {
         } else {
             limpar();
         }
-    }
+    };
 
     const limpar = async () => {
         await getProgramas(1);
         reset();
-    }
+    };
+
+    const theme = useTheme();
+    const mdDown = useMediaQuery(theme.breakpoints.down("md"));
+    const smDown = useMediaQuery(theme.breakpoints.down("sm"));
 
     return (
         <Grid
             sx={{
-                width: '100%',
-                height: '100%',
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'center',
-                gap: '5%',
+                width: "100%",
+                height: "100%",
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+                gap: "5%",
             }}
         >
             <HeaderPrincipal />
-            <Box sx={{
-                width: '80%',
-                height: '90%',
-                display: 'flex',
-                flexDirection: 'column',
-                gap: '15px',
-                p: '15px 40px',
-                borderRadius: '15px',
-                boxShadow: '-5px 7px 15px -4px rgba(0,0,0,0.75)',
-                margin: '30px'
-            }}>
+            <Box
+                sx={{
+                    width: mdDown ? "90%" : "80%",
+                    height: "90%",
+                    display: "flex",
+                    flexDirection: "column",
+                    gap: "15px",
+                    p: "15px 40px",
+                    paddingLeft: smDown? '20px' : '40px',
+                    paddingRight: smDown? '20px' : '40px',
+                    borderRadius: "15px",
+                    boxShadow: "-5px 7px 15px -4px rgba(0,0,0,0.75)",
+                    margin: "30px",
+                }}
+            >
                 <Box
                     sx={{
-                        display: 'flex',
-                        justifyContent: 'center',
+                        display: "flex",
+                        justifyContent: "center",
                     }}
-                ><Typography fontSize='20px'
-                    color='primary'>
+                >
+                    <Typography fontSize="20px" color="primary">
                         Programas
                     </Typography>
                 </Box>
-                <form
-                    onSubmit={handleSubmit(pesquisar)}>
+                <Box
+                    sx={{
+                        width: "100%",
+                        height: "50px",
+                        display: "flex",
+                        justifyContent: "space-between",
+                        alignItems: "center",
+                        p: "0 30px",
+                        flexDirection: mdDown ? "column" : "row",
+                    }}
+                >
                     <Box
+                        component="form"
+                        onSubmit={handleSubmit(pesquisar)}
                         sx={{
                             display: "flex",
-                            alignitems: "center",
-                            height: "50px",
-                            width: "60%",
-                            gap: "10px",
-                        }}>
+                            width: mdDown ? "100%" : "75%",
+                            gap: "5px",
+                            flexDirection: mdDown ? "column" : "row",
+                        }}
+                    >
                         <TextField
-                            type='text'
-                            id='pesquisar'
-                            placeholder='Digite o nome do programa'
-                            {...register('pesquisar')}
-                            variant='outlined'
+                            type="text"
+                            id="pesquisar"
+                            placeholder="Digite o nome do programa"
+                            {...register("pesquisar")}
+                            variant="outlined"
                             InputProps={{
                                 endAdornment: (
                                     <InputAdornment position="end">
@@ -99,64 +124,85 @@ export const DashPrograma: React.FC = () => {
                                     </InputAdornment>
                                 ),
                             }}
-                            label='Pesquisar'
+                            label="Pesquisar"
                             sx={{
-                                width: '100%',
+                                width: "100%",
                                 "& .MuiInputBase-input": {
-                                    height: '10px'
-                                }
+                                    height: "10px",
+                                },
                             }}
                         />
-                        <Button type="submit" variant="contained"
+                        <Box
                             sx={{
-                                width: "100px",
-                                transition: ".5s",
-                                "& :hover": {
-                                    transition: ".8s",
-                                    transform: "scale(1.05)",
-                                    background: "#a41a1a",
-                                },
-
-                                "& :active": {
-                                    transform: "scale(.99)",
-                                },
-                            }}>
-                            Buscar
-                        </Button>
-                        <Button onClick={limpar} variant="contained" sx={{
-                            width: "100px",
-                            transition: ".5s",
-                            "& :hover": {
-                                transition: ".8s",
-                                transform: "scale(1.05)",
-                                background: "#a41a1a",
-                            },
-
-                            "& :active": {
-                                transform: "scale(.99)",
-                            },
-                        }}>
-                            Limpar
-                        </Button>
-                    </Box>
-                    <Box
-                        sx={{
-                            display: "flex",
-                            justifyContent: "end",
-                        }}>
-                        <Link style={{ textDecoration: 'none' }} to='/cadastro-programa'>
-                            <Button variant="contained"
-                                color="success"
+                                display: "flex",
+                                gap: "10px",
+                                mt: mdDown ? "10px" : "",
+                            }}
+                        >
+                            <Button
+                                type="submit"
+                                variant="contained"
                                 sx={{
-                                    height: '50px'
-                                }}>
-                                Cadastrar Programa
+                                    width: "100px",
+                                    transition: ".5s",
+                                    "& :hover": {
+                                        transition: ".8s",
+                                        transform: "scale(1.05)",
+                                        background: "#a41a1a",
+                                    },
+
+                                    "& :active": {
+                                        transform: "scale(.99)",
+                                    },
+                                }}
+                            >
+                                Buscar
                             </Button>
-                        </Link>
+                            <Button
+                                onClick={limpar}
+                                variant="contained"
+                                sx={{
+                                    width: "100px",
+                                    transition: ".5s",
+                                    "& :hover": {
+                                        transition: ".8s",
+                                        transform: "scale(1.05)",
+                                        background: "#a41a1a",
+                                    },
+
+                                    "& :active": {
+                                        transform: "scale(.99)",
+                                    },
+                                }}
+                            >
+                                Limpar
+                            </Button>
+                        </Box>
                     </Box>
-                </form>
+                </Box>
+                <Box
+                    sx={{
+                        width: "100%",
+                        display: "flex",
+                        justifyContent: mdDown ? "center" : "flex-end",
+                        alignItems: "center",
+                        mt: mdDown ? "50px" : "",
+                    }}
+                >
+                    <Link style={{ textDecoration: "none" }} to="/cadastro-programa">
+                        <Button
+                            variant="contained"
+                            color="success"
+                            sx={{
+                                height: "50px",
+                            }}
+                        >
+                            Cadastrar Programa
+                        </Button>
+                    </Link>
+                </Box>
                 <ProgramaTable />
             </Box>
         </Grid>
-    )
-}
+    );
+};

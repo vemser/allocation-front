@@ -1,4 +1,17 @@
-import { Autocomplete, Box, Button, FormControl, FormLabel, Grid, MenuItem, Select, TextField, Typography } from "@mui/material";
+import {
+    Autocomplete,
+    Box,
+    Button,
+    FormControl,
+    FormLabel,
+    Grid,
+    MenuItem,
+    Select,
+    TextField,
+    Typography,
+    useMediaQuery,
+    useTheme,
+} from "@mui/material";
 import { HeaderPrincipal } from "../../components/HeaderPrincipal";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
@@ -14,16 +27,19 @@ import { ClienteContext } from "../../context/ClienteContext";
 import InputMask from "react-input-mask";
 
 export const CadastroCliente: React.FC = () => {
-    const roles = [
-        { nome: "ROLE_ADMINISTRADOR" },
-        { nome: "ROLE_GESTOR" },
-    ];
+    const roles = [{ nome: "ROLE_ADMINISTRADOR" }, { nome: "ROLE_GESTOR" }];
 
-    const { register, handleSubmit, reset, formState: { errors } } = useForm<TCliente>({
-        resolver: yupResolver(clienteFormSchema)
+    const {
+        register,
+        handleSubmit,
+        reset,
+        formState: { errors },
+    } = useForm<TCliente>({
+        resolver: yupResolver(clienteFormSchema),
     });
 
-    const { createCliente, updateCliente, deleteCliente } = useContext(ClienteContext);
+    const { createCliente, updateCliente, deleteCliente } =
+        useContext(ClienteContext);
 
     const navigate = useNavigate();
     const { userLogged } = useContext(AuthContext);
@@ -31,165 +47,240 @@ export const CadastroCliente: React.FC = () => {
     const { state } = useLocation();
     const isEdicao = state !== null;
 
-
     useEffect(() => {
         if (userLogged && !podeAcessarTela(roles, userLogged)) {
             toast.error("Usuário sem permissão.", toastConfig);
-            navigate('/painel-vagas');
+            navigate("/painel-vagas");
         }
-
     }, [userLogged]);
+
+    const theme = useTheme();
+    const smDown = useMediaQuery(theme.breakpoints.down("sm"));
 
     return (
         <Grid
             sx={{
-                width: '100%',
-                height: '100%',
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'center',
-                gap: '5%',
-            }}>
+                width: "100%",
+                height: "100%",
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+                gap: "5%",
+            }}
+        >
             <HeaderPrincipal />
             <Box
                 sx={{
-                    width: '80%',
-                    height: '90%',
-                    display: 'flex',
-                    flexDirection: 'column',
-                    gap: '15px',
-                    p: '15px 40px',
-                    borderRadius: '15px',
-                    boxShadow: '-5px 7px 15px -4px rgba(0,0,0,0.75)',
-                    margin: '30px'
-                }}>
+                    width: smDown ? "90%" : "80%",
+                    height: "90%",
+                    display: "flex",
+                    flexDirection: "column",
+                    gap: "15px",
+                    p: "15px 40px",
+                    borderRadius: "15px",
+                    boxShadow: "-5px 7px 15px -4px rgba(0,0,0,0.75)",
+                    margin: "30px",
+                }}
+            >
                 <Box
                     sx={{
-                        display: 'flex',
-                        justifyContent: 'center',
+                        display: "flex",
+                        justifyContent: "center",
                     }}
                 >
-                    <Typography fontSize='25px' color='primary'>Cadastro de Cliente</Typography>
+                    <Typography fontSize="25px" color="primary">
+                        Cadastro de Cliente
+                    </Typography>
                 </Box>
-                <Box component='form' id='form' onSubmit={handleSubmit((data: TCliente) => {
-                    if (!isEdicao) {
-                        createCliente(data);
-                    } else {
-                        updateCliente(data, state.idCliente);
-                    }
-                })}
+                <Box
+                    component="form"
+                    id="form"
+                    onSubmit={handleSubmit((data: TCliente) => {
+                        if (!isEdicao) {
+                            createCliente(data);
+                        } else {
+                            updateCliente(data, state.idCliente);
+                        }
+                    })}
                     sx={{
-                        display: 'flex',
-                        flexDirection: 'column',
-                        gap: '20px'
-                    }}>
-                    <Box sx={{
-                        display: 'flex',
-                        justifyContent: 'center',
-                        gap: '40px',
-                    }}>
-                        <TextField type="number" placeholder="Digite o código" id="idCliente" {...register("idCliente")} variant="outlined"
-                            label='Código'
+                        display: "flex",
+                        flexDirection: "column",
+                        gap: "20px",
+                    }}
+                >
+                    <Box
+                        sx={{
+                            display: "flex",
+                            justifyContent: "center",
+                            gap: "40px",
+                            flexDirection: smDown ? "column" : "row",
+                        }}
+                    >
+                        <TextField
+                            type="number"
+                            placeholder="Digite o código"
+                            id="idCliente"
+                            {...register("idCliente")}
+                            variant="outlined"
+                            label="Código"
                             defaultValue={isEdicao ? state.idCliente : null}
                             disabled={true}
                             sx={{
-                                width: '100%',
+                                width: "100%",
                                 "& .MuiInputBase-input": {
-                                    height: '10px'
-                                }
+                                    height: "10px",
+                                },
                             }}
-                            helperText={errors.idCliente && errors.idCliente.message ? errors.idCliente.message : null}
+                            helperText={
+                                errors.idCliente && errors.idCliente.message
+                                    ? errors.idCliente.message
+                                    : null
+                            }
                             error={Boolean(errors.idCliente && errors.idCliente.message)}
                         />
 
-                        <TextField type="text" placeholder='Nome do cliente' id='nome' {...register('nome')} variant="outlined"
-                            label='Nome'
+                        <TextField
+                            type="text"
+                            placeholder="Nome do cliente"
+                            id="nome"
+                            {...register("nome")}
+                            variant="outlined"
+                            label="Nome"
                             defaultValue={isEdicao ? state.nome : undefined}
                             sx={{
-                                width: '100%',
+                                width: "100%",
                                 "& .MuiInputBase-input": {
-                                    height: '10px'
-                                }
+                                    height: "10px",
+                                },
                             }}
-                            helperText={errors.nome && errors.nome.message ? errors.nome.message : null}
+                            helperText={
+                                errors.nome && errors.nome.message ? errors.nome.message : null
+                            }
                             error={Boolean(errors.nome && errors.nome.message)}
                         />
                     </Box>
 
-                    <Box sx={{
-                        display: 'flex',
-                        justifyContent: 'space-between',
-                        alignItems: 'top',
-                        gap: '40px'
-                    }}>
-                        <FormControl fullWidth error={Boolean(errors.telefone && errors.telefone.message)}>
-                        {/* <InputMask defaultValue={isEdicao ? state.telefone : undefined} mask="(99)99999-9999" type="text" id="telefone" {...register("telefone")} /> */}
-                            <TextField type="number" id='telefone'  {...register("telefone")} variant="outlined"
-                                label='Telefone'
+                    <Box
+                        sx={{
+                            display: "flex",
+                            justifyContent: "space-between",
+                            alignItems: "top",
+                            gap: "40px",
+                            flexDirection: smDown ? "column" : "row",
+                        }}
+                    >
+                        <FormControl
+                            fullWidth
+                            error={Boolean(errors.telefone && errors.telefone.message)}
+                        >
+                            {/* <InputMask defaultValue={isEdicao ? state.telefone : undefined} mask="(99)99999-9999" type="text" id="telefone" {...register("telefone")} /> */}
+                            <TextField
+                                type="number"
+                                id="telefone"
+                                {...register("telefone")}
+                                variant="outlined"
+                                label="Telefone"
                                 defaultValue={isEdicao ? state.telefone : undefined}
                                 sx={{
-                                    width: '100%',
+                                    width: "100%",
                                     "& .MuiInputBase-input": {
-                                        height: '10px'
-                                    }
+                                        height: "10px",
+                                    },
                                 }}
-                                helperText={errors.telefone && errors.telefone.message ? errors.telefone.message : null}
+                                helperText={
+                                    errors.telefone && errors.telefone.message
+                                        ? errors.telefone.message
+                                        : null
+                                }
                                 error={Boolean(errors.telefone && errors.telefone.message)}
                             />
                         </FormControl>
-                        <FormControl fullWidth error={Boolean(errors.email && errors.email.message)}>
-                            <TextField type="email" placeholder='E-mail' id='email' {...register("email")} variant="outlined"
-                                label='E-mail'
+                        <FormControl
+                            fullWidth
+                            error={Boolean(errors.email && errors.email.message)}
+                        >
+                            <TextField
+                                type="email"
+                                placeholder="E-mail"
+                                id="email"
+                                {...register("email")}
+                                variant="outlined"
+                                label="E-mail"
                                 defaultValue={isEdicao ? state.email : undefined}
                                 sx={{
-                                    width: '100%',
+                                    width: "100%",
                                     "& .MuiInputBase-input": {
-                                        height: '10px'
-                                    }
+                                        height: "10px",
+                                    },
                                 }}
-                                helperText={errors.email && errors.email.message ? errors.email.message : null}
+                                helperText={
+                                    errors.email && errors.email.message
+                                        ? errors.email.message
+                                        : null
+                                }
                                 error={Boolean(errors.email && errors.email.message)}
                             />
                         </FormControl>
-
                     </Box>
 
-                    <Box sx={{
-                        display: 'flex',
-                        justifyContent: 'start',
-                        gap: '40px',
-                    }}>
-                        <FormControl fullWidth error={Boolean(errors.situacao && errors.situacao.message)} >
+                    <Box
+                        sx={{
+                            display: "flex",
+                            justifyContent: "start",
+                            gap: "40px",
+                            flexDirection: smDown ? "column" : "row",
+                        }}
+                    >
+                        <FormControl
+                            fullWidth
+                            error={Boolean(errors.situacao && errors.situacao.message)}
+                        >
                             <FormLabel htmlFor="situacao"> Situação</FormLabel>
                             <Select
                                 error={Boolean(errors.situacao && errors.situacao.message)}
                                 id="situacao"
                                 defaultValue={isEdicao ? state.situacao : "ATIVO"}
                                 labelId="situacao"
-                                size="small" {...register("situacao")} >
-                                <MenuItem value="ATIVO" >Ativo</MenuItem>
-                                <MenuItem value="INATIVO" >Inativo</MenuItem>
+                                size="small"
+                                {...register("situacao")}
+                            >
+                                <MenuItem value="ATIVO">Ativo</MenuItem>
+                                <MenuItem value="INATIVO">Inativo</MenuItem>
                             </Select>
                         </FormControl>
                     </Box>
-                    <Box sx={{ display: 'flex', gap: '40px', justifyContent: 'space-between', alignItems: 'center' }}>
-
-                        <Box sx={{ textAlign: 'center' }}>
-                            <Button variant="contained" onClick={() => navigate("/clientes")} sx={{
-                                height: '50px'
-                            }}>
+                    <Box
+                        sx={{
+                            display: "flex",
+                            gap: "40px",
+                            justifyContent: "space-between",
+                            alignItems: "center",
+                        }}
+                    >
+                        <Box sx={{ textAlign: "center" }}>
+                            <Button
+                                variant="contained"
+                                onClick={() => navigate("/clientes")}
+                                sx={{
+                                    height: "50px",
+                                }}
+                            >
                                 Voltar
                             </Button>
                         </Box>
-                        <Button variant="contained" color="success" type="submit" sx={{
-                            height: '50px'
-                        }}>
+                        <Button
+                            variant="contained"
+                            color="success"
+                            type="submit"
+                            sx={{
+                                height: "50px",
+                            }}
+                        >
                             Salvar
                         </Button>
                     </Box>
                 </Box>
             </Box>
         </Grid>
-
     );
-}
+};

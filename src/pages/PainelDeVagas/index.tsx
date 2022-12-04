@@ -63,8 +63,6 @@ export const PainelDeVagas = () => {
 
   const theme = useTheme();
   const mdDown = useMediaQuery(theme.breakpoints.down('md')) // menor que 600px
-  const xsDown = useMediaQuery(theme.breakpoints.down('xs')) // menor que 420px 
-  const smDown = useMediaQuery(theme.breakpoints.down('sm')) 
 
   return (
     <Grid
@@ -204,7 +202,7 @@ export const PainelDeVagas = () => {
             sx={{
               width: "100%",
               display: "flex",
-              justifyContent: "flex-end",
+              justifyContent: mdDown ? "center" : "flex-end",
               alignItems: "center",
               mt: (mdDown ? '20px' : '') 
             }}

@@ -88,7 +88,7 @@ export const CadastroAlunos = () => {
       <HeaderPrincipal />
       <Box
         sx={{
-          width: '80%',
+          width: smDown? '90%' : '80%',
           height: '90%',
           display: 'flex',
           flexDirection: 'column',

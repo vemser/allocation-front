@@ -89,6 +89,7 @@ export const CadastroUsuario: React.FC = () => {
   useEffect(() => {
     getImagemUsuario();
   }, []);
+  
   const theme = useTheme();
   const smDown = useMediaQuery(theme.breakpoints.down("sm"));
 
@@ -106,7 +107,7 @@ export const CadastroUsuario: React.FC = () => {
       {isLogged ? <HeaderPrincipal /> : <HeaderLogin />}
       <Box
         sx={{
-          width: "80%",
+          width: smDown? '90%' : '80%',
           height: "90%",
           display: "flex",
           flexDirection: "column",

@@ -4,6 +4,8 @@ import {
   TextField,
   Button,
   InputAdornment,
+  useTheme,
+  useMediaQuery,
 } from "@mui/material";
 import { FieldValues, useForm } from "react-hook-form";
 import UsuarioTable from "../UsuarioTable";
@@ -38,15 +40,21 @@ export const DashUsuario = () => {
     reset();
   };
 
+  const theme = useTheme();
+  const mdDown = useMediaQuery(theme.breakpoints.down("md"));
+  const smDown = useMediaQuery(theme.breakpoints.down("sm"));
+
   return (
     <Box
       sx={{
-        width: "80%",
+        width: mdDown ? "90%" : "80%",
         height: "90%",
         display: "flex",
         flexDirection: "column",
         gap: "15px",
         p: "15px 40px",
+        paddingLeft: smDown? '20px' : '40px',
+        paddingRight: smDown? '20px' : '40px',
         borderRadius: "15px",
         boxShadow: "-5px 7px 15px -4px rgba(0,0,0,0.75)",
         margin: "30px",
@@ -62,7 +70,6 @@ export const DashUsuario = () => {
           Usuários
         </Typography>
       </Box>
-
       <Box
         sx={{
           width: "100%",
@@ -71,6 +78,7 @@ export const DashUsuario = () => {
           justifyContent: "space-between",
           alignItems: "center",
           p: "0 30px",
+          flexDirection: mdDown ? "column" : "row",
         }}
       >
         <Box
@@ -78,10 +86,9 @@ export const DashUsuario = () => {
           onSubmit={handleSubmit(pesquisar)}
           sx={{
             display: "flex",
-            alignitems: "center",
-            height: "50px",
-            width: "60%",
-            gap: "10px",
+            width: mdDown ? "100%" : "75%",
+            gap: "5px",
+            flexDirection: mdDown ? "column" : "row",
           }}
         >
           <TextField
@@ -111,52 +118,62 @@ export const DashUsuario = () => {
               },
             }}
           />
-
-          <Button
-            type="submit"
-            variant="contained"
+          <Box
             sx={{
-              width: "100px",
-              transition: ".5s",
-              "& :hover": {
-                transition: ".8s",
-                transform: "scale(1.05)",
-                background: "#a41a1a",
-              },
-
-              "& :active": {
-                transform: "scale(.99)",
-              },
+              display: "flex",
+              gap: "10px",
+              mt: mdDown ? "10px" : "",
             }}
           >
-            Buscar
-          </Button>
-          <Button
-            onClick={limpar}
-            variant="contained"
-            sx={{
-              width: "100px",
-              transition: ".5s",
+            <Button
+              type="submit"
+              variant="contained"
+              sx={{
+                width: "100px",
+                transition: ".5s",
+                "& :hover": {
+                  transition: ".8s",
+                  transform: "scale(1.05)",
+                  background: "#a41a1a",
+                },
 
-              "& :hover": {
-                transition: ".8s",
-                transform: "scale(1.05)",
-                background: "#a41a1a",
-              },
+                "& :active": {
+                  transform: "scale(.99)",
+                },
+              }}
+            >
+              Buscar
+            </Button>
+            <Button
+              onClick={limpar}
+              variant="contained"
+              sx={{
+                width: "100px",
+                transition: ".5s",
 
-              "& :active": {
-                transform: "scale(.99)",
-              },
-            }}
-          >
-            Limpar
-          </Button>
+                "& :hover": {
+                  transition: ".8s",
+                  transform: "scale(1.05)",
+                  background: "#a41a1a",
+                },
+
+                "& :active": {
+                  transform: "scale(.99)",
+                },
+              }}
+            >
+              Limpar
+            </Button>
+          </Box>
         </Box>
       </Box>
       <Box
         sx={{
+          width: "100%",
           display: "flex",
-          justifyContent: "end",
+          justifyContent: mdDown ? "center" : "flex-end",
+          alignItems: "center",
+          mt: mdDown ? "50px" : "",
         }}
       >
         <Link style={{ textDecoration: "none" }} to="/cadastro-usuario">

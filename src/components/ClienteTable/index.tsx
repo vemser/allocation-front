@@ -11,7 +11,7 @@ import { TableHeadSC } from './ClienteTable.styled';
 import { IconButton } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
-import {  useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useContext, useEffect, useState } from 'react';
 import { ConfirmDialog, TOptionsConfirmDialog } from '../ConfirmDialog';
 import { ClienteContext } from '../../context/ClienteContext';
@@ -27,7 +27,6 @@ export const ClienteTable: React.FC = () => {
         title: "",
         onConfirm: () => { }
     });
-
     
     return (
 
@@ -100,9 +99,7 @@ export const ClienteTable: React.FC = () => {
                 confirmDialog={confirmDialog}
                 setConfirmDialog={setConfirmDialog}
             />
-            <ClientePagination/>
+            <ClientePagination />
         </TableContainer>
     );
 }
-
-
