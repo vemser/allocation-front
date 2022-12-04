@@ -277,7 +277,8 @@ export const CadastroAlunos = () => {
               }
             }}>
             <TextField type="number" placeholder='Digite o id do programa' id='idPrograma' {...register('idPrograma')} variant="outlined"
-              label='Id Programa'
+              error={Boolean(errors?.idPrograma && errors.idPrograma)}
+              label={errors.idPrograma?.message ?? "Id Programa"}
               InputProps={{ inputProps: { min: 1 } }}
               sx={{
                 width: '100%',

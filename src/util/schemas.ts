@@ -27,6 +27,7 @@ export const alunoSchema = yup.object().shape({
     cidade: yup.string().required("Por favor, informe a cidade"),
     estado: yup.string().required("Por favor, informe o estado"),
     email: yup.string().required("Por favor Digite seu e-mail").email('Por favor, digite um email válido'),
+    idPrograma: yup.string().required("Por favor, informe o id do programa"),
     // tipoVaga: yup.string().required(),
     // tecnologias: yup.string().required("Por favor Digite uma Linguagem"),
     edicao: yup.string(),
