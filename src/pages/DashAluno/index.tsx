@@ -312,7 +312,6 @@ export const DashAluno = () => {
                                                     }
                                                 });
                                             }} sx={{
-                                                background: 'red',
                                                 color: 'white',
                                                 width: '25px',
                                                 height: '25px',
