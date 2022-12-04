@@ -78,12 +78,12 @@ export const ReservaAlocacaoProvider = ({ children }: TChildren) => {
         try {
             nProgress.start();
             await API.delete(`/reserva-alocacao/${idReservaAlocacao}`);
-            toast.success('Reserva/alocação deletada com sucesso!', toastConfig);
+            toast.success('Reserva/alocação desativada com sucesso!', toastConfig);
             await getReservasAlocacoes(1);
             navigate('/reservas-alocacoes');
         } catch (error) {
             console.log(error);
-            toast.error('Houve um erro inesperado ao deletar reserva/alocação.', toastConfig);
+            toast.error('Houve um erro inesperado ao desativar reserva/alocação.', toastConfig);
         } finally {
             nProgress.done();
         }
