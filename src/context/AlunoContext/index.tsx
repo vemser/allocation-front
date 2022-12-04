@@ -91,9 +91,9 @@ export const AlunoProvider = ({ children }: TChildren) => {
         try {
             nProgress.start();
             API.defaults.headers.common['Authorization'] = token;
-            const { data } = await API.get(`/aluno/nome/${nome}?nome=${nome}&pagina=${(page - 1)}&tamanho=8`);
-            setAlunos(data.elementos);
+            const { data } = await API.get(`/aluno/nome/${nome}?nome=${nome}&pagina=${(page - 1)}&tamanho=8`);       
             setTotalPages(data.quantidadePaginas);
+            data.elementos.length == 0 ? toast.error('Aluno não encontrado', toastConfig) : setAlunos(data.elementos);
         } catch (error) {
             console.log(error);
             if (axios.isAxiosError(error) && error.response && error.response.data) {
