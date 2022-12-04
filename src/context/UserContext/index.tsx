@@ -153,7 +153,7 @@ export const UserProvider = ({ children }: TChildren) => {
       API.defaults.headers.common['Authorization'] = token;
       const { data } = await API.get(`/usuario/listarPorEmail?pagina=${(page - 1)}&tamanho=20&email=${email}`);
       setUsers(data.elementos);
-      setTotalPages(1);
+      setTotalPages(data.quantidadePaginas);
     } catch (error) {
       console.log(error);
       if (axios.isAxiosError(error) && error.response && error.response.data) {
