@@ -83,6 +83,7 @@ export type TAluno = {
     idPrograma: number
 }
 export type TVaga = {
+    idVaga: number,
     idCliente: number,
     idPrograma: number,
     nome: string,
