@@ -267,8 +267,8 @@ export const PainelDeVagas = () => {
               vagas.map((el: any) => (
                 <Box                
                   sx={{
-                    background: (el.quantidade - el.quantidadeAlocados) !== 0? "#D9D9D9" : "#d76969",
-                    color: (el.quantidade - el.quantidadeAlocados) !== 0? "black" : "white",
+                    background: (el.quantidade - el.quantidadeAlocados) > 0? "#D9D9D9" : "#d76969",
+                    color: (el.quantidade - el.quantidadeAlocados) > 0? "black" : "white",
                     borderRadius: "15px",
                     width: "250px",
                     boxShadow: "-5px 7px 15px -4px rgba(0,0,0,0.75)",
@@ -381,7 +381,7 @@ export const PainelDeVagas = () => {
                       sx={{ fontSize: "12px", wordWrap: "break-word" }}
                     >
                       <strong>Vagas disponíveis: </strong>
-                      {(el.quantidade - el.quantidadeAlocados)} vaga{(el.quantidade - el.quantidadeAlocados > 1? 's': '')}
+                      {(el.quantidade - el.quantidadeAlocados) >= 0? (el.quantidade - el.quantidadeAlocados) : '0'} vaga{(el.quantidade - el.quantidadeAlocados > 1? 's': '')}
                     </Typography>
                     <Typography
                       sx={{ fontSize: "12px", wordWrap: "break-word" }}
