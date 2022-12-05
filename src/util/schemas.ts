@@ -64,7 +64,7 @@ export const reservaAlocacaoFormSchema = yup.object().shape({
 
 export const avaliacaoSimplesFormSchema = yup.object().shape({
     emailAluno: yup.string().required("Por favor, informe o email do aluno"),
-    idVaga: yup.string().required("Por favor, informe a vaga"),
+    // idVaga: yup.string().required("Por favor, informe a vaga"),
     descricao: yup.string().required("Por favor, informe a descrição"),
     nota: yup.number().typeError("Por favor, informe a nota").required("Por favor, informe a nota").min(1, "A nota precisa ser maior que 0").max(10, "A nota precisa ser menor que 10"),
     dataAvaliacao: yup.string().required("Por favor, informe a data da avaliação"),

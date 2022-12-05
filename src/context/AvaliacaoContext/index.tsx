@@ -41,7 +41,11 @@ export const AvaliacaoProvider = ({ children }: TChildren) => {
         } catch (error) {
             console.log(error);
             if (axios.isAxiosError(error) && error.response && error.response.data) {
-                toast.error(error.response.data.message, toastConfig);
+                if (error.response.data.message) {
+                    toast.error(error.response.data.message, toastConfig);
+                } else if (error.response.data.errors && Array.isArray(error.response.data.errors)) {
+                    toast.error(error.response.data.errors.join("\n"), toastConfig);
+                }
             } else {
                 toast.error('Houve um erro inesperado ao cadastrar a avaliação.', toastConfig);
             }
@@ -59,7 +63,11 @@ export const AvaliacaoProvider = ({ children }: TChildren) => {
         } catch (error) {
             console.log(error);
             if (axios.isAxiosError(error) && error.response && error.response.data) {
-                toast.error(error.response.data.message, toastConfig);
+                if (error.response.data.message) {
+                    toast.error(error.response.data.message, toastConfig);
+                } else if (error.response.data.errors && Array.isArray(error.response.data.errors)) {
+                    toast.error(error.response.data.errors.join("\n"), toastConfig);
+                }
             } else {
                 toast.error('Houve um erro inesperado ao editar a avaliação.', toastConfig);
             }
@@ -77,7 +85,15 @@ export const AvaliacaoProvider = ({ children }: TChildren) => {
             navigate('/avaliacoes');
         } catch (error) {
             console.log(error);
-            toast.error('Houve um erro inesperado ao deletar avaliação.', toastConfig);
+            if (axios.isAxiosError(error) && error.response && error.response.data) {
+                if (error.response.data.message) {
+                    toast.error(error.response.data.message, toastConfig);
+                } else if (error.response.data.errors && Array.isArray(error.response.data.errors)) {
+                    toast.error(error.response.data.errors.join("\n"), toastConfig);
+                }
+            } else {
+                toast.error('Houve um erro inesperado ao deletar avaliação.', toastConfig);
+            }
         } finally {
             nProgress.done();
         }

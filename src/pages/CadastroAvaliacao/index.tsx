@@ -190,6 +190,7 @@ export const CadastroAvaliacao: React.FC = () => {
                             error={Boolean(errors.idVaga && errors.idVaga.message)}
                             defaultValue={isEdicao ? state.idVaga : null} // na edição carregar o valor na tela
                             variant="outlined"
+                            disabled={tipo === "simples"}
                             label="Código da vaga"
                             sx={{
                                 width: "100%",
