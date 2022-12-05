@@ -421,8 +421,8 @@ export const CadastroReservaAlocacao: React.FC = () => {
                                 <MenuItem value="INATIVO" sx={{ height: "30px" }}>
                                     Inativo
                                 </MenuItem>
-                                <MenuItem value="DISPONIVEL" sx={{ height: "30px" }}>
-                                    Disponível
+                                <MenuItem value="CANCELADO" sx={{ height: "30px" }}>
+                                    Cancelado
                                 </MenuItem>
                                 <MenuItem value="FINALIZADO" sx={{ height: "30px" }}>
                                     Finalizado
