@@ -78,7 +78,7 @@ export const HeaderPrincipal = () => {
                             <IconButton
                                 onClick={() => navigate('/perfil')}
                                 size="small"
-                                sx={{ ml: 2 }}
+                                sx={{ ml: 2, borderRadius: '20px', "&:hover": { background: 'var(--azul-header)', color: 'white' }}}
                                 aria-controls={true ? 'account-menu' : undefined}
                                 aria-haspopup="true"
                                 aria-expanded={true ? 'true' : undefined}
