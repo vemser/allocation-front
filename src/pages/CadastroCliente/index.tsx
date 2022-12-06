@@ -24,7 +24,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { podeAcessarTela } from "../../util/valida-senha";
 import { TCliente } from "../../util/types";
 import { ClienteContext } from "../../context/ClienteContext";
-import InputMask from "react-input-mask";
+
 
 export const CadastroCliente: React.FC = () => {
     const roles = [{ nome: "ROLE_ADMINISTRADOR" }, { nome: "ROLE_GESTOR" }];
@@ -174,6 +174,9 @@ export const CadastroCliente: React.FC = () => {
                             error={Boolean(errors.telefone && errors.telefone.message)}
                         >
                             {/* <InputMask defaultValue={isEdicao ? state.telefone : undefined} mask="(99)99999-9999" type="text" id="telefone" {...register("telefone")} /> */}
+                            
+                                {/* mask={['(', /[1-9]/, /\d/, /\d/, ')', ' ', /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/]} */}
+                              
                             <TextField
                                 type="number"
                                 id="telefone"

@@ -55,7 +55,7 @@ export const DashAvaliacao: React.FC = () => {
     const theme = useTheme();
     const mdDown = useMediaQuery(theme.breakpoints.down("md"));
     const smDown = useMediaQuery(theme.breakpoints.down("sm"));
-    
+
     return (
         <Grid
             sx={{
@@ -76,8 +76,8 @@ export const DashAvaliacao: React.FC = () => {
                     flexDirection: "column",
                     gap: "15px",
                     p: "15px 40px",
-                    paddingLeft: smDown? '20px' : '40px',
-                    paddingRight: smDown? '20px' : '40px',
+                    paddingLeft: smDown ? '20px' : '40px',
+                    paddingRight: smDown ? '20px' : '40px',
                     borderRadius: "15px",
                     boxShadow: "-5px 7px 15px -4px rgba(0,0,0,0.75)",
                     margin: "30px",
@@ -90,7 +90,7 @@ export const DashAvaliacao: React.FC = () => {
                     }}
                 >
                     <Typography fontSize="20px" color="primary">
-                        Avaliação
+                        Avaliações/Entrevistas
                     </Typography>
                 </Box>
                 <Box
@@ -103,7 +103,7 @@ export const DashAvaliacao: React.FC = () => {
                         p: "0 30px",
                         flexDirection: mdDown ? "column" : "row",
                     }}
-                >                    
+                >
                     <Box
                         component="form"
                         onSubmit={handleSubmit(pesquisar)}
@@ -191,7 +191,7 @@ export const DashAvaliacao: React.FC = () => {
                         alignItems: "center",
                         mt: mdDown ? '50px' : '',
                         gap: "20px",
-                        flexDirection: smDown? 'column' : 'row'
+                        flexDirection: smDown ? 'column' : 'row'
                     }}
                 >
                     <Link

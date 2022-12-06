@@ -103,7 +103,9 @@ export const CadastroAvaliacao: React.FC = () => {
                     }}
                 >
                     <Typography fontSize="25px" color="primary">
-                        {isEdicao ? "Editar Avaliação" : "Cadastro de Avaliação"}
+                        { tipo === "simples" ? 
+                        isEdicao ? "Editar Avaliação" : "Cadastro de Avaliação"
+                    : isEdicao ? "Editar Entrevista" : "Cadastro de Entrevista"}
                     </Typography>
                 </Box>
                 <Box
