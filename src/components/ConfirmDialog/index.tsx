@@ -12,8 +12,7 @@ interface Props {
   setConfirmDialog(options:TOptionsConfirmDialog): void
 }
 
-export const ConfirmDialog: React.FC<Props> = ({confirmDialog, setConfirmDialog}:Props) => {
- 
+export const ConfirmDialog: React.FC<Props> = ({confirmDialog, setConfirmDialog}:Props) => { 
 
     return (
         <Dialog

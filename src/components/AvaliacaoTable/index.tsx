@@ -4,14 +4,12 @@ import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
-import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
-import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, IconButton } from '@mui/material';
-import { Skeleton } from '@mui/material'
+import { IconButton } from '@mui/material';
 import { TableHeadSC } from './AvaliacaoTable.styled';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { AvaliacaoContext } from '../../context/AvaliacaoContext';
 import { useContext, useState } from 'react';
 import { ConfirmDialog, TOptionsConfirmDialog } from '../ConfirmDialog';
@@ -74,7 +72,6 @@ export const AvaliacaoTable: React.FC = () => {
                                 <TableCell align="center">{row.dataResposta?.split("-").reverse().join("/")}</TableCell>
                                 <TableCell align="center">{row.situacao}</TableCell>
                                 <TableCell align="center">
-                                    {/* definindo o fluxo */}
                                     <IconButton onClick={() => {
                                         navigate(`/cadastro/avaliacao/${(row.situacao === "AVALIADO" ? "simples" : "entrevista")}`, {
                                             state: row
@@ -110,5 +107,3 @@ export const AvaliacaoTable: React.FC = () => {
         </TableContainer>
     );
 }
-
-

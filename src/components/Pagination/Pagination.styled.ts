@@ -31,4 +31,3 @@ export const PaginationLink = styled(Link)`
         transition: 0.3s;
     }
 `;
-

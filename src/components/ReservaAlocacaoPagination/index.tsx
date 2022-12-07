@@ -3,7 +3,6 @@ import {  useSearchParams } from "react-router-dom";
 import { ReservaAlocacaoContext } from "../../context/ReservaAlocacaoContext";
 import { Pagination, PaginationLink } from "../Pagination/Pagination.styled";
 
-
 export const ReservaAlocacaoPagination = () => {
     const { totalPages, getReservasAlocacoes } = useContext(ReservaAlocacaoContext);
     const [searchParam] = useSearchParams();
