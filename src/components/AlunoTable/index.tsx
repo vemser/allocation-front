@@ -5,7 +5,6 @@ import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
 import TableContainer from "@mui/material/TableContainer";
 import TableRow from "@mui/material/TableRow";
-import { Skeleton, Box } from "@mui/material";
 import { TableHeadSC } from "./AlunoTable.styled";
 import { useNavigate } from "react-router-dom";
 import { ConfirmDialog, TOptionsConfirmDialog } from "../ConfirmDialog";
@@ -14,7 +13,6 @@ import { IconButton } from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { AlunoPagination } from "../AlunoPagination";
-
 
 export default function AlunoTable() {
   const navigate = useNavigate();
@@ -97,8 +95,6 @@ export default function AlunoTable() {
                   >
                     <DeleteIcon />
                   </IconButton>
-
-                  {/* <Button variant="contained" onClick={()=> navigate('/cadastro-alunos', {state: aluno})}>Editar</Button> */}
                 </TableCell>
               </TableRow>
             ))

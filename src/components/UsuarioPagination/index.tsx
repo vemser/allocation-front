@@ -1,8 +1,7 @@
 import { useContext, useMemo, useEffect } from "react";
-import { Link, useSearchParams } from "react-router-dom";
+import { useSearchParams } from "react-router-dom";
 import { UserContext } from "../../context/UserContext";
 import { Pagination, PaginationLink } from "../Pagination/Pagination.styled";
-
 
 export const UsuarioPagination = () => {
     const { totalPages, getUsers } = useContext(UserContext);

@@ -1,4 +1,3 @@
-import React from 'react';
 import { TSpanProps } from '../../util/types';
 import styled from 'styled-components';
 

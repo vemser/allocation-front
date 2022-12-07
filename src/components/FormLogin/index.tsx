@@ -9,7 +9,6 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { userLoginSchema } from '../../util/schemas';
 import { AuthContext } from '../../context/AuthContext/AuthContext';
 
-
 export const FormLogin: React.FC = () => {
   const { register, handleSubmit, formState: { errors }, reset} = useForm<TAuth>({
     resolver: yupResolver(userLoginSchema)

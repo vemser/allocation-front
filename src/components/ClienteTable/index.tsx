@@ -4,15 +4,13 @@ import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
-import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
-import { Skeleton } from '@mui/material'
 import { TableHeadSC } from './ClienteTable.styled';
 import { IconButton } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { useNavigate } from 'react-router-dom';
-import { useContext, useEffect, useState } from 'react';
+import { useContext, useState } from 'react';
 import { ConfirmDialog, TOptionsConfirmDialog } from '../ConfirmDialog';
 import { ClienteContext } from '../../context/ClienteContext';
 import { ClientePagination } from '../ClientePagination';

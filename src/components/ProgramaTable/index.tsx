@@ -100,5 +100,3 @@ export const ProgramaTable: React.FC = () => {
         </TableContainer>
     );
 }
-
-

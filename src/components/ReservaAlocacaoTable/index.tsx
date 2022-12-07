@@ -6,7 +6,6 @@ import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableRow from '@mui/material/TableRow';
 import { Button, IconButton } from '@mui/material';
-import { Skeleton } from '@mui/material'
 import { TableHeadSC } from './ReservaAlocacaoTable.styled';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
@@ -128,5 +127,3 @@ export const ReservaAlocacaoTable: React.FC = () => {
         </TableContainer>
     );
 }
-
-

@@ -1,9 +1,7 @@
 import { useContext, useMemo, useEffect } from "react";
-import { Link, useSearchParams } from "react-router-dom";
+import { useSearchParams } from "react-router-dom";
 import { ClienteContext } from "../../context/ClienteContext";
 import { Pagination, PaginationLink } from "../Pagination/Pagination.styled";
-
-
 
 export const ClientePagination = () => {
     const { totalPages, getClientes } = useContext(ClienteContext);
