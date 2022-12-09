@@ -1,5 +1,5 @@
 import { HeaderPrincipal } from "../../components/HeaderPrincipal";
-import { Grid, Box, TextField, FormControl, FormLabel, Select, MenuItem, Button, Typography, RadioGroup, FormControlLabel, Radio, TextareaAutosize, useTheme, useMediaQuery } from "@mui/material";
+import { Grid, Box, TextField, FormControl, FormLabel, Select, MenuItem, Button, Typography, useTheme, useMediaQuery } from "@mui/material";
 import { useForm } from 'react-hook-form'
 import { TAluno } from "../../util/types";
 import { alunoSchema } from "../../util/schemas";
@@ -14,7 +14,6 @@ import { AuthContext } from "../../context/AuthContext/AuthContext";
 import { useNavigate } from "react-router-dom";
 import { podeAcessarTela } from "../../util/valida-senha";
 import { useLocation } from 'react-router-dom'
-
 
 export const CadastroAlunos = () => {
   //permissoes necessárias para acessar a tela
@@ -39,9 +38,7 @@ export const CadastroAlunos = () => {
     setTecnologias(state != null ? state.tecnologias : [])
   }, [])
 
-
   const incrementTec = (event: React.ChangeEvent<HTMLInputElement>) => {
-    // event.target.value.length <= 0 ? toast.error('Valor vazio', toastConfig) : setTec(event.target.value);
     setTec(event.target.value)
   }
 
@@ -54,10 +51,9 @@ export const CadastroAlunos = () => {
     setTecnologias(tecnologias.filter(r => r != el))
   };
 
-
   const handleCreate = (data: TAluno) => {
     handleCreateAluno(data);
-    // reset();
+    reset();
   }
 
   useEffect(() => {

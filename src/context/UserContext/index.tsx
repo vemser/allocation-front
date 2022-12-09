@@ -9,13 +9,12 @@ import { AuthContext } from '../AuthContext/AuthContext';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
-
 export const UserContext = createContext({} as TUserContext);
 
 export const UserProvider = ({ children }: TChildren) => {
   const navigate = useNavigate();
   const [totalPages, setTotalPages] = useState(0);
-  const [users, setUsers] = useState<IUser[]>([]); //lista para armazenar os usuários cadastrados
+  const [users, setUsers] = useState<IUser[]>([]);
   const { isLogged, token, uploadImage } = useContext(AuthContext);
 
   const createUser = async (data: TUser, cargo?: string, image?: File) => {
@@ -208,5 +207,4 @@ export const UserProvider = ({ children }: TChildren) => {
       {children}
     </UserContext.Provider>
   )
-
 }

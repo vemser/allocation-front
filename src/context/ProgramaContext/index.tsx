@@ -9,12 +9,11 @@ import { AuthContext } from '../AuthContext/AuthContext';
 import { API } from '../../util/api';
 import axios from 'axios';
 
-
 export const ProgramaContext = createContext({} as TProgramaContext);
 
 export const ProgramaProvider = ({ children }: TChildren) => {
     const navigate = useNavigate();
-    const [programas, setProgramas] = useState<TPrograma[]>([]); //lista para armazenar os usuários cadastrados
+    const [programas, setProgramas] = useState<TPrograma[]>([]);
     const [totalPages, setTotalPages] = useState(0);
     const { token } = useContext(AuthContext);
 
@@ -90,7 +89,6 @@ export const ProgramaProvider = ({ children }: TChildren) => {
         }
     }
 
-    //pesquisa
     const getPesquisaNomePrograma = async (nome: string, page: number) => {
         try {
             nProgress.start();
@@ -110,8 +108,6 @@ export const ProgramaProvider = ({ children }: TChildren) => {
         }
     }
 
-
-
     return (
         <ProgramaContext.Provider value={
             {
@@ -128,6 +124,4 @@ export const ProgramaProvider = ({ children }: TChildren) => {
             {children}
         </ProgramaContext.Provider>
     )
-
 }
-

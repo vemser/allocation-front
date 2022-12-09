@@ -9,7 +9,7 @@ import {
     useMediaQuery,
 } from "@mui/material";
 import { useContext, useEffect } from "react";
-import { FieldValues, useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { AvaliacaoTable } from "../../components/AvaliacaoTable";
@@ -29,7 +29,7 @@ export const DashAvaliacao: React.FC = () => {
     const { register, handleSubmit, reset } = useForm();
     const navigate = useNavigate();
     const { userLogged } = useContext(AuthContext);
-    const { avaliacoes, setAvaliacoes, getAvaliacoes, getPesquisaIdAvaliacao } =
+    const { getAvaliacoes, getPesquisaIdAvaliacao } =
         useContext(AvaliacaoContext);
 
     useEffect(() => {

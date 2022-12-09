@@ -28,12 +28,9 @@ export const DbcTheme = createTheme({
             contrastText: '#ffffff',
         },
 
-
         background:{
             default: '#D9D9D9',
             paper: '#ffffff'
         },        
     }
-
 });
-

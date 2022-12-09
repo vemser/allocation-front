@@ -140,5 +140,4 @@ export const VagaProvider = ({ children }: TChildren) => {
             {children}
         </VagaContext.Provider>
     )
-
 }

@@ -275,7 +275,7 @@ export const CadastroVaga: React.FC = () => {
                     height: "10px",
                   },
                 }}
-                // helperText={errors.dataAbertura && errors.dataAbertura.message ? errors.dataAbertura.message : null}
+                helperText={errors.dataAbertura && errors.dataAbertura.message ? `${errors.dataAbertura.message}` : null}
                 error={Boolean(
                   errors.dataAbertura && errors.dataAbertura.message
                 )}

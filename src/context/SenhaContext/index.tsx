@@ -26,7 +26,6 @@ export const SenhaProvider = ({ children }: TChildren) => {
         } finally {
             nProgress.done();
         }
-
     }
 
     const enviarSenha = async (senha: TSenha) => {
@@ -42,7 +41,6 @@ export const SenhaProvider = ({ children }: TChildren) => {
         } finally {
             nProgress.done();
         }
-
     }
     return (
         <SenhaContext.Provider value={{ enviarEmail, enviarSenha, tokenState, setTokenState }}>

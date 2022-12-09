@@ -28,12 +28,11 @@ import { VagasPainelPagination } from "../../components/VagasPainelPagination";
 export const PainelDeVagas = () => {
   const navigate = useNavigate();
 
-  const { deleteVaga, totalPages, vagas, getPesquisaIdVagas, getVagas } = useContext(VagaContext);
+  const { deleteVaga, vagas, getPesquisaIdVagas, getVagas } = useContext(VagaContext);
 
   const {
     register,
     handleSubmit,
-    formState: { errors },
     reset,
   } = useForm<any>();
 
@@ -124,12 +123,7 @@ export const PainelDeVagas = () => {
               type="number"
               placeholder="Digite o código da vaga"
               id="pesquisa"
-              {...register("pesquisa")}
-              // onChange={(e) => {
-              //   if (!e.target.value) {
-              //     limparPesquisa();
-              //   }
-              // }}
+              {...register("pesquisa")}              
               variant="outlined"
               label="Pesquisar "
               InputProps={{
@@ -365,12 +359,6 @@ export const PainelDeVagas = () => {
                       <strong>Nome: </strong>
                       {el.nome}
                     </Typography>
-                    {/* <Typography
-                      sx={{ fontSize: "12px", wordWrap: "break-word" }}
-                    >
-                      <strong>Descrição: </strong>
-                      {el.observacoes}
-                    </Typography> */}
                     <Typography
                       sx={{ fontSize: "12px", wordWrap: "break-word" }}
                     >

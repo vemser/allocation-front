@@ -1,7 +1,6 @@
-import React, { useContext } from "react";
+import { useContext } from "react";
 import { useForm } from "react-hook-form";
 import {
-  FormControl,
   Button,
   Grid,
   Typography,
@@ -12,7 +11,8 @@ import {
 } from "@mui/material";
 import { HeaderLogin } from "../../components/HeaderLogin";
 import { SenhaContext } from "../../context/SenhaContext";
-import { TSenha } from "../../util/types";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { emailFormSchema } from "../../util/schemas";
 
 export const AtualizarSenha = () => {
 
@@ -23,7 +23,9 @@ export const AtualizarSenha = () => {
     handleSubmit,
     reset,
     formState: { errors },
-  } = useForm();
+  } = useForm({
+    resolver: yupResolver(emailFormSchema)
+  });
 
   const theme = useTheme();   
   const xsDown = useMediaQuery(theme.breakpoints.down('xs')) // menor que 420px 
@@ -96,7 +98,6 @@ export const AtualizarSenha = () => {
                   Redefinir Senha
                 </Typography>
               </Box>
-
               <TextField
                 type="email"
                 placeholder="Digite seu E-mail"
@@ -110,47 +111,9 @@ export const AtualizarSenha = () => {
                     height: "10px",
                   },
                 }}
-                // helperText={errors.nomeCompleto && errors.nomeCompleto ? errors.nomeCompleto.message : null}
-                // error={Boolean(errors.nomeCompleto && errors.nomeCompleto.message)}
-              />
-
-              {/* <FormControl fullWidth>
-                <TextField
-                  type="password"
-                  id="novaSenha"
-                  // {...register("novaSenha", { onChange: (event) => { validarSenha(event.target.value) } })}
-                  variant="outlined"
-                  label="Nova Senha"
-                  sx={{
-                    width: "100%",
-                    "& .MuiInputBase-input": {
-                      height: "10px",
-                    },
-                  }}
-                  // helperText={errors.senha && errors.senha.message ? errors.senha.message : (mensagemSenha ? mensagemSenha : null)}
-                  // error={Boolean(errors.senha && errors.senha.message)}
-                />
-              </FormControl>
-              <FormControl
-                fullWidth
-                // error={Boolean(errors.senhaIgual && errors.senhaIgual.message)}
-              >
-                <TextField
-                  type="password"
-                  id="senhaIgual"
-                  {...register("senhaIgual")}
-                  variant="outlined"
-                  label="Confirme a senha"
-                  sx={{
-                    width: "100%",
-                    "& .MuiInputBase-input": {
-                      height: "10px",
-                    },
-                  }}
-                  // helperText={errors.senhaIgual && errors.senhaIgual.message ? errors.senhaIgual.message : null}
-                  // error={Boolean(errors.senhaIgual && errors.senhaIgual.message)}
-                />
-              </FormControl> */}
+                helperText={errors.email && errors.email ? `${errors.email.message}` : null}
+                error={Boolean(errors.email && errors.email.message)}
+              />              
             </Box>
             <Box
               sx={{

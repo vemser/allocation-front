@@ -38,7 +38,6 @@ export default function UsuarioTable() {
     return false;
   }
 
-
   return (
 
     <TableContainer component={Paper}>

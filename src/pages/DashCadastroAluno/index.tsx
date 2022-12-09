@@ -1,5 +1,4 @@
 import { Grid } from "@mui/material";
-import { useForm } from 'react-hook-form'
 import { useNavigate } from 'react-router-dom';
 import { DashAluno } from "../../components/DashAluno";
 import { HeaderPrincipal } from "../../components/HeaderPrincipal";
@@ -16,8 +15,7 @@ export const DashCadastroAluno = () => {
     { nome: "ROLE_GESTAO_DE_PESSOAS" },
     { nome: "ROLE_INSTRUTOR" }
   ];
-
-  const { formState: { errors } } = useForm();
+ 
   const navigate = useNavigate();
   const { userLogged } = useContext(AuthContext);
 

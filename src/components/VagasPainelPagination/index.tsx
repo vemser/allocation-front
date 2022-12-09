@@ -1,5 +1,5 @@
 import { useContext, useMemo, useEffect } from "react";
-import { Link, useSearchParams } from "react-router-dom";
+import { useSearchParams } from "react-router-dom";
 import { VagaContext } from "../../context/VagaContext";
 import { Pagination, PaginationLink } from "../Pagination/Pagination.styled";
 

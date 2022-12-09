@@ -1,6 +1,5 @@
 import { yupResolver } from "@hookform/resolvers/yup";
 import {
-    Autocomplete,
     Box,
     Button,
     FormControl,
@@ -14,7 +13,7 @@ import {
     useTheme,
 } from "@mui/material";
 import React, { useContext, useEffect } from "react";
-import { FieldValues, useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import { HeaderPrincipal } from "../../components/HeaderPrincipal";
@@ -202,45 +201,6 @@ export const CadastroAvaliacao: React.FC = () => {
                             }}
                             InputProps={{ inputProps: { min: 1 } }}
                         />
-                        {/* <Autocomplete
-                            options={listaAlunos}
-                            id='emailAluno'
-                            getOptionLabel={(option) => option.nome}
-                            isOptionEqualToValue={(option, value) => option.codigo === value.codigo}
-                            {...register("emailAluno")}
-                            defaultValue={isEdicao ? state.emailAluno : undefined}
-                            renderInput={(params) => <TextField
-                                {...params}
-                                label='Selecionar Aluno'
-                                defaultValue={isEdicao ? state.emailAluno : undefined}
-                                {...register("emailAluno")}
-                                helperText={errors.emailAluno && errors.emailAluno ? errors.emailAluno.message : null}
-                                error={Boolean(errors.emailAluno && errors.emailAluno.message)} />}
-                            sx={{
-                                width: '100%',
-                                "& .MuiInputBase-input": {
-                                    height: '10px'
-                                }
-                            }}
-                        /> */}
-
-                        {/* <Autocomplete options={listaVagas}
-                            id='idVaga'
-                            getOptionLabel={(option) => option.descricao}
-                            isOptionEqualToValue={(option, value) => option.idVaga === value.idVaga}
-                            disabled={tipo === "simples"}
-                            defaultValue={isEdicao ? state.idVaga : undefined}
-                            {...register("idVaga")}
-                            renderInput={(params) => <TextField {...params} label='Selecionar Vaga' defaultValue={isEdicao ? state.idVaga : undefined} {...register("idVaga")}
-                                helperText={errors.idVaga && errors.idVaga ? errors.idVaga.message : null}
-                                error={Boolean(errors.idVaga && errors.idVaga.message)} />}
-                            sx={{
-                                width: '100%',
-                                "& .MuiInputBase-input": {
-                                    height: '10px'
-                                }
-                            }}
-                        /> */}
                     </Box>
                     <Box
                         sx={{

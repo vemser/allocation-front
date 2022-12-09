@@ -25,7 +25,7 @@ export const DashClientes: React.FC = () => {
     const { register, handleSubmit, reset } = useForm();
     const navigate = useNavigate();
     const { userLogged } = useContext(AuthContext);
-    const { clientes, getClientes, setClientes, getPesquisaClientesEmail } =
+    const { getClientes, getPesquisaClientesEmail } =
         useContext(ClienteContext);
 
     useEffect(() => {

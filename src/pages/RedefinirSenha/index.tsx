@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { TrocarSenhaFormSchema } from "../../util/schemas";
@@ -15,15 +15,15 @@ import {
 import { HeaderLogin } from "../../components/HeaderLogin";
 import { SenhaContext } from "../../context/SenhaContext";
 import verificaForcaSenha from "../../util/forca-senha";
-import { useParams, useSearchParams } from "react-router-dom";
+import { useSearchParams } from "react-router-dom";
 
 export const RedefinirSenha = () => {
 
-  let [searchParams, setSearchParams] = useSearchParams()
+  let [searchParams] = useSearchParams()
 
   let token = searchParams.get('token');
  
-  const {tokenState, setTokenState} = useContext(SenhaContext)
+  const {setTokenState} = useContext(SenhaContext)
 
   useEffect(()=>{
     setTokenState(token)
@@ -121,7 +121,6 @@ export const RedefinirSenha = () => {
                   id="senha"
                   {...register("senha", { onChange: (event) => { validarSenha(event.target.value) } })}
                   variant="outlined"
-                  // label="Nova Senha"
                   sx={{
                     width: "100%",
                     "& .MuiInputBase-input": {
@@ -129,8 +128,7 @@ export const RedefinirSenha = () => {
                     },
                   }}
                   label={errors.senha && errors.senha.message ? `${errors.senha.message}` : `Senha`}
-                  helperText={errors.senha && errors.senha.message ? errors.senha.message : (mensagemSenha ? mensagemSenha : null)}
-                  // error={Boolean(errors.senha && errors.senha.message)}
+                  helperText={errors.senha && errors.senha.message ? errors.senha.message : (mensagemSenha ? mensagemSenha : null)}                 
                 />
              
               <FormControl
@@ -149,8 +147,7 @@ export const RedefinirSenha = () => {
                     },
                   }}
                    label={errors.senhaIgual && errors.senhaIgual.message ? `${errors.senhaIgual.message}` : `Confirmar senha`}
-                   error={Boolean(errors.senhaIgual && errors.senhaIgual.message)}
-                  // helperText={errors.senha && errors.senha.message ? errors.senha.message : (mensagemSenha ? mensagemSenha : null)}
+                   error={Boolean(errors.senhaIgual && errors.senhaIgual.message)}                  
                 />
               </FormControl>
             </Box>

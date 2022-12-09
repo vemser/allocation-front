@@ -1,4 +1,4 @@
-import react, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form';
 import {
     FormLabel,
@@ -36,10 +36,9 @@ export const Perfil = () => {
 
     const [image, setImage] = useState<File>();
     const [imageUser, setImageUser] = useState<string | undefined>(userLogged?.image);
-    const navigate = useNavigate();
 
     useEffect(() => {
-     setImageUser(userLogged?.image);
+        setImageUser(userLogged?.image);
     }, [userLogged]);
 
     const handleSetImage = async (event: any) => {
@@ -64,14 +63,14 @@ export const Perfil = () => {
         let cargo = cargoIn?.toUpperCase() ?? "";
         await updateUser(data, userLogged?.idUsuario ?? 0, cargo, image, "/perfil");
         await handleUserLogged(false);
-                      
+
     }
 
     const validarSenha = (senha: string) => {
         setMensagemSenha(verificaForcaSenha(senha));
     }
 
-    const theme = useTheme();   
+    const theme = useTheme();
     const xsDown = useMediaQuery(theme.breakpoints.down('xs')) // menor que 420px 
 
     return (
@@ -87,7 +86,7 @@ export const Perfil = () => {
             <HeaderPrincipal />
             <Box
                 sx={{
-                    width: xsDown? '90%' : '420px',
+                    width: xsDown ? '90%' : '420px',
                     height: '90%',
                     display: 'flex',
                     gap: '15px',
@@ -146,28 +145,10 @@ export const Perfil = () => {
                                         height: '10px'
                                     }
                                 }}
-                                // helperText={errors.nomeCompleto && errors.nomeCompleto ? `${errors.nomeCompleto.message}` : null}
+                                helperText={errors.nomeCompleto && errors.nomeCompleto ? `${errors.nomeCompleto.message}` : null}
                                 error={Boolean(errors.nomeCompleto && errors.nomeCompleto.message)}
                                 defaultValue={userLogged != null ? userLogged?.nomeCompleto : ""}
                             />
-
-
-                            {/* <FormControl fullWidth error={Boolean(errors.senha && errors.senha.message)}>
-                        <TextField type="password" 
-                            id='senhaAtual'  
-                            // {...register("senhaAtual", { onChange: (event) => { validarSenha(event.target.value) } })}
-                            variant="outlined"
-                            label='Senha Atual'
-                            sx={{
-                            width: '100%',
-                            "& .MuiInputBase-input": {
-                                height: '10px'
-                            }
-                            }}
-                            // helperText={errors.senha && errors.senha.message ? errors.senha.message : (mensagemSenha ? mensagemSenha : null)}
-                            // error={Boolean(errors.senha && errors.senha.message)}
-                        />
-                        </FormControl> */}
                             <FormControl fullWidth error={Boolean(errors.senha && errors.senha.message)}>
                                 <TextField type="password"
                                     id='senha'

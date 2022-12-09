@@ -16,9 +16,8 @@ export const AuthContext = createContext({} as TAuthContext);
 export const AuthProvider = ({ children }: TChildren) => {
     const navigate = useNavigate();
     const [token, setToken] = useState<string>(localStorage.getItem('token') || '');
-    const isLogged = token !== undefined && token !== "";  //camada de segurança para não expor a token
+    const isLogged = token !== undefined && token !== "";
     const [userLogged, setUserLogged] = useState<IUserLogged>(JSON.parse(localStorage.getItem('userLogged') || "{}"));
-
 
     const handleUserLogin = async (user: TAuth) => {
         user.email = user.email.toLowerCase()
@@ -28,7 +27,7 @@ export const AuthProvider = ({ children }: TChildren) => {
             localStorage.setItem('token', data);
             setToken(data);
             API.defaults.headers.common['Authorization'] = data;
-            await handleUserLogged(); //busco as informações do usuario
+            await handleUserLogged();
 
         } catch (error) {
             console.error(error)
@@ -36,7 +35,6 @@ export const AuthProvider = ({ children }: TChildren) => {
         } finally {
             nProgress.done()
         }
-
     }
 
     const handleUserLogout = () => {
@@ -44,10 +42,9 @@ export const AuthProvider = ({ children }: TChildren) => {
         localStorage.removeItem("userLogged");
         API.defaults.headers.common['Authorization'] = undefined;
         setToken('');
-        navigate('/'); // Provisório enquanto não tem token
+        navigate('/');
     }
 
-    // retorna os dados do usuário logado no sistema
     const handleUserLogged = async (redirecionar? : boolean) => {
         const { data } = await API.get("/auth/logged");
         const imagem = await getImageUser(data.email);

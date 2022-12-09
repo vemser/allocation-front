@@ -19,7 +19,6 @@ export const ClienteProvider = ({ children }: TChildren) => {
     const createCliente = async (data: TCliente) => {
         try {
             nProgress.start();
-
             API.defaults.headers.common['Authorization'] = token;
             await API.post(`/cliente`, {
                 nome: data.nome,
@@ -43,7 +42,7 @@ export const ClienteProvider = ({ children }: TChildren) => {
             nProgress.start();
             API.defaults.headers.common['Authorization'] = token;
             const { data } = await API.get(`/cliente?pagina=${(page - 1)}&tamanho=20`);
-            setClientes(data.elementos);//a API retorna um objeto no qual os clientes estão no array elementos
+            setClientes(data.elementos);
             setTotalPages(data.quantidadePaginas);
         } catch (error) {
             console.log(error);
@@ -142,6 +141,4 @@ export const ClienteProvider = ({ children }: TChildren) => {
             {children}
         </ClienteContext.Provider>
     )
-
 }
-

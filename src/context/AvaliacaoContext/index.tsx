@@ -9,7 +9,6 @@ import { AuthContext } from '../AuthContext/AuthContext';
 import axios from 'axios';
 export const AvaliacaoContext = createContext({} as TAvaliacaoContext);
 
-
 export const AvaliacaoProvider = ({ children }: TChildren) => {
     const navigate = useNavigate();
     const [totalPages, setTotalPages] = useState(0);
@@ -134,6 +133,4 @@ export const AvaliacaoProvider = ({ children }: TChildren) => {
             {children}
         </AvaliacaoContext.Provider>
     )
-
 }
-

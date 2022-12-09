@@ -144,7 +144,6 @@ export const AlunoProvider = ({ children }: TChildren) => {
         }
     }
 
-
     return (
         <AlunoContext.Provider value={{
             handleCreateAluno,

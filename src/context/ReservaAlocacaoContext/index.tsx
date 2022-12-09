@@ -8,14 +8,13 @@ import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../AuthContext/AuthContext';
 import axios from 'axios';
 
-
 export const ReservaAlocacaoContext = createContext({} as TReservaAlocacaoContext);
 
 export const ReservaAlocacaoProvider = ({ children }: TChildren) => {
     const navigate = useNavigate();
     const [totalPages, setTotalPages] = useState(0);
     const { token } = useContext(AuthContext);
-    const [reservasAlocacoes, setReservasAlocacoes] = useState<TReservaAlocacaoGet[]>([]); //lista para armazenar os usuários cadastrados
+    const [reservasAlocacoes, setReservasAlocacoes] = useState<TReservaAlocacaoGet[]>([]);
 
     const createReservaAlocacao = async (data: TReservaAlocacao) => {
         try {
@@ -136,6 +135,4 @@ export const ReservaAlocacaoProvider = ({ children }: TChildren) => {
             {children}
         </ReservaAlocacaoContext.Provider>
     )
-
 }
-

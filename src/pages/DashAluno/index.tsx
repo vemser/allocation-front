@@ -15,10 +15,7 @@ import { podeAcessarTela } from "../../util/valida-senha";
 import { useForm } from 'react-hook-form';
 import { ConfirmDialog, TOptionsConfirmDialog } from '../../components/ConfirmDialog';
 import { AlunoContext } from "../../context/AlunoContext";
-import { AlunoPagination } from "../../components/AlunoPagination";
 import { AlunoDashPagination } from "../../components/AlunoDashPagination";
-import { CleaningServicesOutlined } from "@mui/icons-material";
-
 
 export const DashAluno = () => {
     const roles = [
@@ -385,4 +382,3 @@ export const DashAluno = () => {
         </Grid>
     )
 }
-

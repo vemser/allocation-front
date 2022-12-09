@@ -1,6 +1,5 @@
 import { yupResolver } from "@hookform/resolvers/yup";
 import {
-    Autocomplete,
     Box,
     Button,
     FormControl,
@@ -35,7 +34,6 @@ export const CadastroReservaAlocacao: React.FC = () => {
     const {
         register,
         handleSubmit,
-        reset,
         formState: { errors },
     } = useForm<TReservaAlocacao>({
         resolver: yupResolver(reservaAlocacaoFormSchema),
@@ -204,29 +202,6 @@ export const CadastroReservaAlocacao: React.FC = () => {
                             }
                             error={Boolean(errors.idVaga && errors.idVaga.message)}
                         />
-
-                        {/* <Autocomplete options={listaAlunos} id='idAluno' {...register("idAluno")}
-                            renderInput={(params) => <TextField {...params} label='Selecionar Aluno' {...register("idAluno")}
-                                helperText={errors.idAluno && errors.idAluno ? errors.idAluno.message : null}
-                                error={Boolean(errors.idAluno && errors.idAluno.message)} />}
-                            sx={{
-                                width: '100%',
-                                "& .MuiInputBase-input": {
-                                    height: '10px'
-                                }
-                            }}
-                        />
-                        <Autocomplete options={listaVagas} id='idVaga' {...register("idVaga")}
-                            renderInput={(params) => <TextField {...params} label='Selecionar Vaga' {...register("idVaga")}
-                                helperText={errors.idVaga && errors.idVaga ? errors.idVaga.message : null}
-                                error={Boolean(errors.idVaga && errors.idVaga.message)} />}
-                            sx={{
-                                width: '100%',
-                                "& .MuiInputBase-input": {
-                                    height: '10px'
-                                }
-                            }}
-                        /> */}
                     </Box>
                     <Box
                         sx={{
@@ -258,18 +233,6 @@ export const CadastroReservaAlocacao: React.FC = () => {
                             }
                             error={Boolean(errors.idAvaliacao && errors.idAvaliacao.message)}
                         />
-                        {/*Lista avaliações campo obrigario caso alocado*/}
-                        {/* <Autocomplete options={listaAvaliacoes} id='idAvaliacao' {...register("idAvaliacao")}
-                            renderInput={(params) => <TextField {...params} label='Selecionar Avaliação' {...register("idAvaliacao")}
-                                helperText={errors.idAvaliacao && errors.idAvaliacao ? errors.idAvaliacao.message : null}
-                                error={Boolean(errors.idAvaliacao && errors.idAvaliacao.message)} />}
-                            sx={{
-                                width: '100%',
-                                "& .MuiInputBase-input": {
-                                    height: '10px'
-                                }
-                            }}
-                        /> */}
                         <TextField
                             type="text"
                             placeholder="Descrição"

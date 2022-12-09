@@ -1,5 +1,3 @@
-import { TSpanProps } from "./types";
-
 
 const verificaForcaSenha = (senha: string): string => {
 
@@ -24,6 +22,5 @@ const verificaForcaSenha = (senha: string): string => {
 
     }
 }
-
 
 export default verificaForcaSenha;
