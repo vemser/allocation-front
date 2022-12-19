@@ -4,14 +4,14 @@ const regexEmail = /^[A-Za-z0-9._%+-]+@dbccompany.com.br$/
 
 export const userFormSchema = yup.object().shape({
     nomeCompleto: yup.string().required("Por favor, digite seu nome").min(2, "O nome precisa ter no mínimo 2 caracteres"),
-    email: yup.string().required("Por favor, digite seu e-mail").email("Por favor, digite um e-mail válido"),
+    email: yup.string().required("Por favor, digite seu e-mail").email("Por favor, digite um e-mail válido").matches(regexEmail, "Só aceitamos email @dbccompany.com.br"),
     senha: yup.string().required("Por favor, digite sua senha").min(8, "A senha precisa ter no mínimo 8 caracteres"),
     senhaIgual: yup.string().required("Por favor, confirme sua senha").min(8, "A senha precisa ter no mínimo 8 caracteres")
 });
 
 export const userEditFormSchema = yup.object().shape({
     nomeCompleto: yup.string().required("Por favor, digite seu nome").min(2, "O nome precisa ter no mínimo 2 caracteres"),
-    email: yup.string().required("Por favor, digite seu e-mail").email("Por favor, digite um e-mail válido"),
+    email: yup.string().required("Por favor, digite seu e-mail").email("Por favor, digite um e-mail válido").matches(regexEmail, "Só aceitamos email @dbccompany.com.br"),
 });
 
 export const userLoginSchema = yup.object().shape({
@@ -28,7 +28,7 @@ export const alunoSchema = yup.object().shape({
     telefone: yup.string().required("Por favor, digite um número de telefone").min(10, "Por favor, digite um número de telefone válido"),
     cidade: yup.string().required("Por favor, informe a cidade"),
     estado: yup.string().required("Por favor, informe o estado"),
-    email: yup.string().required("Por favor Digite seu e-mail").email('Por favor, digite um email válido'),
+    email: yup.string().required("Por favor Digite seu e-mail").email('Por favor, digite um email válido').matches(regexEmail, "Só aceitamos email @dbccompany.com.br"),
     idPrograma: yup.string().required("Por favor, informe o id do programa"),
     // tipoVaga: yup.string().required(),
     // tecnologias: yup.string().required("Por favor Digite uma Linguagem"),
@@ -65,7 +65,7 @@ export const reservaAlocacaoFormSchema = yup.object().shape({
 });
 
 export const avaliacaoSimplesFormSchema = yup.object().shape({
-    emailAluno: yup.string().required("Por favor, informe o email do aluno"),
+    emailAluno: yup.string().required("Por favor, informe o email do aluno").matches(regexEmail, "Só aceitamos email @dbccompany.com.br"),
     idVaga: yup.string().required("Por favor, informe a vaga"),
     descricao: yup.string().required("Por favor, informe a descrição"),
     nota: yup.number().typeError("Por favor, informe a nota").required("Por favor, informe a nota").min(1, "A nota precisa ser maior que 0").max(10, "A nota precisa ser menor que 10"),
@@ -74,7 +74,7 @@ export const avaliacaoSimplesFormSchema = yup.object().shape({
 });
 
 export const avaliacaoEntrevistaFormSchema = yup.object().shape({
-    emailAluno: yup.string().required("Por favor, informe o email do aluno"),
+    emailAluno: yup.string().required("Por favor, informe o email do aluno").matches(regexEmail, "Só aceitamos email @dbccompany.com.br"),
     idVaga: yup.string().required("Por favor, informe a vaga"),
     descricao: yup.string().required("Por favor, informe a descrição"),
     nota: yup.number().typeError("Por favor, informe a nota").required("Por favor, informe a nota").min(1, "A nota precisa ser maior que 0").max(10, "A nota precisa ser menor que 10"),
@@ -86,7 +86,7 @@ export const avaliacaoEntrevistaFormSchema = yup.object().shape({
 
 export const clienteFormSchema = yup.object().shape({
     nome: yup.string().required("Por favor, informe o nome do cliente"),
-    email: yup.string().required("Por favor, informe o e-mail do cliente"),
+    email: yup.string().required("Por favor, informe o e-mail do cliente").matches(regexEmail, "Só aceitamos email @dbccompany.com.br"),
     telefone: yup.string().required("Por favor, informe um telefone"),
     situacao: yup.string().required("Por favor, informe a situação")
 });

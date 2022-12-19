@@ -359,7 +359,8 @@ export const DashAluno = () => {
                                             transform: 'scale(.99)',
                                         }
                                     }}>
-                                        <Button
+                                        {el.situacao === "ALOCADO" ?  <Button
+                                            disabled
                                             onClick={() => {
                                                 navigate(`/cadastro/reserva-alocacao?idAluno=${el.idAluno}`)
                                             }}
@@ -369,7 +370,18 @@ export const DashAluno = () => {
                                                 fontSize: '10px',
                                             }}>
                                             Reservar
-                                        </Button>
+                                        </Button> : <Button
+                                            onClick={() => {
+                                                navigate(`/cadastro/reserva-alocacao?idAluno=${el.idAluno}`)
+                                            }}
+                                            size="small"
+                                            variant="contained"
+                                            sx={{
+                                                fontSize: '10px',
+                                            }}>
+                                            Reservar
+                                        </Button> }
+                                       
                                     </Box>
                                 </Box>
                             ))
