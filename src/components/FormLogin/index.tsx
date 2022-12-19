@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import { Box, TextField, Button, InputAdornment, Typography, OutlinedInput, FormControl, useTheme, useMediaQuery } from "@mui/material";
 import { AccountCircle } from '@mui/icons-material';
 import HttpsIcon from '@mui/icons-material/Https';
-import { Link } from 'react-router-dom';
+import { Link, Navigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { TAuth } from '../../util/types';
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -14,6 +14,9 @@ export const FormLogin: React.FC = () => {
     resolver: yupResolver(userLoginSchema)
   });
 
+  const {token} = useContext(AuthContext);
+  console.log(token)
+
   const { handleUserLogin } = useContext(AuthContext);
 
   const handleLogin = (data: TAuth) => {
@@ -23,6 +26,8 @@ export const FormLogin: React.FC = () => {
 
   const theme = useTheme();   
   const xsDown = useMediaQuery(theme.breakpoints.down('xs')) // menor que 420px 
+
+  if(token) return <Navigate to= "/painel-vagas"/>
 
   return (
     <div>

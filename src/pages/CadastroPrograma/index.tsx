@@ -40,6 +40,7 @@ export const CadastroPrograma: React.FC = () => {
     const navigate = useNavigate();
     const { userLogged, isLogged } = useContext(AuthContext);
     const { state } = useLocation();
+    console.log(state)
     const isEdicao = state !== null;
 
     useEffect(() => {
@@ -87,6 +88,7 @@ export const CadastroPrograma: React.FC = () => {
                         {isEdicao ? "Editar Programa" : "Cadastro de Programa"}
                     </Typography>
                 </Box>
+
                 <Box
                     component="form"
                     id="form"
@@ -105,16 +107,18 @@ export const CadastroPrograma: React.FC = () => {
                     })}
                     sx={{
                         display: "flex",
-                        flexDirection: "column",
                         gap: "20px",
+                        width:"100%"
                     }}
                 >
+
                     <Box
                         sx={{
                             display: "flex",
                             justifyContent: "center",
                             gap: "40px",
-                            flexDirection: smDown ? "column" : "row",
+                            flexDirection: smDown ? "column" : "column",
+                            width:"50%"
                         }}
                     >
                         <TextField
@@ -136,37 +140,36 @@ export const CadastroPrograma: React.FC = () => {
                             }
                             error={Boolean(errors.nome && errors.nome.message)}
                         />
-                        <TextField
-                            type="text"
-                            placeholder="Digite a descrição"
-                            id="descricao"
-                            {...register("descricao")}
-                            variant="outlined"
-                            label="Descrição"
-                            defaultValue={isEdicao ? state.descricao : null}
-                            sx={{
-                                width: "100%",
-                                "& .MuiInputBase-input": {
-                                    height: "10px",
-                                },
-                            }}
-                            helperText={
-                                errors.descricao && errors.descricao.message
-                                    ? errors.descricao.message
-                                    : null
-                            }
-                            error={Boolean(errors.descricao && errors.descricao.message)}
-                        />
-                    </Box>
-                    <Box
-                        sx={{
-                            display: "flex",
-                            justifyContent: "space-between",
-                            alignItems: "top",
-                            gap: "40px",
-                            flexDirection: smDown ? "column" : "row",
-                        }}
-                    >
+
+                        <FormControl
+                            fullWidth
+                            // error={Boolean(errors.dataTermino && errors.dataTermino.message)}
+                        >
+                            <FormLabel htmlFor="dataTermino">Data de Início</FormLabel>
+                            <TextField
+                                type="date"
+                                id="dataInicio"
+                                // {...register("dataTermino")}
+                                variant="outlined"
+                                label=""
+                                // defaultValue={isEdicao ? state.dataTermino : null}
+                                sx={{
+                                    width: "100%",
+                                    "& .MuiInputBase-input": {
+                                        height: "10px",
+                                    },
+                                }}
+                                // helperText={
+                                //     errors.dataTermino && errors.dataTermino.message
+                                //         ? errors.dataTermino.message
+                                //         : null
+                                // }
+                                // error={Boolean(
+                                //     errors.dataTermino && errors.dataTermino.message
+                                // )}
+                            />
+                        </FormControl>
+
                         <FormControl
                             fullWidth
                             error={Boolean(errors.dataTermino && errors.dataTermino.message)}
@@ -195,6 +198,39 @@ export const CadastroPrograma: React.FC = () => {
                                 )}
                             />
                         </FormControl>
+
+                    </Box>
+
+                    <Box
+                        sx={{
+                            display: "flex",
+                            gap: "40px",
+                            flexDirection: smDown ? "column" : "column",
+                            width:"50%"
+                        }}
+                    >
+                        <TextField
+                            type="text"
+                            placeholder="Digite a descrição"
+                            id="descricao"
+                            {...register("descricao")}
+                            variant="outlined"
+                            label="Descrição"
+                            defaultValue={isEdicao ? state.descricao : null}
+                            sx={{
+                                width: "100%",
+                                "& .MuiInputBase-input": {
+                                    height: "10px",
+                                },
+                            }}
+                            helperText={
+                                errors.descricao && errors.descricao.message
+                                    ? errors.descricao.message
+                                    : null
+                            }
+                            error={Boolean(errors.descricao && errors.descricao.message)}
+                        />    
+                        
                         <FormControl fullWidth>
                             <FormLabel htmlFor="situacao"> Situação</FormLabel>
                             <Select
@@ -212,6 +248,7 @@ export const CadastroPrograma: React.FC = () => {
                             </Select>
                         </FormControl>
                     </Box>
+                </Box>
                     <Box
                         sx={{
                             display: "flex",
@@ -242,7 +279,6 @@ export const CadastroPrograma: React.FC = () => {
                             Salvar
                         </Button>
                     </Box>
-                </Box>
             </Box>
         </Grid>
     );

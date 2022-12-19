@@ -27,6 +27,8 @@ import { HeaderPrincipal } from "../../components/HeaderPrincipal";
 import { useLocation, useNavigate } from "react-router-dom";
 import perfil from "../../assets/perfil.png";
 import { toBase64 } from "../../util/image-utils";
+import { toast } from "react-toastify";
+import { toastConfig } from "../../util/toast";
 
 export const CadastroUsuario: React.FC = () => {
   const { createUser, updateUser, updateCargo } = useContext(UserContext);
@@ -62,7 +64,9 @@ export const CadastroUsuario: React.FC = () => {
   };
 
   const handleSubmitUser = async (data: IUserForm) => {
-    if (!isLogged || (isLogged && !isEdicao)) {
+    if(data.cargo === "NENHUM"){
+      toast.error("Preencha o campo tipo de usuário!", toastConfig)
+    } else if (!isLogged || (isLogged && !isEdicao)) {
       createUser({ ...data }, isLogged ? data.cargo : "", image);
     } else if (isLogged && isEdicao) {
       if (Object.keys(dirtyFields).length === 1 && dirtyFields.cargo) {

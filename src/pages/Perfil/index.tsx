@@ -94,9 +94,9 @@ export const Perfil = () => {
                     gap: '15px',
                     p: '25px 20px',
                     borderRadius: '15px',
-                    boxShadow: '-5px 7px 15px -4px rgba(0,0,0,0.75)',
+                    boxShadow: '5px 5px 10px #6d6c6cbe',
                     margin: '30px',
-                    background: '#e4e6e7',
+                    backgroundColor:"#f1f1f1"
                 }}>
                 <Box
                     sx={{
@@ -121,13 +121,13 @@ export const Perfil = () => {
                             flexDirection: 'column',
                             alignItems: 'center',
                             justifyContent: 'center',
-                            gap: '20px',
+                            gap: '10px',
                             width: '100%',
                         }}>
                             <Avatar src={imageUser ? imageUser : perfil} sx={{ width: 128, height: 128 }} alt="perfil" />
-                            <FormControl fullWidth>
-                                <FormLabel>Enviar foto de perfil</FormLabel>
-                                <Button variant="contained" component="label" sx={{ width: '50px' }}>
+                            <FormControl >
+                                <FormLabel sx={{fontSize:"16px",marginBottom:"10px"}}>Enviar foto de perfil</FormLabel>
+                                <Button variant="contained" component="label" sx={{ width: '50px',display:"flex",margin:"0 auto" }}>
                                     Enviar
                                     <input hidden accept="image/*" id="foto-perfil" type="file" onChange={e => handleSetImage(e)} />
                                 </Button>

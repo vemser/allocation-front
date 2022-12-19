@@ -80,6 +80,7 @@ function Router() {
                             />
                             <Route element={<PrivateRoute/>}>
                               <Route path="/perfil" element={<Perfil />} />
+                              
                               <Route
                                 path="/cadastro-vaga"
                                 element={<CadastroVaga />}

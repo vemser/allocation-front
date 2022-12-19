@@ -19,6 +19,7 @@ import { ProgramaPagination } from '../ProgramaPagination';
 export const ProgramaTable: React.FC = () => {
 
     const { deletePrograma, getProgramas, programas } = useContext(ProgramaContext);
+    console.log(programas)
     const navigate = useNavigate();
 
     const [confirmDialog, setConfirmDialog] = useState<TOptionsConfirmDialog>({
@@ -37,7 +38,7 @@ export const ProgramaTable: React.FC = () => {
                         <TableCell align="center" sx={{ color: 'white' }}>Código</TableCell>
                         <TableCell align="center" sx={{ color: 'white' }}>Nome</TableCell>
                         <TableCell align="center" sx={{ color: 'white' }}>Descrição</TableCell>
-                        <TableCell align="center" sx={{ color: 'white' }}>Data Criação</TableCell>
+                        <TableCell align="center" sx={{ color: 'white' }}>Data Início</TableCell>
                         <TableCell align="center" sx={{ color: 'white' }}>Data Término</TableCell>
                         <TableCell align="center" sx={{ color: 'white' }}>Situação</TableCell>
                         <TableCell align="center" sx={{ color: 'white' }}>Ações</TableCell>
