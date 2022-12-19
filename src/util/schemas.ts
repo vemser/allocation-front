@@ -1,5 +1,7 @@
 import * as yup from "yup";
 
+const regexEmail = /^[A-Za-z0-9._%+-]+@dbccompany.com.br$/
+
 export const userFormSchema = yup.object().shape({
     nomeCompleto: yup.string().required("Por favor, digite seu nome").min(2, "O nome precisa ter no mínimo 2 caracteres"),
     email: yup.string().required("Por favor, digite seu e-mail").email("Por favor, digite um e-mail válido"),
@@ -13,7 +15,7 @@ export const userEditFormSchema = yup.object().shape({
 });
 
 export const userLoginSchema = yup.object().shape({
-    email: yup.string().required("Por favor Digite seu e-mail").email('Por favor, digite um email válido'),
+    email: yup.string().required("Por favor Digite seu e-mail").email('Por favor, digite um email válido').matches(regexEmail, "Só aceitamos email @dbccompany.com.br"),
     senha: yup.string().required("Por favor Digite sua senha").min(6, "A senha deve ter no mínimo 6 dígitos")
 })
 
