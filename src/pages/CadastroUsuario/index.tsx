@@ -357,6 +357,7 @@ export const CadastroUsuario: React.FC = () => {
                   <MenuItem value="NENHUM">Nenhum</MenuItem>
                 </Select>
               </FormControl>
+              
             ) : null}
             <FormControl
               fullWidth

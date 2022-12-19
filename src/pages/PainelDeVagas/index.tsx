@@ -14,7 +14,7 @@ import { IconButton } from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { LinkSC } from "../../components/HeaderPrincipal/HeaderPrincipal.styled";
-import { useNavigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 import { useContext, useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { VagaContext } from "../../context/VagaContext";
@@ -24,10 +24,10 @@ import {
 } from "../../components/ConfirmDialog";
 import SearchIcon from "@mui/icons-material/Search";
 import { VagasPainelPagination } from "../../components/VagasPainelPagination";
+import { AuthContext } from "../../context/AuthContext/AuthContext";
 
 export const PainelDeVagas = () => {
   const navigate = useNavigate();
-
   const { deleteVaga, totalPages, vagas, getPesquisaIdVagas, getVagas } = useContext(VagaContext);
 
   const {

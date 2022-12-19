@@ -29,7 +29,7 @@ export const AuthProvider = ({ children }: TChildren) => {
             setToken(data);
             API.defaults.headers.common['Authorization'] = data;
             await handleUserLogged(); //busco as informações do usuario
-
+            toast.success("Seja bem-vindo!", toastConfig);
         } catch (error) {
             console.error(error)
             toast.error('Usuário ou senha inválidos', toastConfig);

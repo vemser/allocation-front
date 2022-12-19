@@ -74,6 +74,7 @@ export const Perfil = () => {
     const theme = useTheme();   
     const xsDown = useMediaQuery(theme.breakpoints.down('xs')) // menor que 420px 
 
+
     return (
         <Grid
             sx={{

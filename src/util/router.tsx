@@ -40,11 +40,12 @@ import { DashReservaAlocacao } from "../pages/DashReservaAlocacao";
 import { SenhaProvider } from "../context/SenhaContext";
 import { RedefinirSenha } from "../pages/RedefinirSenha";
 import 'nprogress/nprogress.css';
+import { PrivateRoute } from "../components/PrivateRoute";
 
-export const PrivateRoute = () => {
-  const { token } = useContext(AuthContext);
-  return token ? <Outlet /> : <Navigate to="/" />;
-};
+// export const PrivateRoute = () => {
+//   const { token } = useContext(AuthContext);
+//   return token ? <Outlet/> : <Navigate to="/" />;
+// };
 
 function Router() {
   return (
@@ -77,7 +78,7 @@ function Router() {
                               path='/recuperar-senha'
                               element={<RedefinirSenha />}
                             />
-                            <Route element={<PrivateRoute />}>
+                            <Route element={<PrivateRoute/>}>
                               <Route path="/perfil" element={<Perfil />} />
                               <Route
                                 path="/cadastro-vaga"
