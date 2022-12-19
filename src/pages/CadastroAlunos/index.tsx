@@ -7,7 +7,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { AlunoContext } from "../../context/AlunoContext";
 import React, { useContext, useEffect, useState } from "react";
 import DeleteIcon from '@mui/icons-material/Delete';
-import InputMask from "react-input-mask";
+// import InputMask from "react-input-mask";
 import { toastConfig } from "../../util/toast";
 import { toast } from "react-toastify";
 import { AuthContext } from "../../context/AuthContext/AuthContext";
