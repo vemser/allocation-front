@@ -107,6 +107,7 @@ export const CadastroPrograma: React.FC = () => {
                     })}
                     sx={{
                         display: "flex",
+                        flexDirection: smDown ? "column" : "row",
                         gap: "20px",
                         width:"100%"
                     }}
@@ -116,9 +117,9 @@ export const CadastroPrograma: React.FC = () => {
                         sx={{
                             display: "flex",
                             justifyContent: "center",
-                            gap: "40px",
+                            gap: "20px",
                             flexDirection: smDown ? "column" : "column",
-                            width:"50%"
+                            width: smDown? "100%" : "50%"
                         }}
                     >
                         <TextField
@@ -204,9 +205,10 @@ export const CadastroPrograma: React.FC = () => {
                     <Box
                         sx={{
                             display: "flex",
-                            gap: "40px",
+                            gap: "20px",
                             flexDirection: smDown ? "column" : "column",
-                            width:"50%"
+                            width: smDown? "100%" : "50%"
+
                         }}
                     >
                         <TextField
